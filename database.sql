@@ -22,7 +22,7 @@ CREATE TYPE "type" AS ENUM ('Protein: Air', 'Protein: Land', 'Protein: Sea', 'Ve
 
 CREATE TABLE "ingredients" (
 	"id" SERIAL NOT NULL PRIMARY KEY,
-	"name" varchar(255) NOT NULL,
+	"username" varchar(255) NOT NULL,
 	"description" varchar(255) NOT NULL,
 	"pic" varchar(255),
 	"taste" varchar(255),
