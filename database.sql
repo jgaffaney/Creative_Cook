@@ -85,6 +85,8 @@ VALUES ('apple', 'apples are a fruit that is red or green'),
 ALTER TABLE "user" 
 ADD COLUMN "password" varchar(255);
 
+ALTER TABLE "feed_content"
+ALTER COLUMN "type" TYPE varchar(255);
 
 
 
