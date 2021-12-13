@@ -7,10 +7,9 @@ function Home() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
   const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
-  const challenge = useSelector((store) => store.challenge);
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_CHALLENGES' });
+    dispatch({ type: 'FETCH_CHALLENGE' });
 }, []);
 
 
