@@ -4,12 +4,13 @@ const router = express.Router();
 
 // request all ingredients from DB
 router.get('/', (req, res) => {
+    console.log('in ingredients GET');
     const queryText = `
     SELECT * FROM ingredients;
     `
     pool.query(queryText)
         .then(response => {
-            console.log('Response from ingredients DB: ', response);
+            console.log('Response from ingredients DB: ', response.rows);
             res.send(response.rows)
         }).catch(err => {
             console.log("Error on GET ingredients from DB: ", err);
@@ -19,6 +20,8 @@ router.get('/', (req, res) => {
 
 // posts a new ingredient to DB
 router.post('/', (req, res) => {
+    console.log('in ingredients POST');
+    
     const queryText = `
     INSERT INTO ingredients ("name", "description", "pic", "taste", "season", "weight", "volume", "type")
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8);
