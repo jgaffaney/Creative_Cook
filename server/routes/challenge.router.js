@@ -5,7 +5,8 @@ const router = express.Router();
 // Challenge GET route
 router.get('/', (req, res) => {
     const queryText = `
-        SELECT * FROM "feed_content";
+        SELECT * FROM "feed_content"
+        ORDER BY "id" DESC;
         `;
     pool.query(queryText)
         .then(result => {
