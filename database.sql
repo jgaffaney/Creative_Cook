@@ -71,6 +71,14 @@ CREATE TABLE "feed_content" (
 	"description" varchar(2555) NOT NULL,
 	"combo_id" int REFERENCES "combos");
 
+INSERT INTO "ingredients" ("name", "description")
+VALUES ('apple', 'apples are a fruit that is red or green'),
+('lemon', 'not an apple'),
+('chicken', 'a tasty bird'),
+('asparagus', 'a green vegetable'),
+('strawberry', 'seeds on the outside'),
+('butter', 'the real kind, not that margarine stuff'),
+('sugar', 'sweetness');
 
 
 
