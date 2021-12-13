@@ -51,7 +51,7 @@ function App() {
             exact
             path="/home"
           >
-            <Dashboard />
+            <LandingPage />
             {/* <Nav /> */}
           </ProtectedRoute>
 
@@ -61,7 +61,7 @@ function App() {
             exact
             path="/combo"
           >
-            <Collection />
+            <InfoPage />
           </ProtectedRoute>
 
           {/* Visiting localhost:3000/PlantDetails by tapping on the plant from either the dashboard or the collection page you will be brought here*/}
@@ -70,7 +70,7 @@ function App() {
             exact
             path="/profile"
           >
-            <PlantDetails />
+            <UserPage />
           </ProtectedRoute>
 
           {/* Visiting localhost:3000/add_plant will allow user to add a new plant. */}
@@ -79,7 +79,7 @@ function App() {
             exact
             path="/adminIngredients"
           >
-            <PlantForm />
+            {/* <AdminIngredients /> */}
           </ProtectedRoute>
 
           {/* Visiting localhost:3000/user_profile will allow user to view their profile */}
@@ -88,7 +88,7 @@ function App() {
             exact
             path="/adminFeed"
           >
-            <Profile />
+            {/* <AdminFeed /> */}
           </ProtectedRoute>
 
 
