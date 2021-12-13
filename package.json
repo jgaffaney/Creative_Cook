@@ -6,6 +6,7 @@
   "dependencies": {
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
+    "@material/banner": "^13.0.0",
     "@mui/material": "^5.2.3",
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
