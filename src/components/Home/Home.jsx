@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -19,6 +19,10 @@ function Home() {
     // const ingredients = useSelector((store) => store.ingredients);
     // const userProfile = useSelector((store) => store.userProfile);
     // const feed = useSelector((store) => store.feed);
+
+    useEffect(() => {
+      dispatch({ type: 'FETCH_CHALLENGE' });
+  }, []);
 
 
     const handleSearch = () => {
