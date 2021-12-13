@@ -5,17 +5,17 @@ const router = express.Router();
 /**
  * GET route template
  */
-router.get('/challenge', (req, res) => {
+router.get('/', (req, res) => {
   // GET route code here
 });
 
 // Challenge POST route
-router.post('/challenge', (req, res) => {
+router.post('/', (req, res) => {
     const queryText = `
-        INSERT INTO "feed_content" ("id", "description", "combo_id")
-        VALUES ($1, $2, $3);
+        INSERT INTO "feed_content" ("id", "type", "description", "combo_id")
+        VALUES ($1, $2, $3, $4);
         `;
-    values = [req.body.id, req.body.description, req.body.combo_id]
+    values = [req.body.id, req.body.type, req.body.description, req.body.combo_id]
     console.log('values are', values);
     pool.query(queryText, values)
         .then(result => {
