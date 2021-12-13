@@ -2,9 +2,7 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-/**
- * GET route template
- */
+// request all ingredients from DB
 router.get('/', (req, res) => {
     const queryText = `
     SELECT * FROM ingredients;
@@ -19,11 +17,11 @@ router.get('/', (req, res) => {
         })
 });
 
-/**
- * POST route template
- */
+// posts a new ingredient to DB
 router.post('/', (req, res) => {
-  // POST route code here
+    const queryText = `
+    
+    `
 });
 
 module.exports = router;

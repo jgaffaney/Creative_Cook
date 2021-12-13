@@ -6,3 +6,5 @@ const ingredientsReducer = (state = [], action) => {
             return state
     }
 }
+
+export default ingredientsReducer;
