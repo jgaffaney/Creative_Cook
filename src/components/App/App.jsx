@@ -19,6 +19,12 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import Home from '../Home/Home';
+import Combo from '../Combo/Combo';
+import Profile from '../Profile/Profile';
+import Ingredients from '../Ingredients/Ingredients';
+import Feed from '../Feed/Feed';
+
 
 import './App.css';
 
@@ -46,7 +52,7 @@ function App() {
             exact
             path="/home"
           >
-            <UserPage />
+            <Home />
           </ProtectedRoute>
 
           {/* Visiting localhost:3000/combo will take you to the Combo Tool Page */}
@@ -55,7 +61,7 @@ function App() {
             exact
             path="/combo"
           >
-            <InfoPage />
+            <Combo />
           </ProtectedRoute>
 
           {/* Visiting localhost:3000/profile will take you to the Profile Page */}
@@ -64,7 +70,7 @@ function App() {
             exact
             path="/profile"
           >
-            <UserPage />
+            <Profile />
           </ProtectedRoute>
 
           {/* Visiting localhost:3000/ingredients will allow user to add a new plant. */}
@@ -73,7 +79,7 @@ function App() {
             exact
             path="/ingredients"
           >
-            <InfoPage />
+            <Ingredients />
           </ProtectedRoute>
 
           {/* Visiting localhost:3000/feed will allow admin to view their feed content */}
@@ -82,14 +88,13 @@ function App() {
             exact
             path="/feed"
           >
-            <InfoPage />
+            <Feed />
           </ProtectedRoute>
 
 
 
 
-
-
+          {/* --- LOGIN vs REGISTER --- */}
 
           <Route
             exact
