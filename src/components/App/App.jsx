@@ -19,6 +19,12 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import Home from '../Home/Home';
+import Combo from '../Combo/Combo';
+import Profile from '../Profile/Profile';
+import Ingredients from '../Ingredients/Ingredients';
+import Feed from '../Feed/Feed';
+
 
 import './App.css';
 
@@ -35,38 +41,60 @@ function App() {
     <Router>
       <div>
         <Nav />
+
         <Switch>
-          {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
+          {/* Visiting localhost:3000 will redirect to localhost:3000/dashboard */}
           <Redirect exact from="/" to="/home" />
 
-          {/* Visiting localhost:3000/about will show the about page. */}
-          <Route
-            // shows AboutPage at all times (logged in or not)
-            exact
-            path="/about"
-          >
-            <AboutPage />
-          </Route>
-
-          {/* For protected routes, the view could show one of several things on the same route.
-            Visiting localhost:3000/user will show the UserPage if the user is logged in.
-            If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
-            Even though it seems like they are different pages, the user is always on localhost:3000/user */}
+          {/* Visiting localhost:3000/home will take you to the Home Page / Dashboard */}
           <ProtectedRoute
-            // logged in shows UserPage else shows LoginPage
+            // if logged in shows Home Page or else shows LoginPage
             exact
-            path="/user"
+            path="/home"
           >
-            <UserPage />
+            <Home />
           </ProtectedRoute>
 
+          {/* Visiting localhost:3000/combo will take you to the Combo Tool Page */}
           <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
+            // logged in shows Combo Tool or else shows LoginPage
             exact
-            path="/info"
+            path="/combo"
           >
-            <InfoPage />
+            <Combo />
           </ProtectedRoute>
+
+          {/* Visiting localhost:3000/profile will take you to the Profile Page */}
+          <ProtectedRoute
+            // logged in shows Profile Page or else shows LoginPage
+            exact
+            path="/profile"
+          >
+            <Profile />
+          </ProtectedRoute>
+
+          {/* Visiting localhost:3000/ingredients will allow user to add a new plant. */}
+          <ProtectedRoute
+            // logged in shows Admin Ingredients Page or else shows LoginPage
+            exact
+            path="/ingredients"
+          >
+            <Ingredients />
+          </ProtectedRoute>
+
+          {/* Visiting localhost:3000/feed will allow admin to view their feed content */}
+          <ProtectedRoute
+            // logged in shows Admin Feed Page or else shows LoginPage
+            exact
+            path="/feed"
+          >
+            <Feed />
+          </ProtectedRoute>
+
+
+
+
+          {/* --- LOGIN vs REGISTER --- */}
 
           <Route
             exact
