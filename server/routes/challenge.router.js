@@ -2,12 +2,21 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-/**
- * GET route template
- */
+// Challenge GET route
 router.get('/', (req, res) => {
-  // GET route code here
-});
+    const queryText = `
+        SELECT * FROM "feed_content";
+        `;
+    pool.query(queryText)
+        .then(result => {
+            res.send(result.rows); // Contains all previous challenges
+        })
+        .catch(err => {
+            console.log('Error in Challenge GET', err);
+            res.sendStatus(500);
+        })
+}); // End GET
+
 
 // Challenge POST route
 router.post('/', (req, res) => {
