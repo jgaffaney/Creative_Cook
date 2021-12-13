@@ -5,7 +5,9 @@ CREATE TYPE "gender" AS ENUM ('Female', 'Male', 'Other', 'Prefer not to answer')
 
 CREATE TABLE "user" (
 	"id" serial NOT NULL PRIMARY KEY,
-	"name" varchar(255) NOT NULL,
+	"username" varchar(255) NOT NULL,
+	"display_name" varchar(255),
+	"password" varchar(255),
 	"bio" varchar(255),
 	"pic" varchar(255),
 	"age" int,
@@ -80,8 +82,8 @@ VALUES ('apple', 'apples are a fruit that is red or green'),
 ('butter', 'the real kind, not that margarine stuff'),
 ('sugar', 'sweetness');
 
-
-
+ALTER TABLE "user" 
+ADD COLUMN "password" varchar(255);
 
 
 
