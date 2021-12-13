@@ -35,38 +35,67 @@ function App() {
     <Router>
       <div>
         <Nav />
+
         <Switch>
-          {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
+          {/* Visiting localhost:3000 will redirect to localhost:3000/dashboard */}
           <Redirect exact from="/" to="/home" />
 
-          {/* Visiting localhost:3000/about will show the about page. */}
-          <Route
-            // shows AboutPage at all times (logged in or not)
-            exact
-            path="/about"
-          >
-            <AboutPage />
-          </Route>
-
           {/* For protected routes, the view could show one of several things on the same route.
-            Visiting localhost:3000/user will show the UserPage if the user is logged in.
-            If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
-            Even though it seems like they are different pages, the user is always on localhost:3000/user */}
+              Visiting localhost:3000/user will show the UserPage if the user is logged in.
+              If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
+              Even though it seems like they are different pages, the user is always on localhost:3000/user */}
+
+          {/* Visiting localhost:3000/dashboard will show the user their dashboard & water schedule. */}
           <ProtectedRoute
-            // logged in shows UserPage else shows LoginPage
+            // logged in shows Dashboard else shows LoginPage
             exact
-            path="/user"
+            path="/home"
           >
-            <UserPage />
+            <Dashboard />
+            {/* <Nav /> */}
           </ProtectedRoute>
 
+          {/* Visiting localhost:3000/collection will show the use their collection of plants. */}
           <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
+            // logged in shows Collection else shows LoginPage
             exact
-            path="/info"
+            path="/combo"
           >
-            <InfoPage />
+            <Collection />
           </ProtectedRoute>
+
+          {/* Visiting localhost:3000/PlantDetails by tapping on the plant from either the dashboard or the collection page you will be brought here*/}
+          <ProtectedRoute
+            // logged in shows PlantDetails when tapped on 
+            exact
+            path="/profile"
+          >
+            <PlantDetails />
+          </ProtectedRoute>
+
+          {/* Visiting localhost:3000/add_plant will allow user to add a new plant. */}
+          <ProtectedRoute
+            // logged in shows PlantForm else shows LoginPage
+            exact
+            path="/adminIngredients"
+          >
+            <PlantForm />
+          </ProtectedRoute>
+
+          {/* Visiting localhost:3000/user_profile will allow user to view their profile */}
+          <ProtectedRoute
+            // logged in shows Profile else shows LoginPage
+            exact
+            path="/adminFeed"
+          >
+            <Profile />
+          </ProtectedRoute>
+
+
+
+
+
+
 
           <Route
             exact
