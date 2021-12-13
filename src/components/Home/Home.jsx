@@ -19,7 +19,7 @@ function Home() {
     // const ingredients = useSelector((store) => store.ingredients);
     // const userProfile = useSelector((store) => store.userProfile);
     // const feed = useSelector((store) => store.feed);
-    
+
 
     const handleSearch = () => {
         console.log('CLICKED on handleSearch');
@@ -29,7 +29,6 @@ function Home() {
         border: '1px solid red',
         display: 'flex',
         justifyContent: 'center',
-
     }
 
     const sxPageContent = {
@@ -76,7 +75,6 @@ function Home() {
         boxShadow: 3,
         mb: .25,
         borderRadius: 1,
-
     };
 
 
@@ -100,10 +98,9 @@ function Home() {
         height: 250,
     }
 
-    
+
     return (
         <Box sx={sxHomePageContainer}>
-
             <Box sx={sxPageContent}>
 
                 <Box sx={sxLeftColumn}>
@@ -115,25 +112,27 @@ function Home() {
                         <Typography>User Name</Typography>
                         <Typography>User Bio goes here it will be kinda long but maybe it's a bit longer of a description of the person? </Typography>
                     </Box>
-                    <br/>
+                    <br />
 
                     {/* any metrics will go here */}
                     <Box>
                         <Typography>Side Section: Metrics</Typography>
                     </Box>
-                    <br/>
+                    <br />
 
                     {/* recent combos */}
                     <Box>
                         <Typography>Side Section: Recent Combos</Typography>
                     </Box>
-                    <br/>
+                    <br />
 
                     {/* goal progress */}
                     <Box>
                         <Typography>Side Section: Goal Progress</Typography>
                     </Box>
+
                 </Box>
+
 
                 <Box sx={sxRightColumn}>
 
@@ -151,10 +150,9 @@ function Home() {
                 </Box>
 
             </Box>
-
         </Box >
     );
-}
+};
 
-// this allows us to use <App /> in index.js
+
 export default Home;
