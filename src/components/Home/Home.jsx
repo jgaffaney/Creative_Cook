@@ -15,9 +15,11 @@ function Home() {
 
     const dispatch = useDispatch();
     const history = useHistory();
+    // const user = useSelector((store) => store.user);
     // const ingredients = useSelector((store) => store.ingredients);
     // const userProfile = useSelector((store) => store.userProfile);
     // const feed = useSelector((store) => store.feed);
+    
 
     const handleSearch = () => {
         console.log('CLICKED on handleSearch');
@@ -28,7 +30,7 @@ function Home() {
         display: 'flex',
         justifyContent: 'center',
 
-    }; // sxNavContent
+    }
 
     const sxPageContent = {
         border: '1px solid black',
@@ -43,11 +45,7 @@ function Home() {
         border: '1px solid green',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
         width: '25%',
-        height: '100%',
-        m: 'auto',
     }
 
     const sxRightColumn = {
@@ -59,6 +57,7 @@ function Home() {
         width: '75%',
         height: '100%',
     }
+
 
     const sxTopSection = {
         border: '1px solid lightblue',
@@ -101,8 +100,7 @@ function Home() {
         height: 250,
     }
 
-    // this component doesn't do much to start, just renders some user reducer info to the DOM
-    const user = useSelector((store) => store.user);
+    
     return (
         <Box sx={sxHomePageContainer}>
 
@@ -117,16 +115,19 @@ function Home() {
                         <Typography>User Name</Typography>
                         <Typography>User Bio goes here it will be kinda long but maybe it's a bit longer of a description of the person? </Typography>
                     </Box>
+                    <br/>
 
                     {/* any metrics will go here */}
                     <Box>
                         <Typography>Side Section: Metrics</Typography>
                     </Box>
+                    <br/>
 
                     {/* recent combos */}
                     <Box>
                         <Typography>Side Section: Recent Combos</Typography>
                     </Box>
+                    <br/>
 
                     {/* goal progress */}
                     <Box>
