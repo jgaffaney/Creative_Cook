@@ -11,10 +11,8 @@ function AddIngredients() {
         description: '',
         pic: '',
         taste: '',
-        season: '',
         weight: '',
         volume: '',
-        type: ''
     }
 
     const [newIngredient, setNewIngredient] = useState(defaultIngredient)
