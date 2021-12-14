@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import LoginForm from '../LoginForm/LoginForm';
 import { useHistory } from 'react-router-dom';
+
+import RegisterForm from '../RegisterForm/RegisterForm';
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -13,25 +16,40 @@ import CardMedia from '@mui/material/CardMedia';
 function LoginPage() {
   const history = useHistory();
 
+  const [registerFormStatus, setRegisterFormStatus] = useState(false);
+
+  const sxRegisterFormBtn = {
+    m: 5,
+  }
+
+  const sxLoginPageContent = {
+    // border: '1px solid red',
+    width: 550,
+    mx: 'auto',
+  }
+
   return (
 
-    <Box>
+    <Box sx={sxLoginPageContent}>
 
       <LoginForm />
 
       <center>
 
-        <button
+        {/* <button
           type="button"
           className="btn btn_asLink"
           onClick={() => {
-            history.push('/registration');
+            history.push('/registration')
           }}
-        >
-          Register
-        </button>
+        > */}
+
+        <Button sx={sxRegisterFormBtn} onClick={() => setRegisterFormStatus(!registerFormStatus)} variant="contained">New? Register Account</Button>
 
       </center>
+      
+      {registerFormStatus ? <RegisterForm /> : <></>}
+      
 
     </Box>
 
