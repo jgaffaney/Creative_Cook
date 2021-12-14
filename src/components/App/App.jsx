@@ -141,20 +141,6 @@ function App() {
               }
             </Route>
 
-            {/* <Route
-              exact
-              path="/registration"
-            >
-              {user.id ?
-                // If the user is already logged in, 
-                // redirect them to the /user page
-                <Redirect to="/user" />
-                :
-                // Otherwise, show the registration page
-                <RegisterPage />
-              }
-            </Route> */}
-
             <Route
               exact
               path="/home"

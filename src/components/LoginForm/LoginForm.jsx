@@ -72,16 +72,17 @@ function LoginForm() {
           label="Username"
           value={username}
           onChange={(event) => setUsername(event.target.value)}
-          placeholder="Username"
+          // placeholder="Username"
         />
 
         <TextField sx={sxInput}
+          type="password"
           id="loginPassword"
           required
           label="Password"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
-          placeholder="Passw0rd"
+          // placeholder="Passw0rd"
         />
 
         <Button type="submit" size="large" variant="contained" color="primary">Login</Button>
