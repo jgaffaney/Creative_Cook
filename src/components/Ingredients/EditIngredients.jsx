@@ -8,7 +8,6 @@ import {
   GridToolbarDensitySelector,
   GridToolbarFilterButton,
 } from '@mui/x-data-grid';
-import { useDemoData } from '@mui/x-data-grid-generator';
 import ClearIcon from '@mui/icons-material/Clear';
 import SearchIcon from '@mui/icons-material/Search';
 import { useDispatch, useSelector } from 'react-redux';
@@ -77,7 +76,7 @@ QuickSearchToolbar.propTypes = {
   value: PropTypes.string.isRequired,
 };
 
-export default function QuickFilteringGrid() {
+export default function EditIngredients() {
 
   const ingredients = useSelector(store => store.ingredients);
 
