@@ -11,6 +11,7 @@ import Button from '@mui/material/Button';
 import CardMedia from '@mui/material/CardMedia';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
+import { fontSize } from '@mui/system';
 
 
 function Home() {
@@ -180,8 +181,8 @@ function Home() {
 
 
                 ingredientFilter(ingredients)
-                console.log('!!!', IngArray);
-                console.log('!', feedContentIngredients);
+                console.log('ing id\'s', IngArray);
+                console.log('feed ing', feedContentIngredients);
 
                 return (
                   <Grid
@@ -193,9 +194,9 @@ function Home() {
                     key={content.id}
                   >
                     <Paper>
-                      <Typography>{content.name}</Typography>
+                      <Typography sx={{fontSize: 25}}>{content.name}</Typography>
                       <Typography>{content.description}</Typography>
-                      <Typography>{feedContentIngredients[0]?.name}, {feedContentIngredients[1]?.name}, {feedContentIngredients[2]?.name}</Typography>
+                      <Typography>{feedContentIngredients[0]?.name}, {feedContentIngredients[1]?.name}{feedContentIngredients[2] ? (', ' + feedContentIngredients[2]?.name) : ""}</Typography>
                     </Paper>
                   </Grid>
                 )
