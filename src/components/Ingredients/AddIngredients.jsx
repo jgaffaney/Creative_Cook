@@ -1,5 +1,5 @@
 import { FormControl, Box, TextField, MenuItem, Button } from "@mui/material";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 function AddIngredients() {
@@ -28,7 +28,7 @@ function AddIngredients() {
 
     const handleSubmit = () => {
         console.log('Submit clicked');
-        dispatch({type: 'POST_INGREDIENT', newIngredient})
+        dispatch({type: 'POST_INGREDIENT', payload: newIngredient})
     };
 
     // for seasons dropdown
@@ -83,6 +83,8 @@ function AddIngredients() {
         }
     ]
 
+    
+
     return(
         <div>
             <h2>Add New Ingredient</h2>
@@ -92,6 +94,7 @@ function AddIngredients() {
                         id="name-input" 
                         label="Ingredient Name" 
                         variant="outlined"
+                        value={newIngredient.name}
                         onChange={(event) => handleChange(event, 'name')}>
                     </TextField>
                     <TextField 
@@ -99,18 +102,21 @@ function AddIngredients() {
                         label="Description" 
                         multiline
                         variant="outlined"
+                        value={newIngredient.description}
                         onChange={(event) => handleChange(event, 'description')}>
                     </TextField>
                     <TextField 
                         id="pic-input" 
                         label="Picture URL" 
                         variant="outlined"
+                        value={newIngredient.pic}
                         onChange={(event) => handleChange(event, 'pic')}>
                         </TextField>
                     <TextField 
                         id="taste-input" 
                         label="Taste" 
                         variant="outlined"
+                        value={newIngredient.taste}
                         onChange={(event) => handleChange(event, 'taste')}>
                     </TextField>
                     <TextField 
@@ -131,12 +137,14 @@ function AddIngredients() {
                         id="weight-input" 
                         label="Weight" 
                         variant="outlined"
+                        value={newIngredient.weight}
                         onChange={(event) => handleChange(event, 'weight')}>
                         </TextField>
                     <TextField 
                         id="volume-input" 
                         label="Volume" 
                         variant="outlined"
+                        value={newIngredient.volume}
                         onChange={(event) => handleChange(event, 'volume')}>
                     </TextField>
                     <TextField 

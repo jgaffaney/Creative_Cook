@@ -17,6 +17,7 @@ function escapeRegExp(value) {
 }
 
 function QuickSearchToolbar(props) {
+
   return (
     <Box
       sx={{
@@ -68,6 +69,7 @@ function QuickSearchToolbar(props) {
       />
     </Box>
   );
+
 }
 
 QuickSearchToolbar.propTypes = {
@@ -76,29 +78,32 @@ QuickSearchToolbar.propTypes = {
   value: PropTypes.string.isRequired,
 };
 
+
 export default function EditIngredients() {
 
   const ingredients = useSelector(store => store.ingredients);
-
   const dispatch = useDispatch();
+
+  // dispatch({type: 'FETCH_INGREDIENTS'});
 
   const data = {
     columns: [
-      {field: 'id', hide: true},
-      {field: 'name', headerName: 'Name'},
-      {field: 'description', headerName: 'Description'},
-      {field: 'pic', headerName: 'Pic'},
-      {field: 'taste', headerName: 'Taste'},
-      {field: 'season', headerName: 'Season'},
-      {field: 'weight', headerName: 'Weight'},
-      {field: 'volume', headerName: 'Volume'},
-      {field: 'type', headerName: 'Type'},
+      { field: 'id', hide: true },
+      { field: 'name', headerName: 'Name' },
+      { field: 'description', headerName: 'Description' },
+      { field: 'pic', headerName: 'Pic' },
+      { field: 'taste', headerName: 'Taste' },
+      { field: 'season', headerName: 'Season' },
+      { field: 'weight', headerName: 'Weight' },
+      { field: 'volume', headerName: 'Volume' },
+      { field: 'type', headerName: 'Type' },
     ],
     rows: ingredients
   }
 
   const [searchText, setSearchText] = useState('');
   const [rows, setRows] = useState(data.rows);
+  // const [searchedValue, setSearchedValue] = useState(' ');
 
   const requestSearch = (searchValue) => {
     setSearchText(searchValue);
@@ -108,11 +113,11 @@ export default function EditIngredients() {
         return searchRegex.test(row[field]);
       });
     });
-    setRows(filteredRows);
+      setRows(filteredRows);
   };
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_INGREDIENTS'})
+    dispatch({ type: 'FETCH_INGREDIENTS' })
     setRows(data.rows);
   }, []);
 
@@ -120,18 +125,22 @@ export default function EditIngredients() {
 
   return (
     <Box sx={{ height: 400, width: 1 }}>
-      <DataGrid
-        components={{ Toolbar: QuickSearchToolbar }}
-        rows={rows}
-        columns={data.columns}
-        componentsProps={{
-          toolbar: {
-            value: searchText,
-            onChange: (event) => requestSearch(event.target.value),
-            clearSearch: () => requestSearch(''),
-          },
-        }}
-      />
+      {rows && (
+        <DataGrid
+          components={{ Toolbar: QuickSearchToolbar }}
+          rows={rows}
+          columns={data.columns}
+          componentsProps={{
+            toolbar: {
+              value: searchText,
+              onChange: (event) => requestSearch(event.target.value),
+              clearSearch: () => requestSearch(''),
+            },
+          }}
+        />
+      )
+      }
+
     </Box>
   );
 }
