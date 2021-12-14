@@ -12,7 +12,7 @@ function* fetchCombos() {
 };
 
 function* comboSaga() {
-    yield takeLatest('FETCH_COMBO', fetchCombos);
+    yield takeLatest('FETCH_COMBOS', fetchCombos);
 } 
 
 
