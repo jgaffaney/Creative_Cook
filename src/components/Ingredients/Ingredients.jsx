@@ -124,7 +124,6 @@ export default function QuickFilteringGrid() {
   }, []);
 
   console.log('Demo Data: ', data);
-  // console.log('New Data: ', newdata);
 
   return (
     <Box sx={{ height: 400, width: 1 }}>
