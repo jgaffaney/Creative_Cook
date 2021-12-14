@@ -9,6 +9,7 @@ import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import CardMedia from '@mui/material/CardMedia';
+import challenge from '../../redux/reducers/challenge.reducer';
 
 
 function Home() {
@@ -19,6 +20,7 @@ function Home() {
     // const ingredients = useSelector((store) => store.ingredients);
     // const userProfile = useSelector((store) => store.userProfile);
     // const feed = useSelector((store) => store.feed);
+    const feedContent = useSelector((store) => store.challenge)
 
     useEffect(() => {
       dispatch({ type: 'FETCH_CHALLENGE' });
@@ -148,7 +150,14 @@ function Home() {
 
                     <Box sx={sxBottomSection}>
                         <Typography>Bottom Section: Curated Feed</Typography>
-                        <Box sx={sxFeedContainer}>FEED GOES IN HERE</Box>
+                        <Box sx={sxFeedContainer}>
+                          <h2>Combo of The Week</h2>
+                          {feedContent.map((content) => (
+                            <div key={content.id}>
+                              <p>{content.description}</p>
+                            </div>
+                          ))}
+                        </Box>
                     </Box>
 
                 </Box>
