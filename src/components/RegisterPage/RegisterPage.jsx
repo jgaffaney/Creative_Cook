@@ -3,11 +3,20 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import RegisterForm from '../RegisterForm/RegisterForm';
 
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import CardMedia from '@mui/material/CardMedia';
+
 function RegisterPage() {
   const history = useHistory();
 
+
   return (
-    <div>
+    <Box>
+
       <RegisterForm />
 
       <center>
@@ -21,7 +30,7 @@ function RegisterPage() {
           Login
         </button>
       </center>
-    </div>
+    </Box>
   );
 }
 

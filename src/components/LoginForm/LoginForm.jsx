@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
+
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import CardMedia from '@mui/material/CardMedia';
 
 function LoginForm() {
   const [username, setUsername] = useState('');
@@ -24,42 +31,49 @@ function LoginForm() {
     }
   }; // end login
 
-  
+
+  const sxInput = {
+    mb: 2,
+  }
+
+
   return (
     <form className="formPanel" onSubmit={login}>
+
       <h2>Login</h2>
+
       {errors.loginMessage && (
         <h3 className="alert" role="alert">
           {errors.loginMessage}
         </h3>
       )}
-      <div>
-        <label htmlFor="username">
-          Username:
-          <input
-            type="text"
-            name="username"
-            required
-            value={username}
-            onChange={(event) => setUsername(event.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <label htmlFor="password">
-          Password:
-          <input
-            type="password"
-            name="password"
-            required
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <input className="btn" type="submit" name="submit" value="Log In" />
-      </div>
+
+      <Box>
+        <TextField sx={sxInput}
+          id="username"
+          required
+          label="Username"
+          value={username}
+          onChange={(event) => setUsername(event.target.value)}
+          placeholder="Username"
+        />
+      </Box>
+
+      <Box>
+        <TextField sx={sxInput}
+          id="password"
+          required
+          label="Password"
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+          placeholder="Passw0rd"
+        />
+      </Box>
+
+      <Box>
+        <Button type="submit" size="large" variant="contained" color="primary">Login</Button>
+      </Box>
+
     </form>
   );
 }
