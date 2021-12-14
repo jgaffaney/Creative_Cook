@@ -10,7 +10,8 @@ import Button from '@mui/material/Button';
 import CardMedia from '@mui/material/CardMedia';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-
+import AddTaskIcon from '@mui/icons-material/AddTask';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
 
@@ -36,8 +37,8 @@ function Profile() {
   const sxLeftColumn = {
     border: '1px solid green',
     display: 'flex',
-    flexDirection: 'column',
-    width: '25%',
+    flexDirection: 'row',
+    width: '100%',
   }
 
   const sxRightColumn = {
@@ -51,7 +52,7 @@ function Profile() {
   }
 
 
-  const sxTopSection = {
+  const sxTopLeftSection = {
     border: '1px solid lightblue',
     display: 'flex',
     flexDirection: 'column',
@@ -60,6 +61,17 @@ function Profile() {
     width: '25%',
     height: 300,
   }
+
+  const sxTopRightSection = {
+    border: '1px solid yellow',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '75%',
+    height: 300,
+  }
+
 
   const sxMiddleSection = {
     border: '1px solid lightblue',
@@ -72,7 +84,7 @@ function Profile() {
   }
 
   const sxPhotoBox = {
-    // border: '1px solid lightgray',
+    border: '1px solid lightgray',
     width: 120,
     height: 220,
     boxShadow: 3,
@@ -85,7 +97,7 @@ function Profile() {
     border: '1px solid lightblue',
     display: 'flex',
     flexDirection: 'column',
-    // justifyContent: 'center',
+    justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
     height: 300,
@@ -97,19 +109,19 @@ function Profile() {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    width: '30%',
+    width: '100%',
     height: 250,
   }
 
-  const sxGoalsLeft = {
-    border: '1px solid red',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '30%',
-    height: 250,
-  }
+  // const sxGoalsLeft = {
+  //   border: '1px solid green',
+  //   display: 'flex',
+  //   flexDirection: 'column',
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  //   width: '50%',
+  //   height: 250,
+  // }
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -124,34 +136,56 @@ function Profile() {
     <Box sx={sxHomePageContainer}>
       <Box sx={sxPageContent}>
         <Box sx={sxRightColumn}>
-          <Box sx={sxTopSection}>
+          <Box sx={sxLeftColumn}>
+          <Box sx={sxTopLeftSection}>
             <CardMedia sx={sxPhotoBox} component="img" image={'/images/jacobpic.jpg'} />
             <Typography>User Name</Typography>
-            <Typography>User Bio goes here it will be kinda long but maybe it's a bit longer of a description of the person? </Typography>
+            {/* <Typography>User Bio goes here it will be kinda long but maybe it's a bit longer of a description of the person? </Typography> */}
             {/* <Typography>User Bio goes here it will be kinda long but maybe it's a bit longer of a description of the person? </Typography> */}
           </Box>
+          <Box sx={sxTopRightSection}>
+          <Typography>User Bio goes here it will be kinda long but maybe it's a bit longer of a description of the person? </Typography>
+          </Box>
+          </Box>
           <Box sx={sxMiddleSection}>
-            <Typography>Middle Section: Goals</Typography>
-      
-            <Button onClick={() => handleAddNewGoal()} variant="contained">Add New Goal</Button>
+            {/* <Typography>Middle Section: Goals</Typography> */}
+            <Stack direction="row" spacing={2}>
 
-            <Grid 
-            container spacing={2}>
+            <Button onClick={() => handleAddNewGoal()} variant="contained" size="large" startIcon={<AddTaskIcon />}endIcon={<AddTaskIcon />}>Add New Goal</Button>
+            </Stack>
+
+            <Box sx={sxGoals}>
+            <Grid container spacing={2}>
               <Grid item xs={4}>
-                <Item>Goal Progress</Item>
+                <Item>Goal Progress: 1</Item>
+                <Button onClick={() => handleRemoveGoal()} variant="outlined" size="small" startIcon={<DeleteIcon />}>Remove Goal</Button>
               </Grid>
               <Grid item xs={4}>
-                <Item>Goal Progress</Item>
+                <Item>Goal Progress: 2</Item>
+                <Button onClick={() => handleRemoveGoal()} variant="outlined" size="small" startIcon={<DeleteIcon />}>Remove Goal</Button>
               </Grid>
               <Grid item xs={4}>
-                <Item>Goal Progress</Item>
+                <Item>Goal Progress: 3</Item>
+                <Button onClick={() => handleRemoveGoal()} variant="outlined" size="small" startIcon={<DeleteIcon />}>Remove Goal</Button>
               </Grid>
             </Grid>
-
+            </Box>
             {/* <Box sx={sxGoals}>Goal Progress</Box> */}
-            <Button onClick={() => handleRemoveGoal()} variant="contained">Remove Goal</Button>
-            <Box sx={sxGoalsLeft}>Metrics</Box>
-
+            {/* <Button onClick={() => handleRemoveGoal()} variant="contained">Remove Goal</Button> */}
+            <Box sx={4}>Metrics</Box>
+            <Box sx={sxGoals}>
+            <Grid container spacing={2}>
+              <Grid item xs={4}>
+                <Item>Metrics/Weekly</Item>
+              </Grid>
+              <Grid item xs={4}>
+                <Item>Metrics/Monthly</Item>
+              </Grid>
+              <Grid item xs={4}>
+                <Item>Metrics/Total</Item>
+              </Grid>
+            </Grid>
+            </Box>
           </Box>
           <Box sx={sxBottomSection}>
             <Typography>Bottom Section: Saved Flavor Combos</Typography>
