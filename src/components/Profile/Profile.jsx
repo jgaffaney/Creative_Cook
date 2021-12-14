@@ -137,54 +137,55 @@ function Profile() {
       <Box sx={sxPageContent}>
         <Box sx={sxRightColumn}>
           <Box sx={sxLeftColumn}>
-          <Box sx={sxTopLeftSection}>
-            <CardMedia sx={sxPhotoBox} component="img" image={'/images/jacobpic.jpg'} />
-            <Typography>User Name</Typography>
-            {/* <Typography>User Bio goes here it will be kinda long but maybe it's a bit longer of a description of the person? </Typography> */}
-            {/* <Typography>User Bio goes here it will be kinda long but maybe it's a bit longer of a description of the person? </Typography> */}
-          </Box>
-          <Box sx={sxTopRightSection}>
-          <Typography>User Bio goes here it will be kinda long but maybe it's a bit longer of a description of the person? </Typography>
-          </Box>
+            <Box sx={sxTopLeftSection}>
+              <LogOutButton />
+              <CardMedia sx={sxPhotoBox} component="img" image={'/images/jacobpic.jpg'} />
+              <Typography>User Name</Typography>
+              {/* <Typography>User Bio goes here it will be kinda long but maybe it's a bit longer of a description of the person? </Typography> */}
+              {/* <Typography>User Bio goes here it will be kinda long but maybe it's a bit longer of a description of the person? </Typography> */}
+            </Box>
+            <Box sx={sxTopRightSection}>
+              <Typography>User Bio goes here it will be kinda long but maybe it's a bit longer of a description of the person? </Typography>
+            </Box>
           </Box>
           <Box sx={sxMiddleSection}>
             {/* <Typography>Middle Section: Goals</Typography> */}
             <Stack direction="row" spacing={2}>
 
-            <Button onClick={() => handleAddNewGoal()} variant="contained" size="large" startIcon={<AddTaskIcon />}endIcon={<AddTaskIcon />}>Add New Goal</Button>
+              <Button onClick={() => handleAddNewGoal()} variant="contained" size="large" startIcon={<AddTaskIcon />} endIcon={<AddTaskIcon />}>Add New Goal</Button>
             </Stack>
 
             <Box sx={sxGoals}>
-            <Grid container spacing={2}>
-              <Grid item xs={4}>
-                <Item>Goal Progress: 1</Item>
-                <Button onClick={() => handleRemoveGoal()} variant="outlined" size="small" startIcon={<DeleteIcon />}>Remove Goal</Button>
+              <Grid container spacing={2}>
+                <Grid item xs={4}>
+                  <Item>Goal Progress: 1</Item>
+                  <Button onClick={() => handleRemoveGoal()} variant="outlined" size="small" startIcon={<DeleteIcon />}>Remove Goal</Button>
+                </Grid>
+                <Grid item xs={4}>
+                  <Item>Goal Progress: 2</Item>
+                  <Button onClick={() => handleRemoveGoal()} variant="outlined" size="small" startIcon={<DeleteIcon />}>Remove Goal</Button>
+                </Grid>
+                <Grid item xs={4}>
+                  <Item>Goal Progress: 3</Item>
+                  <Button onClick={() => handleRemoveGoal()} variant="outlined" size="small" startIcon={<DeleteIcon />}>Remove Goal</Button>
+                </Grid>
               </Grid>
-              <Grid item xs={4}>
-                <Item>Goal Progress: 2</Item>
-                <Button onClick={() => handleRemoveGoal()} variant="outlined" size="small" startIcon={<DeleteIcon />}>Remove Goal</Button>
-              </Grid>
-              <Grid item xs={4}>
-                <Item>Goal Progress: 3</Item>
-                <Button onClick={() => handleRemoveGoal()} variant="outlined" size="small" startIcon={<DeleteIcon />}>Remove Goal</Button>
-              </Grid>
-            </Grid>
             </Box>
             {/* <Box sx={sxGoals}>Goal Progress</Box> */}
             {/* <Button onClick={() => handleRemoveGoal()} variant="contained">Remove Goal</Button> */}
             <Box sx={4}>Metrics</Box>
             <Box sx={sxGoals}>
-            <Grid container spacing={2}>
-              <Grid item xs={4}>
-                <Item>Metrics/Weekly</Item>
+              <Grid container spacing={2}>
+                <Grid item xs={4}>
+                  <Item>Metrics/Weekly</Item>
+                </Grid>
+                <Grid item xs={4}>
+                  <Item>Metrics/Monthly</Item>
+                </Grid>
+                <Grid item xs={4}>
+                  <Item>Metrics/Total</Item>
+                </Grid>
               </Grid>
-              <Grid item xs={4}>
-                <Item>Metrics/Monthly</Item>
-              </Grid>
-              <Grid item xs={4}>
-                <Item>Metrics/Total</Item>
-              </Grid>
-            </Grid>
             </Box>
           </Box>
           <Box sx={sxBottomSection}>
