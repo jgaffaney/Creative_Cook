@@ -16,7 +16,7 @@ function Home() {
     const dispatch = useDispatch();
     const history = useHistory();
     // const user = useSelector((store) => store.user);
-    // const ingredients = useSelector((store) => store.ingredients);
+    const ingredients = useSelector((store) => store.ingredients);
     // const userProfile = useSelector((store) => store.userProfile);
     // const feed = useSelector((store) => store.feed);
     const feedContent = useSelector((store) => store.challenge)
@@ -24,11 +24,11 @@ function Home() {
 
     useEffect(() => {
       dispatch({ type: 'FETCH_CHALLENGE' });
-      dispatch({ type: 'FETCH_COMBOS' });
+      // dispatch({ type: 'FETCH_COMBOS' });
       dispatch({ type: 'FETCH_INGREDIENTS' });
   }, []);
 
-    
+
 
     const handleSearch = () => {
         console.log('CLICKED on handleSearch');
@@ -156,6 +156,33 @@ function Home() {
                         <Box sx={sxFeedContainer}>
                           <h2>Combo of The Week</h2>
                           {feedContent.map((content) => {
+
+                              let IngArray = content.ingredient_list
+                              let feedContentIngredients = [];
+                              function ingredientFilter (ingredients){
+                              // for (let i = 0; i < ingredients.length; i++) {
+                              //   if (ingredients[i].id === IngArray[0]) {
+                              //     feedContentIngredients.push(ingredients[i])
+                              //   } else if (ingredients[i].id === IngArray[1]) {
+                              //     feedContentIngredients.push(ingredients[i])
+                              //   } else if (ingredients[i].id === IngArray[2]) {
+                              //     feedContentIngredients.push(ingredients[i])
+                              //   }
+                                for (let ingredient of ingredients){
+                                  if (ingredient.id === IngArray[0]) {
+                                        feedContentIngredients.push(ingredient)
+                                      } else if (ingredient.id === IngArray[1]) {
+                                        feedContentIngredients.push(ingredient)
+                                      } else if (ingredient.id === IngArray[2]) {
+                                        feedContentIngredients.push(ingredient)
+                                      }
+                                }
+                              }
+                          
+                                
+                            ingredientFilter(ingredients)
+                              console.log('!!!', IngArray);
+                              console.log('!', feedContentIngredients);
 
                             return (
                             <div key={content.id}>
