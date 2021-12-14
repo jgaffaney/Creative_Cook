@@ -4,6 +4,7 @@ import user from './user.reducer';
 import challenge from './challenge.reducer';
 import ingredients from './ingredients.reducer';
 import recipe from './recipe.reducer';
+import combo from './combo.reducer';
 
 
 // rootReducer is the primary reducer for our entire project
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   challenge, // will contain all challenges made
   ingredients, // holds all information from DB for ingredients
   recipe,
+  combo,
 });
 
 export default rootReducer;
