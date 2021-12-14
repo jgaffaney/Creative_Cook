@@ -20,13 +20,13 @@ function Profile() {
   const user = useSelector((store) => store.user);
 
   const sxHomePageContainer = {
-    border: '1px solid red',
+    // border: '1px solid red',
     display: 'flex',
     justifyContent: 'center',
   }
 
   const sxPageContent = {
-    border: '1px solid black',
+    // border: '1px solid black',
     display: 'flex',
     flexDirection: 'row',
     width: '80%',
@@ -35,14 +35,14 @@ function Profile() {
   }
 
   const sxLeftColumn = {
-    border: '1px solid green',
+    // border: '1px solid green',
     display: 'flex',
     flexDirection: 'row',
     width: '100%',
   }
 
   const sxRightColumn = {
-    border: '1px solid blue',
+    // border: '1px solid blue',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -53,7 +53,7 @@ function Profile() {
 
 
   const sxTopLeftSection = {
-    border: '1px solid lightblue',
+    border: '1px solid black',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -63,7 +63,7 @@ function Profile() {
   }
 
   const sxTopRightSection = {
-    border: '1px solid yellow',
+    border: '1px solid black',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -74,7 +74,7 @@ function Profile() {
 
 
   const sxMiddleSection = {
-    border: '1px solid lightblue',
+    // border: '1px solid lightblue',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -84,7 +84,7 @@ function Profile() {
   }
 
   const sxPhotoBox = {
-    border: '1px solid lightgray',
+    // border: '1px solid lightgray',
     width: 120,
     height: 220,
     boxShadow: 3,
@@ -94,7 +94,7 @@ function Profile() {
 
 
   const sxBottomSection = {
-    border: '1px solid lightblue',
+    border: '1px solid black',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -104,7 +104,7 @@ function Profile() {
   }
 
   const sxGoals = {
-    border: '1px solid red',
+    // border: '1px solid black',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
