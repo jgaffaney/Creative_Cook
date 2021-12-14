@@ -9,6 +9,7 @@ import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import CardMedia from '@mui/material/CardMedia';
+import Card from '@mui/material/Card';
 
 
 function Home() {
@@ -27,7 +28,6 @@ function Home() {
       // dispatch({ type: 'FETCH_COMBOS' });
       dispatch({ type: 'FETCH_INGREDIENTS' });
   }, []);
-
 
 
     const handleSearch = () => {
@@ -154,11 +154,9 @@ function Home() {
                     <Box sx={sxBottomSection}>
                         <Typography>Bottom Section: Curated Feed</Typography>
                         <Box sx={sxFeedContainer}>
-                          <h2>Combo of The Week</h2>
                           {feedContent.map((content) => {
-
-                              let IngArray = content.ingredient_list
                               let feedContentIngredients = [];
+                              let IngArray = content.ingredient_list
                               function ingredientFilter (ingredients){
                               // for (let i = 0; i < ingredients.length; i++) {
                               //   if (ingredients[i].id === IngArray[0]) {
@@ -185,9 +183,11 @@ function Home() {
                               console.log('!', feedContentIngredients);
 
                             return (
-                            <div key={content.id}>
-                              <p>{content.description}</p>
-                            </div>
+                            <Card key={content.id}>
+                              <Typography>{content.name}</Typography>
+                              <Typography>{content.description}</Typography>
+                              <Typography>{feedContentIngredients[0]?.name}, {feedContentIngredients[1]?.name}, {feedContentIngredients[2]?.name}</Typography>
+                            </Card>
                           )})}
                         </Box>
                     </Box>
