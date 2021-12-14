@@ -193,7 +193,7 @@ function Home() {
                     style={{ minHeight: '10vh' }}
                     key={content.id}
                   >
-                    <Paper>
+                    <Paper sx={{width: '15cm', m: 2}}>
                       <Typography sx={{fontSize: 25}}>{content.name}</Typography>
                       <Typography>{content.description}</Typography>
                       <Typography>{feedContentIngredients[0]?.name}, {feedContentIngredients[1]?.name}{feedContentIngredients[2] ? (', ' + feedContentIngredients[2]?.name) : ""}</Typography>
