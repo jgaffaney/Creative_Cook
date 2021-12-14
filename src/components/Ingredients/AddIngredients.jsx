@@ -3,12 +3,25 @@ import { useState } from 'react';
 
 function AddIngredients() {
 
-    const [season, setSeason] = useState('');
-    const [type, setType] = useState('');
+
+    const defaultIngredient = {
+        name: '',
+        description: '',
+        pic: '',
+        taste: '',
+        season: '',
+        weight: '',
+        volume: '',
+        type: ''
+    }
+
+    const [newIngredient, setNewIngredient] = useState(defaultIngredient)
+    // const [season, setSeason] = useState('');
+    // const [type, setType] = useState('');
 
     // handle season change
-    const handleChange = (event) => {
-        setSeason(event.target.value);
+    const handleChange = (event, string) => {
+        setNewIngredient({...newIngredient, [string]: event.target.value});
     };
 
     const handleTypeChange = (event) => {
@@ -72,17 +85,38 @@ function AddIngredients() {
             <h2>Add New Ingredient</h2>
             <Box>
                 <FormControl>
-                    <TextField id="name-input" label="Ingredient Name" variant="outlined"></TextField>
-                    <TextField id="description-input" label="Description" variant="outlined"></TextField>
-                    <TextField id="pic-input" label="Picture URL" variant="outlined"></TextField>
-                    <TextField id="taste-input" label="Taste" variant="outlined"></TextField>
+                    <TextField 
+                        id="name-input" 
+                        label="Ingredient Name" 
+                        variant="outlined"
+                        onChange={(event) => handleChange(event, 'name')}>
+                    </TextField>
+                    <TextField 
+                        id="description-input" 
+                        label="Description" 
+                        multiline
+                        variant="outlined"
+                        onChange={(event) => handleChange(event, 'description')}>
+                    </TextField>
+                    <TextField 
+                        id="pic-input" 
+                        label="Picture URL" 
+                        variant="outlined"
+                        onChange={(event) => handleChange(event, 'pic')}>
+                        </TextField>
+                    <TextField 
+                        id="taste-input" 
+                        label="Taste" 
+                        variant="outlined"
+                        onChange={(event) => handleChange(event, 'taste')}>
+                    </TextField>
                     <TextField 
                         id="season-input" 
                         select
+                        value=''
                         label="Season" 
                         variant="outlined"
-                        value={season}
-                        onChange={handleChange}
+                        onChange={(event) => handleChange(event, 'season')}
                         >
                             {seasons.map((option) => (
                                 <MenuItem key={option.value} value={option.value}>
@@ -90,15 +124,25 @@ function AddIngredients() {
                                 </MenuItem>
                             ))}
                         </TextField>
-                    <TextField id="weight-input" label="Weight" variant="outlined"></TextField>
-                    <TextField id="volume-input" label="Volume" variant="outlined"></TextField>
+                    <TextField 
+                        id="weight-input" 
+                        label="Weight" 
+                        variant="outlined"
+                        onChange={(event) => handleChange(event, 'weight')}>
+                        </TextField>
+                    <TextField 
+                        id="volume-input" 
+                        label="Volume" 
+                        variant="outlined"
+                        onChange={(event) => handleChange(event, 'volume')}>
+                    </TextField>
                     <TextField 
                         id="type-input" 
                         select
+                        value=''
                         label="Type" 
                         variant="outlined"
-                        value={type}
-                        onChange={handleTypeChange}
+                        onChange={(event) => handleChange(event, 'type')}
                         >
                             {foodType.map((option) => (
                                 <MenuItem key={option.value} value={option.value}>
