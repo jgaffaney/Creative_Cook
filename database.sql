@@ -87,12 +87,3 @@ ADD COLUMN "password" varchar(255);
 
 ALTER TABLE "feed_content"
 ALTER COLUMN "type" TYPE varchar(255);
-
-
-
-
-
-
-
-
-

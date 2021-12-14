@@ -6,6 +6,8 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import ButtonBase from '@mui/material/ButtonBase';
+import Box from '@mui/material/Box';
+
 
 function Profile() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
