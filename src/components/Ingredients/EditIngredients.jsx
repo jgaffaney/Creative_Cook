@@ -82,6 +82,7 @@ QuickSearchToolbar.propTypes = {
 export default function EditIngredients() {
 
   const ingredients = useSelector(store => store.ingredients);
+  const filteredIngredients = useSelector(store => store.filteredIngredients);
   const dispatch = useDispatch();
 
   // dispatch({type: 'FETCH_INGREDIENTS'});
@@ -101,46 +102,60 @@ export default function EditIngredients() {
     rows: ingredients
   }
 
-  const [searchText, setSearchText] = useState('');
+  // const [searchText, setSearchText] = useState('');
   const [rows, setRows] = useState(data.rows);
   // const [searchedValue, setSearchedValue] = useState(' ');
 
-  const requestSearch = (searchValue) => {
-    setSearchText(searchValue);
-    const searchRegex = new RegExp(escapeRegExp(searchValue), 'i');
-    const filteredRows = data.rows.filter((row) => {
-      return Object.keys(row).some((field) => {
-        return searchRegex.test(row[field]);
-      });
-    });
-      setRows(filteredRows);
-  };
+  // const requestSearch = (searchValue) => {
+  //   setSearchText(searchValue);
+  //   const searchRegex = new RegExp((searchValue), 'i');
+  //   const filteredRows = data.rows.filter((row) => {
+  //     return Object.keys(row).some((field) => {
+  //       return searchRegex.test(row[field]);
+  //     });
+  //   });
+  //     setRows(filteredRows);
+  // };
 
   useEffect(() => {
     dispatch({ type: 'FETCH_INGREDIENTS' })
-    setRows(data.rows);
+    // setRows(data.rows);
   }, []);
 
   // console.log('Demo Data: ', data);
 
   return (
     <Box sx={{ height: 400, width: 1 }}>
-      {rows && (
+      {filteredIngredients ? (
         <DataGrid
           components={{ Toolbar: QuickSearchToolbar }}
-          rows={rows}
+          rows={filteredIngredients}
           columns={data.columns}
           componentsProps={{
             toolbar: {
-              value: searchText,
-              onChange: (event) => requestSearch(event.target.value),
+              defaultValue: '',
+              onChange: (event) => dispatch({ type: 'FILTER_INGREDIENTS', payload: event.target.value, data: ingredients }),
+              // onChange: (event) => requestSearch(event.target.value),
               clearSearch: () => requestSearch(''),
             },
           }}
         />
-      )
-      }
-
+      ) : (
+        <DataGrid
+          components={{ Toolbar: QuickSearchToolbar }}
+          rows={ingredients}
+          columns={data.columns}
+          componentsProps={{
+            toolbar: {
+              defaultValue: '',
+              onChange: (event) => dispatch({ type: 'FILTER_INGREDIENTS', payload: event.target.value, data: ingredients }),
+              // onChange: (event) => requestSearch(event.target.value),
+              clearSearch: () => requestSearch(''),
+            },
+          }}
+        />
+      )}
     </Box>
-  );
+  )
 }
+
