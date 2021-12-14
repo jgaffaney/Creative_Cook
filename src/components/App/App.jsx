@@ -67,7 +67,6 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Typography>
       <Router>
         <Box>
           <Nav />
@@ -177,7 +176,6 @@ function App() {
           <Footer />
         </Box>
       </Router>
-    </Typography>
     </ThemeProvider >
   );
 }
