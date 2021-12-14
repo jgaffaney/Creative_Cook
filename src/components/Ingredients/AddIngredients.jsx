@@ -1,8 +1,10 @@
-import { FormControl, Box, TextField, MenuItem } from "@mui/material";
+import { FormControl, Box, TextField, MenuItem, Button } from "@mui/material";
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 function AddIngredients() {
 
+    const dispatch = useDispatch();
 
     const defaultIngredient = {
         name: '',
@@ -24,8 +26,9 @@ function AddIngredients() {
         setNewIngredient({...newIngredient, [string]: event.target.value});
     };
 
-    const handleTypeChange = (event) => {
-        setType(event.target.value);
+    const handleSubmit = () => {
+        console.log('Submit clicked');
+        dispatch({type: 'POST_INGREDIENT', newIngredient})
     };
 
     // for seasons dropdown
@@ -150,6 +153,7 @@ function AddIngredients() {
                                 </MenuItem>
                             ))}
                         </TextField>
+                        <Button variant='outlined' size='small' onClick={handleSubmit}>Submit</Button>
                 </FormControl>
             </Box>
         </div>
