@@ -22,7 +22,7 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import Home from '../Home/Home';
 import Combo from '../Combo/Combo';
 import Profile from '../Profile/Profile';
-import Ingredients from '../Ingredients/Ingredients';
+import EditIngredients from '../Ingredients/EditIngredients';
 import Feed from '../Feed/Feed';
 
 import Box from '@mui/material/Box';
@@ -67,7 +67,6 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Typography>
       <Router>
         <Box>
           <Nav />
@@ -109,7 +108,7 @@ function App() {
               exact
               path="/ingredients"
             >
-              <Ingredients />
+              <EditIngredients />
             </ProtectedRoute>
 
             {/* Visiting localhost:3000/feed will allow admin to view their feed content */}
@@ -177,7 +176,6 @@ function App() {
           <Footer />
         </Box>
       </Router>
-    </Typography>
     </ThemeProvider >
   );
 }
