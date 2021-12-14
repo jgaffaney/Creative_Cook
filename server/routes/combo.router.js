@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
             res.send(result.rows); // Contains all combos
         })
         .catch(err => {
-            console.log('Error in Challenge GET', err);
+            console.log('Error in Combo GET', err);
             res.sendStatus(500);
         })
 }); // End GET
