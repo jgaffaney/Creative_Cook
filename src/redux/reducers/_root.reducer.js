@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import errors from './errors.reducer';
 import user from './user.reducer';
+import challenge from './challenge.reducer';
 import ingredients from './ingredients.reducer';
 import recipe from './recipe.reducer';
 
@@ -14,6 +15,7 @@ import recipe from './recipe.reducer';
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   user, // will have an id and username if someone is logged in
+  challenge, // will contain all challenges made
   ingredients, // holds all information from DB for ingredients
   recipe,
 });

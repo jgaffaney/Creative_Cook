@@ -3,6 +3,7 @@ import loginSaga from './login.saga';
 import recipeSaga from './recipe.saga';
 import registrationSaga from './registration.saga';
 import userSaga from './user.saga';
+import challengeSaga from './challenge.saga'
 import ingredientSaga from './ingredients.saga';
 
 // rootSaga is the primary saga.
@@ -17,6 +18,7 @@ export default function* rootSaga() {
     loginSaga(), // login saga is now registered
     registrationSaga(),
     userSaga(),
+    challengeSaga(),
     ingredientSaga(),
     recipeSaga(),
   ]);
