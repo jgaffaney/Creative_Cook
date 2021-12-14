@@ -67,119 +67,119 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Typography>
-      <Router>
-        <Box>
-          <Nav />
+      {/* <Typography> */}
+        <Router>
+          <Box>
+            <Nav />
 
-          <Switch>
-            {/* Visiting localhost:3000/ will redirect to localhost:3000/home */}
-            <Redirect exact from="/" to="/home" />
+            <Switch>
+              {/* Visiting localhost:3000/ will redirect to localhost:3000/home */}
+              <Redirect exact from="/" to="/home" />
 
-            {/* Visiting localhost:3000/home will take you to the Home Page */}
-            <ProtectedRoute
-              // if logged in shows Home Page or else shows LoginPage
-              exact
-              path="/home"
-            >
-              <Home />
-            </ProtectedRoute>
+              {/* Visiting localhost:3000/home will take you to the Home Page */}
+              <ProtectedRoute
+                // if logged in shows Home Page or else shows LoginPage
+                exact
+                path="/home"
+              >
+                <Home />
+              </ProtectedRoute>
 
-            {/* Visiting localhost:3000/combo will take you to the Combo Tool Page */}
-            <ProtectedRoute
-              // logged in shows Combo Tool or else shows LoginPage
-              exact
-              path="/combo"
-            >
-              <Combo />
-            </ProtectedRoute>
+              {/* Visiting localhost:3000/combo will take you to the Combo Tool Page */}
+              <ProtectedRoute
+                // logged in shows Combo Tool or else shows LoginPage
+                exact
+                path="/combo"
+              >
+                <Combo />
+              </ProtectedRoute>
 
-            {/* Visiting localhost:3000/profile will take you to the Profile Page */}
-            <ProtectedRoute
-              // logged in shows Profile Page or else shows LoginPage
-              exact
-              path="/profile"
-            >
-              <Profile />
-            </ProtectedRoute>
+              {/* Visiting localhost:3000/profile will take you to the Profile Page */}
+              <ProtectedRoute
+                // logged in shows Profile Page or else shows LoginPage
+                exact
+                path="/profile"
+              >
+                <Profile />
+              </ProtectedRoute>
 
-            {/* Visiting localhost:3000/ingredients will allow user to add a new plant. */}
-            <ProtectedRoute
-              // logged in shows Admin Ingredients Page or else shows LoginPage
-              exact
-              path="/ingredients"
-            >
-              <Ingredients />
-            </ProtectedRoute>
+              {/* Visiting localhost:3000/ingredients will allow user to add a new plant. */}
+              <ProtectedRoute
+                // logged in shows Admin Ingredients Page or else shows LoginPage
+                exact
+                path="/ingredients"
+              >
+                <Ingredients />
+              </ProtectedRoute>
 
-            {/* Visiting localhost:3000/feed will allow admin to view their feed content */}
-            <ProtectedRoute
-              // logged in shows Admin Feed Page or else shows LoginPage
-              exact
-              path="/feed"
-            >
-              <Feed />
-            </ProtectedRoute>
-
-
+              {/* Visiting localhost:3000/feed will allow admin to view their feed content */}
+              <ProtectedRoute
+                // logged in shows Admin Feed Page or else shows LoginPage
+                exact
+                path="/feed"
+              >
+                <Feed />
+              </ProtectedRoute>
 
 
 
-            {/* --- LOGIN vs REGISTER --- */}
 
-            <Route
-              exact
-              path="/login"
-            >
-              {user.id ?
-                // If the user is already logged in, 
-                // redirect to the /home page
-                <Redirect to="/home" />
-                :
-                // Otherwise, show the login page
-                <LoginPage />
-              }
-            </Route>
 
-            <Route
-              exact
-              path="/registration"
-            >
-              {user.id ?
-                // If the user is already logged in, 
-                // redirect them to the /home page
-                <Redirect to="/home" />
-                :
-                // Otherwise, show the registration page
-                <RegisterPage />
-              }
-            </Route>
+              {/* --- LOGIN vs REGISTER --- */}
 
-            <Route
-              exact
-              path="/home"
-            >
-              {user.id ?
-                // If the user is already logged in, 
-                // redirect them to the /home page
-                <Redirect to="/home" />
-                :
-                // Otherwise, show the Landing page
-                <LandingPage />
-              }
-            </Route>
+              <Route
+                exact
+                path="/login"
+              >
+                {user.id ?
+                  // If the user is already logged in, 
+                  // redirect to the /home page
+                  <Redirect to="/home" />
+                  :
+                  // Otherwise, show the login page
+                  <LoginPage />
+                }
+              </Route>
 
-            {/* If none of the other routes matched, we will show a 404. */}
-            <Route>
-              <h1>404</h1>
-            </Route>
+              <Route
+                exact
+                path="/registration"
+              >
+                {user.id ?
+                  // If the user is already logged in, 
+                  // redirect them to the /home page
+                  <Redirect to="/home" />
+                  :
+                  // Otherwise, show the registration page
+                  <RegisterPage />
+                }
+              </Route>
 
-          </Switch>
-          
-          <Footer />
-        </Box>
-      </Router>
-    </Typography>
+              <Route
+                exact
+                path="/home"
+              >
+                {user.id ?
+                  // If the user is already logged in, 
+                  // redirect them to the /home page
+                  <Redirect to="/home" />
+                  :
+                  // Otherwise, show the Landing page
+                  <LandingPage />
+                }
+              </Route>
+
+              {/* If none of the other routes matched, we will show a 404. */}
+              <Route>
+                <h1>404</h1>
+              </Route>
+
+            </Switch>
+
+            <Footer />
+          </Box>
+        </Router>
+      {/* </Typography> */}
     </ThemeProvider >
   );
 }

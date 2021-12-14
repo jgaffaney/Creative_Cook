@@ -28,7 +28,7 @@ function RegisterForm() {
 
 
   const sxInput = {
-    mb: 2,
+    mb: 1,
   }
 
   return (

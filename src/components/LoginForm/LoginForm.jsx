@@ -33,7 +33,7 @@ function LoginForm() {
 
 
   const sxInput = {
-    mb: 2,
+    mb: 1,
   }
 
 
