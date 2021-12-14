@@ -15,7 +15,7 @@ function Ingredients() {
   return (
     <div className="container">
       <h2>Welcome To The Ingredients Page!</h2>
-        <p>{ingredients[0].name}</p>
+        {/* <p>{ingredients[0].name}</p> */}
     </div>
   );
 }
