@@ -147,13 +147,7 @@ function RegisterForm() {
           value={familySize}
           onChange={(event) => setFamilySize(event.target.value)}
         />
-
-        {/* <TextField sx={sxInput}
-          id="maritalStatus"
-          label="Marital Status?"
-          value={maritalStatus}
-          onChange={(event) => setMaritalStatus(event.target.value)}
-        /> */}
+        
         <FormControl>
           <InputLabel id="">Marital Status</InputLabel>
           <Select sx={sxInput} variant="outlined"
