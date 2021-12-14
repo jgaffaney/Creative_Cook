@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
@@ -98,14 +98,8 @@ export default function QuickFilteringGrid() {
     rows: ingredients
   }
 
-  // const { data } = useDemoData({
-  //   dataSet: 'Commodity',
-  //   rowLength: 100,
-  //   maxColumns: 6,
-  // });
-
-  const [searchText, setSearchText] = React.useState('');
-  const [rows, setRows] = React.useState(data.rows);
+  const [searchText, setSearchText] = useState('');
+  const [rows, setRows] = useState(data.rows);
 
   const requestSearch = (searchValue) => {
     setSearchText(searchValue);
@@ -118,12 +112,12 @@ export default function QuickFilteringGrid() {
     setRows(filteredRows);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch({ type: 'FETCH_INGREDIENTS'})
     setRows(data.rows);
   }, []);
 
-  console.log('Demo Data: ', data);
+  // console.log('Demo Data: ', data);
 
   return (
     <Box sx={{ height: 400, width: 1 }}>
