@@ -23,10 +23,10 @@ import Home from '../Home/Home';
 import Combo from '../Combo/Combo';
 import Profile from '../Profile/Profile';
 import EditIngredients from '../Ingredients/EditIngredients';
+import AddIngredients from '../Ingredients/AddIngredients';
 import Feed from '../Feed/Feed';
 
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 // let's set up a theme for our project
@@ -63,6 +63,7 @@ function App() {
 
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
+    // dispatch({type: 'FETCH_INGREDIENTS'});
   }, [dispatch]);
 
   return (

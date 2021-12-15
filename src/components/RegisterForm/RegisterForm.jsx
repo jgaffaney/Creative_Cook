@@ -179,7 +179,6 @@ function RegisterForm() {
           label="Password"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
-        // placeholder="Passw0rd"
         />
 
         {/* LET'S START COOKING */}

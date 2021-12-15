@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
     `
     pool.query(queryText)
         .then(response => {
-            console.log('Response from ingredients DB: ', response.rows);
+            console.log('Response from GET ingredients DB: ', response.rows);
             res.send(response.rows)
         }).catch(err => {
             console.log("Error on GET ingredients from DB: ", err);
@@ -20,7 +20,7 @@ router.get('/', (req, res) => {
 
 // posts a new ingredient to DB
 router.post('/', (req, res) => {
-    console.log('in ingredients POST');
+    console.log('in ingredients POST with: ', req.body);
     
     const queryText = `
     INSERT INTO ingredients ("name", "description", "pic", "taste", "season", "weight", "volume", "type")
