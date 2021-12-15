@@ -1,4 +1,4 @@
-const combo = (state = [], action) => {
+const userCombo = (state = [], action) => {
     switch (action.type) {
         case 'SET_COMBO':
             return action.payload;
@@ -9,4 +9,4 @@ const combo = (state = [], action) => {
     }
 };
 
-export default userCombos;
+export default userCombo;
