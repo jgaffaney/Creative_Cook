@@ -1,17 +1,11 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
-import LogOutButton from '../LogOutButton/LogOutButton';
-import './Nav.css';
+import { Link, NavLink, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+
+// import './Nav.css';
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import CardMedia from '@mui/material/CardMedia';
-
 
 function Nav() {
 
@@ -19,14 +13,11 @@ function Nav() {
 
   const history = useHistory();
 
-
-  // container to hold our nav links / buttons
+  // NAV container to hold our nav links / buttons
   const sxNav = {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
-    // color: 'blue',
-    // bgcolor: 'red',
     textAlign: 'center',
     p: 1,
     mb: 1,
@@ -42,7 +33,7 @@ function Nav() {
     color: 'info',
   }
 
-  // the piece of clickable text in the navbar 
+  // LINK TEXT the piece of clickable text in the navbar 
   const sxNavButton = {
     color: 'info.main',
     fontWeight: 600,
@@ -51,14 +42,14 @@ function Nav() {
   }
 
 
-  // when the user clicks on a link it will take them to that desired page
+  // when the user clicks on a text link it will take them to that desired page
   const handleClick = (input) => {
-    console.log('clicked on a nav button');
+    console.log(`clicked on the ${input} nav button`);
     history.push(`${input}`)
   }
 
 
-  // when logged in users will be able to see these links in the navbar 
+  // USER logged in users will be able to see these links in the navbar 
   const navUser = (
     <Box sx={sxNav}>
 
@@ -72,7 +63,7 @@ function Nav() {
   )
 
 
-  // admin will be able to view all user links + ingredients and feed in their navbar
+  // ADMIN will be able to view all user links + the ingredients and feed in their navbar
   const navAdmin = (
     <Box sx={sxNav}>
 
@@ -89,7 +80,7 @@ function Nav() {
     </Box>
   )
 
-    // the navbar overall container that holds "creative cook" + the navbar text / links
+    // PAGE CONTAINER the navbar overall container that holds "creative cook" + the navbar text / links
   const sxNavContainer = {
     // border: '1px solid red',
     display: 'flex',
@@ -108,7 +99,7 @@ function Nav() {
     borderBottom: '1px solid gray',
   }
 
-  // the "creative cook" header properties; pushes you home when clicked on;
+  // the "CREATIVE COOK" header properties; pushes you home when clicked on;
   const sxCreativeCookHeader = {
     fontSize: 20,
     fontWeight: 600,

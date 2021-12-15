@@ -4,10 +4,8 @@ import { useHistory } from 'react-router-dom';
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import CardMedia from '@mui/material/CardMedia';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -50,16 +48,19 @@ function RegisterForm() {
   }; // registerUser
 
 
+  // INPUT text styles
   const sxInput = {
     mb: 1,
   }
 
-  const sxFormControl = {
+  // FORM CONTAINER holds all the page content
+  const sxFormContainer = {
     // border: '1px solid red',
     display: 'flex',
     flexDirection: 'column',
   }
 
+  // FORM CONTENT holds the "register new user" title and all of the input boxes
   const sxFormContent = {
     // border: '1px solid blue',
     display: 'flex',
@@ -71,7 +72,7 @@ function RegisterForm() {
 
   return (
 
-    <form sx={sxFormControl} onSubmit={registerUser}>
+    <form sx={sxFormContainer} onSubmit={registerUser}>
       <Box sx={sxFormContent}>
 
         <h2>Register New User</h2>
@@ -82,6 +83,7 @@ function RegisterForm() {
           </h3>
         )}
 
+        {/* USERNAME */}
         <TextField sx={sxInput}
           id="registerUsername"
           required
@@ -91,6 +93,7 @@ function RegisterForm() {
         // placeholder="Username"
         />
 
+        {/* DISPLAY NAME */}
         <TextField sx={sxInput}
           id="displayName"
           label="Your Name"
@@ -99,6 +102,7 @@ function RegisterForm() {
         // placeholder="Username"
         />
 
+        {/* BIO */}
         <TextField sx={sxInput}
           id="bio"
           label="Provide a short bio"
@@ -106,6 +110,7 @@ function RegisterForm() {
           onChange={(event) => setBio(event.target.value)}
         />
 
+        {/* PIC URL */}
         <TextField sx={sxInput}
           id="pic"
           label="Profile image URL"
@@ -113,6 +118,7 @@ function RegisterForm() {
           onChange={(event) => setPic(event.target.value)}
         />
 
+        {/* AGE */}
         <TextField sx={sxInput}
           type="number"
           id="age"
@@ -121,6 +127,7 @@ function RegisterForm() {
           onChange={(event) => setAge(event.target.value)}
         />
 
+        {/* GENDER SELECTION */}
         <FormControl>
           <InputLabel id="gender">Gender</InputLabel>
           <Select sx={sxInput} variant="outlined"
@@ -138,6 +145,7 @@ function RegisterForm() {
           </Select>
         </FormControl>
 
+        {/* FAMILY SIZE */}
         <TextField sx={sxInput}
           type="number"
           id="familySize"
@@ -145,7 +153,8 @@ function RegisterForm() {
           value={familySize}
           onChange={(event) => setFamilySize(event.target.value)}
         />
-        
+
+        {/* RELATIONSHIP SELECTION */}
         <FormControl>
           <InputLabel id="">Marital Status</InputLabel>
           <Select sx={sxInput} variant="outlined"
@@ -162,6 +171,7 @@ function RegisterForm() {
           </Select>
         </FormControl>
 
+        {/* PASSWORD */}
         <TextField sx={sxInput}
           id="registerPassword"
           type="password"
@@ -172,6 +182,7 @@ function RegisterForm() {
         // placeholder="Passw0rd"
         />
 
+        {/* LET'S START COOKING */}
         <Button type="submit" size="large" variant="contained" color="primary">Register & Login</Button>
 
       </Box>
