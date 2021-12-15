@@ -36,14 +36,16 @@ function Home() {
     console.log('CLICKED on handleSearch');
   }
 
+  // CONTAINER that centers everything on this page
   const sxHomePageContainer = {
-    border: '1px solid red',
+    // border: '1px solid red',
     display: 'flex',
     justifyContent: 'center',
   }
 
+  // PAGE CONTENT holds the left column and the right column
   const sxPageContent = {
-    border: '1px solid black',
+    border: '1px solid red',
     display: 'flex',
     flexDirection: 'row',
     width: '80%',
@@ -51,6 +53,7 @@ function Home() {
     m: 2
   }
 
+  // LEFT COLUMN holds all of the profile / metrics / goal info
   const sxLeftColumn = {
     border: '1px solid green',
     display: 'flex',
@@ -58,27 +61,7 @@ function Home() {
     width: '25%',
   }
 
-  const sxRightColumn = {
-    border: '1px solid blue',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '75%',
-    height: '100%',
-  }
-
-
-  const sxTopSection = {
-    border: '1px solid lightblue',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: 300,
-  }
-
+  // PROFILE PHOTOS properties being held in the left column
   const sxPhotoBox = {
     // border: '1px solid lightgray',
     width: 120,
@@ -89,6 +72,29 @@ function Home() {
   };
 
 
+  // RIGHT COLUMN holds the top and bottom sections 
+  const sxRightColumn = {
+    border: '1px solid blue',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '75%',
+    height: '100%',
+  }
+
+  // TOP SECTION holds the flavor combo tool
+  const sxTopSection = {
+    border: '1px solid lightblue',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: 300,
+  }
+
+  // BOTTOM SECTION holds the feed content
   const sxBottomSection = {
     border: '1px solid lightblue',
     display: 'flex',
@@ -99,6 +105,7 @@ function Home() {
     height: 300,
   }
 
+  // FEED CONTAINER holds the actual content / combo cards 
   const sxFeedContainer = {
     border: '1px solid red',
     display: 'flex',
@@ -116,28 +123,29 @@ function Home() {
 
         <Box sx={sxLeftColumn}>
 
-          {/* user profile section */}
+          {/* user PROFILE section */}
           <Box>
             <Typography>Side Section: User Profile</Typography>
             <CardMedia sx={sxPhotoBox} component="img" image={user.pic} />
             <Typography>{user.username}</Typography>
+            <Typography>{user.display_name}</Typography>
             <Typography>{user.bio}</Typography>
           </Box>
           <br />
 
-          {/* any metrics will go here */}
+          {/* any METRICS will go here */}
           <Box>
             <Typography>Side Section: Metrics</Typography>
           </Box>
           <br />
 
-          {/* recent combos */}
+          {/* recent COMBOS */}
           <Box>
             <Typography>Side Section: Recent Combos</Typography>
           </Box>
           <br />
 
-          {/* goal progress */}
+          {/* GOALS progress */}
           <Box>
             <Typography>Side Section: Goal Progress</Typography>
           </Box>
