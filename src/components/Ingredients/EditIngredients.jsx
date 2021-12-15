@@ -162,7 +162,7 @@ export default function EditIngredients() {
   // console.log('Demo Data: ', data);
 
   return (
-    <Box sx={{ height: 400, width: 1 }}>
+    <Box sx={{ height: 600, width: 1 }}>
       {/* {rows && ( */}
         <DataGrid
           components={{ Toolbar: QuickSearchToolbar }}
