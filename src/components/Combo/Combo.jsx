@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import { useDispatch, useSelector } from 'react-redux';
 import ComboTool from '../ComboTool/ComboTool';
+import RecipeList from '../RecipeList/RecipeList';
 
 function Combo() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
@@ -32,7 +33,8 @@ function Combo() {
           )
         })}
       </ul>
-
+      
+      <RecipeList />
     </div>
   );
 }
