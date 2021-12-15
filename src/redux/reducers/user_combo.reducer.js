@@ -9,4 +9,4 @@ const combo = (state = [], action) => {
     }
 };
 
-export default combo;
+export default userCombos;
