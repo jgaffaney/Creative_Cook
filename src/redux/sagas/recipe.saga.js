@@ -1,9 +1,6 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
-function* recipeSaga(){
-    yield takeLatest('FETCH_RECIPES', fetchRecipes)
-} // end recipeSaga
 
 function* fetchRecipes(){
     try {
@@ -14,6 +11,11 @@ function* fetchRecipes(){
         console.log('err in fetchRecipes', error);
     }
 } // end fetchRecipes
+
+
+function* recipeSaga(){
+    yield takeLatest('FETCH_RECIPES', fetchRecipes)
+} // end recipeSaga
 
 export default recipeSaga;
 

@@ -3,6 +3,8 @@
 
 CREATE TYPE "gender" AS ENUM ('Female', 'Male', 'Other', 'Prefer not to answer');
 
+CREATE TYPE "marital_status" AS ENUM ('Single', 'Married', 'Partnership');
+
 CREATE TABLE "user" (
 	"id" serial NOT NULL PRIMARY KEY,
 	"username" varchar(255) NOT NULL,
@@ -13,7 +15,7 @@ CREATE TABLE "user" (
 	"age" int,
 	"gender" gender,
 	"family_size" int,
-	"marital_status" int,
+	"marital_status" marital_status,
 	"is_admin" bool NOT NULL DEFAULT false);
 	
 CREATE TYPE "season" AS ENUM ('Summer', 'Spring', 'Winter', 'Autumn');
@@ -87,12 +89,3 @@ ADD COLUMN "password" varchar(255);
 
 ALTER TABLE "feed_content"
 ALTER COLUMN "type" TYPE varchar(255);
-
-
-
-
-
-
-
-
-
