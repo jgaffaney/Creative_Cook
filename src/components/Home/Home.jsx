@@ -27,7 +27,7 @@ function Home() {
 
   useEffect(() => {
     dispatch({ type: 'FETCH_CHALLENGE' });
-    // dispatch({ type: 'FETCH_COMBOS' });
+    dispatch({ type: 'FETCH_COMBOS' });
     dispatch({ type: 'FETCH_INGREDIENTS' });
   }, []);
 

@@ -23,10 +23,10 @@ router.get('/', (req, res) => {
 // Challenge POST route
 router.post('/', (req, res) => {
     const queryText = `
-        INSERT INTO "feed_content" ("id", "type", "description", "combo_id")
-        VALUES ($1, $2, $3, $4);
+        INSERT INTO "feed_content" ("type", "description", "combo_id")
+        VALUES ($1, $2, $3);
         `;
-    values = [req.body.id, req.body.type, req.body.description, req.body.combo_id]
+    values = [req.body.type, req.body.description, req.body.combo_id]
     console.log('values are', values);
     pool.query(queryText, values)
         .then(result => {
