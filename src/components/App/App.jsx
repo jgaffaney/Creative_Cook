@@ -70,6 +70,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         <Box>
+
           <Nav />
 
           <Switch>
@@ -103,14 +104,22 @@ function App() {
               <Profile />
             </ProtectedRoute>
 
-            {/* Visiting localhost:3000/ingredients will allow user to add a new plant. */}
+
+            {/* --- ADMIN ONLY ROUTES --- */}
+
+            {/* Visiting localhost:3000/ingredients will allow the admin to edit ingredients. */}
             <ProtectedRoute
-              // logged in shows Admin Ingredients Page or else shows LoginPage
+              // logged in as an Admin allows access to the Ingredients Page or else redirects to the home page
               exact
               path="/ingredients"
             >
-              <AddIngredients />
-              <EditIngredients />
+              {user.is_admin ?
+                // If the user is an admin allow access to this route, otherwise take them to the home page
+                <EditIngredients />
+                :
+                // if not admin, redirect to the home page
+                <Redirect to="/home" />
+              }
             </ProtectedRoute>
 
             {/* Visiting localhost:3000/feed will allow admin to view their feed content */}
@@ -119,10 +128,14 @@ function App() {
               exact
               path="/feed"
             >
-              <Feed />
+              {user.is_admin ?
+                // If the user is an admin allow access to this route, otherwise take them to the home page
+                <Feed />
+                :
+                // if not admin, redirect to the home page
+                <Redirect to="/home" />
+              }
             </ProtectedRoute>
-
-
 
 
 
@@ -139,21 +152,6 @@ function App() {
                 :
                 // Otherwise, show the login page
                 <LoginPage />
-              
-              }
-            </Route>
-
-            <Route
-              exact
-              path="/home"
-            >
-              {user.id ?
-                // If the user is already logged in, 
-                // redirect them to the /user page
-                <Redirect to="/user" />
-                :
-                // Otherwise, show the Landing page
-                <LandingPage />
               }
             </Route>
 
@@ -161,8 +159,11 @@ function App() {
             <Route>
               <h1>404</h1>
             </Route>
+
           </Switch>
+
           <Footer />
+
         </Box>
       </Router>
     </ThemeProvider >
