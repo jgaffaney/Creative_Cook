@@ -1,10 +1,17 @@
-import React from 'react';
-import LogOutButton from '../LogOutButton/LogOutButton';
-import {useSelector} from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 function Ingredients() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
   const user = useSelector((store) => store.user);
+  const ingredients = useSelector((store) => store.ingredients);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch({type: 'FETCH_INGREDIENTS'})
+  }, [])
+
   return (
     <div className="container">
       <h2>Welcome To The Ingredients Page!</h2>
