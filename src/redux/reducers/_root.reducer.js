@@ -4,7 +4,7 @@ import user from './user.reducer';
 import challenge from './challenge.reducer';
 import ingredients from './ingredients.reducer';
 import recipe from './recipe.reducer';
-import userCombos from './user_combo.reducer';
+import userCombos from './user_combos.reducer';
 import comboSelect from './combo.reducer';
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
