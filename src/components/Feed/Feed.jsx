@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
 
 function Feed() {
   const user = useSelector((store) => store.user);
@@ -21,7 +22,7 @@ function Feed() {
     dispatch({ type: 'FETCH_COMBOS' });
   }, [])
 
-  const [newChallenge, setNewChallenge] = useState({ type: 'Combo of the Week', description: '', combo_id: ''})
+  const [newChallenge, setNewChallenge] = useState({ type: 'Combo of the Week', description: '', combo_id: '' })
 
   //Sets newChallenge local state to the passed in input
   const handlePropertyChange = (event, property) => {
@@ -29,10 +30,10 @@ function Feed() {
   };
 
   //Sends new challenge to the saga
-  const addNewChallenge = (event) => {
-    event.preventDefault();
-    dispatch({ type: 'ADD_CHALLENGE', payload: newChallenge });
-  };
+  // const addNewChallenge = (event) => {
+  //   event.preventDefault();
+  //   dispatch({ type: 'ADD_CHALLENGE', payload: newChallenge });
+  // };
 
   const sxFeaturedCombo = {
     display: 'flex',
@@ -58,6 +59,8 @@ function Feed() {
     color: theme.palette.text.secondary,
   }));
 
+  console.log('CHALLENGE', newChallenge);
+
   return (
     <>
       <Box sx={sxMetrics}>
@@ -78,7 +81,7 @@ function Feed() {
       </Box>
       <br />
       <Box sx={sxFeaturedCombo}>
-      <Typography sx={{textAlign: "center"}}>Create Featured Combo</Typography>
+        <Typography sx={{ textAlign: "center" }}>Create Featured Combo</Typography>
 
 
         <TextField
@@ -105,6 +108,18 @@ function Feed() {
             )
           })}
         </ul>
+        <br />
+        <ul>
+          {userCombos.map((combo) => {
+            return (
+              <li
+                key={combo.id}
+                value={combo.id}
+                onClick={(event) => handlePropertyChange(event, 'combo_id')}>{combo.name}</li>
+            )
+          })}
+        </ul>
+        <Button sx={{width: 5}} onClick={() => dispatch({ type: 'ADD_CHALLENGE', payload: newChallenge })} variant="contained">submit</Button>
       </Box>
     </>
   );
