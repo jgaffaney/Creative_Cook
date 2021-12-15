@@ -19,29 +19,48 @@ function ComboTool() {
     const dispatch = useDispatch();
     const combo = useSelector(store => store.comboSelect);
 
-   // ingredient card for combo tool
-   const sxIngredientCard = {
-    width: 150,
-    height: 150,
-    borderRadius: 100,
-    margin: 4,
-  }
+    // clear/save button container
+    const sxButtonContainer = {
+        display: 'flex',
+        flexDirection: 'row',
+        border: '1px solid red',
+        justifyContent: 'center',
+        width: '50%',
+        mx: 'auto',
+    }
 
-  // ingredient container for combo tool
-  const sxCardContainer = {
-    display: 'flex',
-    flexDirection: 'row',
-    border: '1px solid red',
-    justifyContent: 'center',
-    width: '50%',
-    mx: 'auto',
-  }
+    const sxButton = {
+        margin: 2,
+    }
 
-  // clickable card action space, currently does not perform a function
-  const sxCardAction = {
-    width: 151,
-    height: 151,
-  }
+
+    // ingredient card for combo tool
+    const sxIngredientCard = {
+        width: 150,
+        height: 150,
+        borderRadius: 100,
+        margin: 4,
+    }
+
+    // ingredient container for combo tool
+    const sxCardContainer = {
+        display: 'flex',
+        flexDirection: 'row',
+        border: '1px solid red',
+        justifyContent: 'center',
+        width: '50%',
+        mx: 'auto',
+    }
+
+    // clickable card action space, currently does not perform a function
+    const sxCardAction = {
+        width: 151,
+        height: 151,
+    }
+
+    const sxIngredientName = {
+        margin: 4,
+    }
 
     return (
         <>
@@ -65,11 +84,42 @@ function ComboTool() {
                             </Card>
                         ))
                         :
-                        < p ></p >}
+                        <p></p >}
             </Box >
-            <Box>
-                <Button sx={sxCardContainer}
-                    onClick={() => dispatch({ type: 'CLEAR_COMBO' })}>CLEAR</Button>
+
+            {/* ingredient name map */}
+            <Box sx={sxCardContainer}>
+                {
+                    combo ?
+                        combo.map(ingredient => (
+                            <Typography sx={sxIngredientName}>{ingredient.name}</Typography>
+                        ))
+                        :
+                        <p></p>}
+            </Box>
+            <Box sx={sxButtonContainer}>
+
+                {/* if combo tool has at least 1 ingredient, clear button renders */}
+                {combo.length >= 1 ?
+                    <Box>
+                        <Button
+                            variant="outlined"
+                            sx={sxButton}
+                            onClick={() => dispatch({ type: 'CLEAR_COMBO' })}>CLEAR</Button>
+                    </Box>
+                    :
+                    <p></p>}
+
+                {/* if combo tool has at least 2 ingredients, show save button */}
+                {combo.length >= 2 ?
+                    <Box>
+                        <Button
+                            variant="outlined"
+                            sx={sxButton}
+                            onClick={() => dispatch({ type: 'SAVE_NEW_COMBO', payload: combo })}>SAVE</Button>
+                    </Box>
+                    :
+                    <p></p>}
             </Box>
         </>
     )
