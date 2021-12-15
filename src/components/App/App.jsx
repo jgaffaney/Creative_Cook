@@ -69,7 +69,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         <Box>
-          
+
           <Nav />
 
           <Switch>
@@ -127,7 +127,7 @@ function App() {
               exact
               path="/feed"
             >
-               {user.is_admin ?
+              {user.is_admin ?
                 // If the user is an admin allow access to this route, otherwise take them to the home page
                 <Feed />
                 :
@@ -151,21 +151,6 @@ function App() {
                 :
                 // Otherwise, show the login page
                 <LoginPage />
-
-              }
-            </Route>
-
-            <Route
-              exact
-              path="/home"
-            >
-              {user.id ?
-                // If the user is already logged in, 
-                // redirect them to the /user page
-                <Redirect to="/user" />
-                :
-                // Otherwise, show the Landing page
-                <LandingPage />
               }
             </Route>
 
@@ -173,8 +158,11 @@ function App() {
             <Route>
               <h1>404</h1>
             </Route>
+
           </Switch>
+
           <Footer />
+
         </Box>
       </Router>
     </ThemeProvider >

@@ -139,7 +139,7 @@ function Profile() {
           <Box sx={sxLeftColumn}>
             <Box sx={sxTopLeftSection}>
               <LogOutButton />
-              <CardMedia sx={sxPhotoBox} component="img" image={'/images/jacobpic.jpg'} />
+              <CardMedia sx={sxPhotoBox} component="img" image={'/images/Gordon.jpeg'} />
               <Typography>User Name</Typography>
               {/* <Typography>User Bio goes here it will be kinda long but maybe it's a bit longer of a description of the person? </Typography> */}
               {/* <Typography>User Bio goes here it will be kinda long but maybe it's a bit longer of a description of the person? </Typography> */}
