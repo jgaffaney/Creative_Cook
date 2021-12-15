@@ -134,25 +134,12 @@ function App() {
             >
               {user.id ?
                 // If the user is already logged in, 
-                // redirect to the /user page
-                <Redirect to="/user" />
+                // redirect to the /home page
+                <Redirect to="/home" />
                 :
                 // Otherwise, show the login page
                 <LoginPage />
-              }
-            </Route>
-
-            <Route
-              exact
-              path="/registration"
-            >
-              {user.id ?
-                // If the user is already logged in, 
-                // redirect them to the /user page
-                <Redirect to="/user" />
-                :
-                // Otherwise, show the registration page
-                <RegisterPage />
+              
               }
             </Route>
 

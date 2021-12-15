@@ -22,6 +22,7 @@ function Nav() {
         }
 
         {/* If a user is logged in, show these links */}
+        {/* User will not see links if they are not logged in */}
         {user.id && (
           <>
             <Link className="navLink" to="/home">
@@ -31,22 +32,20 @@ function Nav() {
             <Link className="navLink" to="/combo">
               Combo
             </Link>
+
+            <Link className="navLink" to="/profile">
+              Profile
+            </Link>
+
+            <Link className="navLink" to="/ingredients">
+              Ingredients
+            </Link>
+
+            <Link className="navLink" to="/feed">
+              Feed
+            </Link>
           </>
         )}
-
-        <Link className="navLink" to="/profile">
-          Profile
-        </Link>
-
-        <Link className="navLink" to="/ingredients">
-          Ingredients
-        </Link>
-
-        <Link className="navLink" to="/feed">
-          Feed
-        </Link>
-
-
       </div>
     </div>
   );
