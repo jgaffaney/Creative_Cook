@@ -125,8 +125,9 @@ function Home() {
 
           {/* user PROFILE section */}
           <Box>
+            <Typography>Side Section: User Profile</Typography>
+            <CardMedia sx={sxPhotoBox} component="img" image={user.pic} />
             <Typography>{user.username}</Typography>
-            <CardMedia sx={sxPhotoBox} component="img" image={'images/Gordon.jpeg'} />
             <Typography>{user.display_name}</Typography>
             <Typography>{user.bio}</Typography>
           </Box>
@@ -156,7 +157,7 @@ function Home() {
 
           <Box sx={sxTopSection}>
             <Typography>Top Section: Create Flavor Combo</Typography>
-            <TextField id="outlined-basic" label="Outlined" variant="outlined" />
+            <TextField id="outlined-basic" variant="outlined" />
             <Button onClick={() => handleSearch()} variant="contained">search</Button>
           </Box>
 
