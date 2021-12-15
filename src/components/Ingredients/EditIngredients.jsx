@@ -13,10 +13,14 @@ import ClearIcon from '@mui/icons-material/Clear';
 import SearchIcon from '@mui/icons-material/Search';
 import { useDispatch, useSelector } from 'react-redux';
 
+
+// cleans up search string
 function escapeRegExp(value) {
   return value.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
 }
 
+// creates the toolbar at the top of the data grid.
+// calls in filter and density components
 function QuickSearchToolbar(props) {
 
   return (
@@ -85,12 +89,17 @@ export default function EditIngredients() {
   const ingredients = useSelector(store => store.ingredients);
   const dispatch = useDispatch();
 
-  // dispatch({type: 'FETCH_INGREDIENTS'});
+  const [searchText, setSearchText] = useState('');
+  const [rows, setRows] = useState([]);
+
+  // called when edit button clicked
+  // will open popover window for editing
   const editIngredient = (ingredient) => {
     console.log('Edit clicked with: ', ingredient);
     
   }
 
+  // creates the Edit button for each row in the data grid
   const renderEditButton = (params) => {
     return (
             <Button
@@ -107,8 +116,8 @@ export default function EditIngredients() {
     )
   }
 
-  const data = {
-    columns: [
+  // an array for the column headers, including the edit button for every row
+  const columns = [
       {field: 'edit',
         headerName: '',
         renderCell: renderEditButton,
@@ -123,15 +132,11 @@ export default function EditIngredients() {
       { field: 'weight', headerName: 'Weight' },
       { field: 'volume', headerName: 'Volume' },
       { field: 'type', headerName: 'Type' },
-    ],
-    rows: ingredients
-  }
+    ];
 
-  const [searchText, setSearchText] = useState('');
-  const [rows, setRows] = useState([]);
-  // const [searchedValue, setSearchedValue] = useState(' ');
-
-
+  // search function for the data grid
+  // first cleans up search string
+  // filters ingredients and set local state
   const requestSearch = (searchValue) => {
     setSearchText(searchValue);
     const searchRegex = new RegExp(escapeRegExp(searchValue), 'i');
@@ -143,11 +148,13 @@ export default function EditIngredients() {
       setRows(filteredRows);
   };
 
+  // updates ingredients
   useEffect(() => {
     dispatch({ type: 'FETCH_INGREDIENTS' })
 
   }, []);
 
+  // updates ingredient on a reducer change
   useEffect(() => {
     setRows(ingredients)
   }, [ingredients])
@@ -156,11 +163,11 @@ export default function EditIngredients() {
 
   return (
     <Box sx={{ height: 400, width: 1 }}>
-      {rows && (
+      {/* {rows && ( */}
         <DataGrid
           components={{ Toolbar: QuickSearchToolbar }}
           rows={rows}
-          columns={data.columns}
+          columns={columns}
           componentsProps={{
             toolbar: {
               value: searchText,
@@ -169,9 +176,6 @@ export default function EditIngredients() {
             },
           }}
         />
-      )
-      }
-
     </Box>
   );
 }
