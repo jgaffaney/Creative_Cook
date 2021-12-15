@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import {
@@ -86,9 +87,36 @@ export default function EditIngredients() {
   const dispatch = useDispatch();
 
   // dispatch({type: 'FETCH_INGREDIENTS'});
+  const editIngredient = (ingredient) => {
+    console.log('Edit clicked with: ', ingredient);
+    
+  }
+
+  const renderEditButton = (params) => {
+    return (
+            <Button
+                variant="contained"
+                color="primary"
+                size="small"
+                style={{ marginLeft: 16 }}
+                onClick={() => {
+                  editIngredient(JSON.stringify(params.row.id))
+                }}
+            >
+                Edit
+            </Button>
+    )
+  }
+
+
 
   const data = {
     columns: [
+      {field: 'edit',
+        headerName: '',
+        renderCell: renderEditButton,
+        disableClickEventBubbling: true
+      },
       { field: 'id', hide: true },
       { field: 'name', headerName: 'Name' },
       { field: 'description', headerName: 'Description' },
