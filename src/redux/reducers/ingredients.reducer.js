@@ -3,7 +3,7 @@ const ingredientsReducer = (state = [], action) => {
         case 'SET_INGREDIENTS':
             return action.payload
         default:
-            return state
+            return state;
     }
 }
 
