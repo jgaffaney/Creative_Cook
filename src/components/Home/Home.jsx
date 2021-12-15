@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -21,8 +21,8 @@ function Home() {
     // const feed = useSelector((store) => store.feed);
 
     useEffect(() => {
-      dispatch({ type: 'FETCH_CHALLENGE' });
-  }, []);
+        dispatch({ type: 'FETCH_CHALLENGE' });
+    }, []);
 
 
     const handleSearch = () => {
@@ -148,7 +148,9 @@ function Home() {
 
                     <Box sx={sxBottomSection}>
                         <Typography>Bottom Section: Curated Feed</Typography>
-                        <Box sx={sxFeedContainer}>FEED GOES IN HERE</Box>
+                        <Box sx={sxFeedContainer}>
+                            FEED GOES IN HERE
+                        </Box>
                     </Box>
 
                 </Box>

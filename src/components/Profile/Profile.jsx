@@ -74,7 +74,7 @@ function Profile() {
 
 
   const sxMiddleSection = {
-    // border: '1px solid lightblue',
+    border: '1px solid lightblue',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -91,6 +91,15 @@ function Profile() {
     mb: .25,
     borderRadius: 1,
   };
+
+  const sxButtonBox = {
+    // border: '1px solid black',
+    display: 'inline-flex',
+    flexDirection: 'row',
+    width: '100%',
+    height: '35%',
+    // m: 2
+  }
 
 
   const sxBottomSection = {
@@ -123,6 +132,11 @@ function Profile() {
   //   height: 250,
   // }
 
+  function handleUpdateGoal() {
+    console.log('update goal');
+    alert('update goal');
+  }
+
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     padding: theme.spacing(1),
@@ -137,58 +151,66 @@ function Profile() {
       <Box sx={sxPageContent}>
         <Box sx={sxRightColumn}>
           <Box sx={sxLeftColumn}>
-          <Box sx={sxTopLeftSection}>
-            <CardMedia sx={sxPhotoBox} component="img" image={'/images/jacobpic.jpg'} />
-            <Typography>User Name</Typography>
-            {/* <Typography>User Bio goes here it will be kinda long but maybe it's a bit longer of a description of the person? </Typography> */}
-            {/* <Typography>User Bio goes here it will be kinda long but maybe it's a bit longer of a description of the person? </Typography> */}
-          </Box>
-          <Box sx={sxTopRightSection}>
-          <Typography>User Bio goes here it will be kinda long but maybe it's a bit longer of a description of the person? </Typography>
-          </Box>
+            <Box sx={sxTopLeftSection}>
+             
+              <CardMedia sx={sxPhotoBox} component="img" image={'/images/jacobpic.jpg'} />
+              <Typography>User Name</Typography>
+              <LogOutButton />
+            </Box>
+            <Box sx={sxTopRightSection}>
+              <Typography>User Bio goes here it will be kinda long but maybe it's a bit longer of a description of the person? </Typography>
+              
+            </Box>
           </Box>
           <Box sx={sxMiddleSection}>
             {/* <Typography>Middle Section: Goals</Typography> */}
-            <Stack direction="row" spacing={2}>
+            {/* <Stack direction="row" spacing={2}> */}
 
-            <Button onClick={() => handleAddNewGoal()} variant="contained" size="large" startIcon={<AddTaskIcon />}endIcon={<AddTaskIcon />}>Add New Goal</Button>
-            </Stack>
+              {/* <Button onClick={() => handleAddNewGoal()} variant="contained" size="small" startIcon={<AddTaskIcon />} >Add New Goal</Button> */}
+            {/* </Stack> */}
+            <Box sx={sxGoals}>Goal Progress</Box>
 
             <Box sx={sxGoals}>
-            <Grid container spacing={2}>
-              <Grid item xs={4}>
-                <Item>Goal Progress: 1</Item>
-                <Button onClick={() => handleRemoveGoal()} variant="outlined" size="small" startIcon={<DeleteIcon />}>Remove Goal</Button>
+              <Grid container spacing={2} alignItems="stretch">
+                <Grid item xs={4}>
+                <Typography>New Ingredients - Goal: 3 </Typography>
+                  <Item>Goal Progress: 1</Item>
+                  <Button onClick={() => handleUpdateGoal()} variant="contained" size="small" startIcon={<AddTaskIcon />} >Update Goal</Button>
+                  <Button onClick={() => handleRemoveGoal()} variant="outlined" size="small" startIcon={<DeleteIcon />} >Remove Goal</Button>
+                </Grid>
+                <Grid item xs={4}>
+                <Typography>New Recipe - Goal: 3 </Typography>
+                  <Item>Goal Progress: 2</Item>
+                  <Box sx={sxButtonBox}>
+                  <Button onClick={() => handleUpdateGoal()} variant="contained" size="small" startIcon={<AddTaskIcon />} >Update Goal</Button>
+                  <Button onClick={() => handleRemoveGoal()} variant="outlined" size="small" startIcon={<DeleteIcon />}>Remove Goal</Button>
+                  </Box>
+                </Grid>
+                <Grid item xs={4}>
+                <Typography>New Combos Created - Goal: 3 </Typography>
+                  <Item>Goal Progress: 3</Item>
+                  <Button onClick={() => handleUpdateGoal()} variant="contained" size="small" startIcon={<AddTaskIcon />} >Update Goal</Button>
+                  <Button onClick={() => handleRemoveGoal()} variant="outlined" size="small" startIcon={<DeleteIcon />}>Remove Goal</Button>
+                </Grid>
               </Grid>
-              <Grid item xs={4}>
-                <Item>Goal Progress: 2</Item>
-                <Button onClick={() => handleRemoveGoal()} variant="outlined" size="small" startIcon={<DeleteIcon />}>Remove Goal</Button>
-              </Grid>
-              <Grid item xs={4}>
-                <Item>Goal Progress: 3</Item>
-                <Button onClick={() => handleRemoveGoal()} variant="outlined" size="small" startIcon={<DeleteIcon />}>Remove Goal</Button>
-              </Grid>
-            </Grid>
             </Box>
-            {/* <Box sx={sxGoals}>Goal Progress</Box> */}
-            {/* <Button onClick={() => handleRemoveGoal()} variant="contained">Remove Goal</Button> */}
             <Box sx={4}>Metrics</Box>
             <Box sx={sxGoals}>
-            <Grid container spacing={2}>
-              <Grid item xs={4}>
-                <Item>Metrics/Weekly</Item>
+              <Grid container spacing={2}>
+                <Grid item xs={4}>
+                  <Item>Metrics/Weekly</Item>
+                </Grid>
+                <Grid item xs={4}>
+                  <Item>Metrics/Monthly</Item>
+                </Grid>
+                <Grid item xs={4}>
+                  <Item>Metrics/Total</Item>
+                </Grid>
               </Grid>
-              <Grid item xs={4}>
-                <Item>Metrics/Monthly</Item>
-              </Grid>
-              <Grid item xs={4}>
-                <Item>Metrics/Total</Item>
-              </Grid>
-            </Grid>
             </Box>
           </Box>
           <Box sx={sxBottomSection}>
-            <Typography>Bottom Section: Saved Flavor Combos</Typography>
+            <Typography>Saved Flavor Combos</Typography>
             <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
               {Array.from(Array(12)).map((_, index) => (
                 <Grid item xs={2} sm={4} md={4} key={index}>
@@ -205,5 +227,4 @@ function Profile() {
   );
 }
 
-// this allows us to use <App /> in index.js
 export default Profile;
