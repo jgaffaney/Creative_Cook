@@ -115,7 +115,10 @@ function App() {
             >
               {user.is_admin ?
                 // If the user is an admin allow access to this route, otherwise take them to the home page
-                <EditIngredients />
+                <>
+                  <AddIngredients />
+                  <EditIngredients />
+                </>
                 :
                 // if not admin, redirect to the home page
                 <Redirect to="/home" />
