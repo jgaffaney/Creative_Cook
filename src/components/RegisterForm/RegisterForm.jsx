@@ -15,13 +15,13 @@ import Select from '@mui/material/Select';
 
 function RegisterForm() {
   const [username, setUsername] = useState('');
-  const [displayName, setDisplayName] = useState('');
-  const [bio, setBio] = useState('');
-  const [pic, setPic] = useState('');
-  const [age, setAge] = useState('');
-  const [gender, setGender] = useState('');
-  const [familySize, setFamilySize] = useState('');
-  const [maritalStatus, setMaritalStatus] = useState('');
+  const [displayName, setDisplayName] = useState(null);
+  const [bio, setBio] = useState(null);
+  const [pic, setPic] = useState(null);
+  const [age, setAge] = useState(null);
+  const [gender, setGender] = useState(null);
+  const [familySize, setFamilySize] = useState(null);
+  const [maritalStatus, setMaritalStatus] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [password, setPassword] = useState('');
 
@@ -71,9 +71,7 @@ function RegisterForm() {
 
   return (
 
-    // <form className="formPanel" onSubmit={registerUser}>
-
-    <form sx={sxFormControl} required onSubmit={registerUser}>
+    <form sx={sxFormControl} onSubmit={registerUser}>
       <Box sx={sxFormContent}>
 
         <h2>Register New User</h2>
