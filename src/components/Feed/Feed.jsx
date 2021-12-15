@@ -14,12 +14,14 @@ function Feed() {
   const recipes = useSelector(store => store.recipe);
   const dispatch = useDispatch();
   const ingredients = useSelector(store => store.ingredients);
+  const userCombos = useSelector(store => store.userCombos);
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_INGREDIENTS' })
+    dispatch({ type: 'FETCH_INGREDIENTS' });
+    dispatch({ type: 'FETCH_COMBOS' });
   }, [])
 
-  const [newChallenge, setNewChallenge] = useState({ description: '', })
+  const [newChallenge, setNewChallenge] = useState({ type: 'Combo of the Week', description: '', combo_id: ''})
 
   //Sets newChallenge local state to the passed in input
   const handlePropertyChange = (event, property) => {
