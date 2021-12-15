@@ -18,7 +18,7 @@ function Home() {
 
   const dispatch = useDispatch();
   const history = useHistory();
-  // const user = useSelector((store) => store.user);
+  const user = useSelector((store) => store.user);
   const ingredients = useSelector((store) => store.ingredients);
   // const userProfile = useSelector((store) => store.userProfile);
   // const feed = useSelector((store) => store.feed);
@@ -119,9 +119,9 @@ function Home() {
           {/* user profile section */}
           <Box>
             <Typography>Side Section: User Profile</Typography>
-            <CardMedia sx={sxPhotoBox} component="img" image={'/images/Gordon.jpeg'} />
-            <Typography>User Name</Typography>
-            <Typography>User Bio goes here it will be kinda long but maybe it's a bit longer of a description of the person? </Typography>
+            <CardMedia sx={sxPhotoBox} component="img" image={user.pic} />
+            <Typography>{user.username}</Typography>
+            <Typography>{user.bio}</Typography>
           </Box>
           <br />
 
