@@ -102,13 +102,14 @@ export default function EditIngredients() {
   }
 
   const [searchText, setSearchText] = useState('');
-  const [rows, setRows] = useState(data.rows);
+  const [rows, setRows] = useState([]);
   // const [searchedValue, setSearchedValue] = useState(' ');
+
 
   const requestSearch = (searchValue) => {
     setSearchText(searchValue);
     const searchRegex = new RegExp(escapeRegExp(searchValue), 'i');
-    const filteredRows = data.rows.filter((row) => {
+    const filteredRows = ingredients.filter((row) => {
       return Object.keys(row).some((field) => {
         return searchRegex.test(row[field]);
       });
@@ -118,8 +119,12 @@ export default function EditIngredients() {
 
   useEffect(() => {
     dispatch({ type: 'FETCH_INGREDIENTS' })
-    setRows(data.rows);
+
   }, []);
+
+  useEffect(() => {
+    setRows(ingredients)
+  }, [ingredients])
 
   // console.log('Demo Data: ', data);
 
