@@ -9,11 +9,20 @@ function* fetchCombos() {
     } catch (err) {
         console.log('GET ERROR IN COMBO SAGA', err);
     }
-};
+} // end fetchCombos
+
+function* saveCombo(action) {
+    try {
+       yield axios.post(`/api/combos`, action.payload)
+    } catch (error) {
+        console.log('error in saveCombo', error);
+    }
+} // end saveCombo
 
 function* comboSaga() {
     yield takeLatest('FETCH_COMBOS', fetchCombos);
-} 
+    yield takeLatest('SAVE_NEW_COMBO', saveCombo)
+} // end comboSaga
 
 
 export default comboSaga;
