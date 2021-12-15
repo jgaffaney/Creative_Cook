@@ -85,6 +85,26 @@ export default function EditIngredients() {
   const dispatch = useDispatch();
 
   // dispatch({type: 'FETCH_INGREDIENTS'});
+  const editIngredient = (ingredient) => {
+    console.log('Edit clicked with: ', ingredient);
+    
+  }
+
+  const renderEditButton = (params) => {
+    return (
+            <Button
+                variant="contained"
+                color="primary"
+                size="small"
+                style={{ marginLeft: 16 }}
+                onClick={() => {
+                  editIngredient(JSON.stringify(params.row.id))
+                }}
+            >
+                Edit
+            </Button>
+    )
+  }
 
   const data = {
     columns: [
