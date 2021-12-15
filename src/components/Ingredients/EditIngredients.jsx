@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 import {
   DataGrid,
   GridToolbarDensitySelector,
@@ -108,6 +109,11 @@ export default function EditIngredients() {
 
   const data = {
     columns: [
+      {field: 'edit',
+        headerName: '',
+        renderCell: renderEditButton,
+        disableClickEventBubbling: true
+      },
       { field: 'id', hide: true },
       { field: 'name', headerName: 'Name' },
       { field: 'description', headerName: 'Description' },
