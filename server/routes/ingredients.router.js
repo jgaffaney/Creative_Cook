@@ -6,7 +6,8 @@ const router = express.Router();
 router.get('/', (req, res) => {
     console.log('in ingredients GET');
     const queryText = `
-    SELECT * FROM ingredients;
+    SELECT * FROM ingredients
+    ORDER BY lower(name);
     `
     pool.query(queryText)
         .then(response => {
@@ -36,5 +37,24 @@ router.post('/', (req, res) => {
             res.sendStatus(500);
         })
 });
+
+router.put('/', (req, res) => {
+    console.log('in ingredients POST with: ', req.body);
+    const field = req.body.field
+    const queryText = `
+    UPDATE ingredients
+    SET ${field} = $1
+    WHERE id = $2
+    RETURNING id;
+    `
+    values = [req.body.value, req.body.id]
+    pool.query(queryText, values)
+        .then(response => {
+            res.send(response)
+        }).catch(err=> {
+            console.log('Error on PUT ingredients: ', err);
+            res.sendStatus(500);
+        })
+})
 
 module.exports = router;
