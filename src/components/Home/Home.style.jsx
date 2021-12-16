@@ -3,6 +3,7 @@
 // --- HOME PAGE STYLES --- // 
 
 
+
 // CONTAINER that centers everything on this page
 export const sxHomePageContainer = {
     // border: '1px solid red',
@@ -19,6 +20,7 @@ export const sxPageContent = {
     height: '100%',
     m: 2
 }
+
 
 
 
@@ -60,7 +62,7 @@ export const sxPhotoBox = {
 
 // RIGHT COLUMN holds the top and bottom sections 
 export const sxRightColumn = {
-    border: '1px solid blue',
+    // border: '1px solid blue',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -71,15 +73,18 @@ export const sxRightColumn = {
 
 
 
+
+
 // TOP SECTION holds the flavor combo tool
 export const sxTopSection = {
-    border: '1px solid lightblue',
+    border: '1px solid blue',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
+    // justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    height: 200,
+    height: 300,
+
 }
 
 // SEARCH CONTAINER holds text input and the search button
@@ -95,6 +100,7 @@ export const sxSearchContainer = {
 export const sxSearchText = {
     width: 300,
     m: 2,
+    
 }
 
 

@@ -12,6 +12,8 @@ import CardMedia from '@mui/material/CardMedia';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import { fontSize } from '@mui/system';
+import Autocomplete from '@mui/material/Autocomplete';
+
 
 // --- STYLES --- // 
 import {
@@ -52,29 +54,30 @@ function Home() {
         console.log('CLICKED on handleSearch');
     }
 
-    
+
 
     // --- SEARCH --- // 
 
-    // const ingredients = useSelector(store => store.ingredients);
-    // const dispatch = useDispatch();
-
-    // const [searchText, setSearchText] = useState('');
-    // const [rows, setRows] = useState([]);
+    const [searchText, setSearchText] = useState('');
 
     // search function for the first ingredient
     // first cleans up search string
     // then filters ingredients and set local state
-    // const requestSearch = (searchValue) => {
-    //     setSearchText(searchValue);
-    //     const searchRegex = new RegExp(escapeRegExp(searchValue), 'i');
-    //     const filteredRows = ingredients.filter((row) => {
-    //         return Object.keys(row).some((field) => {
-    //             return searchRegex.test(row[field]);
-    //         });
-    //     });
-    //     setRows(filteredRows);
-    // };
+
+    const requestSearch = (searchValue) => {
+
+        setSearchText(searchValue);
+
+        // const searchRegex = new RegExp(escapeRegExp(searchValue), 'i');
+
+        // const filteredRows = ingredients.filter((row) => {
+
+        //     return Object.keys(row).some((field) => {
+
+        //         return searchRegex.test(row[field]);
+        //     });
+        // });
+    };
 
     // updates ingredient on a reducer change
     // useEffect(() => {
@@ -123,18 +126,48 @@ function Home() {
                 <Box sx={sxRightColumn}>
 
                     <Box sx={sxTopSection}>
-                        <Typography><h2>Top Section: Create Flavor Combo</h2></Typography>
+                        <Typography><h2>Find Your First Ingredient</h2></Typography>
                         <Box sx={sxSearchContainer}>
-                            <TextField sx={sxSearchText}
+                            {/* <TextField sx={sxSearchText}
+                                type="search"
+                                autoComplete="off"
                                 id="outlined-basic"
                                 required
                                 variant="outlined"
-                                label="Search for an ingredient"
+                                label="Search ingredients"
                                 onChange={(event) => requestSearch(event.target.value)}
                                 clearSearch={() => requestSearch('')}
                             // value={username}
                             // onChange={(event) => setUsername(event.target.value)}
+                            /> */}
+
+                            <Autocomplete
+                                freeSolo
+                                id="free-solo-2-demo"
+                                disableClearable
+                                options={ingredients.map(item => item.name)}
+                                renderInput={(params) => (
+                                    <TextField sx={sxSearchText}
+                                        {...params}
+                                        type="search"
+                                        autoComplete="off"
+                                        id="outlined-basic"
+                                        required
+                                        variant="outlined"
+                                        label="Search ingredients"
+                                        onChange={(event) => requestSearch(event.target.value)}
+                                        clearSearch={() => requestSearch('')}
+
+                                        InputProps={{
+                                            ...params.InputProps,
+                                            type: 'search',
+                                        }}
+                                    />
+                                )}
                             />
+
+
+
                             <Button onClick={() => handleSearch()} variant="contained">search</Button>
                         </Box>
                     </Box>
