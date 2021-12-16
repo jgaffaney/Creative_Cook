@@ -4,9 +4,14 @@ import { put, takeLatest } from 'redux-saga/effects';
 
 function* fetchRecipes(action){
     console.log('in fetchRecipes action.payload is:', action.payload);
+    // we know we will always have 2 ingredients, so assigning them here
     let firstIngredient = action.payload[0].name;
     let secondIngredient = action.payload[1].name;
-    let thirdIngredient = action.payload[2].name;
+    // third ingredient is declared but not assigned
+    let thirdIngredient;
+    // if there is a 3rd ingredient, assign it. If not make it an empty string.
+    (action.payload[2] ? thirdIngredient = action.payload[2].name : thirdIngredient = '')
+
     console.log('firstIngredient is:', firstIngredient);
     console.log('secondIngredient is:', secondIngredient);
     console.log('thirdIngredient is:', thirdIngredient);

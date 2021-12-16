@@ -9,6 +9,7 @@ const axios = require('axios');
 router.get('/', (req, res) => {
   // GET route code here
   // destructuring the params into the first, second, and 3rd ingredients
+  console.log('req.query:', req.query);
   const { first, second, third } = req.query;
   // creating a string using 3 ingredients for get request
   let searchString = `${first}, ${second}, ${third}`;
