@@ -14,6 +14,7 @@ function* fetchCombos() {
 function* saveCombo(action) {
     try {
        yield axios.post(`/api/combos`, action.payload)
+       yield put({ type: 'FETCH_COMBOS' });
     } catch (error) {
         console.log('error in saveCombo', error);
     }
