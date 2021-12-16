@@ -2,9 +2,17 @@ import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
 
-function* fetchRecipes(){
+function* fetchRecipes(action){
+    console.log('in fetchRecipes action.payload is:', action.payload);
+    let firstIngredient = action.payload[0].name;
+    let secondIngredient = action.payload[1].name;
+    let thirdIngredient = action.payload[2].name;
+    console.log('firstIngredient is:', firstIngredient);
+    console.log('secondIngredient is:', secondIngredient);
+    console.log('thirdIngredient is:', thirdIngredient);
     try {
-        const response = yield axios.get('/api/recipes')
+        // sending the name of all 3 ingredients over in params
+        const response = yield axios.get(`/api/recipes?first=${firstIngredient}&second=${secondIngredient}&third=${thirdIngredient}`)
         yield put({ type: 'SET_RECIPES', payload: response.data })
         console.log('response.data', response.data);
     } catch (error) {

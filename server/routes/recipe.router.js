@@ -8,11 +8,13 @@ const axios = require('axios');
  */
 router.get('/', (req, res) => {
   // GET route code here
-  console.log('app_key', process.env.app_key);
-  console.log('app_id', process.env.app_id);
+  // destructuring the params into the first, second, and 3rd ingredients
+  const { first, second, third } = req.query;
+  // creating a string using 3 ingredients for get request
+  let searchString = `${first}, ${second}, ${third}`;
+  console.log('searchString is', searchString);
   
-  
-  axios.get(`https://api.edamam.com/api/recipes/v2?app_key=${process.env.APP_KEY}&app_id=${process.env.APP_ID}&type=public&q=chicken`)
+  axios.get(`https://api.edamam.com/api/recipes/v2?app_key=${process.env.APP_KEY}&app_id=${process.env.APP_ID}&type=public&q=${searchString}`)
     .then(response => {
         console.log('response is', response);
         res.send(response.data);

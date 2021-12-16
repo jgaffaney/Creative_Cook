@@ -7,7 +7,6 @@ import RecipeList from '../RecipeList/RecipeList';
 function Combo() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
   const user = useSelector((store) => store.user);
-  const recipes = useSelector(store => store.recipe);
   const dispatch = useDispatch();
   const ingredients = useSelector(store => store.ingredients);
 
