@@ -4,6 +4,7 @@
   "private": true,
   "proxy": "http://localhost:5000",
   "dependencies": {
+    "@adobe/redux-saga-promise": "^1.1.1",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "@material/banner": "^13.0.0",
@@ -17,6 +18,7 @@
     "cookie-session": "^2.0.0-rc.1",
     "dotenv": "^8.6.0",
     "express": "^4.17.1",
+    "fs": "^0.0.1-security",
     "luxon": "^2.2.0",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
