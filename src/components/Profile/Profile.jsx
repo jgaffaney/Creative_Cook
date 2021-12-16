@@ -121,15 +121,9 @@ function Profile() {
     height: 250,
   }
 
-  // const sxGoalsLeft = {
-  //   border: '1px solid green',
-  //   display: 'flex',
-  //   flexDirection: 'column',
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  //   width: '50%',
-  //   height: 250,
-  // }
+  let userNewIngredientGoals = 3;
+  let userNewRecipeGoals = 3;
+  let userNewComboGoals = 3;
 
   function handleUpdateGoal() {
     console.log('update goal');
@@ -160,7 +154,7 @@ function Profile() {
               <LogOutButton />
             </Box>
             <Box sx={sxTopRightSection}>
-              <Typography>{user.bio}</Typography>
+              <Typography fontSize={24}>{user.bio}</Typography>
               <Typography>{user.age}</Typography>
             </Box>
           </Box>
@@ -176,13 +170,13 @@ function Profile() {
             {/* <Box sx={sxGoals}> */}
               <Grid container spacing={2} alignItems="stretch">
                 <Grid item xs={4}>
-                <Typography>New Ingredients - Goal: 3 </Typography>
+                <Typography>New Ingredients - Goal: {userNewIngredientGoals} </Typography>
                   <Item>Goal Progress: 1</Item>
                   <Button onClick={() => handleUpdateGoal()} variant="contained" size="small" startIcon={<AddTaskIcon />} >Update</Button>
                   <Button onClick={() => handleRemoveGoal()} variant="outlined" size="small" startIcon={<DeleteIcon />} >Remove</Button>
                 </Grid>
                 <Grid item xs={4}>
-                <Typography>New Recipe - Goal: 3 </Typography>
+                <Typography>New Recipe - Goal: {userNewRecipeGoals} </Typography>
                   <Item>Goal Progress: 2</Item>
                   {/* <Box sx={sxButtonBox}> */}
                   <Button onClick={() => handleUpdateGoal()} variant="contained" size="small" startIcon={<AddTaskIcon />} >Update</Button>
@@ -190,7 +184,7 @@ function Profile() {
                   {/* </Box> */}
                 </Grid>
                 <Grid item xs={4}>
-                <Typography>New Combos Created - Goal: 3 </Typography>
+                <Typography>New Combos Created - Goal: {userNewComboGoals} </Typography>
                   <Item>Goal Progress: 3</Item>
                   <Button onClick={() => handleUpdateGoal()} variant="contained" size="small" startIcon={<AddTaskIcon />} >Update</Button>
                   <Button onClick={() => handleRemoveGoal()} variant="outlined" size="small" startIcon={<DeleteIcon />}>Remove</Button>
