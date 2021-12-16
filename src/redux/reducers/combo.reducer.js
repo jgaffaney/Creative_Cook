@@ -15,4 +15,3 @@ const comboSelect = (state = [], action) => {
 } // end ingredientSelect
 
 export default comboSelect;
-
