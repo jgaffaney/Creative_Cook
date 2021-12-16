@@ -102,18 +102,17 @@ function Home() {
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    height: 300,
+    height: 200,
   }
 
   // FEED CONTAINER holds the actual content / combo cards 
   const sxFeedContainer = {
     border: '1px solid red',
-    display: 'flex',
-    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     width: '90%',
-    height: 250,
+    height: 300,
+    overflow: 'auto'
   }
 
 
@@ -187,10 +186,7 @@ function Home() {
                   }
                 }
 
-
                 ingredientFilter(ingredients)
-                console.log('ing id\'s', IngArray);
-                console.log('feed ing', feedContentIngredients);
 
                 return (
                   <Grid
@@ -198,7 +194,6 @@ function Home() {
                     textAlign="center"
                     alignItems="center"
                     justifyContent="center"
-                    style={{ minHeight: '10vh' }}
                     key={content.id}
                   >
                     <Paper sx={{width: '15cm', m: 2}}>
