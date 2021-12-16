@@ -15,7 +15,7 @@ import { fontSize } from '@mui/system';
 import Autocomplete from '@mui/material/Autocomplete';
 
 
-// --- STYLES --- // 
+// --- MUI sx STYLES --- // 
 import {
     sxHomePageContainer,
     sxPageContent,
@@ -36,12 +36,12 @@ function Home() {
 
     const dispatch = useDispatch();
     const history = useHistory();
+
+    const [searchText, setSearchText] = useState('');
+
     const user = useSelector((store) => store.user);
     const ingredients = useSelector((store) => store.ingredients);
-    // const userProfile = useSelector((store) => store.userProfile);
-    // const feed = useSelector((store) => store.feed);
     const feedContent = useSelector((store) => store.challenge)
-    // const combos = useSelector((store) => store.combo)
 
     useEffect(() => {
         dispatch({ type: 'FETCH_CHALLENGE' });
@@ -50,42 +50,51 @@ function Home() {
     }, []);
 
 
-    const handleSearch = () => {
+    const handleSearch = (searchText) => {
         console.log('CLICKED on handleSearch');
+        console.log('this is the searchText', searchText);
+
+        const searchedIngredientOne = ingredients.filter(ingredient => ingredient.name === searchText)
+        console.log('--- searchedIngredientOne:', searchedIngredientOne);
+
+        // put ingredient into the reducer
+        dispatch({ type: 'SET_COMBO_INGREDIENT', payload: searchedIngredientOne[0]})
+
+        // push user to /combo
+        history.push('/combo')
     }
 
 
 
     // --- SEARCH --- // 
 
-    const [searchText, setSearchText] = useState('');
+
 
     // search function for the first ingredient
     // first cleans up search string
     // then filters ingredients and set local state
 
-    const requestSearch = (searchValue) => {
+    // const requestSearch = (searchValue) => {
 
-        setSearchText(searchValue);
+    //     setSearchText(searchValue);
 
-        // const searchRegex = new RegExp(escapeRegExp(searchValue), 'i');
+    //     const searchRegex = new RegExp(escapeRegExp(searchValue), 'i');
 
-        // const filteredRows = ingredients.filter((row) => {
+    //     const filteredRows = ingredients.filter((row) => {
 
-        //     return Object.keys(row).some((field) => {
+    //         return Object.keys(row).some((field) => {
 
-        //         return searchRegex.test(row[field]);
-        //     });
-        // });
-    };
+    //             return searchRegex.test(row[field]);
+    //         });
+    //     });
+    // };
 
     // updates ingredient on a reducer change
     // useEffect(() => {
     //     setRows(ingredients)
     // }, [ingredients])
 
-
-
+    console.log('homePage ingredient list', ingredients);
 
     return (
         <Box sx={sxHomePageContainer}>
@@ -99,7 +108,7 @@ function Home() {
                         {/* <Typography>Side Section: User Profile</Typography> */}
                         <CardMedia sx={sxPhotoBox} component="img" image={user.pic} />
                         <Typography sx={sxCenterText}><h4>{user.display_name}</h4></Typography>
-                        <Typography><p>{user.bio}</p></Typography>
+                        {/* <Typography><p>{user.bio}</p></Typography> */}
                     </Box>
                     <br />
 
@@ -124,56 +133,55 @@ function Home() {
 
                 {/* SEARCH  in the top section */}
                 <Box sx={sxRightColumn}>
-
                     <Box sx={sxTopSection}>
-                        <Typography><h2>Find Your First Ingredient</h2></Typography>
+
+                        <Typography><h3>Find Your First Ingredient</h3></Typography>
+
                         <Box sx={sxSearchContainer}>
-                            {/* <TextField sx={sxSearchText}
-                                type="search"
-                                autoComplete="off"
-                                id="outlined-basic"
-                                required
-                                variant="outlined"
-                                label="Search ingredients"
-                                onChange={(event) => requestSearch(event.target.value)}
-                                clearSearch={() => requestSearch('')}
-                            // value={username}
-                            // onChange={(event) => setUsername(event.target.value)}
-                            /> */}
 
                             <Autocomplete
                                 freeSolo
-                                id="free-solo-2-demo"
+                                required
+                                size="small"
                                 disableClearable
-                                options={ingredients.map(item => item.name)}
+                                options={ingredients.map(item => (item.name))}
+
+                                // selectOnFocus
+                                // clearOnBlur
+                                // onChange={() => setSearchStatus(!searchStatus)}
+                                // open={searchStatus}
+                                // getOptionLabel={(option) => option.name}
+                                // getOptionLabel={item => item.name}
+                                // value={option}
+                                onChange={(event, value) => setSearchText(value)}
+
                                 renderInput={(params) => (
                                     <TextField sx={sxSearchText}
                                         {...params}
                                         type="search"
                                         autoComplete="off"
-                                        id="outlined-basic"
-                                        required
                                         variant="outlined"
                                         label="Search ingredients"
-                                        onChange={(event) => requestSearch(event.target.value)}
-                                        clearSearch={() => requestSearch('')}
+                                        value={searchText}
 
-                                        InputProps={{
-                                            ...params.InputProps,
-                                            type: 'search',
-                                        }}
+                                    // id="outlined-basic"
+                                    // clearSearch={() => setSearchText('')}
+                                    // onSubmit ={() => setSearchText('')}
+
+                                    // InputProps={{
+                                    //     ...params.InputProps,
+                                    //     type: 'search',
+                                    // }}
                                     />
                                 )}
                             />
+                            <Button onClick={() => handleSearch(searchText)} variant="contained">search</Button>
 
-
-
-                            <Button onClick={() => handleSearch()} variant="contained">search</Button>
                         </Box>
                     </Box>
 
                     <Box sx={sxBottomSection}>
-                        <Typography>Bottom Section: Curated Feed</Typography>
+                        <Typography><h3>Featured Combos</h3></Typography>
                         <Box sx={sxFeedContainer}>
                             {feedContent.map((content) => {
                                 let feedContentIngredients = [];

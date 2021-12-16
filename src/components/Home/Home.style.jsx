@@ -83,7 +83,7 @@ export const sxTopSection = {
     // justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    height: 300,
+    height: 220,
 
 }
 

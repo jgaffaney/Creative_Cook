@@ -15,7 +15,7 @@ function Combo() {
   }, [])
 
   return (
-    <div  className="container">
+    <div className="container">
       <h2>Welcome To The Combo Page!</h2>
 
       {/* combo selector */}
