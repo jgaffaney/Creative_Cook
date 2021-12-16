@@ -35,6 +35,7 @@ function Feed() {
   const addNewChallenge = (event) => {
     event.preventDefault();
     dispatch({ type: 'ADD_CHALLENGE', payload: newChallenge });
+    setNewChallenge({ type: 'Combo of the Week', description: '', combo_id: '' })
     setOpen(true);
   };
 
