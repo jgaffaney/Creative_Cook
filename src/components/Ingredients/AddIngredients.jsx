@@ -120,7 +120,7 @@ function AddIngredients() {
                     <TextField 
                         id="season-input" 
                         select
-                        value=''
+                        defaultValue=''
                         label="Season" 
                         variant="outlined"
                         onChange={(event) => handleChange(event, 'season')}
@@ -148,7 +148,7 @@ function AddIngredients() {
                     <TextField 
                         id="type-input" 
                         select
-                        value=''
+                        defaultValue=''
                         label="Type" 
                         variant="outlined"
                         onChange={(event) => handleChange(event, 'type')}

@@ -12,6 +12,9 @@ import {
 import ClearIcon from '@mui/icons-material/Clear';
 import SearchIcon from '@mui/icons-material/Search';
 import { useDispatch, useSelector } from 'react-redux';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
+import editGridData from './myAction';
 
 
 // cleans up search string
@@ -91,91 +94,117 @@ export default function EditIngredients() {
 
   const [searchText, setSearchText] = useState('');
   const [rows, setRows] = useState([]);
+  const [snackbar, setSnackbar] = useState(null);
+
+  const handleCloseSnackbar = () => setSnackbar(null);
 
   // called when edit button clicked
   // will open popover window for editing
   const editIngredient = (ingredient) => {
     console.log('Edit clicked with: ', ingredient);
-    
+
   }
 
   // creates the Edit button for each row in the data grid
   const renderEditButton = (params) => {
     return (
-            <Button
-                variant="contained"
-                color="primary"
-                size="small"
-                style={{ marginLeft: 16 }}
-                onClick={() => {
-                  editIngredient(JSON.stringify(params.row.id))
-                }}
-            >
-                Edit
-            </Button>
+      <Button
+        variant="contained"
+        color="primary"
+        size="small"
+        style={{ marginLeft: 16 }}
+        onClick={() => {
+          editIngredient(JSON.stringify(params.row.id))
+        }}
+      >
+        Delete
+      </Button>
     )
   }
 
-  // an array for the column headers, including the edit button for every row
-  const columns = [
-      {field: 'edit',
-        headerName: '',
-        renderCell: renderEditButton,
-        disableClickEventBubbling: true
-      },
-      { field: 'id', hide: true },
-      { field: 'name', headerName: 'Name' },
-      { field: 'description', headerName: 'Description' },
-      { field: 'pic', headerName: 'Pic' },
-      { field: 'taste', headerName: 'Taste' },
-      { field: 'season', headerName: 'Season' },
-      { field: 'weight', headerName: 'Weight' },
-      { field: 'volume', headerName: 'Volume' },
-      { field: 'type', headerName: 'Type' },
-    ];
+  async function handleCellEditCommit(params) {
+    try {
+      console.log('In the try of handleCellEditCommit with: ', { id: params.id, [params.field]: params.value });
+      const response = await dispatch(editGridData({ id: params.id, field: params.field, value: params.value }))
+      setSnackbar({ children: 'Ingredient successfully edited', severity: 'success' });
+      setRows((prev) =>
+        prev.map((row) => (row.id === params.id ? { ...row, ...response } : row)),
+      );
+    } catch (error) {
+      setSnackbar({ children: 'Error while saving user', severity: 'error' });
+      // Restore the row in case of error
+      setRows((prev) => [...prev]);
+    }
+  }
 
-  // search function for the data grid
-  // first cleans up search string
-  // filters ingredients and set local state
-  const requestSearch = (searchValue) => {
-    setSearchText(searchValue);
-    const searchRegex = new RegExp(escapeRegExp(searchValue), 'i');
-    const filteredRows = ingredients.filter((row) => {
-      return Object.keys(row).some((field) => {
-        return searchRegex.test(row[field]);
-      });
+// an array for the column headers, including the edit button for every row
+const columns = [
+  {
+    field: 'edit',
+    headerName: '',
+    renderCell: renderEditButton,
+    disableClickEventBubbling: true,
+    editable: true
+  },
+  { field: 'id', hide: true, editable: true },
+  { field: 'name', headerName: 'Name', editable: true },
+  { field: 'description', headerName: 'Description', editable: true },
+  { field: 'pic', headerName: 'Pic', editable: true },
+  { field: 'taste', headerName: 'Taste', editable: true },
+  { field: 'season', headerName: 'Season', editable: true },
+  { field: 'weight', headerName: 'Weight', editable: true },
+  { field: 'volume', headerName: 'Volume', editable: true },
+  { field: 'type', headerName: 'Type', editable: true },
+];
+
+// search function for the data grid
+// first cleans up search string
+// filters ingredients and set local state
+const requestSearch = (searchValue) => {
+  setSearchText(searchValue);
+  const searchRegex = new RegExp(escapeRegExp(searchValue), 'i');
+  const filteredRows = ingredients.filter((row) => {
+    return Object.keys(row).some((field) => {
+      return searchRegex.test(row[field]);
     });
-      setRows(filteredRows);
-  };
+  });
+  setRows(filteredRows);
+};
 
-  // updates ingredients
-  useEffect(() => {
-    dispatch({ type: 'FETCH_INGREDIENTS' })
+// updates ingredients
+useEffect(() => {
+  dispatch({ type: 'FETCH_INGREDIENTS' })
 
-  }, []);
+}, []);
 
-  // updates ingredient on a reducer change
-  useEffect(() => {
-    setRows(ingredients)
-  }, [ingredients])
+// updates ingredient on a reducer change
+useEffect(() => {
+  setRows(ingredients)
+}, [ingredients])
 
-  // console.log('Demo Data: ', data);
+// console.log('Demo Data: ', data);
 
-  return (
-    <Box sx={{ height: 600, width: 1 }}>
-      {/* {rows && ( */}
-        <DataGrid
-          components={{ Toolbar: QuickSearchToolbar }}
-          rows={rows}
-          columns={columns}
-          componentsProps={{
-            toolbar: {
-              value: searchText,
-              onChange: (event) => requestSearch(event.target.value),
-              clearSearch: () => requestSearch(''),
-            },
-          }}
-        />
-    </Box>
-  );
-}
+return (
+  <Box sx={{ height: 600, width: 1 }}>
+    {/* {rows && ( */}
+    <DataGrid
+      components={{ Toolbar: QuickSearchToolbar }}
+      rows={rows}
+      columns={columns}
+      onCellEditCommit={handleCellEditCommit}
+      componentsProps={{
+        toolbar: {
+          value: searchText,
+          onChange: (event) => requestSearch(event.target.value),
+          clearSearch: () => requestSearch(''),
+        },
+      }}
+    />
+    {!!snackbar && (
+      <Snackbar open onClose={handleCloseSnackbar} autoHideDuration={3000}>
+        <Alert {...snackbar} onClose={handleCloseSnackbar} />
+      </Snackbar>
+    )}
+  </Box>
+)
+};

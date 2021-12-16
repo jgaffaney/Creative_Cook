@@ -18,7 +18,8 @@ function* fetchRecipes(action){
     try {
         // sending the name of all 3 ingredients over in params
         const response = yield axios.get(`/api/recipes?first=${firstIngredient}&second=${secondIngredient}&third=${thirdIngredient}`)
-        yield put({ type: 'SET_RECIPES', payload: response.data })
+        // console.log('response.data.hits is !!! ', response.data.hits);
+        yield put({ type: 'SET_RECIPES', payload: response.data.hits })
         console.log('response.data', response.data);
     } catch (error) {
         console.log('err in fetchRecipes', error);

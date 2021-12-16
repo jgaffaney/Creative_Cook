@@ -1,6 +1,7 @@
 import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger';
+import { promiseMiddleware } from '@adobe/redux-saga-promise';
 
 import rootReducer from './reducers/_root.reducer'; // imports ./redux/reducers/index.js
 import rootSaga from './sagas/_root.saga'; // imports ./redux/sagas/index.js
@@ -11,8 +12,8 @@ const sagaMiddleware = createSagaMiddleware();
 // we don't want a whole ton of console logs in our production code
 // logger will only be added to your project if your in development mode
 const middlewareList = process.env.NODE_ENV === 'development' ?
-  [sagaMiddleware, logger] :
-  [sagaMiddleware];
+  [promiseMiddleware, sagaMiddleware, logger] :
+  [promiseMiddleware, sagaMiddleware];
 
 const store = createStore(
   // tells the saga middleware to use the rootReducer
