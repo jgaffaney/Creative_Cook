@@ -12,7 +12,6 @@ import CardMedia from '@mui/material/CardMedia';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import { fontSize } from '@mui/system';
-import Autocomplete from '@mui/material/Autocomplete';
 
 
 // --- MUI sx STYLES --- // 
@@ -25,21 +24,18 @@ import {
     sxPhotoBox,
     sxRightColumn,
     sxTopSection,
-    sxSearchContainer,
-    sxSearchText,
     sxBottomSection,
     sxFeedContainer,
     sxContentPaper,
     sxPhotoIngredient,
 } from './Home.style';
+import IngredientAutocomplete from '../IngredientAutocomplete/IngredientAutocomplete';
 
 
 function Home() {
 
     const dispatch = useDispatch();
     const history = useHistory();
-
-    const [searchText, setSearchText] = useState('');
 
     const user = useSelector((store) => store.user);
     const ingredients = useSelector((store) => store.ingredients);
@@ -52,19 +48,6 @@ function Home() {
     }, []);
 
 
-    const handleSearch = (searchText) => {
-        console.log('CLICKED on handleSearch');
-        console.log('this is the searchText', searchText);
-
-        const searchedIngredientOne = ingredients.filter(ingredient => ingredient.name === searchText)
-        console.log('--- searchedIngredientOne:', searchedIngredientOne);
-
-        // put ingredient into the reducer
-        dispatch({ type: 'SET_COMBO_INGREDIENT', payload: searchedIngredientOne[0] })
-
-        // push user to /combo
-        history.push('/combo')
-    }
 
     console.log('homePage ingredient list', ingredients);
 
@@ -109,30 +92,7 @@ function Home() {
 
                         <Typography><h3>Find Your First Ingredient</h3></Typography>
 
-                        <Box sx={sxSearchContainer}>
-
-                            <Autocomplete
-                                freeSolo
-                                required
-                                size="small"
-                                disableClearable
-                                options={ingredients.map(item => (item.name))}
-                                onChange={(event, value) => setSearchText(value)}
-
-                                renderInput={(params) => (
-                                    <TextField sx={sxSearchText}
-                                        {...params}
-                                        type="search"
-                                        autoComplete="off"
-                                        variant="outlined"
-                                        label="Search ingredients"
-                                        value={searchText}
-                                    />
-                                )}
-                            />
-                            <Button onClick={() => handleSearch(searchText)} variant="contained">search</Button>
-
-                        </Box>
+                            <IngredientAutocomplete />
                     </Box>
 
                     <Box sx={sxBottomSection}>
