@@ -97,6 +97,57 @@ export default function EditIngredients() {
   const [rows, setRows] = useState([]);
   const [snackbar, setSnackbar] = useState(null);
 
+  const seasons = [
+    {
+        value: 'Spring',
+        label: 'Spring'
+    },
+    {
+        value: 'Summer',
+        label: 'Summer'
+    },
+    {
+        value: 'Autumn',
+        label: 'Autumn'
+    },
+    {
+        value: 'Winter',
+        label: 'Winter'
+    }
+]
+
+const foodType = [
+  {
+      value: 'Protein: Air',
+      label: 'Protein: Air'
+  },
+  {
+      value: 'Protein: Land',
+      label: 'Protein: Land'
+  },
+  {
+      value: 'Protein: Sea',
+      label: 'Protein: Sea'
+  },
+  {
+      value: 'Vegetable',
+      label: 'Vegetable'
+  },
+  {
+      value: 'Fruit',
+      label: 'Fruit'
+  },
+  {
+      value: 'Dairy',
+      label: 'Dairy'
+  },
+  {
+      value: 'Fat',
+      label: 'Fat'
+  }
+]
+
+
   const handleCloseSnackbar = () => setSnackbar(null);
 
   // called when edit button clicked
@@ -149,13 +200,13 @@ export default function EditIngredients() {
     },
     { field: 'id', hide: true, editable: true },
     { field: 'name', headerName: 'Name', editable: true },
-    { field: 'description', headerName: 'Description', editable: true },
+    { field: 'description', headerName: 'Description', editable: true, flex: true, resizable: true },
     { field: 'pic', headerName: 'Pic', editable: true },
     { field: 'taste', headerName: 'Taste', editable: true },
-    { field: 'season', headerName: 'Season', editable: true },
+    { field: 'season', headerName: 'Season', editable: true, valueOptions: seasons, type: 'singleSelect' },
     { field: 'weight', headerName: 'Weight', editable: true },
     { field: 'volume', headerName: 'Volume', editable: true },
-    { field: 'type', headerName: 'Type', editable: true },
+    { field: 'type', headerName: 'Type', editable: true, valueOptions: foodType, type: 'singleSelect' },
   ];
 
   // search function for the data grid
