@@ -17,7 +17,7 @@ export const sxPageContent = {
     display: 'flex',
     flexDirection: 'row',
     width: '80%',
-    height: '100%',
+    height: 'auto',
     m: 2
 }
 
@@ -27,7 +27,7 @@ export const sxPageContent = {
 
 // LEFT COLUMN holds all of the profile / metrics / goal info
 export const sxLeftColumn = {
-    border: '1px solid green',
+    // border: '1px solid green',
     display: 'flex',
     flexDirection: 'column',
     width: '25%',
@@ -40,11 +40,6 @@ export const sxProfileContainer = {
     justifyContent: 'center',
 }
 
-// Centers Text
-export const sxCenterText = {
-    textAlign: 'center',
-}
-
 // PROFILE PHOTOS properties being held in the left column
 export const sxPhotoBox = {
     // border: '1px solid lightgray',
@@ -55,6 +50,11 @@ export const sxPhotoBox = {
     borderRadius: '50%',
     mx: 'auto',
 };
+
+// Centers Text
+export const sxCenterText = {
+    textAlign: 'center',
+}
 
 
 
@@ -77,13 +77,13 @@ export const sxRightColumn = {
 
 // TOP SECTION holds the flavor combo tool
 export const sxTopSection = {
-    border: '1px solid blue',
+    // border: '1px solid blue',
     display: 'flex',
     flexDirection: 'column',
     // justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    height: 220,
+    height: 'auto',
 
 }
 
@@ -108,7 +108,7 @@ export const sxSearchText = {
 
 // BOTTOM SECTION holds the feed content
 export const sxBottomSection = {
-    border: '1px solid lightblue',
+    // border: '1px solid lightblue',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -119,7 +119,7 @@ export const sxBottomSection = {
 
 // FEED CONTAINER holds the actual content / combo cards 
 export const sxFeedContainer = {
-    border: '1px solid red',
+    // border: '1px solid red',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
