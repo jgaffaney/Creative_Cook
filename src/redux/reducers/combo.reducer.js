@@ -7,7 +7,7 @@ const combo = (state = [], action) => {
             } else {
                 return state;
             }
-        case 'CLEAR_COMBO':
+        case 'CLEAR_COMBO_AND_RECIPE':
             return [];
         default:
             return state;

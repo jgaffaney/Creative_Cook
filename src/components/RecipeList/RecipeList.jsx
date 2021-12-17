@@ -39,6 +39,7 @@ const sxRecipeCard = {
     height: 450,
     // overflow: 'scroll',
     // margin: 2,
+    backgroundColor: '#fffdfa',
 }
 
 const sxRecipeImage = {
@@ -56,18 +57,15 @@ const sxCardActions = {
 }
 
 const sxBox = {
-    height: '200px',
+    height: '300px',
     overflow: 'scroll',
+    // paddingBottom: 10,
     // pb: 10
 }
 
 const sxCardTitle = {
     textAlign: 'center',
 }
-
-
-
-
 
 function RecipeList() {
     const recipes = useSelector(store => store.recipes)
@@ -117,8 +115,7 @@ function RecipeList() {
                                         gutterBottom variant="h5" component="div">
                                             {recipe.recipe.label}
                                         </Typography>
-                                        <Box paddingBottom={10}
-                                        sx={sxBox}>
+                                        <Box sx={sxBox}>
                                             <Typography 
                                             mt={-2}
                                             // overflow="scroll"
