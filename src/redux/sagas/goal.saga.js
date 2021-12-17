@@ -21,21 +21,19 @@ function* fetchGoals() {
 //     }
 // };
 
-// function* editIngredient(action) {
-//     console.log('In editIngredient Saga with: ', action)
-//     try {
-//         yield axios.put('/api/ingredients', action.payload);
-//         const { seconds, value } = action.payload
-//         yield delay(seconds * 1000)
-//         yield call(resolvePromiseAction, action, value)
-//         yield put({type: 'FETCH_INGREDIENTS'})
-//     } catch (error) {
-//         console.log('Error on editIngredient: ', error);
-//     }
-
+function* updateGoal(action) {
+    console.log('In updateGoal Saga with: ', action)
+    try {
+        yield axios.put(`/api/goal/${id}`, action.payload);
+        yield put({type: 'FETCH_GOAL'})
+    } catch (error) {
+        console.log('Error on updateGoal: ', error);
+    }
+};
 
 function* goalSaga() {
     yield takeLatest('FETCH_GOAL', fetchGoals);
+    yield takeLatest('UPDATE_GOAL', updateGoal);
 } 
 
 
