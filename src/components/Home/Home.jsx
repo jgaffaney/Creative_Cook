@@ -12,7 +12,6 @@ import CardMedia from '@mui/material/CardMedia';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import { fontSize } from '@mui/system';
-import Autocomplete from '@mui/material/Autocomplete';
 
 
 // --- MUI sx STYLES --- // 
@@ -25,15 +24,14 @@ import {
     sxPhotoBox,
     sxRightColumn,
     sxTopSection,
-    sxSearchContainer,
-    sxSearchText,
     sxBottomSection,
     sxFeedContainer,
     sxContentPaper,
-    sxPhotoIngredientContainer,
+    sxSearchContainer,
     sxPhotoIngredient,
     sxRemoveButton,
 } from './Home.style';
+import IngredientAutocomplete from '../IngredientAutocomplete/IngredientAutocomplete';
 
 
 function Home() {
@@ -41,18 +39,10 @@ function Home() {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const [searchText, setSearchText] = useState('');
-
     const user = useSelector((store) => store.user);
     const ingredients = useSelector((store) => store.ingredients);
-    const feedContent = useSelector((store) => store.challenge)
-
-    useEffect(() => {
-        dispatch({ type: 'FETCH_CHALLENGE' });
-        dispatch({ type: 'FETCH_COMBOS' });
-        dispatch({ type: 'FETCH_INGREDIENTS' });
-    }, []);
-
+    const feedContent = useSelector((store) => store.challenge);
+    const searchText = useSelector(store=>store.ingredientSearch);
 
     const handleSearch = (searchText) => {
         console.log('CLICKED on handleSearch');
@@ -61,10 +51,10 @@ function Home() {
         const searchedIngredientOne = ingredients.filter(ingredient => ingredient.name === searchText)
         console.log('--- searchedIngredientOne:', searchedIngredientOne);
 
+        // ensures user only moves to combo page if they have selected from the list (Must Select From The List!)
         if(searchedIngredientOne.length === 0){
-           return alert('Make a selection from the list')
-        }
-
+            return alert('Make a selection from the list')
+         }
         // put ingredient into the reducer
         dispatch({ type: 'SET_COMBO_INGREDIENT', payload: searchedIngredientOne[0] })
 
@@ -72,24 +62,16 @@ function Home() {
         history.push('/combo')
     }
 
-    const handleComboClick = () => {
 
-        console.log('clicked on handleComboClick');
-
-        // populate combo tool with the built profile so that user can search for a recipe
-
-        // push user to /combo
-        // history.push('/combo')
-    }
-
-    const handleRemove = () => {
-        
-        console.log('clicked on handleRemove');
-    }
+    useEffect(() => {
+        dispatch({ type: 'FETCH_CHALLENGE' });
+        dispatch({ type: 'FETCH_COMBOS' });
+        dispatch({ type: 'FETCH_INGREDIENTS' });
+    }, []);
 
 
-    console.log('this is the feedContent', feedContent);
-    console.log('this is the ingredients', ingredients);
+
+    console.log('homePage ingredient list', ingredients);
 
     return (
         <Box sx={sxHomePageContainer}>
@@ -131,29 +113,13 @@ function Home() {
                     <Box sx={sxTopSection}>
 
                         <Typography><h3>Find Your First Ingredient</h3></Typography>
-
                         <Box sx={sxSearchContainer}>
-                            <Autocomplete
-                                freeSolo
-                                required
-                                size="small"
-                                disableClearable
-                                options={ingredients.map(item => (item.name))}
-                                onChange={(event, value) => setSearchText(value)}
 
-                                renderInput={(params) => (
-                                    <TextField sx={sxSearchText}
-                                        {...params}
-                                        type="search"
-                                        autoComplete="off"
-                                        variant="outlined"
-                                        label="Search ingredients"
-                                        value={searchText}
-                                    />
-                                )}
-                            />
+                            <IngredientAutocomplete />
                             <Button onClick={() => handleSearch(searchText)} variant="contained">search</Button>
                         </Box>
+
+
                     </Box>
 
                     <Box sx={sxBottomSection}>
