@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import { useDispatch,useSelector } from 'react-redux';
 import { styled } from '@mui/material/styles';
@@ -20,13 +20,16 @@ function Profile() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
   const user = useSelector((store) => store.user);
   const userCombos = useSelector((store) => store.userCombos);
+  const goal = useSelector((store) => store.goal);
   const dispatch = useDispatch();
+
+  const [newGoal, setNewGoal] = useState(5);
 
   let comboProgress = userCombos.length;
 
   useEffect(() => {
     dispatch({ type: 'FETCH_COMBOS' })
-    // progressChecker();
+    dispatch({ type: 'FETCH_GOAL' })
   }, [])
 
   //box stylings
@@ -133,23 +136,26 @@ function Profile() {
   //Default User Goals
   let userNewIngredientGoals = 5;
   let userNewRecipeGoals = 3;
-  let userNewComboGoals = 3;
+  // let userNewComboGoals = 5;
 
   //User Goal Progress
   let userIngredientGoalProgress = 1;
   let userRecipeGoalProgress = 2;
   let userComboGoalProgress = 3;
 
-function progressChecker() {
-  if (comboProgress >= userNewComboGoals) {
-    userNewComboGoals+=5;
-    console.log(comboProgress, userNewComboGoals);
-  }
-  return userNewComboGoals;
-  };
+  let goalCount = goal;
 
-  progressChecker();
-  progressChecker();
+// function progressChecker()
+  if (comboProgress >= goalCount) {
+    goalCount+=5
+    setNewGoal(goalCount)
+    dispatch({ type: 'UPDATE_GOAL', payload: newGoal })
+    console.log(comboProgress);
+  }
+//  /
+
+  // progressChecker();
+ 
 
   //functions to update goals
   function handleUpdateIngredientGoal() {
@@ -237,8 +243,8 @@ function progressChecker() {
                   {/* </Box> */}
                 </Grid>
                 <Grid item xs={4}>
-                <Typography>New Combos - Goal: {userNewComboGoals} </Typography>
-                  <Item>Goal Progress: {comboProgress}/{userNewComboGoals}</Item>
+                <Typography>New Combos - Goal: {goal} </Typography>
+                  <Item>Goal Progress: {comboProgress}/{goal}</Item>
                   <Button onClick={() => handleUpdateComboGoal()} variant="contained" size="small" startIcon={<AddTaskIcon />} >Update</Button>
                   <Button onClick={() => handleComboReset()} variant="outlined" size="small" startIcon={<RefreshIcon />}>Reset</Button>
                 </Grid>
