@@ -1,5 +1,6 @@
-import { FormControl, Box, TextField, MenuItem, Button } from "@mui/material";
-import { useEffect, useState } from 'react';
+import { FormControl, Box, TextField, 
+            MenuItem, Button, Grid } from "@mui/material";
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 function AddIngredients() {
@@ -21,12 +22,12 @@ function AddIngredients() {
 
     // handle season change
     const handleChange = (event, string) => {
-        setNewIngredient({...newIngredient, [string]: event.target.value});
+        setNewIngredient({ ...newIngredient, [string]: event.target.value });
     };
 
     const handleSubmit = () => {
         console.log('Submit clicked');
-        dispatch({type: 'POST_INGREDIENT', payload: newIngredient})
+        dispatch({ type: 'POST_INGREDIENT', payload: newIngredient })
     };
 
     // for seasons dropdown
@@ -81,89 +82,109 @@ function AddIngredients() {
         }
     ]
 
-    
 
-    return(
+
+    return (
         <div>
             <h2>Add New Ingredient</h2>
             <Box>
                 <FormControl>
-                    <TextField 
-                        id="name-input" 
-                        label="Ingredient Name" 
-                        variant="outlined"
-                        value={newIngredient.name}
-                        onChange={(event) => handleChange(event, 'name')}>
-                    </TextField>
-                    <TextField 
-                        id="description-input" 
-                        label="Description" 
-                        multiline
-                        variant="outlined"
-                        value={newIngredient.description}
-                        onChange={(event) => handleChange(event, 'description')}>
-                    </TextField>
-                    <TextField 
-                        id="pic-input" 
-                        label="Picture URL" 
-                        variant="outlined"
-                        value={newIngredient.pic}
-                        onChange={(event) => handleChange(event, 'pic')}>
-                        </TextField>
-                    <TextField 
-                        id="taste-input" 
-                        label="Taste" 
-                        variant="outlined"
-                        value={newIngredient.taste}
-                        onChange={(event) => handleChange(event, 'taste')}>
-                    </TextField>
-                    <TextField 
-                        id="season-input" 
-                        select
-                        defaultValue=''
-                        label="Season" 
-                        variant="outlined"
-                        onChange={(event) => handleChange(event, 'season')}
-                        >
-                            {seasons.map((option) => (
-                                <MenuItem key={option.value} value={option.value}>
-                                    {option.label}
-                                </MenuItem>
-                            ))}
-                        </TextField>
-                    <TextField 
-                        id="weight-input" 
-                        label="Weight" 
-                        variant="outlined"
-                        value={newIngredient.weight}
-                        onChange={(event) => handleChange(event, 'weight')}>
-                        </TextField>
-                    <TextField 
-                        id="volume-input" 
-                        label="Volume" 
-                        variant="outlined"
-                        value={newIngredient.volume}
-                        onChange={(event) => handleChange(event, 'volume')}>
-                    </TextField>
-                    <TextField 
-                        id="type-input" 
-                        select
-                        defaultValue=''
-                        label="Type" 
-                        variant="outlined"
-                        onChange={(event) => handleChange(event, 'type')}
-                        >
-                            {foodType.map((option) => (
-                                <MenuItem key={option.value} value={option.value}>
-                                    {option.label}
-                                </MenuItem>
-                            ))}
-                        </TextField>
-                        <Button variant='outlined' size='small' onClick={handleSubmit}>Submit</Button>
+                    <Grid container spacing={1} sx={{marginLeft: '10%', marginRight:'10%'}}>
+                        <Grid item xs={12} md={6}>
+                            <TextField
+                                id="name-input"
+                                label="Ingredient Name"
+                                variant="outlined"
+                                value={newIngredient.name}
+                                onChange={(event) => handleChange(event, 'name')}>
+                            </TextField>
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <TextField
+                                id="season-input"
+                                select
+                                defaultValue=''
+                                label="Season"
+                                variant="outlined"
+                                onChange={(event) => handleChange(event, 'season')}
+                            >
+                                {seasons.map((option) => (
+                                    <MenuItem key={option.value} value={option.value}>
+                                        {option.label}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <TextField
+                                id="description-input"
+                                label="Description"
+                                multiline
+                                variant="outlined"
+                                value={newIngredient.description}
+                                onChange={(event) => handleChange(event, 'description')}>
+                            </TextField>
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <TextField
+                                id="weight-input"
+                                label="Weight"
+                                variant="outlined"
+                                value={newIngredient.weight}
+                                onChange={(event) => handleChange(event, 'weight')}>
+                            </TextField>
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <TextField
+                                id="pic-input"
+                                label="Picture URL"
+                                variant="outlined"
+                                value={newIngredient.pic}
+                                onChange={(event) => handleChange(event, 'pic')}>
+                            </TextField>
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <TextField
+                                id="volume-input"
+                                label="Volume"
+                                variant="outlined"
+                                value={newIngredient.volume}
+                                onChange={(event) => handleChange(event, 'volume')}>
+                            </TextField>
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <TextField
+                                id="taste-input"
+                                label="Taste"
+                                variant="outlined"
+                                value={newIngredient.taste}
+                                onChange={(event) => handleChange(event, 'taste')}>
+                            </TextField>
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <TextField
+                                id="type-input"
+                                select
+                                defaultValue=''
+                                label="Type"
+                                variant="outlined"
+                                onChange={(event) => handleChange(event, 'type')}
+                            >
+                                {foodType.map((option) => (
+                                    <MenuItem key={option.value} value={option.value}>
+                                        {option.label}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+                        </Grid>
+                    </Grid>
+
+
+                    <Button variant='outlined' size='small' sx={{width: '250px', m: 'auto'}} onClick={handleSubmit}>Submit</Button>
                 </FormControl>
             </Box>
         </div>
-        
+
 
     )
 }
