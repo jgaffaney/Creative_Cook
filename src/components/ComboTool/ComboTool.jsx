@@ -17,7 +17,7 @@ function ComboTool() {
 
     const user = useSelector((store) => store.user);
     const dispatch = useDispatch();
-    const combo = useSelector(store => store.comboSelect);
+    const combo = useSelector(store => store.combo);
 
     // clear/save button container
     const sxButtonContainer = {
@@ -112,12 +112,20 @@ function ComboTool() {
 
                 {/* if combo tool has at least 2 ingredients, show save button */}
                 {combo.length >= 2 ?
-                    <Box>
-                        <Button
-                            variant="outlined"
-                            sx={sxButton}
-                            onClick={() => dispatch({ type: 'SAVE_NEW_COMBO', payload: combo })}>SAVE</Button>
-                    </Box>
+                    <>
+                        <Box>
+                            <Button
+                                variant="outlined"
+                                sx={sxButton}
+                                onClick={() => dispatch({ type: 'FETCH_RECIPES', payload: combo })}>GET RECIPES</Button>
+                        </Box>
+                        <Box>
+                            <Button
+                                variant="outlined"
+                                sx={sxButton}
+                                onClick={() => dispatch({ type: 'SAVE_NEW_COMBO', payload: combo })}>SAVE</Button>
+                        </Box>
+                    </>
                     :
                     <p></p>}
             </Box>
