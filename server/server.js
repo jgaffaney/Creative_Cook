@@ -14,6 +14,7 @@ const challengeRouter = require('./routes/challenge.router');
 const ingredientRouter = require('./routes/ingredients.router');
 const recipeRouter = require('./routes/recipe.router');
 const comboRouter = require('./routes/combo.router');
+const goalRouter = require('./routes/goal.router');
 
 
 // Body parser middleware
@@ -33,6 +34,7 @@ app.use('/api/challenge', challengeRouter);
 app.use('/api/ingredients', ingredientRouter);
 app.use('/api/recipes', recipeRouter);
 app.use('/api/combos', comboRouter);
+app.use('/api/goal', goalRouter);
 
 
 // Serve static files

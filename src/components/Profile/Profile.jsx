@@ -12,6 +12,7 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import AddTaskIcon from '@mui/icons-material/AddTask';
 import DeleteIcon from '@mui/icons-material/Delete';
+import RefreshIcon from '@mui/icons-material/Refresh';
 
 
 
@@ -20,6 +21,8 @@ function Profile() {
   const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
 
+
+  //box stylings
   const sxHomePageContainer = {
     // border: '1px solid red',
     display: 'flex',
@@ -100,7 +103,6 @@ function Profile() {
     // m: 2
   }
 
-
   const sxBottomSection = {
     border: '1px solid black',
     display: 'flex',
@@ -121,13 +123,51 @@ function Profile() {
     height: 250,
   }
 
-  let userNewIngredientGoals = 3;
+  //Default User Goals
+  let userNewIngredientGoals = 5;
   let userNewRecipeGoals = 3;
   let userNewComboGoals = 3;
 
-  function handleUpdateGoal() {
+  //User Goal Progress
+  let userIngredientGoalProgress = 1;
+  let userRecipeGoalProgress = 2;
+  let userComboGoalProgress = 3;
+
+  //functions to update goals
+  function handleUpdateIngredientGoal() {
     console.log('update goal');
-    alert('update goal');
+    console.log(userIngredientGoalProgress);
+    userIngredientGoalProgress++;
+    // dispatch({type: 'UPDATE_INGREDIENT_GOAL', payload: userIngredientGoalProgress});
+  }
+
+  function handleUpdateRecipeGoal() {
+    console.log('update goal');
+    console.log(userRecipeGoalProgress);
+    userRecipeGoalProgress++;
+    // dispatch({type: 'UPDATE_RECIPE_GOAL', payload: userRecipeGoalProgress});
+  }
+  function handleUpdateComboGoal() {
+    console.log('update goal');
+    console.log(userComboGoalProgress);
+    userComboGoalProgress++;
+    // dispatch({type: 'UPDATE_COMBO_GOAL', payload: userComboGoalProgress});
+  }
+
+  //functions to reset goals
+  function handleIngredientReset()  {
+    console.log('reset');
+    userIngredientGoalProgress = 0;
+  }
+
+  function handleRecipeReset()  {
+    console.log('reset');
+    userRecipeGoalProgress = 0;
+  }
+
+  function handleComboReset()  {
+    console.log('reset');
+    userComboGoalProgress = 0;
   }
 
   const Item = styled(Paper)(({ theme }) => ({
@@ -148,7 +188,6 @@ function Profile() {
         <Box sx={sxRightColumn}>
           <Box sx={sxLeftColumn}>
             <Box sx={sxTopLeftSection}>
-             
               <CardMedia sx={sxPhotoBox} component="img" image={user.pic} />
               <Typography>{user.username}</Typography>
               <LogOutButton />
@@ -164,34 +203,34 @@ function Profile() {
 
               {/* <Button onClick={() => handleAddNewGoal()} variant="contained" size="small" startIcon={<AddTaskIcon />} >Add New Goal</Button> */}
             {/* </Stack> */}
-            <h3>Goal Progress</h3>
+            <Typography size={24}>Goal Progress</Typography>
             {/* <Box sx={sxGoals}>Goal Progress</Box> */}
 
             {/* <Box sx={sxGoals}> */}
               <Grid container spacing={2} alignItems="stretch">
                 <Grid item xs={4}>
                 <Typography>New Ingredients - Goal: {userNewIngredientGoals} </Typography>
-                  <Item>Goal Progress: 1</Item>
-                  <Button onClick={() => handleUpdateGoal()} variant="contained" size="small" startIcon={<AddTaskIcon />} >Update</Button>
-                  <Button onClick={() => handleRemoveGoal()} variant="outlined" size="small" startIcon={<DeleteIcon />} >Remove</Button>
+                  <Item>Goal Progress: {userIngredientGoalProgress}/{userNewIngredientGoals}</Item>
+                  <Button onClick={() => handleUpdateIngredientGoal()} variant="contained" size="small" startIcon={<AddTaskIcon />} >Update</Button>
+                  <Button onClick={() => handleIngredientReset()} variant="outlined" size="small" startIcon={<RefreshIcon />} >Reset</Button>
                 </Grid>
                 <Grid item xs={4}>
-                <Typography>New Recipe - Goal: {userNewRecipeGoals} </Typography>
-                  <Item>Goal Progress: 2</Item>
+                <Typography>New Recipes - Goal: {userNewRecipeGoals} </Typography>
+                  <Item>Goal Progress: {userRecipeGoalProgress}/{userNewRecipeGoals}</Item>
                   {/* <Box sx={sxButtonBox}> */}
-                  <Button onClick={() => handleUpdateGoal()} variant="contained" size="small" startIcon={<AddTaskIcon />} >Update</Button>
-                  <Button onClick={() => handleRemoveGoal()} variant="outlined" size="small" startIcon={<DeleteIcon />}>Remove</Button>
+                  <Button onClick={() => handleUpdateRecipeGoal()} variant="contained" size="small" startIcon={<AddTaskIcon />} >Update</Button>
+                  <Button onClick={() => handleRecipeReset()} variant="outlined" size="small" startIcon={<RefreshIcon />}>Reset</Button>
                   {/* </Box> */}
                 </Grid>
                 <Grid item xs={4}>
-                <Typography>New Combos Created - Goal: {userNewComboGoals} </Typography>
-                  <Item>Goal Progress: 3</Item>
-                  <Button onClick={() => handleUpdateGoal()} variant="contained" size="small" startIcon={<AddTaskIcon />} >Update</Button>
-                  <Button onClick={() => handleRemoveGoal()} variant="outlined" size="small" startIcon={<DeleteIcon />}>Remove</Button>
+                <Typography>New Combos - Goal: {userNewComboGoals} </Typography>
+                  <Item>Goal Progress: {userComboGoalProgress}/{userNewComboGoals}</Item>
+                  <Button onClick={() => handleUpdateComboGoal()} variant="contained" size="small" startIcon={<AddTaskIcon />} >Update</Button>
+                  <Button onClick={() => handleComboReset()} variant="outlined" size="small" startIcon={<RefreshIcon />}>Reset</Button>
                 </Grid>
               </Grid>
             {/* </Box> */}
-            <h3>Metrics</h3>
+            <Typography size={18}>Metrics</Typography>
             {/* <Box sx={4}>Metrics</Box> */}
             {/* <Box sx={sxGoals}> */}
               <Grid container spacing={2}>
@@ -208,7 +247,7 @@ function Profile() {
             {/* </Box> */}
           </Box>
           <Box sx={sxBottomSection}>
-            <h3>Saved Flavor Combos</h3>
+            <Typography size={18}>Saved Flavor Combos</Typography>
             {/* <Typography>Saved Flavor Combos</Typography> */}
             <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
               {Array.from(Array(12)).map((_, index) => (
