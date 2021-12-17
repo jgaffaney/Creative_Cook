@@ -22,6 +22,7 @@ import Collapse from '@mui/material/Collapse';
 import { styled } from '@mui/material/styles';
 import { useState } from "react";
 import RecipeListCard from "../RecipeListCard/RecipeListCard";
+import { useHistory } from "react-router-dom";
 
 
 const sxRecipeContainer = {
@@ -69,6 +70,7 @@ const sxCardTitle = {
 
 function RecipeList() {
     const recipes = useSelector(store => store.recipes)
+    const history = useHistory();
 
     // const [expanded, setExpanded] = useState(false);
 
@@ -105,7 +107,9 @@ function RecipeList() {
                                         alt={recipe.recipe.label}
                                     />
                                     <CardActions sx={sxCardActions}>
-                                        <Button size="small">Start Recipe</Button>
+                                        <Button 
+                                        onClick={() => window.open(`${recipe.recipe.url}`)}
+                                        size="small">Start Recipe</Button>
                                         <Button size="small">Save Recipe</Button>
                                     </CardActions>
                                     <CardContent>
