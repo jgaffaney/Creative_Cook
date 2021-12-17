@@ -19,8 +19,15 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 function Profile() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
   const user = useSelector((store) => store.user);
+  const userCombos = useSelector((store) => store.userCombos);
   const dispatch = useDispatch();
 
+  let comboProgress = userCombos.length;
+
+  useEffect(() => {
+    dispatch({ type: 'FETCH_COMBOS' })
+    // progressChecker();
+  }, [])
 
   //box stylings
   const sxHomePageContainer = {
@@ -133,6 +140,17 @@ function Profile() {
   let userRecipeGoalProgress = 2;
   let userComboGoalProgress = 3;
 
+function progressChecker() {
+  if (comboProgress >= userNewComboGoals) {
+    userNewComboGoals+=5;
+    console.log(comboProgress, userNewComboGoals);
+  }
+  return userNewComboGoals;
+  };
+
+  progressChecker();
+  progressChecker();
+
   //functions to update goals
   function handleUpdateIngredientGoal() {
     console.log('update goal');
@@ -177,10 +195,6 @@ function Profile() {
     color: theme.palette.text.secondary,
   }));
 
-  // useEffect(() => {
-  //   dispatch({ type: 'FETCH_USER' })
-  // }, [])
-
 
   return (
     <Box sx={sxHomePageContainer}>
@@ -224,7 +238,7 @@ function Profile() {
                 </Grid>
                 <Grid item xs={4}>
                 <Typography>New Combos - Goal: {userNewComboGoals} </Typography>
-                  <Item>Goal Progress: {userComboGoalProgress}/{userNewComboGoals}</Item>
+                  <Item>Goal Progress: {comboProgress}/{userNewComboGoals}</Item>
                   <Button onClick={() => handleUpdateComboGoal()} variant="contained" size="small" startIcon={<AddTaskIcon />} >Update</Button>
                   <Button onClick={() => handleComboReset()} variant="outlined" size="small" startIcon={<RefreshIcon />}>Reset</Button>
                 </Grid>
