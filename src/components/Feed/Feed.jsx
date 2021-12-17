@@ -44,64 +44,117 @@ function Feed() {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   });
 
-    const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
 
-    const handleClose = (event, reason) => {
-      if (reason === 'clickaway') {
-        return;
-      }
-
-      setOpen(false);
-    };
-
-    const sxFeaturedCombo = {
-      display: 'flex',
-      flexDirection: 'column',
-      mx: 'auto',
-      width: '90%',
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
     }
 
-    const sxMetrics = {
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      width: '90%',
-      mx: 'auto',
-      height: 80,
-    }
+    setOpen(false);
+  };
 
-    const Item = styled(Paper)(({ theme }) => ({
-      ...theme.typography.body2,
-      padding: theme.spacing(1),
-      textAlign: 'center',
-      color: theme.palette.text.secondary,
-    }));
+  const sxFeaturedCombo = {
+    display: 'flex',
+    flexDirection: 'column',
+    mx: 'auto',
+    width: '90%',
+  }
 
+  const sxMetrics = {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '90%',
+    mx: 'auto',
+    height: 80,
+  }
 
-    return (
-      <>
+  const sxFlavorCombos = {
+    border: '1px solid black',
+    // display: 'flex',
+    // flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: 200,
+    overflow: 'auto',
+    mb: 2
+  }
+
+  const Item = styled(Paper)(({ theme }) => ({
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  }));
+
+  console.log('Challenge', newChallenge);
+  return (
+    <>
+      <Box sx={sxMetrics}>
+        <Typography>App Wide User Metrics</Typography>
         <Box sx={sxMetrics}>
-          <Typography>App Wide User Metrics</Typography>
-          <Box sx={sxMetrics}>
-            <Grid container spacing={2}>
-              <Grid item xs={4}>
-                <Item>Top 5 Ingredients Used</Item>
-              </Grid>
-              <Grid item xs={4}>
-                <Item>% of Used Ingredients by Type</Item>
-              </Grid>
-              <Grid item xs={4}>
-                <Item>% of Users by Family Size</Item>
-              </Grid>
+          <Grid container spacing={2}>
+            <Grid item xs={4}>
+              <Item>Top 5 Ingredients Used</Item>
             </Grid>
-          </Box>
+            <Grid item xs={4}>
+              <Item>% of Used Ingredients by Type</Item>
+            </Grid>
+            <Grid item xs={4}>
+              <Item>% of Users by Family Size</Item>
+            </Grid>
+          </Grid>
         </Box>
+      </Box>
+      <br />
+      <Box sx={sxFeaturedCombo}>
+        <Typography sx={{ textAlign: "center" }}>Create Featured Combo</Typography>
+
+        {/* combo selector */}
+        <ComboTool />
+
+        {/* list of ingredients from DB */}
+        <ul>
+          {ingredients.map((ingredient) => {
+            return (
+              <li
+                key={ingredient.id}
+                value={ingredient}
+                onClick={() => dispatch({ type: 'SET_COMBO_INGREDIENT', payload: ingredient })}>{ingredient.name}</li>
+            )
+          })}
+        </ul>
         <br />
-        <Box sx={sxFeaturedCombo}>
-          <Typography sx={{ textAlign: "center" }}>Create Featured Combo</Typography>
 
+        <Typography sx={{ textAlign: "center" }}>Saved Flavor Combos</Typography>
+        <Box sx={sxFlavorCombos}>
+          <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+            {userCombos.map((combo) => {
 
+              return (
+                <Grid item xs={2} sm={4} md={4}>
+                  <Item
+                    key={combo.id}
+                    value={combo.id}
+                    onClick={(event) => handlePropertyChange(event, 'combo_id')}
+                  >
+                    <Typography>{combo.name}</Typography>
+                  </Item>
+                </Grid>
+              )
+            })}
+          </Grid>
+        </Box>
+        <Grid
+          container
+          spacing={0}
+          direction="row"
+          alignItems="center"
+          justifyContent="center"
+        >
           <TextField
             sx={{ mb: 2, width: '60%', mx: 'auto' }}
             id="outlined-basic"
@@ -111,43 +164,18 @@ function Feed() {
             value={newChallenge.description}
             onChange={(event) => handlePropertyChange(event, 'description')}
           />
-
-          {/* combo selector */}
-          <ComboTool />
-
-          {/* list of ingredients from DB */}
-          <ul>
-            {ingredients.map((ingredient) => {
-              return (
-                <li
-                  key={ingredient.id}
-                  value={ingredient}
-                  onClick={() => dispatch({ type: 'SET_COMBO_INGREDIENT', payload: ingredient })}>{ingredient.name}</li>
-              )
-            })}
-          </ul>
-          <br />
-          <ul>
-            {userCombos.map((combo) => {
-              return (
-                <li
-                  key={combo.id}
-                  value={combo.id}
-                  onClick={(event) => handlePropertyChange(event, 'combo_id')}>{combo.name}</li>
-              )
-            })}
-          </ul>
-          {/* <Button sx={{ width: 5 }} onClick={() => dispatch({ type: 'ADD_CHALLENGE', payload: newChallenge })} variant="contained">submit</Button> */}
           <Button sx={{ width: 5 }} onClick={addNewChallenge} variant="contained">submit</Button>
-          <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-          Combo Added to Feed!
-        </Alert>
-      </Snackbar>
-        </Box>
-      </>
-    );
-  }
+        </Grid>
+        {/* <Button sx={{ width: 5 }} onClick={() => dispatch({ type: 'ADD_CHALLENGE', payload: newChallenge })} variant="contained">submit</Button> */}
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+            Combo Added to Feed!
+          </Alert>
+        </Snackbar>
+      </Box>
+    </>
+  );
+}
 
-  // this allows us to use <App /> in index.js
-  export default Feed;
+// this allows us to use <App /> in index.js
+export default Feed;
