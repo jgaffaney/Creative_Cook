@@ -24,6 +24,7 @@ import Combo from '../Combo/Combo';
 import Profile from '../Profile/Profile';
 import EditIngredients from '../Ingredients/EditIngredients';
 import AddIngredients from '../Ingredients/AddIngredients';
+import PairingsTool from '../Ingredients/PairingsTool';
 import Feed from '../Feed/Feed';
 
 import Box from '@mui/material/Box';
@@ -63,7 +64,6 @@ function App() {
 
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
-    // dispatch({type: 'FETCH_INGREDIENTS'});
   }, [dispatch]);
 
   return (
@@ -118,6 +118,7 @@ function App() {
                 <>
                   <AddIngredients />
                   <EditIngredients />
+                  <PairingsTool />
                 </>
                 :
                 // if not admin, redirect to the home page
