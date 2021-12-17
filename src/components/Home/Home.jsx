@@ -29,6 +29,8 @@ import {
     sxSearchText,
     sxBottomSection,
     sxFeedContainer,
+    sxContentPaper,
+    sxPhotoIngredient,
 } from './Home.style';
 
 
@@ -58,41 +60,11 @@ function Home() {
         console.log('--- searchedIngredientOne:', searchedIngredientOne);
 
         // put ingredient into the reducer
-        dispatch({ type: 'SET_COMBO_INGREDIENT', payload: searchedIngredientOne[0]})
+        dispatch({ type: 'SET_COMBO_INGREDIENT', payload: searchedIngredientOne[0] })
 
         // push user to /combo
         history.push('/combo')
     }
-
-
-
-    // --- SEARCH --- // 
-
-
-
-    // search function for the first ingredient
-    // first cleans up search string
-    // then filters ingredients and set local state
-
-    // const requestSearch = (searchValue) => {
-
-    //     setSearchText(searchValue);
-
-    //     const searchRegex = new RegExp(escapeRegExp(searchValue), 'i');
-
-    //     const filteredRows = ingredients.filter((row) => {
-
-    //         return Object.keys(row).some((field) => {
-
-    //             return searchRegex.test(row[field]);
-    //         });
-    //     });
-    // };
-
-    // updates ingredient on a reducer change
-    // useEffect(() => {
-    //     setRows(ingredients)
-    // }, [ingredients])
 
     console.log('homePage ingredient list', ingredients);
 
@@ -145,14 +117,6 @@ function Home() {
                                 size="small"
                                 disableClearable
                                 options={ingredients.map(item => (item.name))}
-
-                                // selectOnFocus
-                                // clearOnBlur
-                                // onChange={() => setSearchStatus(!searchStatus)}
-                                // open={searchStatus}
-                                // getOptionLabel={(option) => option.name}
-                                // getOptionLabel={item => item.name}
-                                // value={option}
                                 onChange={(event, value) => setSearchText(value)}
 
                                 renderInput={(params) => (
@@ -163,15 +127,6 @@ function Home() {
                                         variant="outlined"
                                         label="Search ingredients"
                                         value={searchText}
-
-                                    // id="outlined-basic"
-                                    // clearSearch={() => setSearchText('')}
-                                    // onSubmit ={() => setSearchText('')}
-
-                                    // InputProps={{
-                                    //     ...params.InputProps,
-                                    //     type: 'search',
-                                    // }}
                                     />
                                 )}
                             />
@@ -213,17 +168,19 @@ function Home() {
 
                                 return (
                                     <Grid
+                                        key={content.id}
                                         container
                                         textAlign="center"
                                         alignItems="center"
                                         justifyContent="center"
                                         style={{ minHeight: '10vh' }}
-                                        key={content.id}
                                     >
-                                        <Paper sx={{ width: '15cm', m: 2 }}>
+                                        <Paper sx={sxContentPaper} elevation={3}>
                                             <Typography sx={{ fontSize: 25 }}>{content.name}</Typography>
+                                            {/* <CardMedia sx={sxPhotoIngredient} component="img" image={content.pic} /> */}
                                             <Typography>{content.description}</Typography>
                                             <Typography>{feedContentIngredients[0]?.name}, {feedContentIngredients[1]?.name}{feedContentIngredients[2] ? (', ' + feedContentIngredients[2]?.name) : ""}</Typography>
+                                            <Button>X</Button>
                                         </Paper>
                                     </Grid>
                                 )

@@ -83,7 +83,7 @@ export const sxTopSection = {
     // justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    height: 'auto',
+    height: '25vh',
 
 }
 
@@ -119,11 +119,28 @@ export const sxBottomSection = {
 
 // FEED CONTAINER holds the actual content / combo cards 
 export const sxFeedContainer = {
-    // border: '1px solid red',
+    border: '1px solid red',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     width: '90%',
-    height: 250,
+    height: 'auto',
+    gap: 2,
 }
+
+// CONTENT PAPER wraps the combo text and ingredient names
+export const sxContentPaper = {
+    // border: '1px solid red',
+    width: '100%', 
+}
+
+// INGREDIENT PHOTOS properties being held in the feed content card
+export const sxPhotoIngredient = {
+    // border: '1px solid lightgray',
+    width: 60,
+    height: 60,
+    boxShadow: 3,
+    borderRadius: '50%',
+    mx: 'auto',
+};
