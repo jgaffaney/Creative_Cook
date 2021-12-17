@@ -22,6 +22,7 @@ import Collapse from '@mui/material/Collapse';
 import { styled } from '@mui/material/styles';
 import { useState } from "react";
 import RecipeListCard from "../RecipeListCard/RecipeListCard";
+import { useHistory } from "react-router-dom";
 
 
 const sxRecipeContainer = {
@@ -39,6 +40,7 @@ const sxRecipeCard = {
     height: 450,
     // overflow: 'scroll',
     // margin: 2,
+    backgroundColor: '#fffdfa',
 }
 
 const sxRecipeImage = {
@@ -56,8 +58,9 @@ const sxCardActions = {
 }
 
 const sxBox = {
-    height: '200px',
+    height: '300px',
     overflow: 'scroll',
+    // paddingBottom: 10,
     // pb: 10
 }
 
@@ -65,12 +68,9 @@ const sxCardTitle = {
     textAlign: 'center',
 }
 
-
-
-
-
 function RecipeList() {
     const recipes = useSelector(store => store.recipes)
+    const history = useHistory();
 
     // const [expanded, setExpanded] = useState(false);
 
@@ -107,21 +107,22 @@ function RecipeList() {
                                         alt={recipe.recipe.label}
                                     />
                                     <CardActions sx={sxCardActions}>
-                                        <Button size="small">Start Recipe</Button>
+                                        <Button
+                                            onClick={() => window.open(`_${recipe.recipe.url}`.split(`_`)[1], `_blank`)}
+                                            size="small">Start Recipe</Button>
                                         <Button size="small">Save Recipe</Button>
                                     </CardActions>
                                     <CardContent>
-                                        <Typography 
-                                        sx={sxCardTitle}
-                                        mt={-3}
-                                        gutterBottom variant="h5" component="div">
+                                        <Typography
+                                            sx={sxCardTitle}
+                                            mt={-3}
+                                            gutterBottom variant="h5" component="div">
                                             {recipe.recipe.label}
                                         </Typography>
-                                        <Box paddingBottom={10}
-                                        sx={sxBox}>
-                                            <Typography 
-                                            mt={-2}
-                                            // overflow="scroll"
+                                        <Box sx={sxBox}>
+                                            <Typography
+                                                mt={-2}
+                                                // overflow="scroll"
                                                 variant="body2" color="text.secondary">
                                                 <>
                                                     {
@@ -135,12 +136,7 @@ function RecipeList() {
                                             </Typography>
                                         </Box>
                                     </CardContent>
-                                    {/* <CardActions sx={sxCardActions}>
-                                    <Button size="small">Start Recipe</Button>
-                                    <Button size="small">Save Recipe</Button>
-                                </CardActions> */}
                                 </Card>
-
 
                                 {/* COLLAPSABLE CARD BELOW */}
                                 {/* <RecipeListCard recipe={recipe}/> */}

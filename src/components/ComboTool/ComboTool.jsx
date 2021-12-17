@@ -105,7 +105,7 @@ function ComboTool() {
                         <Button
                             variant="outlined"
                             sx={sxButton}
-                            onClick={() => dispatch({ type: 'CLEAR_COMBO' })}>CLEAR</Button>
+                            onClick={() => dispatch({ type: 'CLEAR_COMBO_AND_RECIPE' })}>CLEAR</Button>
                     </Box>
                     :
                     <p></p>}
