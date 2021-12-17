@@ -28,6 +28,7 @@ import {
     sxFeedContainer,
     sxContentPaper,
     sxSearchContainer,
+    sxPhotoIngredientContainer,
     sxPhotoIngredient,
     sxRemoveButton,
 } from './Home.style';
@@ -60,6 +61,14 @@ function Home() {
 
         // push user to /combo
         history.push('/combo')
+    }
+
+    const handleComboClick = () => {
+        console.log('handleComboClick');
+    }
+
+    const handleRemove = () => {
+        console.log('handleRemove');
     }
 
 
