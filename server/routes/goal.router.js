@@ -28,15 +28,15 @@ router.post('/', (req, res) => {
   
 });
 
-router.put('/', (req, res) => {
+router.put('/:id', (req, res) => {
+    const id = req.params.id
     console.log('in goal PUT with: ', req.body);
-    const field = req.body.field
     const queryText = `
     UPDATE "user_metrics"
-    SET ("goal") = ($1)
+    SET "goal" = $1
     WHERE "id" = $2; 
     `
-    values = [req.body.goal, req.body.id]
+    values = [req.body.goal, id]
     pool.query(queryText, values)
         .then(response => {
             res.send(response)

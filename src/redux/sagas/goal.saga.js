@@ -21,6 +21,19 @@ function* fetchGoals() {
 //     }
 // };
 
+// function* editIngredient(action) {
+//     console.log('In editIngredient Saga with: ', action)
+//     try {
+//         yield axios.put('/api/ingredients', action.payload);
+//         const { seconds, value } = action.payload
+//         yield delay(seconds * 1000)
+//         yield call(resolvePromiseAction, action, value)
+//         yield put({type: 'FETCH_INGREDIENTS'})
+//     } catch (error) {
+//         console.log('Error on editIngredient: ', error);
+//     }
+
+
 function* goalSaga() {
     yield takeLatest('FETCH_GOAL', fetchGoals);
 } 
