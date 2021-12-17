@@ -135,6 +135,17 @@ export const sxContentPaper = {
     width: '100%', 
 }
 
+// INGREDIENT PHOTO CONTAINER holds all of the ingredient photos for featured the combo card
+export const sxPhotoIngredientContainer = {
+    border: '1px solid red',
+    display: 'flex',
+    justifyContent: 'center',
+    width: '60%',
+    mx: 'auto',
+    // gap: 2,
+
+}
+
 // INGREDIENT PHOTOS properties being held in the feed content card
 export const sxPhotoIngredient = {
     // border: '1px solid lightgray',

@@ -30,6 +30,7 @@ import {
     sxBottomSection,
     sxFeedContainer,
     sxContentPaper,
+    sxPhotoIngredientContainer,
     sxPhotoIngredient,
 } from './Home.style';
 
@@ -59,6 +60,10 @@ function Home() {
         const searchedIngredientOne = ingredients.filter(ingredient => ingredient.name === searchText)
         console.log('--- searchedIngredientOne:', searchedIngredientOne);
 
+        if(searchedIngredientOne.length === 0){
+           return alert('Make a selection from the list')
+        }
+
         // put ingredient into the reducer
         dispatch({ type: 'SET_COMBO_INGREDIENT', payload: searchedIngredientOne[0] })
 
@@ -66,7 +71,19 @@ function Home() {
         history.push('/combo')
     }
 
-    console.log('homePage ingredient list', ingredients);
+    const handleComboClick = () => {
+
+        console.log('clicked on handleComboClick');
+
+        // populate combo tool with the built profile so that user can search for a recipe
+
+        // push user to /combo
+        // history.push('/combo')
+    }
+
+
+    console.log('this is the feedContent', feedContent);
+    console.log('this is the ingredients', ingredients);
 
     return (
         <Box sx={sxHomePageContainer}>
@@ -110,7 +127,6 @@ function Home() {
                         <Typography><h3>Find Your First Ingredient</h3></Typography>
 
                         <Box sx={sxSearchContainer}>
-
                             <Autocomplete
                                 freeSolo
                                 required
@@ -131,14 +147,16 @@ function Home() {
                                 )}
                             />
                             <Button onClick={() => handleSearch(searchText)} variant="contained">search</Button>
-
                         </Box>
                     </Box>
 
                     <Box sx={sxBottomSection}>
+
                         <Typography><h3>Featured Combos</h3></Typography>
+
                         <Box sx={sxFeedContainer}>
                             {feedContent.map((content) => {
+                                console.log('this is the content', content);
                                 let feedContentIngredients = [];
                                 let IngArray = content.ingredient_list
                                 function ingredientFilter(ingredients) {
@@ -175,12 +193,18 @@ function Home() {
                                         justifyContent="center"
                                         style={{ minHeight: '10vh' }}
                                     >
-                                        <Paper sx={sxContentPaper} elevation={3}>
+                                        <Paper onClick={handleComboClick}
+                                            sx={sxContentPaper} elevation={3}>
+                                            <Box sx={sxPhotoIngredientContainer}>
+                                                <CardMedia sx={sxPhotoIngredient} component="img" image={content.pic} />
+                                                <CardMedia sx={sxPhotoIngredient} component="img" image={content.pic} />
+                                                <CardMedia sx={sxPhotoIngredient} component="img" image={content.pic} />
+                                            </Box>
                                             <Typography sx={{ fontSize: 25 }}>{content.name}</Typography>
-                                            {/* <CardMedia sx={sxPhotoIngredient} component="img" image={content.pic} /> */}
+
                                             <Typography>{content.description}</Typography>
                                             <Typography>{feedContentIngredients[0]?.name}, {feedContentIngredients[1]?.name}{feedContentIngredients[2] ? (', ' + feedContentIngredients[2]?.name) : ""}</Typography>
-                                            <Button>X</Button>
+                                            <Button>Remove Feed Item</Button>
                                         </Paper>
                                     </Grid>
                                 )
