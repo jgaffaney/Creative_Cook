@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 
 
 // --- MUI sx STYLES --- // 
-import { sxSearchContainer, sxSearchText } from '../Home/Home.style';
+import { sxSearchText } from '../Home/Home.style';
 
 const IngredientAutocomplete = () => {
 
@@ -13,26 +13,27 @@ const IngredientAutocomplete = () => {
     const history = useHistory();
 
     const ingredients = useSelector(store=>store.ingredients);
+    const searchText = useSelector(store=>store.ingredientSearch);
 
-    const [searchText, setSearchText] = useState('');
 
-    const handleSearch = (searchText) => {
-        console.log('CLICKED on handleSearch');
-        console.log('this is the searchText', searchText);
+    // const [searchText, setSearchText] = useState('');
 
-        const searchedIngredientOne = ingredients.filter(ingredient => ingredient.name === searchText)
-        console.log('--- searchedIngredientOne:', searchedIngredientOne);
+    // const handleSearch = (searchText) => {
+    //     console.log('CLICKED on handleSearch');
+    //     console.log('this is the searchText', searchText);
 
-        // put ingredient into the reducer
-        dispatch({ type: 'SET_COMBO_INGREDIENT', payload: searchedIngredientOne[0] })
+    //     const searchedIngredientOne = ingredients.filter(ingredient => ingredient.name === searchText)
+    //     console.log('--- searchedIngredientOne:', searchedIngredientOne);
 
-        // push user to /combo
-        history.push('/combo')
-    }
+    //     // put ingredient into the reducer
+    //     dispatch({ type: 'SET_COMBO_INGREDIENT', payload: searchedIngredientOne[0] })
+
+    //     // push user to /combo
+    //     history.push('/combo')
+    // }
 
 
     return(
-        <Box sx={sxSearchContainer}>
 
                             <Autocomplete
                                 freeSolo
@@ -40,7 +41,7 @@ const IngredientAutocomplete = () => {
                                 size="small"
                                 disableClearable
                                 options={ingredients.map(item => (item.name))}
-                                onChange={(event, value) => setSearchText(value)}
+                                onChange={(event, value) => dispatch({type: 'SET_INGREDIENT_SEARCH', payload: value})}
 
                                 renderInput={(params) => (
                                     <TextField sx={sxSearchText}
@@ -53,9 +54,6 @@ const IngredientAutocomplete = () => {
                                     />
                                 )}
                             />
-                            <Button onClick={() => handleSearch(searchText)} variant="contained">search</Button>
-
-                        </Box>
     )
 }
 

@@ -27,6 +27,7 @@ import {
     sxBottomSection,
     sxFeedContainer,
     sxContentPaper,
+    sxSearchContainer,
     sxPhotoIngredient,
 } from './Home.style';
 import IngredientAutocomplete from '../IngredientAutocomplete/IngredientAutocomplete';
@@ -39,7 +40,23 @@ function Home() {
 
     const user = useSelector((store) => store.user);
     const ingredients = useSelector((store) => store.ingredients);
-    const feedContent = useSelector((store) => store.challenge)
+    const feedContent = useSelector((store) => store.challenge);
+    const searchText = useSelector(store=>store.ingredientSearch);
+
+    const handleSearch = (searchText) => {
+        console.log('CLICKED on handleSearch');
+        console.log('this is the searchText', searchText);
+
+        const searchedIngredientOne = ingredients.filter(ingredient => ingredient.name === searchText)
+        console.log('--- searchedIngredientOne:', searchedIngredientOne);
+
+        // put ingredient into the reducer
+        dispatch({ type: 'SET_COMBO_INGREDIENT', payload: searchedIngredientOne[0] })
+
+        // push user to /combo
+        history.push('/combo')
+    }
+
 
     useEffect(() => {
         dispatch({ type: 'FETCH_CHALLENGE' });
@@ -91,8 +108,14 @@ function Home() {
                     <Box sx={sxTopSection}>
 
                         <Typography><h3>Find Your First Ingredient</h3></Typography>
+                        <Box sx={sxSearchContainer}>
 
                             <IngredientAutocomplete />
+                            <Button onClick={() => handleSearch(searchText)} variant="contained">search</Button>
+
+                        </Box>
+
+
                     </Box>
 
                     <Box sx={sxBottomSection}>

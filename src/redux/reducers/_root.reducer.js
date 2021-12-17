@@ -7,6 +7,7 @@ import recipes from './recipe.reducer';
 import userCombos from './user_combos.reducer';
 import pairings from './pairings.reducer';
 import combo from './combo.reducer';
+import ingredientSearch from './ingredientSearch.reducer';
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
   combo, // holds the selected ingredients while creating a flavor combo (3 ingredients)
   userCombos, // Holds the logged in user's combos
   pairings, // holds all the pairings available in the database-admin edit only
+  ingredientSearch, // holds search text for <IngredientAutocomplete> 
 });
 
 export default rootReducer;
