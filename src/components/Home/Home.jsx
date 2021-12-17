@@ -32,6 +32,7 @@ import {
     sxContentPaper,
     sxPhotoIngredientContainer,
     sxPhotoIngredient,
+    sxRemoveButton,
 } from './Home.style';
 
 
@@ -79,6 +80,11 @@ function Home() {
 
         // push user to /combo
         // history.push('/combo')
+    }
+
+    const handleRemove = () => {
+        
+        console.log('clicked on handleRemove');
     }
 
 
@@ -155,10 +161,12 @@ function Home() {
                         <Typography><h3>Featured Combos</h3></Typography>
 
                         <Box sx={sxFeedContainer}>
+
                             {feedContent.map((content) => {
                                 console.log('this is the content', content);
                                 let feedContentIngredients = [];
                                 let IngArray = content.ingredient_list
+
                                 function ingredientFilter(ingredients) {
                                     // for (let i = 0; i < ingredients.length; i++) {
                                     //   if (ingredients[i].id === IngArray[0]) {
@@ -181,8 +189,8 @@ function Home() {
 
 
                                 ingredientFilter(ingredients)
-                                console.log('ing id\'s', IngArray);
-                                console.log('feed ing', feedContentIngredients);
+                                console.log('IngArray id list:', IngArray);
+                                console.log('--- feedContentIngredients:', feedContentIngredients);
 
                                 return (
                                     <Grid
@@ -193,18 +201,19 @@ function Home() {
                                         justifyContent="center"
                                         style={{ minHeight: '10vh' }}
                                     >
-                                        <Paper onClick={handleComboClick}
-                                            sx={sxContentPaper} elevation={3}>
-                                            <Box sx={sxPhotoIngredientContainer}>
-                                                <CardMedia sx={sxPhotoIngredient} component="img" image={content.pic} />
-                                                <CardMedia sx={sxPhotoIngredient} component="img" image={content.pic} />
-                                                <CardMedia sx={sxPhotoIngredient} component="img" image={content.pic} />
+                                        <Paper sx={sxContentPaper} elevation={3}>
+                                            <Box onClick={handleComboClick} sx={sxPhotoIngredientContainer}>
+                                                <CardMedia sx={sxPhotoIngredient} component="img" image={feedContentIngredients[0]?.pic} />
+                                                <CardMedia sx={sxPhotoIngredient} component="img" image={feedContentIngredients[1]?.pic} />
+                                                <CardMedia sx={sxPhotoIngredient} component="img" image={feedContentIngredients[2]?.pic} />
                                             </Box>
-                                            <Typography sx={{ fontSize: 25 }}>{content.name}</Typography>
+                                            <Typography onClick={handleComboClick} sx={{ fontSize: 25 }}>{content.name}</Typography>
 
-                                            <Typography>{content.description}</Typography>
+                                            <Typography onClick={handleComboClick} >{content.description}</Typography>
                                             <Typography>{feedContentIngredients[0]?.name}, {feedContentIngredients[1]?.name}{feedContentIngredients[2] ? (', ' + feedContentIngredients[2]?.name) : ""}</Typography>
-                                            <Button>Remove Feed Item</Button>
+                                            <Button onClick={handleRemove}
+                                            sx={sxRemoveButton}variant="contained"
+                                            size="small">Remove</Button>
                                         </Paper>
                                     </Grid>
                                 )

@@ -154,4 +154,9 @@ export const sxPhotoIngredient = {
     boxShadow: 3,
     borderRadius: '50%',
     mx: 'auto',
+    mb: 1,
 };
+
+export const sxRemoveButton = {
+    
+}
