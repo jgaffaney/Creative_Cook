@@ -50,6 +50,10 @@ function Home() {
         const searchedIngredientOne = ingredients.filter(ingredient => ingredient.name === searchText)
         console.log('--- searchedIngredientOne:', searchedIngredientOne);
 
+        // ensures user only moves to combo page if they have selected from the list (Must Select From The List!)
+        if(searchedIngredientOne.length === 0){
+            return alert('Make a selection from the list')
+         }
         // put ingredient into the reducer
         dispatch({ type: 'SET_COMBO_INGREDIENT', payload: searchedIngredientOne[0] })
 
