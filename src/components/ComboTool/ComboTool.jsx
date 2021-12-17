@@ -92,7 +92,7 @@ function ComboTool() {
                 {
                     combo ?
                         combo.map(ingredient => (
-                            <Typography sx={sxIngredientName}>{ingredient.name}</Typography>
+                            <Typography key={ingredient.id} sx={sxIngredientName}>{ingredient.name}</Typography>
                         ))
                         :
                         <p></p>}

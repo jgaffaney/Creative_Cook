@@ -67,3 +67,6 @@ typings/
 
 # ignore package-lock as it complicates merging
 package-lock.json
+
+# no need to post the notes
+notes.txt
