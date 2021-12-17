@@ -107,22 +107,22 @@ function RecipeList() {
                                         alt={recipe.recipe.label}
                                     />
                                     <CardActions sx={sxCardActions}>
-                                        <Button 
-                                        onClick={() => window.open(`${recipe.recipe.url}`)}
-                                        size="small">Start Recipe</Button>
+                                        <Button
+                                            onClick={() => window.open(`_${recipe.recipe.url}`.split(`_`)[1], `_blank`)}
+                                            size="small">Start Recipe</Button>
                                         <Button size="small">Save Recipe</Button>
                                     </CardActions>
                                     <CardContent>
-                                        <Typography 
-                                        sx={sxCardTitle}
-                                        mt={-3}
-                                        gutterBottom variant="h5" component="div">
+                                        <Typography
+                                            sx={sxCardTitle}
+                                            mt={-3}
+                                            gutterBottom variant="h5" component="div">
                                             {recipe.recipe.label}
                                         </Typography>
                                         <Box sx={sxBox}>
-                                            <Typography 
-                                            mt={-2}
-                                            // overflow="scroll"
+                                            <Typography
+                                                mt={-2}
+                                                // overflow="scroll"
                                                 variant="body2" color="text.secondary">
                                                 <>
                                                     {
@@ -136,12 +136,7 @@ function RecipeList() {
                                             </Typography>
                                         </Box>
                                     </CardContent>
-                                    {/* <CardActions sx={sxCardActions}>
-                                    <Button size="small">Start Recipe</Button>
-                                    <Button size="small">Save Recipe</Button>
-                                </CardActions> */}
                                 </Card>
-
 
                                 {/* COLLAPSABLE CARD BELOW */}
                                 {/* <RecipeListCard recipe={recipe}/> */}
