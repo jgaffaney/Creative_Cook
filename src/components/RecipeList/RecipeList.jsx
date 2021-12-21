@@ -58,8 +58,9 @@ const sxCardActions = {
 }
 
 const sxBox = {
-    height: '300px',
-    overflow: 'scroll',
+    border: '1px solid red',
+    height: '150px',
+    overflow: 'auto',
     // paddingBottom: 10,
     // pb: 10
 }
@@ -98,7 +99,7 @@ function RecipeList() {
                     {recipes.length > 0 ?
                         recipes.map(recipe => (
                             <>
-                                <Card sx={sxRecipeCard}>
+                                <Box sx={sxRecipeCard}>
                                     <CardMedia
                                         sx={sxRecipeImage}
                                         component="img"
@@ -112,7 +113,7 @@ function RecipeList() {
                                             size="small">Start Recipe</Button>
                                         <Button size="small">Save Recipe</Button>
                                     </CardActions>
-                                    <CardContent>
+                                    <Box>
                                         <Typography
                                             sx={sxCardTitle}
                                             mt={-3}
@@ -135,8 +136,8 @@ function RecipeList() {
                                                 </>
                                             </Typography>
                                         </Box>
-                                    </CardContent>
-                                </Card>
+                                    </Box>
+                                </Box>
 
                                 {/* COLLAPSABLE CARD BELOW */}
                                 {/* <RecipeListCard recipe={recipe}/> */}
