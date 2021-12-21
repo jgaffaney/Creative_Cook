@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
     Box,
     Card,
@@ -21,7 +21,6 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Collapse from '@mui/material/Collapse';
 import { styled } from '@mui/material/styles';
 import { useState } from "react";
-import RecipeListCard from "../RecipeListCard/RecipeListCard";
 import { useHistory } from "react-router-dom";
 
 const sxRecipeContainer = {
@@ -72,7 +71,8 @@ const sxCardTitle = {
 
 function RecipeList() {
     const recipes = useSelector(store => store.recipes)
-    const history = useHistory();
+    const dispatch = useDispatch();
+    const combo = useSelector(store => store.combo)
 
     return (
         <>
@@ -94,7 +94,15 @@ function RecipeList() {
                                         <Button
                                             onClick={() => window.open(`_${recipe.recipe.url}`.split(`_`)[1], `_blank`)}
                                             size="small">Start Recipe</Button>
-                                        <Button size="small">Save Recipe</Button>
+                                        <Button
+                                            onClick={() => dispatch({
+                                                type: 'SAVE_USER_RECIPE',
+                                                payload: {
+                                                    recipe: recipe.recipe,
+                                                    combo: combo
+                                                }
+                                            })}
+                                            size="small">Save Recipe</Button>
                                     </CardActions>
                                     <CardContent sx={sxCardContent}>
                                         <Typography
@@ -103,21 +111,21 @@ function RecipeList() {
                                             gutterBottom variant="h5" component="div">
                                             {recipe.recipe.label}
                                         </Typography>
-                                            <Box sx={sxBox}>
-                                                <Typography
-                                                    mt={0}
-                                                    variant="body2" color="text.secondary">
-                                                    <>
-                                                        {
-                                                            <ul>
-                                                                {recipe.recipe.ingredientLines.map(ingredient => (
-                                                                    <li>{ingredient}</li>
-                                                                ))}
-                                                            </ul>
-                                                        }
-                                                    </>
-                                                </Typography>
-                                            </Box>
+                                        <Box sx={sxBox}>
+                                            <Typography
+                                                mt={0}
+                                                variant="body2" color="text.secondary">
+                                                <>
+                                                    {
+                                                        <ul>
+                                                            {recipe.recipe.ingredientLines.map(ingredient => (
+                                                                <li>{ingredient}</li>
+                                                            ))}
+                                                        </ul>
+                                                    }
+                                                </>
+                                            </Typography>
+                                        </Box>
                                     </CardContent>
                                 </Card>
                             </>

@@ -29,7 +29,29 @@ router.get('/', (req, res) => {
 /**
  * POST route template
  */
-router.post('/', (req, res) => {
+router.post('/user', (req, res) => {
+  console.log('inside recipe router POST');
+  let combo = req.body.combo;
+  console.log('this is combo', combo);
+  let id = req.user.id;
+  let url = req.body.url;
+  let image = req.body.image;
+  // ingredientList is the start of arr of ID's to send to DB ... looks like {1,2,3}
+  let ingredientList = '{';
+  const ingredientLister = (combo) => {
+    console.log('in ingredientLister');
+    // loop through ingredients, add the id of each to string
+    for (let ingredient of combo) {
+        ingredientList += `${ingredient.id},`
+    }
+    // chop off the last character from the string and add closing curly
+    ingredientList = ingredientList.slice(0, -1)
+    ingredientList += `}`;
+    console.log('ingredientList is', ingredientList);
+} // end ingredientLister
+  ingredientLister(combo);
+
+  
   // POST route code here
 });
 
