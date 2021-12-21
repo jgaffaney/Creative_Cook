@@ -13,6 +13,7 @@ const challengeRouter = require('./routes/challenge.router');
 const ingredientRouter = require('./routes/ingredients.router');
 const recipeRouter = require('./routes/recipe.router');
 const comboRouter = require('./routes/combo.router');
+const goalRouter = require('./routes/goal.router');
 const pairingsRouter = require('./routes/pairings.router');
 
 
@@ -33,6 +34,7 @@ app.use('/api/challenge', challengeRouter);
 app.use('/api/ingredients', ingredientRouter);
 app.use('/api/recipes', recipeRouter);
 app.use('/api/combos', comboRouter);
+app.use('/api/goal', goalRouter);
 app.use('/api/pairings', pairingsRouter);
 
 
