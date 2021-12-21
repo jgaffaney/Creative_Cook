@@ -6,9 +6,9 @@ router.get('/:id', (req, res) => {
     console.log('params in pairings GET: ', req.params.id);
     const id = req.params.id;
     const queryText = `
-    SELECT * from pairings
-    WHERE ingredient_one_id = $1
-    ORDER BY ingredient_one_id;
+    SELECT "ingredients"."id", "name" from ingredients
+    JOIN "pairings" ON "pairings"."ingredient_two_id" = "ingredients"."id"
+    WHERE "pairings"."ingredient_one_id" = $1;
     `
     const values = [id];
     pool.query(queryText, values)

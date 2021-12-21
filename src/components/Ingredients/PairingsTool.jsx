@@ -32,6 +32,7 @@ const PairingsTool = () => {
     }
 
     const columns = [
+        {field: 'id', headerName: 'Id', hide: true},
         { field: 'name', headerName: 'Name'},
         { field: 'description', headerName: 'Description'},
         { field: 'taste', headerName: 'Taste'},
