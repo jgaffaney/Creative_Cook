@@ -22,10 +22,6 @@ function Profile() {
   const goal = useSelector((store) => store.goal);
   const dispatch = useDispatch();
 
-  // const [newGoal, setNewGoal] = useState(5);
-
-  // let comboProgress = userCombos.length;
-
   useEffect(() => {
     dispatch({ type: 'FETCH_COMBOS' })
     dispatch({ type: 'FETCH_GOAL' })
@@ -145,7 +141,7 @@ function Profile() {
 
 // function progressChecker()
   if (userCombos.length >= goal.goal) {
-    dispatch({ type: 'UPDATE_GOAL' })
+    dispatch({ type: 'UPDATE_GOAL', payload: goal.metric_id })
     console.log(userCombos.length);
   }
 //  /
@@ -197,7 +193,7 @@ function Profile() {
     color: theme.palette.text.secondary,
   }));
 
-  // console.log('goal[0]: ', goal[0]);
+  console.log('goal', goal);
   return (
     <Box sx={sxHomePageContainer}>
       <Box sx={sxPageContent}>

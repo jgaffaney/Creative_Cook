@@ -24,7 +24,7 @@ function* fetchGoals() {
 function* updateGoal(action) {
     console.log('In updateGoal Saga')
     try {
-        yield axios.put(`/api/goal/`);
+        yield axios.put(`/api/goal`, action.payload);
         yield put({type: 'FETCH_GOAL'})
     } catch (error) {
         console.log('Error on updateGoal: ', error);

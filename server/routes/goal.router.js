@@ -7,7 +7,8 @@ const router = express.Router();
  */
 router.get('/', (req, res) => {
     const queryText = `
-SELECT "goal" FROM "user_metrics"
+SELECT "goal", "name", "metric_id" FROM "user_metrics"
+JOIN "metrics" ON "metrics".id = "user_metrics".metric_id
 WHERE "user_id" = $1;
         `;
     pool.query(queryText, [req.user.id])
@@ -33,9 +34,10 @@ router.put('/', (req, res) => {
     const queryText = `
     UPDATE "user_metrics"
     SET "goal" = "goal" + 5
-    WHERE "id" = $1; 
+    WHERE "user_id" = $1 AND "metric_id" = $2; 
     `
-    values = [id]
+    values = [id, req.body.metric_id]
+    console.log("!!!", req.body);
     pool.query(queryText, values)
         .then(response => {
             res.send(response)
