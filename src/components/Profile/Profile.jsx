@@ -17,15 +17,14 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 
 
 function Profile() {
-  // this component doesn't do much to start, just renders some user reducer info to the DOM
   const user = useSelector((store) => store.user);
   const userCombos = useSelector((store) => store.userCombos);
   const goal = useSelector((store) => store.goal);
   const dispatch = useDispatch();
 
-  const [newGoal, setNewGoal] = useState(5);
+  // const [newGoal, setNewGoal] = useState(5);
 
-  let comboProgress = userCombos.length;
+  // let comboProgress = userCombos.length;
 
   useEffect(() => {
     dispatch({ type: 'FETCH_COMBOS' })
@@ -143,14 +142,11 @@ function Profile() {
   let userRecipeGoalProgress = 2;
   let userComboGoalProgress = 3;
 
-  let goalCount = goal;
 
 // function progressChecker()
-  if (comboProgress >= goalCount) {
-    goalCount+=5
-    setNewGoal(goalCount)
-    dispatch({ type: 'UPDATE_GOAL', payload: newGoal })
-    console.log(comboProgress);
+  if (userCombos.length >= goal.goal) {
+    dispatch({ type: 'UPDATE_GOAL' })
+    console.log(userCombos.length);
   }
 //  /
 
@@ -201,7 +197,7 @@ function Profile() {
     color: theme.palette.text.secondary,
   }));
 
-
+  // console.log('goal[0]: ', goal[0]);
   return (
     <Box sx={sxHomePageContainer}>
       <Box sx={sxPageContent}>
@@ -242,12 +238,13 @@ function Profile() {
                   <Button onClick={() => handleRecipeReset()} variant="outlined" size="small" startIcon={<RefreshIcon />}>Reset</Button>
                   {/* </Box> */}
                 </Grid>
+                {goal.goal && 
                 <Grid item xs={4}>
-                <Typography>New Combos - Goal: {goal} </Typography>
-                  <Item>Goal Progress: {comboProgress}/{goal}</Item>
+                <Typography>New Combos - Goal: {goal.goal} </Typography>
+                  <Item>Goal Progress: {userCombos.length}/{goal.goal}</Item>
                   <Button onClick={() => handleUpdateComboGoal()} variant="contained" size="small" startIcon={<AddTaskIcon />} >Update</Button>
                   <Button onClick={() => handleComboReset()} variant="outlined" size="small" startIcon={<RefreshIcon />}>Reset</Button>
-                </Grid>
+                </Grid>}
               </Grid>
             {/* </Box> */}
             <Typography size={18}>Metrics</Typography>

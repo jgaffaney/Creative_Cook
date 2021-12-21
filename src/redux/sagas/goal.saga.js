@@ -5,7 +5,7 @@ import { put, takeLatest } from 'redux-saga/effects';
 function* fetchGoals() {
     try {
         const response = yield axios.get('/api/goal/')
-        yield put({ type: 'SET_GOAL', payload: response.data });
+        yield put({ type: 'SET_GOAL', payload: response.data[0] });
     } catch (err) {
         console.log('GET ERROR IN GOAL SAGA', err);
     }
@@ -22,9 +22,9 @@ function* fetchGoals() {
 // };
 
 function* updateGoal(action) {
-    console.log('In updateGoal Saga with: ', action)
+    console.log('In updateGoal Saga')
     try {
-        yield axios.put(`/api/goal/${id}`, action.payload);
+        yield axios.put(`/api/goal/`);
         yield put({type: 'FETCH_GOAL'})
     } catch (error) {
         console.log('Error on updateGoal: ', error);
