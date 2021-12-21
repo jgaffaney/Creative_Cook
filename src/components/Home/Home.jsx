@@ -14,204 +14,193 @@ import Grid from '@mui/material/Grid';
 import { fontSize } from '@mui/system';
 
 
+// --- MUI sx STYLES --- // 
+import {
+    sxHomePageContainer,
+    sxPageContent,
+    sxLeftColumn,
+    sxProfileContainer,
+    sxCenterText,
+    sxPhotoBox,
+    sxRightColumn,
+    sxTopSection,
+    sxBottomSection,
+    sxFeedContainer,
+    sxContentPaper,
+    sxSearchContainer,
+    sxPhotoIngredientContainer,
+    sxPhotoIngredient,
+    sxRemoveButton,
+} from './Home.style';
+import IngredientAutocomplete from '../IngredientAutocomplete/IngredientAutocomplete';
+
+
 function Home() {
 
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const user = useSelector((store) => store.user);
-  const ingredients = useSelector((store) => store.ingredients);
-  // const userProfile = useSelector((store) => store.userProfile);
-  // const feed = useSelector((store) => store.feed);
-  const feedContent = useSelector((store) => store.challenge)
-  // const combos = useSelector((store) => store.combo)
+    const dispatch = useDispatch();
+    const history = useHistory();
 
-  useEffect(() => {
-    dispatch({ type: 'FETCH_CHALLENGE' });
-    dispatch({ type: 'FETCH_COMBOS' });
-    dispatch({ type: 'FETCH_INGREDIENTS' });
-  }, []);
+    const user = useSelector((store) => store.user);
+    const ingredients = useSelector((store) => store.ingredients);
+    const feedContent = useSelector((store) => store.challenge);
+    const searchText = useSelector(store=>store.ingredientSearch);
 
+    const handleSearch = (searchText) => {
+        console.log('CLICKED on handleSearch');
+        console.log('this is the searchText', searchText);
 
-  const handleSearch = () => {
-    console.log('CLICKED on handleSearch');
-  }
+        const searchedIngredientOne = ingredients.filter(ingredient => ingredient.name === searchText)
+        console.log('--- searchedIngredientOne:', searchedIngredientOne);
 
-  // CONTAINER that centers everything on this page
-  const sxHomePageContainer = {
-    // border: '1px solid red',
-    display: 'flex',
-    justifyContent: 'center',
-  }
+        // ensures user only moves to combo page if they have selected from the list (Must Select From The List!)
+        if(searchedIngredientOne.length === 0){
+            return alert('Make a selection from the list')
+         }
+        // put ingredient into the reducer
+        dispatch({ type: 'SET_COMBO_INGREDIENT', payload: searchedIngredientOne[0] })
 
-  // PAGE CONTENT holds the left column and the right column
-  const sxPageContent = {
-    border: '1px solid red',
-    display: 'flex',
-    flexDirection: 'row',
-    width: '80%',
-    height: '100%',
-    m: 2
-  }
+        // push user to /combo
+        history.push('/combo')
+    }
 
-  // LEFT COLUMN holds all of the profile / metrics / goal info
-  const sxLeftColumn = {
-    border: '1px solid green',
-    display: 'flex',
-    flexDirection: 'column',
-    width: '25%',
-  }
+    const handleComboClick = () => {
+        console.log('handleComboClick');
+    }
 
-  // PROFILE PHOTOS properties being held in the left column
-  const sxPhotoBox = {
-    // border: '1px solid lightgray',
-    width: 120,
-    height: 120,
-    boxShadow: 3,
-    mb: .25,
-    borderRadius: 1,
-  };
+    const handleRemove = () => {
+        console.log('handleRemove');
+    }
 
 
-  // RIGHT COLUMN holds the top and bottom sections 
-  const sxRightColumn = {
-    border: '1px solid blue',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '75%',
-    height: '100%',
-  }
-
-  // TOP SECTION holds the flavor combo tool
-  const sxTopSection = {
-    border: '1px solid lightblue',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: 300,
-  }
-
-  // BOTTOM SECTION holds the feed content
-  const sxBottomSection = {
-    border: '1px solid lightblue',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: 200,
-  }
-
-  // FEED CONTAINER holds the actual content / combo cards 
-  const sxFeedContainer = {
-    border: '1px solid red',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '90%',
-    height: 300,
-    overflow: 'auto'
-  }
+    useEffect(() => {
+        dispatch({ type: 'FETCH_CHALLENGE' });
+        dispatch({ type: 'FETCH_COMBOS' });
+        dispatch({ type: 'FETCH_INGREDIENTS' });
+    }, []);
 
 
-  return (
-    <Box sx={sxHomePageContainer}>
-      <Box sx={sxPageContent}>
 
-        <Box sx={sxLeftColumn}>
+    console.log('homePage ingredient list', ingredients);
 
-          {/* user PROFILE section */}
-          <Box>
-            <Typography>Side Section: User Profile</Typography>
-            <CardMedia sx={sxPhotoBox} component="img" image={user.pic} />
-            <Typography>{user.username}</Typography>
-            <Typography>{user.display_name}</Typography>
-            <Typography>{user.bio}</Typography>
-          </Box>
-          <br />
+    return (
+        <Box sx={sxHomePageContainer}>
+            <Box sx={sxPageContent}>
 
-          {/* any METRICS will go here */}
-          <Box>
-            <Typography>Side Section: Metrics</Typography>
-          </Box>
-          <br />
+                <Box sx={sxLeftColumn}>
 
-          {/* recent COMBOS */}
-          <Box>
-            <Typography>Side Section: Recent Combos</Typography>
-          </Box>
-          <br />
+                    {/* user PROFILE section */}
+                    <Box sx={sxProfileContainer}>
+                        <Typography sx={sxCenterText}><h3>{user.username}</h3></Typography>
+                        {/* <Typography>Side Section: User Profile</Typography> */}
+                        <CardMedia sx={sxPhotoBox} component="img" image={user.pic} />
+                        <Typography sx={sxCenterText}><h4>{user.display_name}</h4></Typography>
+                        {/* <Typography><p>{user.bio}</p></Typography> */}
+                    </Box>
+                    <br />
 
-          {/* GOALS progress */}
-          <Box>
-            <Typography>Side Section: Goal Progress</Typography>
-          </Box>
+                    {/* any METRICS will go here */}
+                    <Box>
+                        <Typography>Side Section: Metrics</Typography>
+                    </Box>
+                    <br />
 
-        </Box>
+                    {/* recent COMBOS */}
+                    <Box>
+                        <Typography>Side Section: Recent Combos</Typography>
+                    </Box>
+                    <br />
+
+                    {/* GOALS progress */}
+                    <Box>
+                        <Typography>Side Section: Goal Progress</Typography>
+                    </Box>
+
+                </Box>
+
+                {/* SEARCH  in the top section */}
+                <Box sx={sxRightColumn}>
+                    <Box sx={sxTopSection}>
+
+                        <Typography><h3>Find Your First Ingredient</h3></Typography>
+                        <Box sx={sxSearchContainer}>
+
+                            <IngredientAutocomplete />
+                            <Button onClick={() => handleSearch(searchText)} variant="contained">search</Button>
+                        </Box>
 
 
-        <Box sx={sxRightColumn}>
+                    </Box>
 
-          <Box sx={sxTopSection}>
-            <Typography>Top Section: Create Flavor Combo</Typography>
-            <TextField id="outlined-basic" variant="outlined" />
-            <Button onClick={() => handleSearch()} variant="contained">search</Button>
-          </Box>
+                    <Box sx={sxBottomSection}>
 
-          <Box sx={sxBottomSection}>
-            <Typography>Bottom Section: Curated Feed</Typography>
-            <Box sx={sxFeedContainer}>
-              {feedContent.map((content) => {
-                let feedContentIngredients = [];
-                let IngArray = content.ingredient_list
-                function ingredientFilter(ingredients) {
-                  // for (let i = 0; i < ingredients.length; i++) {
-                  //   if (ingredients[i].id === IngArray[0]) {
-                  //     feedContentIngredients.push(ingredients[i])
-                  //   } else if (ingredients[i].id === IngArray[1]) {
-                  //     feedContentIngredients.push(ingredients[i])
-                  //   } else if (ingredients[i].id === IngArray[2]) {
-                  //     feedContentIngredients.push(ingredients[i])
-                  //   }
-                  for (let ingredient of ingredients) {
-                    if (ingredient.id === IngArray[0]) {
-                      feedContentIngredients.push(ingredient)
-                    } else if (ingredient.id === IngArray[1]) {
-                      feedContentIngredients.push(ingredient)
-                    } else if (ingredient.id === IngArray[2]) {
-                      feedContentIngredients.push(ingredient)
-                    }
-                  }
-                }
+                        <Typography><h3>Featured Combos</h3></Typography>
 
-                ingredientFilter(ingredients)
+                        <Box sx={sxFeedContainer}>
 
-                return (
-                  <Grid
-                    container
-                    textAlign="center"
-                    alignItems="center"
-                    justifyContent="center"
-                    key={content.id}
-                  >
-                    <Paper sx={{width: '15cm', m: 2}}>
-                      <Typography sx={{fontSize: 25}}>{content.name}</Typography>
-                      <Typography>{content.description}</Typography>
-                      <Typography>{feedContentIngredients[0]?.name}, {feedContentIngredients[1]?.name}{feedContentIngredients[2] ? (', ' + feedContentIngredients[2]?.name) : ""}</Typography>
-                    </Paper>
-                  </Grid>
-                )
-              })}
+                            {feedContent.map((content) => {
+                                console.log('this is the content', content);
+                                let feedContentIngredients = [];
+                                let IngArray = content.ingredient_list
+
+                                function ingredientFilter(ingredients) {
+                                    // for (let i = 0; i < ingredients.length; i++) {
+                                    //   if (ingredients[i].id === IngArray[0]) {
+                                    //     feedContentIngredients.push(ingredients[i])
+                                    //   } else if (ingredients[i].id === IngArray[1]) {
+                                    //     feedContentIngredients.push(ingredients[i])
+                                    //   } else if (ingredients[i].id === IngArray[2]) {
+                                    //     feedContentIngredients.push(ingredients[i])
+                                    //   }
+                                    for (let ingredient of ingredients) {
+                                        if (ingredient.id === IngArray[0]) {
+                                            feedContentIngredients.push(ingredient)
+                                        } else if (ingredient.id === IngArray[1]) {
+                                            feedContentIngredients.push(ingredient)
+                                        } else if (ingredient.id === IngArray[2]) {
+                                            feedContentIngredients.push(ingredient)
+                                        }
+                                    }
+                                }
+
+
+                                ingredientFilter(ingredients)
+                                console.log('IngArray id list:', IngArray);
+                                console.log('--- feedContentIngredients:', feedContentIngredients);
+
+                                return (
+                                    <Grid
+                                        key={content.id}
+                                        container
+                                        textAlign="center"
+                                        alignItems="center"
+                                        justifyContent="center"
+                                        style={{ minHeight: '10vh' }}
+                                    >
+                                        <Paper sx={sxContentPaper} elevation={3}>
+                                            <Box onClick={handleComboClick} sx={sxPhotoIngredientContainer}>
+                                                <CardMedia sx={sxPhotoIngredient} component="img" image={feedContentIngredients[0]?.pic} />
+                                                <CardMedia sx={sxPhotoIngredient} component="img" image={feedContentIngredients[1]?.pic} />
+                                                <CardMedia sx={sxPhotoIngredient} component="img" image={feedContentIngredients[2]?.pic} />
+                                            </Box>
+                                            <Typography onClick={handleComboClick} sx={{ fontSize: 25 }}>{content.name}</Typography>
+
+                                            <Typography onClick={handleComboClick} >{content.description}</Typography>
+                                            <Typography>{feedContentIngredients[0]?.name}, {feedContentIngredients[1]?.name}{feedContentIngredients[2] ? (', ' + feedContentIngredients[2]?.name) : ""}</Typography>
+                                            <Button onClick={handleRemove}
+                                            sx={sxRemoveButton}variant="contained"
+                                            size="small">Remove</Button>
+                                        </Paper>
+                                    </Grid>
+                                )
+                            })}
+                        </Box>
+                    </Box>
+
+                </Box>
+
             </Box>
-          </Box>
-
-        </Box>
-
-      </Box>
-    </Box >
-  );
+        </Box >
+    );
 };
 
 

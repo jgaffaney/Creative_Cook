@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -96,6 +97,57 @@ export default function EditIngredients() {
   const [rows, setRows] = useState([]);
   const [snackbar, setSnackbar] = useState(null);
 
+  const seasons = [
+    {
+        value: 'Spring',
+        label: 'Spring'
+    },
+    {
+        value: 'Summer',
+        label: 'Summer'
+    },
+    {
+        value: 'Autumn',
+        label: 'Autumn'
+    },
+    {
+        value: 'Winter',
+        label: 'Winter'
+    }
+]
+
+const foodType = [
+  {
+      value: 'Protein: Air',
+      label: 'Protein: Air'
+  },
+  {
+      value: 'Protein: Land',
+      label: 'Protein: Land'
+  },
+  {
+      value: 'Protein: Sea',
+      label: 'Protein: Sea'
+  },
+  {
+      value: 'Vegetable',
+      label: 'Vegetable'
+  },
+  {
+      value: 'Fruit',
+      label: 'Fruit'
+  },
+  {
+      value: 'Dairy',
+      label: 'Dairy'
+  },
+  {
+      value: 'Fat',
+      label: 'Fat'
+  }
+]
+
+
   const handleCloseSnackbar = () => setSnackbar(null);
 
   // called when edit button clicked
@@ -137,74 +189,74 @@ export default function EditIngredients() {
     }
   }
 
-// an array for the column headers, including the edit button for every row
-const columns = [
-  {
-    field: 'edit',
-    headerName: '',
-    renderCell: renderEditButton,
-    disableClickEventBubbling: true,
-    editable: true
-  },
-  { field: 'id', hide: true, editable: true },
-  { field: 'name', headerName: 'Name', editable: true },
-  { field: 'description', headerName: 'Description', editable: true },
-  { field: 'pic', headerName: 'Pic', editable: true },
-  { field: 'taste', headerName: 'Taste', editable: true },
-  { field: 'season', headerName: 'Season', editable: true },
-  { field: 'weight', headerName: 'Weight', editable: true },
-  { field: 'volume', headerName: 'Volume', editable: true },
-  { field: 'type', headerName: 'Type', editable: true },
-];
+  // an array for the column headers, including the edit button for every row
+  const columns = [
+    {
+      field: 'edit',
+      headerName: '',
+      renderCell: renderEditButton,
+      disableClickEventBubbling: true,
+      editable: true
+    },
+    { field: 'id', hide: true, editable: true },
+    { field: 'name', headerName: 'Name', editable: true },
+    { field: 'description', headerName: 'Description', editable: true, flex: true, resizable: true },
+    { field: 'pic', headerName: 'Pic', editable: true },
+    { field: 'taste', headerName: 'Taste', editable: true },
+    { field: 'season', headerName: 'Season', editable: true, valueOptions: seasons, type: 'singleSelect' },
+    { field: 'weight', headerName: 'Weight', editable: true },
+    { field: 'volume', headerName: 'Volume', editable: true },
+    { field: 'type', headerName: 'Type', editable: true, valueOptions: foodType, type: 'singleSelect' },
+  ];
 
-// search function for the data grid
-// first cleans up search string
-// filters ingredients and set local state
-const requestSearch = (searchValue) => {
-  setSearchText(searchValue);
-  const searchRegex = new RegExp(escapeRegExp(searchValue), 'i');
-  const filteredRows = ingredients.filter((row) => {
-    return Object.keys(row).some((field) => {
-      return searchRegex.test(row[field]);
+  // search function for the data grid
+  // first cleans up search string
+  // filters ingredients and set local state
+  const requestSearch = (searchValue) => {
+    setSearchText(searchValue);
+    const searchRegex = new RegExp(escapeRegExp(searchValue), 'i');
+    const filteredRows = ingredients.filter((row) => {
+      return Object.keys(row).some((field) => {
+        return searchRegex.test(row[field]);
+      });
     });
-  });
-  setRows(filteredRows);
-};
+    setRows(filteredRows);
+  };
 
-// updates ingredients
-useEffect(() => {
-  dispatch({ type: 'FETCH_INGREDIENTS' })
+  // updates ingredients
+  useEffect(() => {
+    dispatch({ type: 'FETCH_INGREDIENTS' })
 
-}, []);
+  }, []);
 
-// updates ingredient on a reducer change
-useEffect(() => {
-  setRows(ingredients)
-}, [ingredients])
+  // updates ingredient on a reducer change
+  useEffect(() => {
+    setRows(ingredients)
+  }, [ingredients])
 
-// console.log('Demo Data: ', data);
+  // console.log('Demo Data: ', data);
 
-return (
-  <Box sx={{ height: 600, width: 1 }}>
-    {/* {rows && ( */}
-    <DataGrid
-      components={{ Toolbar: QuickSearchToolbar }}
-      rows={rows}
-      columns={columns}
-      onCellEditCommit={handleCellEditCommit}
-      componentsProps={{
-        toolbar: {
-          value: searchText,
-          onChange: (event) => requestSearch(event.target.value),
-          clearSearch: () => requestSearch(''),
-        },
-      }}
-    />
-    {!!snackbar && (
-      <Snackbar open onClose={handleCloseSnackbar} autoHideDuration={3000}>
-        <Alert {...snackbar} onClose={handleCloseSnackbar} />
-      </Snackbar>
-    )}
-  </Box>
-)
+  return (
+    <Box sx={{ height: 600, width: 1 }}>
+      {/* {rows && ( */}
+      <DataGrid
+        components={{ Toolbar: QuickSearchToolbar }}
+        rows={rows}
+        columns={columns}
+        onCellEditCommit={handleCellEditCommit}
+        componentsProps={{
+          toolbar: {
+            value: searchText,
+            onChange: (event) => requestSearch(event.target.value),
+            clearSearch: () => requestSearch(''),
+          },
+        }}
+      />
+      {!!snackbar && (
+        <Snackbar open onClose={handleCloseSnackbar} autoHideDuration={3000}>
+          <Alert {...snackbar} onClose={handleCloseSnackbar} />
+        </Snackbar>
+      )}
+    </Box>
+  )
 };
