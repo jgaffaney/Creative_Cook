@@ -21,7 +21,6 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Collapse from '@mui/material/Collapse';
 import { styled } from '@mui/material/styles';
 import { useState } from "react";
-import RecipeListCard from "../RecipeListCard/RecipeListCard";
 import { useHistory } from "react-router-dom";
 
 const sxRecipeContainer = {
