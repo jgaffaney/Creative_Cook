@@ -140,11 +140,11 @@ function Profile() {
 
 
 // function progressChecker()
-  // if (userCombos.length >= goal.goal) {
-  //   dispatch({ type: 'UPDATE_GOAL', payload: goal.metric_id })
-  //   console.log(userCombos.length);
-  // }
-//  /
+  if (userCombos.length >= goal.goal) {
+    dispatch({ type: 'UPDATE_GOAL', payload: goal.metric_id })
+    console.log(userCombos.length);
+  }
+ 
 
   // progressChecker();
  
