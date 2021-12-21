@@ -1,4 +1,4 @@
-const comboSelect = (state = [], action) => {
+const combo = (state = [], action) => {
     switch (action.type) {
         case 'SET_COMBO_INGREDIENT':
             if (state.length < 3) {
@@ -7,11 +7,11 @@ const comboSelect = (state = [], action) => {
             } else {
                 return state;
             }
-        case 'CLEAR_COMBO':
+        case 'CLEAR_COMBO_AND_RECIPE':
             return [];
         default:
             return state;
     }
 } // end ingredientSelect
 
-export default comboSelect;
+export default combo;
