@@ -70,20 +70,20 @@ const PairingsTool = () => {
 
             </Box>
             <Box sx={{ height: 400, width: '100%' }}>
-                {/* {searchText ? 
+                {searchText ? 
                 <h2>Paired with {searchText[0].toUpperCase() + searchText.substring(1)}</h2>
                 :
-                <h2>No ingredient selected</h2>} */}
+                <h2>No ingredient selected</h2>}
                 <DataGrid
                     rows={pairings}
                     columns={columns}>
                 </DataGrid>
             </Box>
             <Box sx={{ height: 400, width: '100%' }}>
-                {/* {searchText ?
+                {searchText ?
                 <h2> Pair {searchText[0].toUpperCase() + searchText.substring(1)} with: </h2>
                 :
-                <h2>No ingredient selected</h2>} */}
+                <h2>No ingredient selected</h2>}
                 <DataGrid
                     rows={unpairedIngredients()}
                     columns={columns}
