@@ -11,37 +11,47 @@ const PairingsTool = () => {
     const dispatch = useDispatch();
 
     const pairings = useSelector(store => store.pairings);
-    const searchText = useSelector(store=>store.ingredientSearch);
-    const ingredients = useSelector(store=>store.ingredients);
+    const searchText = useSelector(store => store.ingredientSearch);
+    const ingredients = useSelector(store => store.ingredients);
 
-    const [newPairings, setNewPairings] = useState();
+    // const [newPairings, setNewPairings] = useState();
 
     const handleSetIngredient = () => {
         console.log('Submit clicked with id: ', searchText);
         let id = 0;
 
         // convert searchText to an ingredient id from DB query
-        for(let ingredient of ingredients) {
-            if(ingredient.name === searchText){
+        for (let ingredient of ingredients) {
+            if (ingredient.name === searchText) {
                 id = ingredient.id;
             }
         }
         console.log('Converted name to id yields id: ', id);
-        dispatch({type: 'FETCH_PAIRINGS', payload: id})
+        dispatch({ type: 'FETCH_PAIRINGS', payload: id })
 
     }
 
-    const columns = [
-        {field: 'id', headerName: 'Id', hide: true},
-        { field: 'name', headerName: 'Name'},
-        { field: 'description', headerName: 'Description'},
-        { field: 'taste', headerName: 'Taste'},
-        { field: 'season', headerName: 'Season'},
-        { field: 'weight', headerName: 'Weight'},
-        { field: 'volume', headerName: 'Volume'},
-        { field: 'type', headerName: 'Type'},
 
+    const columns = [
+        { field: 'id', headerName: 'ID' },
+        { field: 'name', headerName: 'Name' },
     ]
+
+    const unpairedIngredients = () => {
+        let resultArray = [];
+        for(let name of ingredients.filter(name => name.name != searchText)){
+            for(let pair of pairings) {
+                if (pair.name.toLowerCase() != name.name) {
+                    resultArray.push(name)
+                }
+            }
+        }
+        let newArray = [...new Set(resultArray)];
+        return newArray;
+
+    }
+
+    
 
     // useEffect(() => {
     //     dispatch({ type: 'FETCH_PAIRINGS' })
@@ -51,10 +61,23 @@ const PairingsTool = () => {
             <h1>Pairings Tool</h1>
             <Box sx={sxSearchContainer}>
                 <IngredientAutocomplete />
-                <Button onClick={handleSetIngredient}variant='contained' >Search</Button>
-            <DataGrid
-                rows={pairings}
-                columns={columns}></DataGrid>
+                <Button onClick={handleSetIngredient} variant='contained' >Search</Button>
+
+            </Box>
+            <Box sx={{ height: 400, width: '100%' }}>
+                <h2>Paired with {searchText[0].toUpperCase() + searchText.substring(1)}</h2>
+                <DataGrid
+                    rows={pairings}
+                    columns={columns}>
+                </DataGrid>
+            </Box>
+            <Box sx={{ height: 400, width: '100%' }}>
+                <h2> Pair {searchText[0].toUpperCase() + searchText.substring(1)} with: </h2>
+                <DataGrid
+                    rows={unpairedIngredients()}
+                    columns={columns}
+                >
+                </DataGrid>
             </Box>
 
         </>

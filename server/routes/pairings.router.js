@@ -6,7 +6,7 @@ router.get('/:id', (req, res) => {
     console.log('params in pairings GET: ', req.params.id);
     const id = req.params.id;
     const queryText = `
-    SELECT "ingredients"."id", "name" from ingredients
+    SELECT "ingredients"."id", INITCAP("ingredients"."name") AS name FROM "ingredients"
     JOIN "pairings" ON "pairings"."ingredient_two_id" = "ingredients"."id"
     WHERE "pairings"."ingredient_one_id" = $1;
     `
@@ -19,6 +19,10 @@ router.get('/:id', (req, res) => {
             console.log('Error on GET pairings: ', err);
             res.sendStatus(500);
         })
+})
+
+router.get('/unpaired/:id', (req, res) => {
+    
 })
 
 module.exports = router;
