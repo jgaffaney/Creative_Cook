@@ -38,6 +38,7 @@ const PairingsTool = () => {
     ]
 
     const unpairedIngredients = () => {
+        console.log('in unpairedIngredients');
         let resultArray = [];
         for(let name of ingredients.filter(name => name.name != searchText)){
             for(let pair of pairings) {
@@ -47,7 +48,11 @@ const PairingsTool = () => {
             }
         }
         let newArray = [...new Set(resultArray)];
-        return newArray;
+        if(newArray === []){
+            return ingredients;
+        } else {
+            return newArray;
+        }
 
     }
 
@@ -65,14 +70,14 @@ const PairingsTool = () => {
 
             </Box>
             <Box sx={{ height: 400, width: '100%' }}>
-                <h2>Paired with {searchText[0].toUpperCase() + searchText.substring(1)}</h2>
+                {/* <h2>Paired with {searchText[0].toUpperCase() + searchText.substring(1)}</h2> */}
                 <DataGrid
                     rows={pairings}
                     columns={columns}>
                 </DataGrid>
             </Box>
             <Box sx={{ height: 400, width: '100%' }}>
-                <h2> Pair {searchText[0].toUpperCase() + searchText.substring(1)} with: </h2>
+                {/* <h2> Pair {searchText[0].toUpperCase() + searchText.substring(1)} with: </h2> */}
                 <DataGrid
                     rows={unpairedIngredients()}
                     columns={columns}
