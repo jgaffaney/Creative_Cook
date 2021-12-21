@@ -2,12 +2,16 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/:id', (req, res) => {
+    console.log('params in pairings GET: ', req.params.id);
+    const id = req.params.id;
     const queryText = `
     SELECT * from pairings
+    WHERE ingredient_one_id = $1
     ORDER BY ingredient_one_id;
     `
-    pool.query(queryText)
+    const values = [id];
+    pool.query(queryText, values)
         .then(response => {
             console.log('response from GET pairings: ', response);
             res.send(response.rows)
