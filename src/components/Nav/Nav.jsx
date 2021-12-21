@@ -101,10 +101,9 @@ function Nav() {
 
   // the "CREATIVE COOK" header properties; pushes you home when clicked on;
   const sxCreativeCookHeader = {
-    fontSize: 20,
     fontWeight: 600,
-    my: -2,
     color: 'info.main',
+    my: 1,
 
     border: 'none',
     cursor: 'pointer',
@@ -115,7 +114,7 @@ function Nav() {
   return (
     <Box sx={sxNavContainer}>
 
-      <Typography sx={sxCreativeCookHeader} onClick={() => handleClick('home')}> <h2>CREATIVE COOK</h2> </Typography>
+      <Typography variant="h3" sx={sxCreativeCookHeader} onClick={() => handleClick('home')}>CREATIVE COOK</Typography>
 
       {/* if user is NOT logged in, don't show nav; */}
       {/* if user is logged in, 1. check if they are an admin 2. display the proper navbar based on if is_admin */}
