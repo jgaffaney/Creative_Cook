@@ -8,6 +8,7 @@ import ingredientSaga from './ingredients.saga';
 import comboSaga from './combo.saga';
 import goalSaga from './goal.saga';
 import pairingsSaga from './pairings.saga';
+import top5Saga from './top5.saga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -27,5 +28,6 @@ export default function* rootSaga() {
     comboSaga(),
     goalSaga(),
     pairingsSaga(),
+    top5Saga(),
   ]);
 }

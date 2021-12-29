@@ -45,6 +45,7 @@ function Home() {
     const ingredients = useSelector((store) => store.ingredients);
     const feedContent = useSelector((store) => store.challenge);
     const searchText = useSelector(store => store.ingredientSearch);
+    const userCombos = useSelector(store => store.userCombos);
 
     const handleSearch = (searchText) => {
         console.log('CLICKED on handleSearch');
@@ -82,6 +83,7 @@ function Home() {
 
 
     console.log('homePage ingredient list', ingredients);
+    console.log('user combos', userCombos);
 
     return (
         <Box sx={sxHomePageContainer}>
@@ -107,7 +109,10 @@ function Home() {
 
                     {/* recent COMBOS */}
                     <Box>
-                        <Typography variant="body1">Side Section: Recent Combos</Typography>
+                        <Typography variant="body1">Recent Combos:</Typography>
+                        <Typography>{userCombos[0]?.name}</Typography>
+                        <Typography>{userCombos[1]?.name}</Typography>
+                        <Typography>{userCombos[2]?.name}</Typography>
                     </Box>
                     <br />
 
