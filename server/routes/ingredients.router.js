@@ -57,4 +57,22 @@ router.put('/', (req, res) => {
         })
 })
 
+// GETs top 5 most used ingredients from DB
+router.get('/top5', (req, res) => {
+    console.log('in top five ingredients GET');
+    const queryText = `
+        SELECT unnest(combos.ingredient_list) AS ingredient_id, count(*) AS times_used FROM combos
+        GROUP BY ingredient_id
+        ORDER BY times_used DESC LIMIT 5;
+    `;
+    pool.query(queryText)
+        .then(response => {
+            console.log('Response from top five ingredients GET: ', response.rows);
+            res.send(response.rows)
+        }).catch(err => {
+            console.log("Error in top five ingredients GET: ", err);
+            res.sendStatus(500)
+        })
+});
+
 module.exports = router;
