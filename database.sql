@@ -39,15 +39,11 @@ CREATE TABLE "pairings" (
 	"ingredient_one_id" int REFERENCES "ingredients",
 	"ingredient_two_id" int REFERENCES "ingredients");
 
-
-
 CREATE TABLE "combos" (
 	"id" serial NOT NULL PRIMARY KEY,
 	"user_id" int REFERENCES "user",
 	"ingredient_list" int[] NOT NULL,
 	"name" varchar(255));
-
-
 
 CREATE TABLE "recipes" (
 	"id" serial NOT NULL PRIMARY KEY,
@@ -58,7 +54,8 @@ CREATE TABLE "recipes" (
 
 CREATE TABLE "metrics" (
 	"id" serial NOT NULL PRIMARY KEY,
-	"name" varchar(255) NOT NULL);
+	"name" varchar(255) NOT NULL),
+	"combos_goal" int;
 
 CREATE TABLE "user_metrics" (
 	"id" serial NOT NULL PRIMARY KEY,
@@ -67,13 +64,12 @@ CREATE TABLE "user_metrics" (
 	"goal" int,
     "progress" int);
 
-
-
 CREATE TABLE "feed_content" (
 	"id" serial NOT NULL PRIMARY KEY,
 	"type" TYPE NOT NULL,
 	"description" varchar(2555) NOT NULL,
-	"combo_id" int REFERENCES "combos");
+	"combo_id" int REFERENCES "combos"),
+	"date_posted" DATE;
 
 INSERT INTO "ingredients" ("name", "description")
 VALUES ('apple', 'apples are a fruit that is red or green'),
@@ -84,11 +80,4 @@ VALUES ('apple', 'apples are a fruit that is red or green'),
 ('butter', 'the real kind, not that margarine stuff'),
 ('sugar', 'sweetness');
 
-ALTER TABLE "user" 
-ADD COLUMN "password" varchar(255);
 
-ALTER TABLE "feed_content"
-ALTER COLUMN "type" TYPE varchar(255);
-
-ALTER TABLE "metrics"
-ADD COLUMN "combos_goal" int;
