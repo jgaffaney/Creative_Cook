@@ -11,6 +11,8 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
 
 function Feed() {
   const user = useSelector((store) => store.user);
@@ -91,6 +93,7 @@ function Feed() {
   }));
 
   console.log('Challenge', newChallenge);
+  console.log(userCombos);
   return (
     <>
       <Box sx={sxMetrics}>
@@ -135,13 +138,14 @@ function Feed() {
             {userCombos.map((combo) => {
 
               return (
-                <Grid item xs={2} sm={4} md={4}>
+                <Grid item xs={2} sm={4} md={4} key={combo.id} >
                   <Item
-                    key={combo.id}
-                    value={combo.id}
                     onClick={(event) => handlePropertyChange(event, 'combo_id')}
                   >
-                    <Typography>{combo.name}</Typography>
+                    <List>
+                      <ListItem sx={{p: 3, border: '1px solid black'}} value={combo.id}>{combo.name}</ListItem>
+                    </List>
+
                   </Item>
                 </Grid>
               )
