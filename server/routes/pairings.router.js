@@ -41,8 +41,26 @@ router.post('/:id', (req, res) => {
             console.log('Error on POST: ', err);
             res.sendStatus(500);
         })
-    
-    
+})
+
+router.delete('/', (req, res) => {
+    // console.log('params in pairings DELETE: ', req.params.id);
+    console.log('req.body in pairings DELETE: ', req.body);
+    const queryText = `
+    DELETE FROM pairings
+    WHERE ingredient_one_id = $1 AND ingredient_two_id = $2 OR
+    (ingredient_one_id = $2 AND ingredient_two_id = $1);
+    `
+    const values = [req.body.pair, req.body.del];
+    pool.query(queryText, values)
+        .then(response => {
+            console.log('response from pairing DELETE: ', response);
+            res.sendStatus(204)
+        }).catch(err => {
+            console.log('Error on Delete: ', err);
+            res.sendStatus(500);
+        })
+
 })
 
 module.exports = router;

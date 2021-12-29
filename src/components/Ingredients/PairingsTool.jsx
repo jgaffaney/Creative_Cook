@@ -22,7 +22,7 @@ const PairingsTool = () => {
 
     const convertNameToId = () => {
         for (let ingredient of ingredients) {
-            if (ingredient.name === searchText) {
+            if (ingredient.name === searchText.toLowerCase()) {
                 return ingredient.id;
             }
         }
@@ -63,6 +63,10 @@ const PairingsTool = () => {
     const addNewPairing = (params) => {
         dispatch({type: 'ADD_PAIRING', payload: params.id, pairWith: convertNameToId(), ingredients: ingredients})
 
+    }
+
+    const removePairing = (params) => {
+        dispatch({type: 'DELETE_PAIRING', payload: params.id, pairWith: convertNameToId(), ingredients: ingredients})
     }
 
     // const unpairedIngredients = () => {
@@ -106,7 +110,8 @@ const PairingsTool = () => {
                 <h2>No ingredient selected</h2>}
                 <DataGrid
                     rows={pairings}
-                    columns={columns}>
+                    columns={columns}
+                    onRowClick={removePairing}>
                 </DataGrid>
             </Box>
             <Box sx={{ height: 400, width: '100%' }}>

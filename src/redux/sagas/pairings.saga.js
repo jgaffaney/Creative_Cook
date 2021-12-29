@@ -38,9 +38,21 @@ function* addNewPairing(action) {
     }
 }
 
+function* deletePairing(action) {
+    try{
+        console.log('unPair in deletePairingSage: ', action.pairWith);
+        
+        yield axios.delete(`/api/pairings/`, {data: {pair: action.pairWith, del: action.payload}});
+        yield put({type: 'FETCH_PAIRINGS', payload: action.pairWith, ingredients: action.ingredients})
+    } catch (err) {
+        console.log('Error on removePairing: ', err);
+    }
+}
+
 function* pairingsSaga() {
     yield takeLatest('FETCH_PAIRINGS', fetchPairings)
     yield takeLatest('ADD_PAIRING', addNewPairing)
+    yield takeLatest('DELETE_PAIRING', deletePairing)
 }
 
 export default pairingsSaga;
