@@ -121,9 +121,6 @@ function Profile() {
   // }
 
   const sxBottomSection = {
-    border: '1px solid black',
-    // display: 'flex',
-    // flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
