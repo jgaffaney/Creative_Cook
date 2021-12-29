@@ -19,13 +19,21 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 function Profile() {
   const user = useSelector((store) => store.user);
   const userCombos = useSelector((store) => store.userCombos);
+  const userIngredients = useSelector((store) => store.userIngredients);
+  const userRecipes = useSelector((store) => store.userRecipes);
   const goal = useSelector((store) => store.goal);
   const dispatch = useDispatch();
+
+  // console.log("userCombos", userCombos);
+  // console.log("userIngredients", userIngredients);
+  // console.log("userRecipes", userRecipes);
 
   useEffect(() => {
     dispatch({ type: 'FETCH_COMBOS' })
     dispatch({ type: 'FETCH_GOAL' })
   }, [])
+
+
 
   //box stylings
   const sxHomePageContainer = {
@@ -222,13 +230,13 @@ function Profile() {
               <Grid container spacing={2} alignItems="stretch">
                 <Grid item xs={4}>
                 <Typography>New Ingredients - Goal: {userNewIngredientGoals} </Typography>
-                  <Item>Goal Progress: {userIngredientGoalProgress}/{userNewIngredientGoals}</Item>
+                  <Item>Goal Progress: {userIngredients}/{userNewIngredientGoals}</Item>
                   <Button onClick={() => handleUpdateIngredientGoal()} variant="contained" size="small" startIcon={<AddTaskIcon />} >Update</Button>
                   <Button onClick={() => handleIngredientReset()} variant="outlined" size="small" startIcon={<RefreshIcon />} >Reset</Button>
                 </Grid>
                 <Grid item xs={4}>
                 <Typography>New Recipes - Goal: {userNewRecipeGoals} </Typography>
-                  <Item>Goal Progress: {userRecipeGoalProgress}/{userNewRecipeGoals}</Item>
+                  <Item>Goal Progress: {userRecipes}/{userNewRecipeGoals}</Item>
                   {/* <Box sx={sxButtonBox}> */}
                   <Button onClick={() => handleUpdateRecipeGoal()} variant="contained" size="small" startIcon={<AddTaskIcon />} >Update</Button>
                   <Button onClick={() => handleRecipeReset()} variant="outlined" size="small" startIcon={<RefreshIcon />}>Reset</Button>
@@ -238,8 +246,8 @@ function Profile() {
                 <Grid item xs={4}>
                 <Typography>New Combos - Goal: {goal.goal} </Typography>
                   <Item>Goal Progress: {userCombos.length}/{goal.goal}</Item>
-                  <Button onClick={() => handleUpdateComboGoal()} variant="contained" size="small" startIcon={<AddTaskIcon />} >Update</Button>
-                  <Button onClick={() => handleComboReset()} variant="outlined" size="small" startIcon={<RefreshIcon />}>Reset</Button>
+                  {/* <Button onClick={() => handleUpdateComboGoal()} variant="contained" size="small" startIcon={<AddTaskIcon />} >Update</Button>
+                  <Button onClick={() => handleComboReset()} variant="outlined" size="small" startIcon={<RefreshIcon />}>Reset</Button> */}
                 </Grid>}
               </Grid>
             {/* </Box> */}

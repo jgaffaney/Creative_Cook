@@ -35,7 +35,7 @@ router.put('/', (req, res) => {
     UPDATE "user_metrics"
     SET "goal" = "goal" + 5
     WHERE "user_id" = $1 AND "metric_id" = $2; 
-    `
+    `;
     values = [id, req.body.metric_id]
     console.log("!!!", req.body);
     pool.query(queryText, values)

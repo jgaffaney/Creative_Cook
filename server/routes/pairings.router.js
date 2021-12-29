@@ -2,12 +2,16 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/:id', (req, res) => {
+    console.log('params in pairings GET: ', req.params.id);
+    const id = req.params.id;
     const queryText = `
-    SELECT * from pairings
-    ORDER BY ingredient_one_id;
+    SELECT "ingredients"."id", INITCAP("ingredients"."name") AS name FROM "ingredients"
+    JOIN "pairings" ON "pairings"."ingredient_two_id" = "ingredients"."id"
+    WHERE "pairings"."ingredient_one_id" = $1;
     `
-    pool.query(queryText)
+    const values = [id];
+    pool.query(queryText, values)
         .then(response => {
             console.log('response from GET pairings: ', response);
             res.send(response.rows)
@@ -15,6 +19,10 @@ router.get('/', (req, res) => {
             console.log('Error on GET pairings: ', err);
             res.sendStatus(500);
         })
+})
+
+router.get('/unpaired/:id', (req, res) => {
+    
 })
 
 module.exports = router;
