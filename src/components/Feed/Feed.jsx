@@ -24,6 +24,7 @@ function Feed() {
   useEffect(() => {
     dispatch({ type: 'FETCH_INGREDIENTS' });
     dispatch({ type: 'FETCH_COMBOS' });
+    dispatch({ type: 'FETCH_TOP5' });
   }, [])
 
   const [newChallenge, setNewChallenge] = useState({ type: 'Combo of the Week', description: '', combo_id: '' })
