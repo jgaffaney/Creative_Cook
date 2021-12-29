@@ -10,6 +10,7 @@ import goal from './goal.reducer';
 import pairings from './pairings.reducer';
 import combo from './combo.reducer';
 import ingredientSearch from './ingredientSearch.reducer';
+import unpaired from './unpaired.reducer';
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
   goal,
   pairings, // holds all the pairings available in the database-admin edit only
   ingredientSearch, // holds search text for <IngredientAutocomplete> 
+  unpaired, // holds the ingredients that are not paired with the selected ingredient
 });
 
 export default rootReducer;
