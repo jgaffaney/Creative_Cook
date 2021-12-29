@@ -28,6 +28,8 @@ function LoginPage() {
     mx: 'auto',
   }
 
+  // window.location.replace("#/home/#register")
+
   return (
 
     <Box sx={sxLoginPageContent}>
@@ -35,7 +37,6 @@ function LoginPage() {
       <LoginForm />
 
       <center>
-
         {!registerFormStatus ?
           <Button sx={sxRegisterFormBtn} onClick={() => setRegisterFormStatus(!registerFormStatus)}
             variant="contained">New? Register Account</Button>
@@ -43,12 +44,10 @@ function LoginPage() {
           <Button sx={sxRegisterFormBtn} onClick={() => setRegisterFormStatus(!registerFormStatus)}
             variant="contained">Hide Registration</Button>
         }
-
-
       </center>
 
+      {/* open the registration form when we click on the button above */}
       {registerFormStatus ? <RegisterForm /> : <></>}
-
 
     </Box>
 
