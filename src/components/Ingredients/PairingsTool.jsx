@@ -41,7 +41,7 @@ const PairingsTool = () => {
             }
         }
         console.log('Converted name to id yields id: ', id);
-        dispatch({ type: 'FETCH_PAIRINGS', payload: id, search: searchText, ingredients: ingredients });
+        dispatch({ type: 'FETCH_PAIRINGS', payload: id, ingredients: ingredients });
 
         resultArray = ingredients.map(ingredient => {
             for(let pair of pairings){
@@ -61,7 +61,7 @@ const PairingsTool = () => {
     ]
 
     const addNewPairing = (params) => {
-        dispatch({type: 'ADD_PAIRING', payload: params.id, pairWith: convertNameToId()})
+        dispatch({type: 'ADD_PAIRING', payload: params.id, pairWith: convertNameToId(), ingredients: ingredients})
 
     }
 
