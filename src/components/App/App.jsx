@@ -5,13 +5,11 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
-
 import { useDispatch, useSelector } from 'react-redux';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
-
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
@@ -28,7 +26,13 @@ import PairingsTool from '../Ingredients/PairingsTool';
 import Feed from '../Feed/Feed';
 
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+// --- MUI sx STYLES --- // 
+import {
+  sxCenterText,
+} from '../Home/Home.style';
 
 // let's set up a theme for our project
 const theme = createTheme({
@@ -55,7 +59,7 @@ const theme = createTheme({
 });
 
 
-import './App.css';
+// import './App.css';
 
 function App() {
   const dispatch = useDispatch();
@@ -161,7 +165,8 @@ function App() {
 
             {/* If none of the other routes matched, we will show a 404. */}
             <Route>
-              <h1>404</h1>
+              <br />
+              <Typography variant="h1" sx={sxCenterText}>404</Typography>
             </Route>
 
           </Switch>

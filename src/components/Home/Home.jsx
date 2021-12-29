@@ -32,6 +32,7 @@ import {
     sxPhotoIngredient,
     sxComboDescription,
     sxRemoveButton,
+    sxClickableDiv,
 } from './Home.style';
 import IngredientAutocomplete from '../IngredientAutocomplete/IngredientAutocomplete';
 
@@ -45,7 +46,16 @@ function Home() {
     const ingredients = useSelector((store) => store.ingredients);
     const feedContent = useSelector((store) => store.challenge);
     const searchText = useSelector(store => store.ingredientSearch);
+    const userCombos = useSelector((store) => store.userCombos);
 
+    useEffect(() => {
+        dispatch({ type: 'FETCH_CHALLENGE' });
+        dispatch({ type: 'FETCH_COMBOS' });
+        dispatch({ type: 'FETCH_INGREDIENTS' });
+    }, []);
+
+
+    // SEARCH function will capture first ingredient and then push you to the combo page to complete combo
     const handleSearch = (searchText) => {
         console.log('CLICKED on handleSearch');
         console.log('this is the searchText', searchText);
@@ -64,24 +74,42 @@ function Home() {
         history.push('/combo')
     }
 
+
+    // pageDirection clicks to take to you to the right page.
+    function handleClick(pageDirection) {
+
+        switch (pageDirection) {
+            case 'profile':
+                console.log('CLICKED on the profile image button');
+                history.push('/profile')
+                break;
+
+            case 'combo':
+                console.log('CLICKED on the combo button');
+                history.push('/combo')
+                break;
+
+            default:
+                break;
+        }
+
+    }; // handleClick
+
+    // Where do we go when we click on the Combo?
     const handleComboClick = () => {
         console.log('handleComboClick');
     }
 
+    // ADMIN will have the ability to remove featured combos from the Home screen feed section
     const handleRemove = () => {
         console.log('handleRemove');
     }
 
+    // console.log('homePage ingredient list', ingredients);
 
-    useEffect(() => {
-        dispatch({ type: 'FETCH_CHALLENGE' });
-        dispatch({ type: 'FETCH_COMBOS' });
-        dispatch({ type: 'FETCH_INGREDIENTS' });
-    }, []);
-
-
-
-    console.log('homePage ingredient list', ingredients);
+    // const limitSize = 3
+    const recentCombos = userCombos.slice(0, 3);
+    console.log('homepage first 3 recentCombos', recentCombos);
 
     return (
         <Box sx={sxHomePageContainer}>
@@ -91,29 +119,31 @@ function Home() {
 
                     {/* user PROFILE section */}
                     <Box sx={sxProfileContainer}>
-                        <Typography variant="h6" sx={sxCenterText}>{user.username}</Typography>
+                        <Typography variant="h5" sx={sxCenterText}>{user.username}</Typography>
                         {/* <Typography>Side Section: User Profile</Typography> */}
-                        <CardMedia sx={sxPhotoBox} component="img" image={user.pic} />
-                        <Typography variant="h6" sx={sxCenterText}>{user.display_name}</Typography>
+                        <CardMedia onClick={() => handleClick('profile')} sx={sxPhotoBox} component="img" image={user.pic} />
+                        <Typography variant="h5" sx={sxCenterText}>{user.display_name}</Typography>
                         {/* <Typography><p>{user.bio}</p></Typography> */}
                     </Box>
-                    <br />
 
                     {/* any METRICS will go here */}
-                    <Box>
-                        <Typography variant="body1">Side Section: Metrics</Typography>
+                    <Box onClick={() => handleClick('profile')} sx={sxClickableDiv}>
+                        <Typography variant="h6" sx={sxCenterText}>Metrics</Typography>
+                        <Typography variant="body1" sx={sxCenterText}>content</Typography>
                     </Box>
-                    <br />
 
                     {/* recent COMBOS */}
-                    <Box>
-                        <Typography variant="body1">Side Section: Recent Combos</Typography>
+                    <Box onClick={() => handleClick('profile')} sx={sxClickableDiv}>
+                        <Typography variant="h6" sx={sxCenterText}>Recent Combos</Typography>
+                        {recentCombos.map((combo) => (
+                            <Typography variant="body1" sx={sxCenterText}>{combo.name}</Typography>
+                        ))}
                     </Box>
-                    <br />
 
                     {/* GOALS progress */}
-                    <Box>
-                        <Typography variant="body1">Side Section: Goal Progress</Typography>
+                    <Box onClick={() => handleClick('profile')} sx={sxClickableDiv}>
+                        <Typography variant="h6" sx={sxCenterText}>Goal Progress</Typography>
+                        <Typography variant="body1" sx={sxCenterText}>content</Typography>
                     </Box>
 
                 </Box>
@@ -122,7 +152,7 @@ function Home() {
                 <Box sx={sxRightColumn}>
                     <Box sx={sxTopSection}>
 
-                        <Typography variant="h5">Find Your First Ingredient</Typography>
+                        <Typography variant="h4">Find Your First Ingredient</Typography>
                         <Box sx={sxSearchContainer}>
 
                             <IngredientAutocomplete />
@@ -134,7 +164,7 @@ function Home() {
 
                     <Box sx={sxBottomSection}>
 
-                        <Typography variant="h5" sx={{ mb: 2, }}>Featured Combos</Typography>
+                        <Typography variant="h4" sx={{ mb: 2, }}>Featured Combos</Typography>
 
                         <Box sx={sxFeedContainer}>
 

@@ -3,6 +3,11 @@
 // --- HOME PAGE STYLES --- // 
 
 
+// UI hints at clickable content
+export const sxClickableDiv = {
+    cursor: 'pointer',
+}
+
 
 // CONTAINER that centers everything on this page
 export const sxHomePageContainer = {
@@ -32,6 +37,7 @@ export const sxLeftColumn = {
     display: 'flex',
     flexDirection: 'column',
     minWidth: 220,
+    gap: 4,
     // position: 'sticky',
     // top: 200,
 
@@ -54,6 +60,7 @@ export const sxPhotoBox = {
     my: 2,
     borderRadius: '50%',
     mx: 'auto',
+    cursor: 'pointer',
 };
 
 // Centers Text
