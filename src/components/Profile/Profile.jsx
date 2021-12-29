@@ -13,6 +13,8 @@ import Paper from '@mui/material/Paper';
 import AddTaskIcon from '@mui/icons-material/AddTask';
 import DeleteIcon from '@mui/icons-material/Delete';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
 
 
 
@@ -108,14 +110,25 @@ function Profile() {
     // m: 2
   }
 
+  // const sxBottomSection = {
+  //   border: '1px solid black',
+  //   display: 'flex',
+  //   flexDirection: 'column',
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  //   width: '100%',
+  //   height: 300,
+  // }
+
   const sxBottomSection = {
     border: '1px solid black',
-    display: 'flex',
-    flexDirection: 'column',
+    // display: 'flex',
+    // flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    height: 300,
+    height: 'auto',
+    mb: 2
   }
 
   const sxGoals = {
@@ -259,16 +272,30 @@ function Profile() {
               </Grid>
             {/* </Box> */}
           </Box>
+          <Typography sx={{ textAlign: "center" }}>Saved Flavor Combos</Typography>
           <Box sx={sxBottomSection}>
-            <Typography size={18}>Saved Flavor Combos</Typography>
             {/* <Typography>Saved Flavor Combos</Typography> */}
-            <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+            {/* <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
               {Array.from(Array(12)).map((_, index) => (
                 <Grid item xs={2} sm={4} md={4} key={index}>
                   <Item>Saved Flavor Combos</Item>
                 </Grid>
               ))}
-            </Grid>
+            </Grid> */}
+          <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+            {userCombos.map((combo) => {
+
+              return (
+                <Grid item xs={2} sm={4} md={4} key={combo.id} >
+                  <Item >
+                    <List>
+                      <ListItem sx={{p: 3, border: '1px solid black', }}>{combo.name}</ListItem>
+                    </List>
+                  </Item>
+                </Grid>
+              )
+            })}
+          </Grid>
           </Box>
         </Box>
       </Box>
