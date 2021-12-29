@@ -6,6 +6,17 @@
 // UI hints at clickable content
 export const sxClickableDiv = {
     cursor: 'pointer',
+    p: 2,
+
+     '&:hover': {
+        // transform: 'scale(1.1)',
+        boxShadow: 2,
+        borderRadius: 2,
+    }
+}
+
+export const sxClickableCombo = {
+    cursor: 'pointer',
 }
 
 
@@ -25,6 +36,7 @@ export const sxPageContent = {
     width: '80%',
     height: 'auto',
     m: 2,
+    gap: 1,
 }
 
 
@@ -37,7 +49,7 @@ export const sxLeftColumn = {
     display: 'flex',
     flexDirection: 'column',
     minWidth: 220,
-    gap: 4,
+    gap: 2,
     // position: 'sticky',
     // top: 200,
 
@@ -56,11 +68,16 @@ export const sxPhotoBox = {
     // border: '1px solid lightgray',
     width: 150,
     height: 150,
-    boxShadow: 3,
+    boxShadow: 2,
     my: 2,
     borderRadius: '50%',
     mx: 'auto',
     cursor: 'pointer',
+
+    '&:hover': {
+        // transform: 'scale(1.1)',
+        boxShadow: 5,
+    }
 };
 
 // Centers Text
@@ -155,6 +172,12 @@ export const sxContentPaper = {
     justifyContent: 'center',
     alignItems: 'center',
     p: 2,
+    borderRadius: 2,
+    cursor: 'pointer',
+
+    '&:hover': {
+        boxShadow: 5,
+    }
 }
 
 // INGREDIENT PHOTO CONTAINER holds all of the ingredient photos for featured the combo card

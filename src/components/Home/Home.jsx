@@ -33,6 +33,7 @@ import {
     sxComboDescription,
     sxRemoveButton,
     sxClickableDiv,
+    sxClickableCombo,
 } from './Home.style';
 import IngredientAutocomplete from '../IngredientAutocomplete/IngredientAutocomplete';
 
@@ -76,7 +77,7 @@ function Home() {
 
 
     // pageDirection clicks to take to you to the right page.
-    function handleClick(pageDirection) {
+    function handleClick(pageDirection, content) {
 
         switch (pageDirection) {
             case 'profile':
@@ -85,7 +86,10 @@ function Home() {
                 break;
 
             case 'combo':
-                console.log('CLICKED on the combo button');
+                console.log('CLICKED on the featured combo');
+                dispatch({ type: 'SET_COMBO_INGREDIENT', payload: content})
+
+                // turn on when ready 
                 history.push('/combo')
                 break;
 
@@ -95,10 +99,6 @@ function Home() {
 
     }; // handleClick
 
-    // Where do we go when we click on the Combo?
-    const handleComboClick = () => {
-        console.log('handleComboClick');
-    }
 
     // ADMIN will have the ability to remove featured combos from the Home screen feed section
     const handleRemove = () => {
@@ -199,26 +199,30 @@ function Home() {
                                 console.log('--- feedContentIngredients:', feedContentIngredients);
 
                                 return (
-                                    <Paper key={content.id} sx={sxContentPaper} elevation={3}>
+                                    <Paper key={content.id} sx={sxContentPaper} elevation={2}>
 
-                                        <Typography variant="body1" sx={{ textAlign: 'center' }} onClick={handleComboClick}>{content.date_posted?.split('T')[0]}</Typography>
+                                        {/* needed an extra Box just to separate the comboClick; remove button sits on top of this DIV and  fire when button is pushed */}
+                                        <Box onClick={() => handleClick('combo', content)} sx={sxClickableCombo} >
 
-                                        <Typography variant="h6" sx={{ textAlign: 'center' }} onClick={handleComboClick}>{content.name}</Typography>
+                                            <Typography variant="body1" sx={{ textAlign: 'center' }} >{content.date_posted?.split('T')[0]}</Typography>
 
-                                        <Box onClick={handleComboClick} sx={sxPhotoIngredientContainer}>
-                                            <CardMedia sx={sxPhotoIngredient} component="img" image={feedContentIngredients[0]?.pic} />
-                                            <CardMedia sx={sxPhotoIngredient} component="img" image={feedContentIngredients[1]?.pic} />
-                                            <CardMedia sx={sxPhotoIngredient} component="img" image={feedContentIngredients[2]?.pic} />
+                                            <Typography variant="h6" sx={{ textAlign: 'center' }}>{content.name}</Typography>
+
+                                            <Box sx={sxPhotoIngredientContainer}>
+                                                <CardMedia sx={sxPhotoIngredient} component="img" image={feedContentIngredients[0]?.pic} />
+                                                <CardMedia sx={sxPhotoIngredient} component="img" image={feedContentIngredients[1]?.pic} />
+                                                <CardMedia sx={sxPhotoIngredient} component="img" image={feedContentIngredients[2]?.pic} />
+                                            </Box>
+
+
+                                            <Typography variant="body1" sx={sxComboDescription}>{content.description}</Typography>
+                                            {/* <Typography variant="body1">{feedContentIngredients[0]?.name}, {feedContentIngredients[1]?.name}{feedContentIngredients[2] ? (', ' + feedContentIngredients[2]?.name) : ""}</Typography> */}
                                         </Box>
-
-
-                                        <Typography variant="body1" sx={sxComboDescription}
-                                            onClick={handleComboClick}>{content.description}</Typography>
-                                        {/* <Typography variant="body1">{feedContentIngredients[0]?.name}, {feedContentIngredients[1]?.name}{feedContentIngredients[2] ? (', ' + feedContentIngredients[2]?.name) : ""}</Typography> */}
 
                                         {/* only allow ADMIN use see and use the remove feed button to remove feed items */}
                                         {user.is_admin ? <Button onClick={handleRemove}
-                                            sx={sxRemoveButton} variant="contained"
+                                            sx={sxRemoveButton}
+                                            variant="contained"
                                             size="small">Remove</Button> : <></>}
 
                                     </Paper>
