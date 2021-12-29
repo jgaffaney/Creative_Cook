@@ -8,7 +8,11 @@ router.get('/:id', (req, res) => {
     const queryText = `
     SELECT "ingredients"."id", INITCAP("ingredients"."name") AS name FROM "ingredients"
     JOIN "pairings" ON "pairings"."ingredient_two_id" = "ingredients"."id"
-    WHERE "pairings"."ingredient_one_id" = $1;
+    WHERE "pairings"."ingredient_one_id" = $1
+    UNION
+    SELECT "ingredients"."id", INITCAP("ingredients"."name") AS name FROM "ingredients"
+    JOIN "pairings" ON "pairings"."ingredient_one_id" = "ingredients"."id"
+    WHERE "pairings"."ingredient_two_id" = $1;
     `
     const values = [id];
     pool.query(queryText, values)
