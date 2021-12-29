@@ -32,6 +32,8 @@ function LoginPage() {
 
     <Box sx={sxLoginPageContent}>
 
+      {/* <CardMedia component="img" image="/meteor-solid.svg" /> */}
+
       <LoginForm />
 
       <center>
