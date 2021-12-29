@@ -21,8 +21,17 @@ function* fetchPairings(action) {
     }
 }
 
+function* addNewPairing(action) {
+    try {
+        yield axios.post(`/api/pairings/${action.payload}`, {pair: action.pairWith});
+    } catch (error) {
+        console.log('Error on addNewPairing: ', error);
+    }
+}
+
 function* pairingsSaga() {
     yield takeLatest('FETCH_PAIRINGS', fetchPairings)
+    yield takeLatest('ADD_PAIRING', addNewPairing)
 }
 
 export default pairingsSaga;

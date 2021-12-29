@@ -25,7 +25,23 @@ router.get('/:id', (req, res) => {
         })
 })
 
-router.get('/unpaired/:id', (req, res) => {
+router.post('/:id', (req, res) => {
+    console.log('params in pairings POST: ', req.params.id);
+    console.log('req.body in pairings POST: ', req.body.pair);
+    const queryText = `
+    INSERT INTO pairings ("ingredient_one_id", "ingredient_two_id")
+    VALUES ($1, $2)
+    `
+    const values = [req.params.id, req.body.pair];
+    pool.query(queryText, values)
+        .then(response=> {
+            console.log('response from pairing POST: ', response);
+            res.sendStatus(200)
+        }).catch(err => {
+            console.log('Error on POST: ', err);
+            res.sendStatus(500);
+        })
+    
     
 })
 

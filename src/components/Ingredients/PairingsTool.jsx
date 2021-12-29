@@ -20,6 +20,14 @@ const PairingsTool = () => {
 
     // const [newPairings, setNewPairings] = useState();
 
+    const convertNameToId = () => {
+        for (let ingredient of ingredients) {
+            if (ingredient.name === searchText) {
+                return ingredient.id;
+            }
+        }
+    }
+
     const handleSetIngredient = () => {
         console.log('Submit clicked with id: ', searchText);
         setPairedWith(searchText);
@@ -51,6 +59,11 @@ const PairingsTool = () => {
         { field: 'id', headerName: 'ID' },
         { field: 'name', headerName: 'Name' },
     ]
+
+    const addNewPairing = (params) => {
+        dispatch({type: 'ADD_PAIRING', payload: params.id, pairWith: convertNameToId()})
+
+    }
 
     // const unpairedIngredients = () => {
     //     console.log('in unpairedIngredients');
@@ -104,6 +117,7 @@ const PairingsTool = () => {
                 <DataGrid
                     rows={unpaired.filter(ingredient=>ingredient.name != pairedWith)}
                     columns={columns}
+                    onRowClick={addNewPairing}
                 >
                 </DataGrid>
             </Box>
