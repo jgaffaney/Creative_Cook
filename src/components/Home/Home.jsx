@@ -47,7 +47,7 @@ function Home() {
     const ingredients = useSelector((store) => store.ingredients);
     const feedContent = useSelector((store) => store.challenge);
     const searchText = useSelector(store => store.ingredientSearch);
-    const userCombos = useSelector((store) => store.userCombos);
+    const userCombos = useSelector(store => store.userCombos);
 
     useEffect(() => {
         dispatch({ type: 'FETCH_CHALLENGE' });
