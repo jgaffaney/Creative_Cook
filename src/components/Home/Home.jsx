@@ -36,6 +36,7 @@ import {
     sxClickableCombo,
 } from './Home.style';
 import IngredientAutocomplete from '../IngredientAutocomplete/IngredientAutocomplete';
+
 import { defaultOrderByFn } from 'react-table';
 
 
@@ -78,33 +79,44 @@ function Home() {
 
 
     // pageDirection clicks to take to you to the right page.
-    function handleClick(pageDirection, content) {
+    function handleClick(action, content) {
 
-        switch (pageDirection) {
+        switch (action) {
+
+            // ADMIN will have the ability to see remove button on combos cards;
+            case 'remove':
+                console.log('CLICKED on the remove button on the feed combo card');
+                console.log('ingredient from fee combo to be removed', content);
+                console.log('feed content remove id:', content.id);
+
+                // dispatch remove feed content by id
+                // dispatch refresh of the feed list
+
+                break;
+
+
             case 'profile':
                 console.log('CLICKED on the profile image button');
                 history.push('/profile')
                 break;
 
-            case 'combo':
-                
-                // first make sure the reducer is empty and ready to receive the combo we click on;
-                dispatch({ type: 'CLEAR_COMBO_AND_RECIPE'})
 
+            case 'combo':
                 console.log('CLICKED on the featured combo');
+                // first make sure the reducer is empty and ready to receive the combo we click on;
+                dispatch({ type: 'CLEAR_COMBO_AND_RECIPE' })
 
                 // this is just the array of ids; 
                 const comboIngredientIds = content.ingredient_list;
                 // console.log('--- comboIngredientIds', comboIngredientIds);
 
-                // need to get the actual ingredient object from the store.ingredients in order to hit the reducer correctly with the right data type;
+                // need to get the list of ingredient objects from the store.ingredients in order to send the right data type to combo reducer;
                 const crossFilteredIngredients = ingredients.filter(item => {
                     return comboIngredientIds.indexOf(item.id) != -1;
                 });
                 // console.log('--- crossFilteredIngredients filtered down ingredients based on ingredients list', crossFilteredIngredients);
 
-
-                // we need to DISPATCH only our ingredient object and our ingredients in the right order
+                // we need to DISPATCH the ingredient OBJECT and the ingredients in the right order;
                 const ingredientOne = crossFilteredIngredients.filter(ingredient => ingredient.id === comboIngredientIds[0])
                 // console.log('--- filtered ingredientOne', ingredientOne);
                 dispatch({ type: 'SET_COMBO_INGREDIENT', payload: ingredientOne[0] })
@@ -126,11 +138,6 @@ function Home() {
 
     }; // handleClick
 
-
-    // ADMIN will have the ability to remove featured combos from the Home screen feed section
-    const handleRemove = () => {
-        console.log('handleRemove');
-    }
 
 
     // const limitSize = 3
@@ -246,7 +253,7 @@ function Home() {
                                         </Box>
 
                                         {/* only allow ADMIN use see and use the remove feed button to remove feed items */}
-                                        {user.is_admin ? <Button onClick={handleRemove}
+                                        {user.is_admin ? <Button onClick={() => handleClick('remove', content)}
                                             sx={sxRemoveButton}
                                             variant="contained"
                                             size="small">Remove</Button> : <></>}
