@@ -36,6 +36,7 @@ import {
     sxClickableCombo,
 } from './Home.style';
 import IngredientAutocomplete from '../IngredientAutocomplete/IngredientAutocomplete';
+import { defaultOrderByFn } from 'react-table';
 
 
 function Home() {
@@ -86,10 +87,36 @@ function Home() {
                 break;
 
             case 'combo':
-                console.log('CLICKED on the featured combo');
-                dispatch({ type: 'SET_COMBO_INGREDIENT', payload: content})
+                
+                // first make sure the reducer is empty and ready to receive the combo we click on;
+                dispatch({ type: 'CLEAR_COMBO_AND_RECIPE'})
 
-                // turn on when ready 
+                console.log('CLICKED on the featured combo');
+
+                // this is just the array of ids; 
+                const comboIngredientIds = content.ingredient_list;
+                // console.log('--- comboIngredientIds', comboIngredientIds);
+
+                // need to get the actual ingredient object from the store.ingredients in order to hit the reducer correctly with the right data type;
+                const crossFilteredIngredients = ingredients.filter(item => {
+                    return comboIngredientIds.indexOf(item.id) != -1;
+                });
+                // console.log('--- crossFilteredIngredients filtered down ingredients based on ingredients list', crossFilteredIngredients);
+
+
+                // we need to DISPATCH only our ingredient object and our ingredients in the right order
+                const ingredientOne = crossFilteredIngredients.filter(ingredient => ingredient.id === comboIngredientIds[0])
+                // console.log('--- filtered ingredientOne', ingredientOne);
+                dispatch({ type: 'SET_COMBO_INGREDIENT', payload: ingredientOne[0] })
+
+                const ingredientTwo = crossFilteredIngredients.filter(ingredient => ingredient.id === comboIngredientIds[1])
+                // console.log('--- filtered ingredientTwo', ingredientTwo);
+                dispatch({ type: 'SET_COMBO_INGREDIENT', payload: ingredientTwo[0] })
+
+                const ingredientThree = crossFilteredIngredients.filter(ingredient => ingredient.id === comboIngredientIds[2])
+                // console.log('--- filtered ingredientThree', ingredientThree);
+                dispatch({ type: 'SET_COMBO_INGREDIENT', payload: ingredientThree[0] })
+
                 history.push('/combo')
                 break;
 
@@ -105,7 +132,6 @@ function Home() {
         console.log('handleRemove');
     }
 
-    // console.log('homePage ingredient list', ingredients);
 
     // const limitSize = 3
     const recentCombos = userCombos.slice(0, 3);
