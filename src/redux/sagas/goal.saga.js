@@ -23,9 +23,8 @@ function* updateGoal(action) {
 };
 
 function* goalSaga() {
-    yield takeLatest('UPDATE_GOAL', updateGoal);
     yield takeLatest('FETCH_GOAL', fetchGoals);
-    
+    yield takeLatest('UPDATE_GOAL', updateGoal);
 } 
 
 

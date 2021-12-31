@@ -150,7 +150,7 @@ function Profile() {
 // function progressChecker()
   if (userCombos.length >= goal.goal) {
     dispatch({ type: 'UPDATE_GOAL', payload: goal.metric_id })
-    console.log(userCombos.length);
+    // console.log(userCombos.length);
   }
  
 
@@ -231,15 +231,15 @@ function Profile() {
                 <Grid item xs={4}>
                 <Typography>New Ingredients - Goal: {userNewIngredientGoals} </Typography>
                   <Item>Goal Progress: {userIngredients}/{userNewIngredientGoals}</Item>
-                  <Button onClick={() => handleUpdateIngredientGoal()} variant="contained" size="small" startIcon={<AddTaskIcon />} >Update</Button>
-                  <Button onClick={() => handleIngredientReset()} variant="outlined" size="small" startIcon={<RefreshIcon />} >Reset</Button>
+                  {/* <Button onClick={() => handleUpdateIngredientGoal()} variant="contained" size="small" startIcon={<AddTaskIcon />} >Update</Button>
+                  <Button onClick={() => handleIngredientReset()} variant="outlined" size="small" startIcon={<RefreshIcon />} >Reset</Button> */}
                 </Grid>
                 <Grid item xs={4}>
                 <Typography>New Recipes - Goal: {userNewRecipeGoals} </Typography>
                   <Item>Goal Progress: {userRecipes}/{userNewRecipeGoals}</Item>
                   {/* <Box sx={sxButtonBox}> */}
-                  <Button onClick={() => handleUpdateRecipeGoal()} variant="contained" size="small" startIcon={<AddTaskIcon />} >Update</Button>
-                  <Button onClick={() => handleRecipeReset()} variant="outlined" size="small" startIcon={<RefreshIcon />}>Reset</Button>
+                  {/* <Button onClick={() => handleUpdateRecipeGoal()} variant="contained" size="small" startIcon={<AddTaskIcon />} >Update</Button>
+                  <Button onClick={() => handleRecipeReset()} variant="outlined" size="small" startIcon={<RefreshIcon />}>Reset</Button> */}
                   {/* </Box> */}
                 </Grid>
                 {goal.goal && 
