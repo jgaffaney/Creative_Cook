@@ -21,7 +21,7 @@ function Profile() {
   const userCombos = useSelector((store) => store.userCombos);
   const userIngredients = useSelector((store) => store.userIngredients);
   const userRecipes = useSelector((store) => store.userRecipes);
-  const goal = useSelector((store) => store.comboGoal);
+  const comboGoal = useSelector((store) => store.comboGoal);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -143,8 +143,8 @@ function Profile() {
   let userComboGoalProgress = 3;
 
 
-  if (userCombos.length >= goal.goal) {
-    dispatch({ type: 'UPDATE_COMBO_GOAL', payload: goal})
+  if (userCombos.length >= comboGoal.goal) {
+    dispatch({ type: 'UPDATE_COMBO_GOAL', payload: comboGoal})
     console.log(userCombos.length);
   }
 
@@ -197,7 +197,7 @@ function Profile() {
     color: theme.palette.text.secondary,
   }));
 
-  console.log('goal', goal);
+  console.log('comboGoal', comboGoal);
   return (
     <Box sx={sxHomePageContainer}>
       <Box sx={sxPageContent}>
@@ -225,23 +225,23 @@ function Profile() {
             {/* <Box sx={sxGoals}> */}
               <Grid container spacing={2} alignItems="stretch">
                 <Grid item xs={4}>
-                <Typography>New Ingredients - Goal: {goal.goal} </Typography>
-                  <Item>Goal Progress: {userCombos.length}/{goal.goal}</Item>
+                <Typography>New Ingredients - Goal: {comboGoal.goal} </Typography>
+                  <Item>Goal Progress: {userCombos.length}/{comboGoal.goal}</Item>
                   {/* <Button onClick={() => handleUpdateIngredientGoal()} variant="contained" size="small" startIcon={<AddTaskIcon />} >Update</Button>
                   <Button onClick={() => handleIngredientReset()} variant="outlined" size="small" startIcon={<RefreshIcon />} >Reset</Button> */}
                 </Grid>
                 <Grid item xs={4}>
-                <Typography>New Recipes - Goal: {goal.goal} </Typography>
-                  <Item>Goal Progress: {userCombos.length}/{goal.goal}</Item>
+                <Typography>New Recipes - Goal: {comboGoal.goal} </Typography>
+                  <Item>Goal Progress: {userCombos.length}/{comboGoal.goal}</Item>
                   {/* <Box sx={sxButtonBox}> */}
                   {/* <Button onClick={() => handleUpdateRecipeGoal()} variant="contained" size="small" startIcon={<AddTaskIcon />} >Update</Button>
                   <Button onClick={() => handleRecipeReset()} variant="outlined" size="small" startIcon={<RefreshIcon />}>Reset</Button> */}
                   {/* </Box> */}
                 </Grid>
-                {goal.goal && 
+                {comboGoal.goal && 
                 <Grid item xs={4}>
-                <Typography>New Combos - Goal: {goal.goal} </Typography>
-                  <Item>Goal Progress: {userCombos.length}/{goal.goal}</Item>
+                <Typography>New Combos - Goal: {comboGoal.goal} </Typography>
+                  <Item>Goal Progress: {userCombos.length}/{comboGoal.goal}</Item>
                   {/* <Button onClick={() => handleUpdateComboGoal()} variant="contained" size="small" startIcon={<AddTaskIcon />} >Update</Button>
                   <Button onClick={() => handleComboReset()} variant="outlined" size="small" startIcon={<RefreshIcon />}>Reset</Button> */}
                 </Grid>}
