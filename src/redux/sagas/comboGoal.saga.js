@@ -5,8 +5,8 @@ import { put, takeLatest } from 'redux-saga/effects';
 function* fetchComboGoals() {
     try {
         const response = yield axios.get('/api/goal/')
-        console.log("response.data[0]", response.data[0]);
-        yield put({ type: 'SET_COMBO_GOAL', payload: response.data[0] });
+        console.log("response.data[2]", response.data[2]);
+        yield put({ type: 'SET_COMBO_GOAL', payload: response.data[2] });
     } catch (err) {
         console.log('GET ERROR IN GOAL SAGA', err);
     }
