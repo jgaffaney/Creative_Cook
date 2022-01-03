@@ -13,6 +13,7 @@ import ingredientSearch from './ingredientSearch.reducer';
 import ingredientGoal from './ingredientGoal.reducer';
 import ingredientUnique from './ingredientUnique.reducer';
 import recipeGoal from './recipeGoal.reducer';
+import recipeSaved from './recipeSaved.reducer';
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -34,6 +35,7 @@ const rootReducer = combineReducers({
   ingredientGoal,
   ingredientUnique,
   recipeGoal,
+  recipeSaved,
 });
 
 export default rootReducer;
