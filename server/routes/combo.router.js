@@ -62,7 +62,8 @@ router.post('/', (req, res) => {
 
     const queryText = `
         INSERT INTO "combos" ("user_id", "ingredient_list", "name")
-        VALUES ($1, $2, $3);
+        VALUES ($1, $2, $3)
+        RETURNING "id";
         `;
     let values = [id, ingredientList, name]
     pool.query(queryText, values)
