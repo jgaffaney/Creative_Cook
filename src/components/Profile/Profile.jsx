@@ -37,7 +37,8 @@ function Profile() {
   const comboGoal = useSelector((store) => store.comboGoal);
   const ingredientGoal = useSelector((store) => store.ingredientGoal);
   const ingredientUnique = useSelector((store) => store.ingredientUnique);
-  // const recipeGoal = useSelector((store) => store.recipeGoal);
+  const recipeGoal = useSelector((store) => store.recipeGoal);
+  // const recipeUnique = useSelector((store) => store.recipeUnique);
   const dispatch = useDispatch();
 
 useEffect(() => {
@@ -45,6 +46,8 @@ useEffect(() => {
   dispatch({ type: 'FETCH_COMBO_GOAL' })
   dispatch({ type: 'FETCH_INGREDIENT_GOAL' })
   dispatch({ type: 'FETCH_INGREDIENT_UNIQUE' })
+  dispatch({ type: 'FETCH_RECIPE_GOAL' })
+  // dispatch({ type: 'FETCH_RECIPE_SAVED' })
 }, [])
 
   if (userCombos.length >= comboGoal.goal) {
@@ -98,8 +101,8 @@ if (ingredientUnique.length >= ingredientGoal.goal) {
                   <Button onClick={() => handleIngredientReset()} variant="outlined" size="small" startIcon={<RefreshIcon />} >Reset</Button> */}
                 </Grid>
                 <Grid item xs={4}>
-                <Typography>New Recipes - Goal: {comboGoal.goal} </Typography>
-                  <Item>Goal Progress: {userCombos.length}/{comboGoal.goal}</Item>
+                <Typography>New Recipes - Goal: {recipeGoal.goal} </Typography>
+                  <Item>Goal Progress: {userCombos.length}/{recipeGoal.goal}</Item>
                   {/* <Box sx={sxButtonBox}> */}
                   {/* <Button onClick={() => handleUpdateRecipeGoal()} variant="contained" size="small" startIcon={<AddTaskIcon />} >Update</Button>
                   <Button onClick={() => handleRecipeReset()} variant="outlined" size="small" startIcon={<RefreshIcon />}>Reset</Button> */}

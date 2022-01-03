@@ -39,6 +39,25 @@ router.get('/ingredient', (req, res) => {
        })
 }); // End GET
 
+// * GET  Ingredient route
+// */
+router.get('/recipe', (req, res) => {
+    const queryText = `
+    SELECT DISTINCT url FROM recipes
+    WHERE "user_id" = $1
+    GROUP BY url;
+ `;
+    pool.query(queryText, [req.user.id])
+        .then(result => {
+            res.send(result.rows); // Contains goal data
+        })
+        .catch(err => {
+            console.log('Error in GOAL GET', err);
+            res.sendStatus(500);
+        })
+ }); // End GET
+ 
+
 /**
  * POST route template
  */
