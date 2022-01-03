@@ -1,5 +1,7 @@
-import { FormControl, Box, TextField, 
-            MenuItem, Button, Grid } from "@mui/material";
+import {
+    FormControl, Box, TextField,
+    MenuItem, Button, Grid
+} from "@mui/material";
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -81,15 +83,29 @@ function AddIngredients() {
             label: 'Fat'
         }
     ]
+    const sxAddIngredient = {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        alignItems: 'center',
 
+        position: 'sticky',
+        top: 0,
+        m: 1,
+        mx: 'auto',
+        zIndex: 100,
 
+        width: '95%',
+        bgcolor: 'white',
+        borderBottom: '1px solid gray',
+    }
 
     return (
         <div>
             <h2>Add New Ingredient</h2>
-            <Box>
+            <Box sx={sxAddIngredient}>
                 <FormControl>
-                    <Grid container spacing={1} sx={{marginLeft: '10%', marginRight:'10%'}}>
+                    <Grid container spacing={1} sx={{ marginLeft: '10%', marginRight: '10%' }}>
                         <Grid item xs={12} md={6}>
                             <TextField
                                 id="name-input"
@@ -178,14 +194,10 @@ function AddIngredients() {
                             </TextField>
                         </Grid>
                     </Grid>
-
-
-                    <Button variant='outlined' size='small' sx={{width: '250px', m: 'auto'}} onClick={handleSubmit}>Submit</Button>
+                    <Button variant='outlined' size='small' sx={{ width: '250px', m: 'auto' }} onClick={handleSubmit}>Submit</Button>
                 </FormControl>
             </Box>
         </div>
-
-
     )
 }
 

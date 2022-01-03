@@ -22,6 +22,7 @@ function RegisterForm() {
   const [maritalStatus, setMaritalStatus] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
@@ -29,22 +30,30 @@ function RegisterForm() {
 
   const registerUser = (event) => {
     event.preventDefault();
-    dispatch({
-      type: 'REGISTER',
-      payload: {
-        username: username,
-        displayName: displayName,
-        bio: bio,
-        pic: pic,
-        age: age,
-        gender: gender,
-        familySize: familySize,
-        maritalStatus: maritalStatus,
-        isAdmin: isAdmin,
-        password: password,
-      },
-    });
-    history.push('/home')
+
+    if(password === confirmPassword){
+      dispatch({
+        type: 'REGISTER',
+        payload: {
+          username: username,
+          displayName: displayName,
+          bio: bio,
+          pic: pic,
+          age: age,
+          gender: gender,
+          familySize: familySize,
+          maritalStatus: maritalStatus,
+          isAdmin: isAdmin,
+          password: password,
+        },
+      });
+      alert("Friendly reminder to REMEMBER YOUR PASSWORD! Warning: Password Recovery is not currently available")
+      history.push('/home')
+    } else {
+      alert("Error: Passwords Don't Match")
+    }
+
+   
   }; // registerUser
 
 
@@ -75,7 +84,7 @@ function RegisterForm() {
     <form sx={sxFormContainer} onSubmit={registerUser}>
       <Box sx={sxFormContent}>
 
-        <h2>Register New User</h2>
+        <h2 id="register">Register New User</h2>
 
         {errors.registrationMessage && (
           <h3 className="alert" role="alert">
@@ -179,6 +188,16 @@ function RegisterForm() {
           label="Password"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
+        />
+
+        {/* CONFIRM PASSWORD */}
+        <TextField sx={sxInput}
+          id="confirmPassword"
+          type="password"
+          required
+          label="Confirm Password"
+          value={confirmPassword}
+          onChange={(event) => setConfirmPassword(event.target.value)}
         />
 
         {/* LET'S START COOKING */}

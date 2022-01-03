@@ -30,6 +30,7 @@ import {
     sxSearchContainer,
     sxPhotoIngredientContainer,
     sxPhotoIngredient,
+    sxComboDescription,
     sxRemoveButton,
 } from './Home.style';
 import IngredientAutocomplete from '../IngredientAutocomplete/IngredientAutocomplete';
@@ -43,7 +44,8 @@ function Home() {
     const user = useSelector((store) => store.user);
     const ingredients = useSelector((store) => store.ingredients);
     const feedContent = useSelector((store) => store.challenge);
-    const searchText = useSelector(store=>store.ingredientSearch);
+    const searchText = useSelector(store => store.ingredientSearch);
+    const userCombos = useSelector(store => store.userCombos);
 
     const handleSearch = (searchText) => {
         console.log('CLICKED on handleSearch');
@@ -53,9 +55,9 @@ function Home() {
         console.log('--- searchedIngredientOne:', searchedIngredientOne);
 
         // ensures user only moves to combo page if they have selected from the list (Must Select From The List!)
-        if(searchedIngredientOne.length === 0){
+        if (searchedIngredientOne.length === 0) {
             return alert('Make a selection from the list')
-         }
+        }
         // put ingredient into the reducer
         dispatch({ type: 'SET_COMBO_INGREDIENT', payload: searchedIngredientOne[0] })
 
@@ -81,6 +83,7 @@ function Home() {
 
 
     console.log('homePage ingredient list', ingredients);
+    console.log('user combos', userCombos);
 
     return (
         <Box sx={sxHomePageContainer}>
@@ -90,29 +93,32 @@ function Home() {
 
                     {/* user PROFILE section */}
                     <Box sx={sxProfileContainer}>
-                        <Typography sx={sxCenterText}><h3>{user.username}</h3></Typography>
+                        <Typography variant="h6" sx={sxCenterText}>{user.username}</Typography>
                         {/* <Typography>Side Section: User Profile</Typography> */}
                         <CardMedia sx={sxPhotoBox} component="img" image={user.pic} />
-                        <Typography sx={sxCenterText}><h4>{user.display_name}</h4></Typography>
+                        <Typography variant="h6" sx={sxCenterText}>{user.display_name}</Typography>
                         {/* <Typography><p>{user.bio}</p></Typography> */}
                     </Box>
                     <br />
 
                     {/* any METRICS will go here */}
                     <Box>
-                        <Typography>Side Section: Metrics</Typography>
+                        <Typography variant="body1">Side Section: Metrics</Typography>
                     </Box>
                     <br />
 
                     {/* recent COMBOS */}
                     <Box>
-                        <Typography>Side Section: Recent Combos</Typography>
+                        <Typography variant="body1">Recent Combos:</Typography>
+                        <Typography>{userCombos[0]?.name}</Typography>
+                        <Typography>{userCombos[1]?.name}</Typography>
+                        <Typography>{userCombos[2]?.name}</Typography>
                     </Box>
                     <br />
 
                     {/* GOALS progress */}
                     <Box>
-                        <Typography>Side Section: Goal Progress</Typography>
+                        <Typography variant="body1">Side Section: Goal Progress</Typography>
                     </Box>
 
                 </Box>
@@ -121,7 +127,7 @@ function Home() {
                 <Box sx={sxRightColumn}>
                     <Box sx={sxTopSection}>
 
-                        <Typography><h3>Find Your First Ingredient</h3></Typography>
+                        <Typography variant="h5">Find Your First Ingredient</Typography>
                         <Box sx={sxSearchContainer}>
 
                             <IngredientAutocomplete />
@@ -133,7 +139,7 @@ function Home() {
 
                     <Box sx={sxBottomSection}>
 
-                        <Typography><h3>Featured Combos</h3></Typography>
+                        <Typography variant="h5" sx={{ mb: 2, }}>Featured Combos</Typography>
 
                         <Box sx={sxFeedContainer}>
 
@@ -168,29 +174,29 @@ function Home() {
                                 console.log('--- feedContentIngredients:', feedContentIngredients);
 
                                 return (
-                                    <Grid
-                                        key={content.id}
-                                        container
-                                        textAlign="center"
-                                        alignItems="center"
-                                        justifyContent="center"
-                                        style={{ minHeight: '10vh' }}
-                                    >
-                                        <Paper sx={sxContentPaper} elevation={3}>
-                                            <Box onClick={handleComboClick} sx={sxPhotoIngredientContainer}>
-                                                <CardMedia sx={sxPhotoIngredient} component="img" image={feedContentIngredients[0]?.pic} />
-                                                <CardMedia sx={sxPhotoIngredient} component="img" image={feedContentIngredients[1]?.pic} />
-                                                <CardMedia sx={sxPhotoIngredient} component="img" image={feedContentIngredients[2]?.pic} />
-                                            </Box>
-                                            <Typography onClick={handleComboClick} sx={{ fontSize: 25 }}>{content.name}</Typography>
+                                    <Paper key={content.id} sx={sxContentPaper} elevation={3}>
 
-                                            <Typography onClick={handleComboClick} >{content.description}</Typography>
-                                            <Typography>{feedContentIngredients[0]?.name}, {feedContentIngredients[1]?.name}{feedContentIngredients[2] ? (', ' + feedContentIngredients[2]?.name) : ""}</Typography>
-                                            <Button onClick={handleRemove}
-                                            sx={sxRemoveButton}variant="contained"
-                                            size="small">Remove</Button>
-                                        </Paper>
-                                    </Grid>
+                                        <Typography variant="body1" sx={{ textAlign: 'center' }} onClick={handleComboClick}>{content.date_posted?.split('T')[0]}</Typography>
+
+                                        <Typography variant="h6" sx={{ textAlign: 'center' }} onClick={handleComboClick}>{content.name}</Typography>
+
+                                        <Box onClick={handleComboClick} sx={sxPhotoIngredientContainer}>
+                                            <CardMedia sx={sxPhotoIngredient} component="img" image={feedContentIngredients[0]?.pic} />
+                                            <CardMedia sx={sxPhotoIngredient} component="img" image={feedContentIngredients[1]?.pic} />
+                                            <CardMedia sx={sxPhotoIngredient} component="img" image={feedContentIngredients[2]?.pic} />
+                                        </Box>
+
+
+                                        <Typography variant="body1" sx={sxComboDescription}
+                                            onClick={handleComboClick}>{content.description}</Typography>
+                                        {/* <Typography variant="body1">{feedContentIngredients[0]?.name}, {feedContentIngredients[1]?.name}{feedContentIngredients[2] ? (', ' + feedContentIngredients[2]?.name) : ""}</Typography> */}
+
+                                        {/* only allow ADMIN use see and use the remove feed button to remove feed items */}
+                                        {user.is_admin ? <Button onClick={handleRemove}
+                                            sx={sxRemoveButton} variant="contained"
+                                            size="small">Remove</Button> : <></>}
+
+                                    </Paper>
                                 )
                             })}
                         </Box>
