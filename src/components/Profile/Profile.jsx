@@ -21,16 +21,12 @@ function Profile() {
   const userCombos = useSelector((store) => store.userCombos);
   const userIngredients = useSelector((store) => store.userIngredients);
   const userRecipes = useSelector((store) => store.userRecipes);
-  const goal = useSelector((store) => store.goal);
+  const goal = useSelector((store) => store.comboGoal);
   const dispatch = useDispatch();
-
-  // console.log("userCombos", userCombos);
-  // console.log("userIngredients", userIngredients);
-  // console.log("userRecipes", userRecipes);
 
   useEffect(() => {
     dispatch({ type: 'FETCH_COMBOS' })
-    dispatch({ type: 'FETCH_GOAL' })
+    dispatch({ type: 'FETCH_COMBO_GOAL' })
   }, [])
 
 
@@ -147,53 +143,52 @@ function Profile() {
   let userComboGoalProgress = 3;
 
 
-function progressChecker() {
   if (userCombos.length >= goal.goal) {
-    dispatch({ type: 'UPDATE_GOAL', payload: goal})
+    dispatch({ type: 'UPDATE_COMBO_GOAL', payload: goal})
     console.log(userCombos.length);
   }
-}
+
  
 
-  progressChecker();
+  // progressChecker();
  
 
-  //functions to update goals
-  function handleUpdateIngredientGoal() {
-    console.log('update goal');
-    console.log(userIngredientGoalProgress);
-    userIngredientGoalProgress++;
-    // dispatch({type: 'UPDATE_INGREDIENT_GOAL', payload: userIngredientGoalProgress});
-  }
+  // //functions to update goals
+  // function handleUpdateIngredientGoal() {
+  //   console.log('update goal');
+  //   console.log(userIngredientGoalProgress);
+  //   userIngredientGoalProgress++;
+  //   // dispatch({type: 'UPDATE_INGREDIENT_GOAL', payload: userIngredientGoalProgress});
+  // }
 
-  function handleUpdateRecipeGoal() {
-    console.log('update goal');
-    console.log(userRecipeGoalProgress);
-    userRecipeGoalProgress++;
-    // dispatch({type: 'UPDATE_RECIPE_GOAL', payload: userRecipeGoalProgress});
-  }
-  function handleUpdateComboGoal() {
-    console.log('update goal');
-    console.log(userComboGoalProgress);
-    userComboGoalProgress++;
-    // dispatch({type: 'UPDATE_COMBO_GOAL', payload: userComboGoalProgress});
-  }
+  // function handleUpdateRecipeGoal() {
+  //   console.log('update goal');
+  //   console.log(userRecipeGoalProgress);
+  //   userRecipeGoalProgress++;
+  //   // dispatch({type: 'UPDATE_RECIPE_GOAL', payload: userRecipeGoalProgress});
+  // }
+  // function handleUpdateComboGoal() {
+  //   console.log('update goal');
+  //   console.log(userComboGoalProgress);
+  //   userComboGoalProgress++;
+  //   // dispatch({type: 'UPDATE_COMBO_GOAL', payload: userComboGoalProgress});
+  // }
 
-  //functions to reset goals
-  function handleIngredientReset()  {
-    console.log('reset');
-    userIngredientGoalProgress = 0;
-  }
+  // //functions to reset goals
+  // function handleIngredientReset()  {
+  //   console.log('reset');
+  //   userIngredientGoalProgress = 0;
+  // }
 
-  function handleRecipeReset()  {
-    console.log('reset');
-    userRecipeGoalProgress = 0;
-  }
+  // function handleRecipeReset()  {
+  //   console.log('reset');
+  //   userRecipeGoalProgress = 0;
+  // }
 
-  function handleComboReset()  {
-    console.log('reset');
-    userComboGoalProgress = 0;
-  }
+  // function handleComboReset()  {
+  //   console.log('reset');
+  //   userComboGoalProgress = 0;
+  // }
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -230,14 +225,14 @@ function progressChecker() {
             {/* <Box sx={sxGoals}> */}
               <Grid container spacing={2} alignItems="stretch">
                 <Grid item xs={4}>
-                <Typography>New Ingredients - Goal: {userNewIngredientGoals} </Typography>
-                  <Item>Goal Progress: {userIngredients}/{userNewIngredientGoals}</Item>
+                <Typography>New Ingredients - Goal: {goal.goal} </Typography>
+                  <Item>Goal Progress: {userCombos.length}/{goal.goal}</Item>
                   {/* <Button onClick={() => handleUpdateIngredientGoal()} variant="contained" size="small" startIcon={<AddTaskIcon />} >Update</Button>
                   <Button onClick={() => handleIngredientReset()} variant="outlined" size="small" startIcon={<RefreshIcon />} >Reset</Button> */}
                 </Grid>
                 <Grid item xs={4}>
-                <Typography>New Recipes - Goal: {userNewRecipeGoals} </Typography>
-                  <Item>Goal Progress: {userRecipes}/{userNewRecipeGoals}</Item>
+                <Typography>New Recipes - Goal: {goal.goal} </Typography>
+                  <Item>Goal Progress: {userCombos.length}/{goal.goal}</Item>
                   {/* <Box sx={sxButtonBox}> */}
                   {/* <Button onClick={() => handleUpdateRecipeGoal()} variant="contained" size="small" startIcon={<AddTaskIcon />} >Update</Button>
                   <Button onClick={() => handleRecipeReset()} variant="outlined" size="small" startIcon={<RefreshIcon />}>Reset</Button> */}
