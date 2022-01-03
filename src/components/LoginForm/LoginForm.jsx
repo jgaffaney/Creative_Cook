@@ -58,7 +58,7 @@ function LoginForm() {
   return (
     <form sx={sxFormControl} required onSubmit={login}>
       <Box sx={sxFormContent}>
-      <h2>Login</h2>
+      <Typography sx={{mb: 3, textAlign: 'center',}}variant='h4'>Login</Typography>
 
       {errors.loginMessage && (
         <h3 className="alert" role="alert">

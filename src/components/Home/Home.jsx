@@ -114,20 +114,23 @@ function Home() {
                 const crossFilteredIngredients = ingredients.filter(item => {
                     return comboIngredientIds.indexOf(item.id) != -1;
                 });
-                // console.log('--- crossFilteredIngredients filtered down ingredients based on ingredients list', crossFilteredIngredients);
+                console.log('--- crossFilteredIngredients filtered down ingredients based on ingredients list', crossFilteredIngredients);
 
                 // we need to DISPATCH the ingredient OBJECT and the ingredients in the right order;
-                const ingredientOne = crossFilteredIngredients.filter(ingredient => ingredient.id === comboIngredientIds[0])
+                const ingredientOne = crossFilteredIngredients.filter(ingredient => ingredient?.id === comboIngredientIds[0])
                 // console.log('--- filtered ingredientOne', ingredientOne);
                 dispatch({ type: 'SET_COMBO_INGREDIENT', payload: ingredientOne[0] })
 
-                const ingredientTwo = crossFilteredIngredients.filter(ingredient => ingredient.id === comboIngredientIds[1])
+                const ingredientTwo = crossFilteredIngredients.filter(ingredient => ingredient?.id === comboIngredientIds[1])
                 // console.log('--- filtered ingredientTwo', ingredientTwo);
                 dispatch({ type: 'SET_COMBO_INGREDIENT', payload: ingredientTwo[0] })
 
-                const ingredientThree = crossFilteredIngredients.filter(ingredient => ingredient.id === comboIngredientIds[2])
-                // console.log('--- filtered ingredientThree', ingredientThree);
-                dispatch({ type: 'SET_COMBO_INGREDIENT', payload: ingredientThree[0] })
+                // only dispatch the 3rd ingredient if there's 3 ingredients in the combo; 
+                if (crossFilteredIngredients.length > 2) {
+                    const ingredientThree = crossFilteredIngredients.filter(ingredient => ingredient?.id === comboIngredientIds[2])
+                    // console.log('--- filtered ingredientThree', ingredientThree);
+                    dispatch({ type: 'SET_COMBO_INGREDIENT', payload: ingredientThree[0] })
+                }
 
                 history.push('/combo')
                 break;
@@ -140,9 +143,9 @@ function Home() {
 
 
 
-    // const limitSize = 3
-    const recentCombos = userCombos.slice(0, 3);
-    console.log('homepage first 3 recentCombos', recentCombos);
+    // limit the amount of content we display on the profile section === 3
+    const recentCombos = userCombos?.slice(0, 3);
+    // console.log('homepage first 3 recentCombos', recentCombos);
 
     return (
         <Box sx={sxHomePageContainer}>
@@ -168,8 +171,8 @@ function Home() {
                     {/* recent COMBOS */}
                     <Box onClick={() => handleClick('profile')} sx={sxClickableDiv}>
                         <Typography variant="h6" sx={sxCenterText}>Recent Combos</Typography>
-                        {recentCombos.map((combo) => (
-                            <Typography variant="body1" sx={sxCenterText}>{combo.name}</Typography>
+                        {recentCombos.map((combo, i) => (
+                            <Typography key={i} variant="body1" sx={sxCenterText}>{combo.name}</Typography>
                         ))}
                     </Box>
 
@@ -202,7 +205,9 @@ function Home() {
                         <Box sx={sxFeedContainer}>
 
                             {feedContent.map((content) => {
-                                console.log('this is the content', content);
+                                // console.log('--- this is the feedContent', feedContent);
+                                // console.log('--- this is the content', content);
+                                
                                 let feedContentIngredients = [];
                                 let IngArray = content.ingredient_list
 
@@ -228,8 +233,9 @@ function Home() {
 
 
                                 ingredientFilter(ingredients)
-                                console.log('IngArray id list:', IngArray);
-                                console.log('--- feedContentIngredients:', feedContentIngredients);
+                                // console.log('--- ingredientFilter(ingredients)', ingredientFilter(ingredients));
+                                // console.log('IngArray id list:', IngArray);
+                                // console.log('--- feedContentIngredients:', feedContentIngredients);
 
                                 return (
                                     <Paper key={content.id} sx={sxContentPaper} elevation={2}>
@@ -243,8 +249,13 @@ function Home() {
 
                                             <Box sx={sxPhotoIngredientContainer}>
                                                 <CardMedia sx={sxPhotoIngredient} component="img" image={feedContentIngredients[0]?.pic} />
+
                                                 <CardMedia sx={sxPhotoIngredient} component="img" image={feedContentIngredients[1]?.pic} />
-                                                <CardMedia sx={sxPhotoIngredient} component="img" image={feedContentIngredients[2]?.pic} />
+
+                                                {content.ingredient_list?.length > 2 ?
+                                                    <CardMedia sx={sxPhotoIngredient} component="img" image={feedContentIngredients[2]?.pic} />
+                                                : <></>}
+
                                             </Box>
 
 
