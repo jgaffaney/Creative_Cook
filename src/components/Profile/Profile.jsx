@@ -147,14 +147,15 @@ function Profile() {
   let userComboGoalProgress = 3;
 
 
-// function progressChecker()
+function progressChecker() {
   if (userCombos.length >= goal.goal) {
-    dispatch({ type: 'UPDATE_GOAL', payload: goal.metric_id })
-    // console.log(userCombos.length);
+    dispatch({ type: 'UPDATE_GOAL', payload: goal})
+    console.log(userCombos.length);
   }
+}
  
 
-  // progressChecker();
+  progressChecker();
  
 
   //functions to update goals
