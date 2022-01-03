@@ -29,81 +29,28 @@ import {
   sxGoals,
 } from './Profile.style';
 
-
 function Profile() {
   const user = useSelector((store) => store.user);
   const userCombos = useSelector((store) => store.userCombos);
   const userIngredients = useSelector((store) => store.userIngredients);
   const userRecipes = useSelector((store) => store.userRecipes);
   const comboGoal = useSelector((store) => store.comboGoal);
+  const ingredientGoal = useSelector((store) => store.ingredientGoal);
   const dispatch = useDispatch();
-
-
-
 
 useEffect(() => {
   dispatch({ type: 'FETCH_COMBOS' })
   dispatch({ type: 'FETCH_COMBO_GOAL' })
+  dispatch({ type: 'FETCH_INGREDIENT_GOAL' })
 }, [])
-
-  //Default User Goals
-  let userNewIngredientGoals = 5;
-  let userNewRecipeGoals = 3;
-  // let userNewComboGoals = 5;
-
-  //User Goal Progress
-  let userIngredientGoalProgress = 1;
-  let userRecipeGoalProgress = 2;
-  let userComboGoalProgress = 3;
-
 
   if (userCombos.length >= comboGoal.goal) {
     dispatch({ type: 'UPDATE_COMBO_GOAL', payload: comboGoal})
     console.log(userCombos.length);
   }
 
- 
-
   // progressChecker();
  
-
-  // //functions to update goals
-  // function handleUpdateIngredientGoal() {
-  //   console.log('update goal');
-  //   console.log(userIngredientGoalProgress);
-  //   userIngredientGoalProgress++;
-  //   // dispatch({type: 'UPDATE_INGREDIENT_GOAL', payload: userIngredientGoalProgress});
-  // }
-
-  // function handleUpdateRecipeGoal() {
-  //   console.log('update goal');
-  //   console.log(userRecipeGoalProgress);
-  //   userRecipeGoalProgress++;
-  //   // dispatch({type: 'UPDATE_RECIPE_GOAL', payload: userRecipeGoalProgress});
-  // }
-  // function handleUpdateComboGoal() {
-  //   console.log('update goal');
-  //   console.log(userComboGoalProgress);
-  //   userComboGoalProgress++;
-  //   // dispatch({type: 'UPDATE_COMBO_GOAL', payload: userComboGoalProgress});
-  // }
-
-  // //functions to reset goals
-  // function handleIngredientReset()  {
-  //   console.log('reset');
-  //   userIngredientGoalProgress = 0;
-  // }
-
-  // function handleRecipeReset()  {
-  //   console.log('reset');
-  //   userRecipeGoalProgress = 0;
-  // }
-
-  // function handleComboReset()  {
-  //   console.log('reset');
-  //   userComboGoalProgress = 0;
-  // }
-
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     padding: theme.spacing(1),
@@ -113,7 +60,7 @@ useEffect(() => {
 
   console.log('comboGoal', comboGoal);
   return (
-    <Box sx={sxHomePageContainer}>
+    <Box sx={sxProfilePageContainer}>
       <Box sx={sxPageContent}>
         <Box sx={sxRightColumn}>
           <Box sx={sxLeftColumn}>
@@ -139,8 +86,8 @@ useEffect(() => {
             {/* <Box sx={sxGoals}> */}
               <Grid container spacing={2} alignItems="stretch">
                 <Grid item xs={4}>
-                <Typography>New Ingredients - Goal: {comboGoal.goal} </Typography>
-                  <Item>Goal Progress: {userCombos.length}/{comboGoal.goal}</Item>
+                <Typography>New Ingredients - Goal: {ingredientGoal.goal} </Typography>
+                  <Item>Goal Progress: {userCombos.length}/{ingredientGoal.goal}</Item>
                   {/* <Button onClick={() => handleUpdateIngredientGoal()} variant="contained" size="small" startIcon={<AddTaskIcon />} >Update</Button>
                   <Button onClick={() => handleIngredientReset()} variant="outlined" size="small" startIcon={<RefreshIcon />} >Reset</Button> */}
                 </Grid>
