@@ -11,6 +11,8 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
 
 function Feed() {
   const user = useSelector((store) => store.user);
@@ -18,10 +20,12 @@ function Feed() {
   const dispatch = useDispatch();
   const ingredients = useSelector(store => store.ingredients);
   const userCombos = useSelector(store => store.userCombos);
+  const top5 = useSelector(store => store.top5);
 
   useEffect(() => {
     dispatch({ type: 'FETCH_INGREDIENTS' });
     dispatch({ type: 'FETCH_COMBOS' });
+    dispatch({ type: 'FETCH_TOP5' });
   }, [])
 
   const [newChallenge, setNewChallenge] = useState({ type: 'Combo of the Week', description: '', combo_id: '' })
@@ -38,6 +42,21 @@ function Feed() {
     setNewChallenge({ type: 'Combo of the Week', description: '', combo_id: '' })
     setOpen(true);
   };
+
+  let topFiveIngredients = []
+  for (let ingredient of ingredients) {
+    if (ingredient?.id === top5[0]?.ingredient_id) {
+      topFiveIngredients.push(ingredient)
+    } else if (ingredient?.id === top5[1]?.ingredient_id) {
+      topFiveIngredients.push(ingredient)
+    } else if (ingredient?.id === top5[2]?.ingredient_id) {
+      topFiveIngredients.push(ingredient)
+    } else if (ingredient?.id === top5[3]?.ingredient_id) {
+      topFiveIngredients.push(ingredient)
+    } else if (ingredient?.id === top5[4]?.ingredient_id) {
+      topFiveIngredients.push(ingredient)
+    }
+  }
 
   // Alert showing combo was added to feed
   const Alert = React.forwardRef(function Alert(props, ref) {
@@ -68,7 +87,7 @@ function Feed() {
     alignItems: 'center',
     width: '90%',
     mx: 'auto',
-    height: 80,
+    height: 'auto',
   }
 
   const sxFlavorCombos = {
@@ -91,6 +110,7 @@ function Feed() {
   }));
 
   console.log('Challenge', newChallenge);
+  console.log(topFiveIngredients);
   return (
     <>
       <Box sx={sxMetrics}>
@@ -98,7 +118,13 @@ function Feed() {
         <Box sx={sxMetrics}>
           <Grid container spacing={2}>
             <Grid item xs={4}>
-              <Item>Top 5 Ingredients Used</Item>
+              <Item>Top 5 Ingredients Used:
+                <Typography sx={{fontSize: 12}}>{topFiveIngredients[0]?.name} ({top5[0]?.times_used})</Typography>
+                <Typography sx={{fontSize: 12}}>{topFiveIngredients[1]?.name} ({top5[1]?.times_used})</Typography>
+                <Typography sx={{fontSize: 12}}>{topFiveIngredients[2]?.name} ({top5[2]?.times_used})</Typography>
+                <Typography sx={{fontSize: 12}}>{topFiveIngredients[3]?.name} ({top5[3]?.times_used})</Typography>
+                <Typography sx={{fontSize: 12}}>{topFiveIngredients[4]?.name} ({top5[4]?.times_used})</Typography>
+              </Item>
             </Grid>
             <Grid item xs={4}>
               <Item>% of Used Ingredients by Type</Item>
@@ -135,13 +161,14 @@ function Feed() {
             {userCombos.map((combo) => {
 
               return (
-                <Grid item xs={2} sm={4} md={4}>
+                <Grid item xs={2} sm={4} md={4} key={combo.id} >
                   <Item
-                    key={combo.id}
-                    value={combo.id}
                     onClick={(event) => handlePropertyChange(event, 'combo_id')}
                   >
-                    <Typography>{combo.name}</Typography>
+                    <List>
+                      <ListItem sx={{ p: 3, border: '1px solid black' }} value={combo.id}>{combo.name}</ListItem>
+                    </List>
+
                   </Item>
                 </Grid>
               )
