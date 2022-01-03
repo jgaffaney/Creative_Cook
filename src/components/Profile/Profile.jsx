@@ -14,6 +14,20 @@ import AddTaskIcon from '@mui/icons-material/AddTask';
 import DeleteIcon from '@mui/icons-material/Delete';
 import RefreshIcon from '@mui/icons-material/Refresh';
 
+// --- MUI sx STYLES --- // 
+import {
+  sxProfilePageContainer,
+  sxPageContent,
+  sxLeftColumn,
+  sxTopLeftSection,
+  sxTopRightSection,
+  sxMiddleSection,
+  sxPhotoBox,
+  sxRightColumn,
+  sxBottomSection,
+  sxButtonBox,
+  sxGoals,
+} from './Profile.style';
 
 
 function Profile() {
@@ -24,113 +38,13 @@ function Profile() {
   const comboGoal = useSelector((store) => store.comboGoal);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch({ type: 'FETCH_COMBOS' })
-    dispatch({ type: 'FETCH_COMBO_GOAL' })
-  }, [])
 
 
 
-  //box stylings
-  const sxHomePageContainer = {
-    // border: '1px solid red',
-    display: 'flex',
-    justifyContent: 'center',
-  }
-
-  const sxPageContent = {
-    // border: '1px solid black',
-    display: 'flex',
-    flexDirection: 'row',
-    width: '80%',
-    height: '100%',
-    m: 2
-  }
-
-  const sxLeftColumn = {
-    // border: '1px solid green',
-    display: 'flex',
-    flexDirection: 'row',
-    width: '100%',
-  }
-
-  const sxRightColumn = {
-    // border: '1px solid blue',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    // alignItems: 'center',
-    width: '100%',
-    height: '100%',
-  }
-
-  const sxTopLeftSection = {
-    border: '1px solid black',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '25%',
-    height: 300,
-  }
-
-  const sxTopRightSection = {
-    border: '1px solid black',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '75%',
-    height: 300,
-  }
-
-  const sxMiddleSection = {
-    border: '1px solid black',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: 300,
-  }
-
-  const sxPhotoBox = {
-    // border: '1px solid lightgray',
-    width: 120,
-    height: 220,
-    boxShadow: 3,
-    mb: .25,
-    borderRadius: 1,
-  };
-
-  const sxButtonBox = {
-    // border: '1px solid black',
-    display: 'inline-flex',
-    flexDirection: 'row',
-    width: '100%',
-    height: '35%',
-    // m: 2
-  }
-
-  const sxBottomSection = {
-    border: '1px solid black',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: 300,
-  }
-
-  const sxGoals = {
-    // border: '1px solid black',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: 250,
-  }
+useEffect(() => {
+  dispatch({ type: 'FETCH_COMBOS' })
+  dispatch({ type: 'FETCH_COMBO_GOAL' })
+}, [])
 
   //Default User Goals
   let userNewIngredientGoals = 5;
