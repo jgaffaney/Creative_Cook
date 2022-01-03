@@ -12,6 +12,7 @@ import combo from './combo.reducer';
 import ingredientSearch from './ingredientSearch.reducer';
 import ingredientGoal from './ingredientGoal.reducer';
 import ingredientUnique from './ingredientUnique.reducer';
+import recipeGoal from './recipeGoal.reducer';
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -32,6 +33,7 @@ const rootReducer = combineReducers({
   ingredientSearch, // holds search text for <IngredientAutocomplete> 
   ingredientGoal,
   ingredientUnique,
+  recipeGoal,
 });
 
 export default rootReducer;
