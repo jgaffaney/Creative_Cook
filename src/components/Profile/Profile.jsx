@@ -36,12 +36,15 @@ function Profile() {
   const userRecipes = useSelector((store) => store.userRecipes);
   const comboGoal = useSelector((store) => store.comboGoal);
   const ingredientGoal = useSelector((store) => store.ingredientGoal);
+  const ingredientUnique = useSelector((store) => store.ingredientUnique);
+  // const recipeGoal = useSelector((store) => store.recipeGoal);
   const dispatch = useDispatch();
 
 useEffect(() => {
   dispatch({ type: 'FETCH_COMBOS' })
   dispatch({ type: 'FETCH_COMBO_GOAL' })
   dispatch({ type: 'FETCH_INGREDIENT_GOAL' })
+  dispatch({ type: 'FETCH_INGREDIENT_UNIQUE' })
 }, [])
 
   if (userCombos.length >= comboGoal.goal) {
@@ -49,6 +52,9 @@ useEffect(() => {
     console.log(userCombos.length);
   }
 
+if (ingredientUnique.length >= ingredientGoal.goal) {
+  dispatch({ type: 'UPDATE_INGREDIENT_GOAL', payload: ingredientGoal})
+}
   // progressChecker();
  
   const Item = styled(Paper)(({ theme }) => ({
@@ -87,7 +93,7 @@ useEffect(() => {
               <Grid container spacing={2} alignItems="stretch">
                 <Grid item xs={4}>
                 <Typography>New Ingredients - Goal: {ingredientGoal.goal} </Typography>
-                  <Item>Goal Progress: {userCombos.length}/{ingredientGoal.goal}</Item>
+                  <Item>Goal Progress: {ingredientUnique.length}/{ingredientGoal.goal}</Item>
                   {/* <Button onClick={() => handleUpdateIngredientGoal()} variant="contained" size="small" startIcon={<AddTaskIcon />} >Update</Button>
                   <Button onClick={() => handleIngredientReset()} variant="outlined" size="small" startIcon={<RefreshIcon />} >Reset</Button> */}
                 </Grid>
