@@ -21,6 +21,23 @@ WHERE "user_id" = $1;
         })
 }); // End GET
 
+// * GET  Ingredient route
+// */
+router.get('/ingredient', (req, res) => {
+   const queryText = `
+   SELECT DISTINCT unnest(combos.ingredient_list) AS ingredient 
+   FROM combos
+   WHERE "user_id" = $1;
+`;
+   pool.query(queryText, [req.user.id])
+       .then(result => {
+           res.send(result.rows); // Contains goal data
+       })
+       .catch(err => {
+           console.log('Error in GOAL GET', err);
+           res.sendStatus(500);
+       })
+}); // End GET
 
 /**
  * POST route template
