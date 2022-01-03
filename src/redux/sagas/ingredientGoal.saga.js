@@ -13,12 +13,12 @@ function* fetchIngredientGoals() {
 };
 
 function* updateIngredientGoal(action) {
-    console.log('In updateGoal Saga')
+    console.log('In updateIngredientGoal Saga')
     try {
         yield axios.put(`/api/goal`, action.payload);
         yield put({type: 'FETCH_INGREDIENT_GOAL'})
     } catch (error) {
-        console.log('Error on updateGoal: ', error);
+        console.log('Error on updateIngredientGoal: ', error);
     }
 };
 
