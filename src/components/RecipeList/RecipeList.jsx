@@ -81,7 +81,8 @@ function RecipeList() {
                     {recipes.length > 0 ?
                         recipes.map(recipe => (
                             <>
-                                <Card sx={sxRecipeCard}>
+                                <Card elevation={3}
+                                sx={sxRecipeCard}>
                                     <CardMedia
                                         sx={sxRecipeImage}
                                         component="img"
