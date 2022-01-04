@@ -55,24 +55,26 @@ function Profile() {
     dispatch({ type: 'FETCH_RECIPE_SAVED' })
   }, [])
 
-useEffect(() => {
-  if (userCombos.length >= comboGoal.goal) {
-    dispatch({ type: 'UPDATE_COMBO_GOAL', payload: comboGoal })
-    console.log(userCombos.length);
-  }
-}, [userCombos, comboGoal])
-  
-useEffect(() => {
-  if (ingredientUnique.length >= ingredientGoal.goal) {
-    dispatch({ type: 'UPDATE_INGREDIENT_GOAL', payload: ingredientGoal })
-  }
-}, [ingredientUnique, ingredientGoal])
+  useEffect(() => {
+    if (userCombos.length >= comboGoal.goal) {
+      return dispatch({ type: 'UPDATE_COMBO_GOAL', payload: comboGoal})
+      // Confetti.start();
+    }
+  }, [userCombos, comboGoal])
 
-useEffect(() => {
-  if (recipeSaved.length >= recipeGoal.goal) {
-    dispatch({ type: 'UPDATE_RECIPE_GOAL', payload: recipeGoal })
-  }
-}, [recipeSaved, recipeGoal])
+  useEffect(() => {
+    if (recipeSaved.length >= recipeGoal.goal) {
+      dispatch({ type: 'UPDATE_RECIPE_GOAL', payload: recipeGoal })
+      
+    }
+  }, [recipeSaved, recipeGoal])
+    
+  useEffect(() => {
+    if (ingredientUnique.length >= ingredientGoal.goal) {
+      dispatch({ type: 'UPDATE_INGREDIENT_GOAL', payload: ingredientGoal })
+    }
+  }, [ingredientUnique, ingredientGoal])
+
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -80,8 +82,7 @@ useEffect(() => {
     textAlign: 'center',
     color: theme.palette.text.secondary,
   }));
-
-  console.log('comboGoal', comboGoal);
+  
   return (
     <Box sx={sxProfilePageContainer}>
       <Box sx={sxPageContent}>
@@ -114,7 +115,7 @@ useEffect(() => {
                   <Item>Goal Progress: {ingredientUnique.length}/{ingredientGoal.goal}</Item>
 
 
-                  <Confetti width={width} height={height} recycle={!isComplete()} />
+                  {/* <Confetti width={width} height={height} recycle={!isComplete()} /> */}
                 </Grid>}
             </Grid>
             <Typography size={18}>Metrics</Typography>
