@@ -48,8 +48,9 @@ function Home() {
     const user = useSelector((store) => store.user);
     const ingredients = useSelector((store) => store.ingredients);
     const feedContent = useSelector((store) => store.challenge);
-    const searchText = useSelector(store => store.ingredientSearch);
-    const userCombos = useSelector(store => store.userCombos);
+    const searchText = useSelector((store) => store.ingredientSearch);
+    const userCombos = useSelector((store) => store.userCombos);
+    const userGoals = useSelector((store) => store.goal);
 
     useEffect(() => {
         dispatch({ type: 'FETCH_CHALLENGE' });
@@ -85,21 +86,19 @@ function Home() {
 
             // ADMIN will have the ability to see remove button on combos cards;
             case 'remove':
-                console.log('CLICKED on the remove button on the feed combo card');
-                console.log('ingredient from fee combo to be removed', content);
+                console.log('CLICKED remove feed combo card');
+                // console.log('ingredient from fee combo to be removed', content);
                 console.log('feed content remove id:', content.id);
 
                 // dispatch remove feed content by id
-                // dispatch refresh of the feed list
+                dispatch({ type: 'REMOVE_FEED_ITEM', payload: content.id })
 
                 break;
-
 
             case 'profile':
                 console.log('CLICKED on the profile image button');
                 history.push('/profile')
                 break;
-
 
             case 'combo':
                 console.log('CLICKED on the featured combo');
@@ -146,6 +145,8 @@ function Home() {
     // limit the amount of content we display on the profile section === 3
     const recentCombos = userCombos?.slice(0, 3);
     // console.log('homepage first 3 recentCombos', recentCombos);
+    // console.log('--- homepage userGoals', userGoals);
+
 
     return (
         <Box sx={sxHomePageContainer}>
@@ -177,6 +178,10 @@ function Home() {
                     </Box>
 
                     {/* GOALS progress */}
+                    {userGoals.map((goal, j) => (
+                        <Typography key={j} variant="body1" sx={sxCenterText}>hello</Typography>
+                    ))}
+                    {userGoals}
                     <Box onClick={() => handleClick('profile')} sx={sxClickableDiv}>
                         <Typography variant="h6" sx={sxCenterText}>Goal Progress</Typography>
                         <Typography variant="body1" sx={sxCenterText}>content</Typography>
@@ -207,7 +212,7 @@ function Home() {
                             {feedContent.map((content) => {
                                 // console.log('--- this is the feedContent', feedContent);
                                 // console.log('--- this is the content', content);
-                                
+
                                 let feedContentIngredients = [];
                                 let IngArray = content.ingredient_list
 
@@ -231,7 +236,6 @@ function Home() {
                                     }
                                 }
 
-
                                 ingredientFilter(ingredients)
                                 // console.log('--- ingredientFilter(ingredients)', ingredientFilter(ingredients));
                                 // console.log('IngArray id list:', IngArray);
@@ -254,7 +258,7 @@ function Home() {
 
                                                 {content.ingredient_list?.length > 2 ?
                                                     <CardMedia sx={sxPhotoIngredient} component="img" image={feedContentIngredients[2]?.pic} />
-                                                : <></>}
+                                                    : <></>}
 
                                             </Box>
 

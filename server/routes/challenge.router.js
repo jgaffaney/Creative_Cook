@@ -1,9 +1,10 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 // Challenge GET route
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
     const queryText = `
         SELECT 	"feed_content"."id", "feed_content"."type", "feed_content"."description", 
                 "feed_content"."combo_id", "feed_content"."date_posted", "combos"."user_id", "combos"."ingredient_list", "combos"."name" 
@@ -24,7 +25,7 @@ router.get('/', (req, res) => {
 
 
 // Challenge POST route
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated, (req, res) => {
     const queryText = `
         INSERT INTO "feed_content" 
             ("type", "description", "combo_id")
@@ -42,5 +43,31 @@ router.post('/', (req, res) => {
             res.sendStatus(500);
         })
 }); // End POST
+
+
+// DELETE challenge rote // 
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
+    // DELETE route code here
+    console.log('----- in router.DELETE /api/challenge/:id');
+    console.log('is authenticated?', req.isAuthenticated());
+    console.log('router.DELETE /api/challenge/:id req.user:', req.user);
+    console.log('delete.router req.params.id:'), req.params.id;
+
+
+    let queryText = `
+        DELETE 	FROM "feed_content"
+        WHERE 	"id" = $1;` ;
+
+    const values = [req.params.id]
+
+    pool.query(queryText, values)
+        .then(response => {
+            console.log('response from router.delete /api/challenge/:id:', response);
+            res.sendStatus(204)
+        }).catch(error => {
+            console.log('ERROR router.DELETE /api/challenge/:id', error);
+            res.sendStatus(500);
+        });
+});
 
 module.exports = router;
