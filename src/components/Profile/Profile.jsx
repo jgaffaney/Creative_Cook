@@ -13,6 +13,8 @@ import Paper from '@mui/material/Paper';
 import AddTaskIcon from '@mui/icons-material/AddTask';
 import DeleteIcon from '@mui/icons-material/Delete';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import Confetti from 'react-confetti'
+import { useWindowSize, useTimeout } from 'react-use';
 
 // --- MUI sx STYLES --- // 
 import {
@@ -40,6 +42,9 @@ function Profile() {
   const recipeGoal = useSelector((store) => store.recipeGoal);
   const recipeSaved = useSelector((store) => store.recipeSaved);
   const dispatch = useDispatch();
+
+  const { width, height } = useWindowSize();
+  const [isComplete] = useTimeout(8000);
 
   useEffect(() => {
     dispatch({ type: 'FETCH_COMBOS' })
@@ -90,8 +95,8 @@ function Profile() {
             <Typography size={24}>Goal Progress</Typography>
             <Grid container spacing={2} alignItems="stretch">
               <Grid item xs={4}>
-                <Typography>New Ingredients - Goal: {ingredientGoal.goal} </Typography>
-                <Item>Goal Progress: {ingredientUnique.length}/{ingredientGoal.goal}</Item>
+                <Typography>New Combos - Goal: {comboGoal.goal} </Typography>
+                <Item>Goal Progress: {userCombos.length}/{comboGoal.goal}</Item>
               </Grid>
               <Grid item xs={4}>
                 <Typography>New Recipes - Goal: {recipeGoal.goal} </Typography>
@@ -99,8 +104,11 @@ function Profile() {
               </Grid>
               {comboGoal.goal &&
                 <Grid item xs={4}>
-                  <Typography>New Combos - Goal: {comboGoal.goal} </Typography>
-                  <Item>Goal Progress: {userCombos.length}/{comboGoal.goal}</Item>
+                  <Typography>New Ingredients - Goal: {ingredientGoal.goal} </Typography>
+                  <Item>Goal Progress: {ingredientUnique.length}/{ingredientGoal.goal}</Item>
+
+
+                  <Confetti width={width} height={height} recycle={!isComplete()} />
                 </Grid>}
             </Grid>
             <Typography size={18}>Metrics</Typography>
