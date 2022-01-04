@@ -31,6 +31,9 @@ import {
   sxGoals,
 } from './Profile.style';
 
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+
 function Profile() {
   const user = useSelector((store) => store.user);
   const userCombos = useSelector((store) => store.userCombos);
@@ -113,8 +116,6 @@ function Profile() {
                 <Grid item xs={4}>
                   <Typography>New Ingredients - Goal: {ingredientGoal.goal} </Typography>
                   <Item>Goal Progress: {ingredientUnique.length}/{ingredientGoal.goal}</Item>
-
-
                   {/* <Confetti width={width} height={height} recycle={!isComplete()} /> */}
                 </Grid>}
             </Grid>
@@ -131,15 +132,33 @@ function Profile() {
               </Grid>
             </Grid>
           </Box>
+          <Typography sx={{ textAlign: "center" }}>Saved Flavor Combos</Typography>
           <Box sx={sxBottomSection}>
             <Typography size={18}>Saved Flavor Combos</Typography>
             <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+            {/* <Typography>Saved Flavor Combos</Typography> */}
+            {/* <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
               {Array.from(Array(12)).map((_, index) => (
                 <Grid item xs={2} sm={4} md={4} key={index}>
                   <Item>Saved Flavor Combos</Item>
                 </Grid>
               ))}
+            </Grid> */}
             </Grid>
+          <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+            {userCombos.map((combo) => {
+
+              return (
+                <Grid item xs={2} sm={4} md={4} key={combo.id} >
+                  <Item >
+                    <List>
+                      <ListItem sx={{p: 3, border: '1px solid black', }}>{combo.name}</ListItem>
+                    </List>
+                  </Item>
+                </Grid>
+              )
+            })}
+          </Grid>
           </Box>
         </Box>
       </Box>
