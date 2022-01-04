@@ -55,18 +55,24 @@ function Profile() {
     dispatch({ type: 'FETCH_RECIPE_SAVED' })
   }, [])
 
+useEffect(() => {
   if (userCombos.length >= comboGoal.goal) {
     dispatch({ type: 'UPDATE_COMBO_GOAL', payload: comboGoal })
     console.log(userCombos.length);
   }
-
+}, [userCombos, comboGoal])
+  
+useEffect(() => {
   if (ingredientUnique.length >= ingredientGoal.goal) {
     dispatch({ type: 'UPDATE_INGREDIENT_GOAL', payload: ingredientGoal })
   }
+}, [ingredientUnique, ingredientGoal])
 
+useEffect(() => {
   if (recipeSaved.length >= recipeGoal.goal) {
     dispatch({ type: 'UPDATE_RECIPE_GOAL', payload: recipeGoal })
   }
+}, [recipeSaved, recipeGoal])
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
