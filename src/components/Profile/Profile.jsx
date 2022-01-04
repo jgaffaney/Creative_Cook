@@ -60,15 +60,13 @@ function Profile() {
 
   useEffect(() => {
     if (userCombos.length >= comboGoal.goal) {
-      return dispatch({ type: 'UPDATE_COMBO_GOAL', payload: comboGoal})
-      // Confetti.start();
+      dispatch({ type: 'UPDATE_COMBO_GOAL', payload: comboGoal})
     }
   }, [userCombos, comboGoal])
 
   useEffect(() => {
     if (recipeSaved.length >= recipeGoal.goal) {
       dispatch({ type: 'UPDATE_RECIPE_GOAL', payload: recipeGoal })
-      
     }
   }, [recipeSaved, recipeGoal])
     
@@ -77,7 +75,6 @@ function Profile() {
       dispatch({ type: 'UPDATE_INGREDIENT_GOAL', payload: ingredientGoal })
     }
   }, [ingredientUnique, ingredientGoal])
-
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -116,7 +113,7 @@ function Profile() {
                 <Grid item xs={4}>
                   <Typography>New Ingredients - Goal: {ingredientGoal.goal} </Typography>
                   <Item>Goal Progress: {ingredientUnique.length}/{ingredientGoal.goal}</Item>
-                  {/* <Confetti width={width} height={height} recycle={!isComplete()} /> */}
+                  <Confetti width={width} height={height} recycle={!isComplete()} />
                 </Grid>}
             </Grid>
             <Typography size={18}>Metrics</Typography>
