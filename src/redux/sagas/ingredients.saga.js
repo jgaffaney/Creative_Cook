@@ -40,10 +40,21 @@ function* editIngredient(action) {
 
 }
 
+function* deleteIngredient(action) {
+    console.log('in deleteIngredient Saga with: ', action.payload);
+    try {
+        yield axios.delete(`/api/ingredients/${action.payload}`);
+        yield put('FETCH_INGREDIENTS');
+    } catch (error) {
+        console.log('Error on deleteIngredient: ', error);
+    }
+}
+
 function* ingredientsSaga() {
     yield takeLatest('FETCH_INGREDIENTS', fetchIngredients);
     yield takeLatest('POST_INGREDIENT', postIngredient);
     yield takeLatest('EDIT_INGREDIENT.TRIGGER', editIngredient)
+    yield takeLatest('DELETE_INGREDIENT', deleteIngredient);
 }
 
 export default ingredientsSaga;
