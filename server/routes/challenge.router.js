@@ -28,9 +28,9 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 router.post('/', rejectUnauthenticated, (req, res) => {
     const queryText = `
         INSERT INTO "feed_content" 
-            ("type", "description", "combo_id")
+            ("type", "description", "combo_id", "date_posted")
         VALUES 
-            ($1, $2, $3); `;
+            ($1, $2, $3, NOW()); `;
 
     values = [req.body.type, req.body.description, req.body.combo_id]
     console.log('values are', values);
