@@ -1,6 +1,6 @@
-const goal = (state = [], action) => {
+const ingredientUnique = (state = [], action) => {
     switch (action.type) {
-        case 'SET_GOAL':
+        case 'SET_INGREDIENT_UNIQUE':
             return action.payload;
         case 'LOGOUT':
             return [];
@@ -9,4 +9,4 @@ const goal = (state = [], action) => {
     }
 };
 
-export default goal;
+export default ingredientUnique;

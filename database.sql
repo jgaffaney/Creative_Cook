@@ -25,7 +25,7 @@ CREATE TYPE "type" AS ENUM ('Protein: Air', 'Protein: Land', 'Protein: Sea', 'Ve
 CREATE TABLE "ingredients" (
 	"id" SERIAL NOT NULL PRIMARY KEY,
 	"username" varchar(255) NOT NULL,
-	"description" varchar(255) NOT NULL,
+	"description" varchar(255),
 	"pic" varchar(255),
 	"taste" varchar(255),
 	"season" SEASON,
@@ -110,7 +110,7 @@ VALUES
 (11,E'beans, fava (broad beans or horse beans)',NULL,E'https://cdn.pixabay.com/photo/2020/08/11/10/23/broad-beans-5479434_1280.jpg',E'bitter',E'Spring-Summer',E'light–medium',E'moderate',E'Legume'),
 (12,E'cantaloupe',NULL,E'https://cdn.pixabay.com/photo/2021/04/16/05/14/cantaloupe-6182570_1280.jpg',E'sweet',E'Summer',E'ight–medium',E'moderate',E'Fruit'),
 (13,E'basil',NULL,E'https://cdn.pixabay.com/photo/2018/10/07/10/28/basil-3729618_1280.jpg',E'sweet',E'Summer',E'light, soft-leaved',E'mild–moderate',E'Herb'),
-(14,E'blakberry',NULL,E'https://images.unsplash.com/photo-1567870335471-1129836babcf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8YmxhY2tiZXJyeXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60',E'sour',E'Summer',E'light–medium',E'moderate',E'Raw'),
+(14,E'blackberry',NULL,E'https://images.unsplash.com/photo-1567870335471-1129836babcf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8YmxhY2tiZXJyeXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60',E'sour',E'Summer',E'light–medium',E'moderate',E'Raw'),
 (15,E'bell pepper',NULL,E'https://cdn.pixabay.com/photo/2019/02/14/07/58/vegetable-3996066__480.jpg',E'bitter to sweet, from unripe (green) to ripe (yellow to red)',E'Summer-Autumn',E'light–medium',E'moderate–loud',E'Vegetable'),
 (16,E'beans, green',NULL,E'https://images.unsplash.com/photo-1603431777007-61db54157a3b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGdyZWVuJTIwYmVhbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60',NULL,E'Summer-Autumn',E'light–medium',E'moderate',NULL),
 (17,E'banana',NULL,E'https://cdn.pixabay.com/photo/2018/03/18/18/25/banana-3237794__480.jpg',E'sweet, astringent',E'Winter',E'medium',E'quiet',E'Fruit'),
