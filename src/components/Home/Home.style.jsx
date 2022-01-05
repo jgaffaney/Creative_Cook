@@ -3,10 +3,33 @@
 // --- HOME PAGE STYLES --- // 
 
 
+// UI hints at clickable content
+export const sxClickableDiv = {
+    cursor: 'pointer',
+    p: 2,
+
+     '&:hover': {
+        // transform: 'scale(1.1)',
+        boxShadow: 2,
+        borderRadius: 2,
+    }
+}
+
+export const sxClickableCombo = {
+    // border: '1px solid yellow',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    height: 'auto',
+    width: 'auto',
+    cursor: 'pointer',
+    gap: .5,
+}
+
 
 // CONTAINER that centers everything on this page
 export const sxHomePageContainer = {
-    // border: '1px solid red',
+    // border: '1px solid purple',
     display: 'flex',
     justifyContent: 'center',
 }
@@ -18,8 +41,12 @@ export const sxPageContent = {
     flexDirection: 'row',
     justifyContent: 'center',
     width: '80%',
-    height: 'auto',
+    // height: 'auto',
     m: 2,
+    gap: 1,
+
+    position: 'relative',
+    // position: 'relative',
 }
 
 
@@ -31,9 +58,18 @@ export const sxLeftColumn = {
     // border: '1px solid green',
     display: 'flex',
     flexDirection: 'column',
-    minWidth: 220,
-    // position: 'sticky',
-    // top: 200,
+    minWidth: 250,
+    maxWidth: 250,
+    gap: 2,
+    height: 'auto',
+
+    borderRadius: 3,
+    // boxShadow: 20,
+
+
+    position: 'absolute',
+    right: 'calc(50% + 290px)',
+    // mr: '305px',
 
 }
 
@@ -48,19 +84,24 @@ export const sxProfileContainer = {
 // PROFILE PHOTOS properties being held in the left column
 export const sxPhotoBox = {
     // border: '1px solid lightgray',
-    width: 150,
-    height: 150,
-    boxShadow: 3,
+    width: 100,
+    height: 100,
+    boxShadow: 2,
     my: 2,
     borderRadius: '50%',
     mx: 'auto',
+    cursor: 'pointer',
+
+    '&:hover': {
+        // transform: 'scale(1.1)',
+        boxShadow: 5,
+    }
 };
 
 // Centers Text
 export const sxCenterText = {
     textAlign: 'center',
 }
-
 
 
 
@@ -72,10 +113,15 @@ export const sxRightColumn = {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    maxWidth: '60%',
-    minWidth: 550,
+    // maxWidth: 550,
+    width: 550,
+    height: 'auto',
+    // mx: 'auto',
 
-    height: '100%',
+
+
+    position: 'relative',
+    // top: 100,
 }
 
 
@@ -143,11 +189,18 @@ export const sxContentPaper = {
     // border: '1px solid green',
     display: 'flex',
     flexDirection: 'column',
+    justifyContent: 'center',
+    // alignItems: 'center',
     width: 500, 
     height: 'auto',
-    justifyContent: 'center',
-    alignItems: 'center',
+    
     p: 2,
+    borderRadius: 2,
+    cursor: 'pointer',
+
+    '&:hover': {
+        boxShadow: 5,
+    }
 }
 
 // INGREDIENT PHOTO CONTAINER holds all of the ingredient photos for featured the combo card
@@ -156,7 +209,8 @@ export const sxPhotoIngredientContainer = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    width: '60%',
+    gap: 7,
+    width: 350,
     mx: 'auto',
     my: 1,
     // gap: 2,
@@ -170,17 +224,19 @@ export const sxPhotoIngredient = {
     height: 70,
     boxShadow: 3,
     borderRadius: '50%',
-    mx: 'auto',
-    mb: 1,
+    backgroundSize: 'cover',
 };
 
 export const sxComboDescription = {
     // border: '1px solid blue',
-    width: '90%',
+    width: '100%',
     height: 'auto',
     textAlign: 'center',
 }
 
 export const sxRemoveButton = {
-    
+    width: '50%',
+    mx: 'auto',
+    mt: 1,
+    bgcolor: 'error.main',
 }

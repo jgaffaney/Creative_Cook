@@ -84,7 +84,7 @@ function RegisterForm() {
     <form sx={sxFormContainer} onSubmit={registerUser}>
       <Box sx={sxFormContent}>
 
-        <h2 id="register">Register New User</h2>
+        <Typography sx={{mb: 3, textAlign: 'center',}} variant='h4' id="register">Register New User</Typography>
 
         {errors.registrationMessage && (
           <h3 className="alert" role="alert">
