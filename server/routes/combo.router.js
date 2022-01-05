@@ -61,8 +61,8 @@ router.post('/', (req, res) => {
     ingredientLister(req.body);
 
     const queryText = `
-        INSERT INTO "combos" ("user_id", "ingredient_list", "name")
-        VALUES ($1, $2, $3)
+        INSERT INTO "combos" ("user_id", "ingredient_list", "name", "date_created")
+        VALUES ($1, $2, $3, NOW())
         RETURNING "id";
         `;
     let values = [id, ingredientList, name]
