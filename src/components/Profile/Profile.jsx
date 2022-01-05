@@ -22,6 +22,7 @@ function Profile() {
   const user = useSelector((store) => store.user);
   const userCombos = useSelector((store) => store.userCombos);
   const goal = useSelector((store) => store.goal);
+  console.log('--- profile page goal', goal);
   const dispatch = useDispatch();
 
   useEffect(() => {

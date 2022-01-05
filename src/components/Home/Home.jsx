@@ -32,8 +32,12 @@ import {
     sxPhotoIngredient,
     sxComboDescription,
     sxRemoveButton,
+    sxClickableDiv,
+    sxClickableCombo,
 } from './Home.style';
 import IngredientAutocomplete from '../IngredientAutocomplete/IngredientAutocomplete';
+
+import { defaultOrderByFn } from 'react-table';
 
 
 function Home() {
@@ -44,9 +48,18 @@ function Home() {
     const user = useSelector((store) => store.user);
     const ingredients = useSelector((store) => store.ingredients);
     const feedContent = useSelector((store) => store.challenge);
-    const searchText = useSelector(store => store.ingredientSearch);
-    const userCombos = useSelector(store => store.userCombos);
+    const searchText = useSelector((store) => store.ingredientSearch);
+    const userCombos = useSelector((store) => store.userCombos);
+    const userGoals = useSelector((store) => store.goal);
 
+    useEffect(() => {
+        dispatch({ type: 'FETCH_CHALLENGE' });
+        dispatch({ type: 'FETCH_COMBOS' });
+        dispatch({ type: 'FETCH_INGREDIENTS' });
+    }, []);
+
+
+    // SEARCH function will capture first ingredient and then push you to the combo page to complete combo
     const handleSearch = (searchText) => {
         console.log('CLICKED on handleSearch');
         console.log('this is the searchText', searchText);
@@ -65,25 +78,75 @@ function Home() {
         history.push('/combo')
     }
 
-    const handleComboClick = () => {
-        console.log('handleComboClick');
-    }
 
-    const handleRemove = () => {
-        console.log('handleRemove');
-    }
+    // pageDirection clicks to take to you to the right page.
+    function handleClick(action, content) {
+
+        switch (action) {
+
+            // ADMIN will have the ability to see remove button on combos cards;
+            case 'remove':
+                console.log('CLICKED remove feed combo card');
+                // console.log('ingredient from fee combo to be removed', content);
+                console.log('feed content remove id:', content.id);
+
+                // dispatch remove feed content by id
+                dispatch({ type: 'REMOVE_FEED_ITEM', payload: content.id })
+
+                break;
+
+            case 'profile':
+                console.log('CLICKED on the profile image button');
+                history.push('/profile')
+                break;
+
+            case 'combo':
+                console.log('CLICKED on the featured combo');
+                // first make sure the reducer is empty and ready to receive the combo we click on;
+                dispatch({ type: 'CLEAR_COMBO_AND_RECIPE' })
+
+                // this is just the array of ids; 
+                const comboIngredientIds = content.ingredient_list;
+                // console.log('--- comboIngredientIds', comboIngredientIds);
+
+                // need to get the list of ingredient objects from the store.ingredients in order to send the right data type to combo reducer;
+                const crossFilteredIngredients = ingredients.filter(item => {
+                    return comboIngredientIds.indexOf(item.id) != -1;
+                });
+                console.log('--- crossFilteredIngredients filtered down ingredients based on ingredients list', crossFilteredIngredients);
+
+                // we need to DISPATCH the ingredient OBJECT and the ingredients in the right order;
+                const ingredientOne = crossFilteredIngredients.filter(ingredient => ingredient?.id === comboIngredientIds[0])
+                // console.log('--- filtered ingredientOne', ingredientOne);
+                dispatch({ type: 'SET_COMBO_INGREDIENT', payload: ingredientOne[0] })
+
+                const ingredientTwo = crossFilteredIngredients.filter(ingredient => ingredient?.id === comboIngredientIds[1])
+                // console.log('--- filtered ingredientTwo', ingredientTwo);
+                dispatch({ type: 'SET_COMBO_INGREDIENT', payload: ingredientTwo[0] })
+
+                // only dispatch the 3rd ingredient if there's 3 ingredients in the combo; 
+                if (crossFilteredIngredients.length > 2) {
+                    const ingredientThree = crossFilteredIngredients.filter(ingredient => ingredient?.id === comboIngredientIds[2])
+                    // console.log('--- filtered ingredientThree', ingredientThree);
+                    dispatch({ type: 'SET_COMBO_INGREDIENT', payload: ingredientThree[0] })
+                }
+
+                history.push('/combo')
+                break;
+
+            default:
+                break;
+        }
+
+    }; // handleClick
 
 
-    useEffect(() => {
-        dispatch({ type: 'FETCH_CHALLENGE' });
-        dispatch({ type: 'FETCH_COMBOS' });
-        dispatch({ type: 'FETCH_INGREDIENTS' });
-    }, []);
 
+    // limit the amount of content we display on the profile section === 3
+    const recentCombos = userCombos?.slice(0, 3);
+    console.log('homepage first 3 recentCombos', recentCombos);
+    // console.log('--- homepage userGoals', userGoals);
 
-
-    console.log('homePage ingredient list', ingredients);
-    console.log('user combos', userCombos);
 
     return (
         <Box sx={sxHomePageContainer}>
@@ -93,33 +156,36 @@ function Home() {
 
                     {/* user PROFILE section */}
                     <Box sx={sxProfileContainer}>
-                        <Typography variant="h6" sx={sxCenterText}>{user.username}</Typography>
+                        <Typography variant="h5" sx={sxCenterText}>{user.username}</Typography>
                         {/* <Typography>Side Section: User Profile</Typography> */}
-                        <CardMedia sx={sxPhotoBox} component="img" image={user.pic} />
-                        <Typography variant="h6" sx={sxCenterText}>{user.display_name}</Typography>
+                        <CardMedia onClick={() => handleClick('profile')} sx={sxPhotoBox} component="img" image={user.pic} />
+                        <Typography variant="h5" sx={sxCenterText}>{user.display_name}</Typography>
                         {/* <Typography><p>{user.bio}</p></Typography> */}
                     </Box>
-                    <br />
 
                     {/* any METRICS will go here */}
-                    <Box>
-                        <Typography variant="body1">Side Section: Metrics</Typography>
+                    <Box onClick={() => handleClick('profile')} sx={sxClickableDiv}>
+                        <Typography variant="h6" sx={sxCenterText}>Metrics</Typography>
+                        <Typography variant="body1" sx={sxCenterText}>content</Typography>
                     </Box>
-                    <br />
 
                     {/* recent COMBOS */}
-                    <Box>
-                        <Typography variant="body1">Recent Combos:</Typography>
-                        <Typography>{userCombos[0]?.name}</Typography>
-                        <Typography>{userCombos[1]?.name}</Typography>
-                        <Typography>{userCombos[2]?.name}</Typography>
+                    <Box onClick={() => handleClick('profile')} sx={sxClickableDiv}>
+                        <Typography variant="h6" sx={sxCenterText}>Recent Combos</Typography>
+                        {recentCombos?.map((combo, i) => (
+                            <Typography key={i} variant="body1" sx={sxCenterText}>{combo.name}</Typography>
+                        ))}
                     </Box>
-                    <br />
 
                     {/* GOALS progress */}
-                    <Box>
-                        <Typography variant="body1">Side Section: Goal Progress</Typography>
-                    </Box>
+                    {/* {userGoals?.map((goal, j) => (
+                        <Typography key={j} variant="body1" sx={sxCenterText}>hello</Typography>
+                    ))}
+                    {userGoals}
+                    <Box onClick={() => handleClick('profile')} sx={sxClickableDiv}>
+                        <Typography variant="h6" sx={sxCenterText}>Goal Progress</Typography>
+                        <Typography variant="body1" sx={sxCenterText}>content</Typography>
+                    </Box> */}
 
                 </Box>
 
@@ -127,11 +193,11 @@ function Home() {
                 <Box sx={sxRightColumn}>
                     <Box sx={sxTopSection}>
 
-                        <Typography variant="h5">Find Your First Ingredient</Typography>
+                        <Typography variant="h4">Find Your First Ingredient</Typography>
                         <Box sx={sxSearchContainer}>
 
                             <IngredientAutocomplete />
-                            <Button onClick={() => handleSearch(searchText)} variant="contained">search</Button>
+                            <Button onClick={() => handleSearch(searchText)} variant="outlined">search</Button>
                         </Box>
 
 
@@ -139,62 +205,71 @@ function Home() {
 
                     <Box sx={sxBottomSection}>
 
-                        <Typography variant="h5" sx={{ mb: 2, }}>Featured Combos</Typography>
+                        <Typography variant="h4" sx={{ mb: 2, }}>Featured Combos</Typography>
 
                         <Box sx={sxFeedContainer}>
 
-                            {feedContent.map((content) => {
-                                console.log('this is the content', content);
+                            {feedContent?.map((content) => {
+                                // console.log('--- this is the feedContent', feedContent);
+                                // console.log('--- this is the content', content);
+
                                 let feedContentIngredients = [];
                                 let IngArray = content.ingredient_list
+                                // console.log('--- this is the IngArray', content.ingredient_list);
 
                                 function ingredientFilter(ingredients) {
-                                    // for (let i = 0; i < ingredients.length; i++) {
-                                    //   if (ingredients[i].id === IngArray[0]) {
-                                    //     feedContentIngredients.push(ingredients[i])
-                                    //   } else if (ingredients[i].id === IngArray[1]) {
-                                    //     feedContentIngredients.push(ingredients[i])
-                                    //   } else if (ingredients[i].id === IngArray[2]) {
-                                    //     feedContentIngredients.push(ingredients[i])
-                                    //   }
+                                
                                     for (let ingredient of ingredients) {
                                         if (ingredient.id === IngArray[0]) {
+                                            // console.log('--- ingArray[0]', ingredient);
                                             feedContentIngredients.push(ingredient)
-                                        } else if (ingredient.id === IngArray[1]) {
+                                        } if (ingredient.id === IngArray[1]) {
+                                            // console.log('--- ingArray[1]', ingredient);
                                             feedContentIngredients.push(ingredient)
-                                        } else if (ingredient.id === IngArray[2]) {
+                                        } if (ingredient.id === IngArray[2]) {
+                                            // console.log('--- ingArray[2]', ingredient);
                                             feedContentIngredients.push(ingredient)
                                         }
                                     }
+                                    // console.log('--- end of fun feedContentIngredients', feedContentIngredients);
                                 }
 
-
                                 ingredientFilter(ingredients)
-                                console.log('IngArray id list:', IngArray);
-                                console.log('--- feedContentIngredients:', feedContentIngredients);
+                                // console.log('--- ingredientFilter(ingredients)', ingredientFilter(ingredients));
+                                // console.log('IngArray id list:', IngArray);
+                                // console.log('--- feedContentIngredients:', feedContentIngredients);
 
                                 return (
-                                    <Paper key={content.id} sx={sxContentPaper} elevation={3}>
+                                    <Paper key={content.id} sx={sxContentPaper} elevation={2}>
 
-                                        <Typography variant="body1" sx={{ textAlign: 'center' }} onClick={handleComboClick}>{content.date_posted?.split('T')[0]}</Typography>
+                                        {/* needed an extra Box just to separate the comboClick; remove button sits on top of this DIV and  fire when button is pushed */}
+                                        <Box onClick={() => handleClick('combo', content)} sx={sxClickableCombo} >
 
-                                        <Typography variant="h6" sx={{ textAlign: 'center' }} onClick={handleComboClick}>{content.name}</Typography>
+                                            <Typography variant="body1" sx={{ textAlign: 'center' }} >{content.date_posted?.split('T')[0]}</Typography>
 
-                                        <Box onClick={handleComboClick} sx={sxPhotoIngredientContainer}>
-                                            <CardMedia sx={sxPhotoIngredient} component="img" image={feedContentIngredients[0]?.pic} />
-                                            <CardMedia sx={sxPhotoIngredient} component="img" image={feedContentIngredients[1]?.pic} />
-                                            <CardMedia sx={sxPhotoIngredient} component="img" image={feedContentIngredients[2]?.pic} />
+                                            <Typography variant="h6" sx={{ textAlign: 'center' }}>{content.name}</Typography>
+
+                                            <Box sx={sxPhotoIngredientContainer}>
+                                                <CardMedia sx={sxPhotoIngredient} component="img" image={feedContentIngredients[2]?.pic} />
+
+                                                <CardMedia sx={sxPhotoIngredient} component="img" image={feedContentIngredients[1]?.pic} />
+
+                                                {content.ingredient_list?.length > 2 ?
+                                                    <CardMedia sx={sxPhotoIngredient} component="img" image={feedContentIngredients[0]?.pic} />
+                                                    : <></>}
+
+                                            </Box>
+
+
+                                            <Typography variant="body1" sx={sxComboDescription}>{content.description}</Typography>
+                                            {/* <Typography variant="body1">{feedContentIngredients[0]?.name}, {feedContentIngredients[1]?.name}{feedContentIngredients[2] ? (', ' + feedContentIngredients[2]?.name) : ""}</Typography> */}
                                         </Box>
 
-
-                                        <Typography variant="body1" sx={sxComboDescription}
-                                            onClick={handleComboClick}>{content.description}</Typography>
-                                        {/* <Typography variant="body1">{feedContentIngredients[0]?.name}, {feedContentIngredients[1]?.name}{feedContentIngredients[2] ? (', ' + feedContentIngredients[2]?.name) : ""}</Typography> */}
-
                                         {/* only allow ADMIN use see and use the remove feed button to remove feed items */}
-                                        {user.is_admin ? <Button onClick={handleRemove}
-                                            sx={sxRemoveButton} variant="contained"
-                                            size="small">Remove</Button> : <></>}
+                                        {user.is_admin ? <Button onClick={() => handleClick('remove', content)}
+                                            sx={sxRemoveButton}
+                                            variant="contained"
+                                            size="small">Remove From Feed </Button> : <></>}
 
                                     </Paper>
                                 )
