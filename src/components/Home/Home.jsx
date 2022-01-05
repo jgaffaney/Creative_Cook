@@ -48,9 +48,16 @@ function Home() {
     const user = useSelector((store) => store.user);
     const ingredients = useSelector((store) => store.ingredients);
     const feedContent = useSelector((store) => store.challenge);
-    const searchText = useSelector((store) => store.ingredientSearch);
-    const userCombos = useSelector((store) => store.userCombos);
+    const searchText = useSelector(store => store.ingredientSearch);
+    const userCombos = useSelector(store => store.userCombos);
+    const comboGoal = useSelector((store) => store.comboGoal);    
     const userGoals = useSelector((store) => store.goal);
+    const recipeGoal = useSelector((store) => store.recipeGoal);
+    const recipeSaved = useSelector((store) => store.recipeSaved);
+    const ingredientGoal = useSelector((store) => store.ingredientGoal);
+    const ingredientUnique = useSelector((store) => store.ingredientUnique);
+  
+  
 
     useEffect(() => {
         dispatch({ type: 'FETCH_CHALLENGE' });
@@ -178,6 +185,12 @@ function Home() {
                     </Box>
 
                     {/* GOALS progress */}
+                    <Box>
+                        <Typography variant="body1">Goal Progress</Typography>
+                        <Typography>Combo Goals:{userCombos.length}/{comboGoal.goal}</Typography>
+                        <Typography>Recipe Goals:{recipeSaved.length}/{recipeGoal.goal}</Typography>
+                        <Typography>Ingredient Goals:{ingredientUnique.length}/{ingredientGoal.goal}</Typography>
+                    </Box>
                     {/* {userGoals?.map((goal, j) => (
                         <Typography key={j} variant="body1" sx={sxCenterText}>hello</Typography>
                     ))}
