@@ -92,7 +92,7 @@ function Nav() {
     top: 0,
     m: 1,
     mx: 'auto',
-    zIndex: 100,
+    zIndex: 1000,
 
     width: '100%',
     bgcolor: 'white',

@@ -10,6 +10,7 @@ import {
     Typography,
     CardMedia,
     CardActionArea,
+    Paper,
 } from '@mui/material';
 
 
@@ -23,7 +24,7 @@ function ComboTool() {
     const sxButtonContainer = {
         display: 'flex',
         flexDirection: 'row',
-        border: '1px solid red',
+        // border: '1px solid red',
         justifyContent: 'center',
         width: '50%',
         mx: 'auto',
@@ -33,23 +34,15 @@ function ComboTool() {
         margin: 2,
     }
 
-
-    // ingredient card for combo tool
-    const sxIngredientCard = {
-        width: 150,
-        height: 150,
-        borderRadius: 100,
-        margin: 4,
-    }
-
     // ingredient container for combo tool
     const sxCardContainer = {
         display: 'flex',
         flexDirection: 'row',
-        border: '1px solid red',
+        // border: '1px solid red',
         justifyContent: 'center',
-        width: '50%',
+        minWidth: 559,
         mx: 'auto',
+        gap: 4,
     }
 
     // clickable card action space, currently does not perform a function
@@ -62,6 +55,17 @@ function ComboTool() {
         margin: 4,
     }
 
+    const sxPhotoBox = {
+        // border: '1px solid red',
+        width: 150,
+        height: 150,
+        boxShadow: 3,
+        my: 2,
+        ml: 1,
+        borderRadius: '50%',
+        // mx: 'auto',
+      };
+
     return (
         <>
             {/* 3 ingredient display */}
@@ -69,18 +73,19 @@ function ComboTool() {
                 {
                     combo ?
                         combo.map(ingredient => (
-                            <Card
+                            <Card elevation={0}
                                 onClick={console.log('clicked')}
-                                key={ingredient.id}
-                                sx={sxIngredientCard}>
-                                <CardActionArea
-                                    sx={sxCardAction}>
+                                key={ingredient.id}>
                                     <CardMedia
+                                    sx={sxPhotoBox}
                                         component="img"
                                         height="140"
                                         image={ingredient.pic}
                                         alt={ingredient.name} />
-                                </CardActionArea>
+                                <CardContent>
+                                    <Typography variant=''
+                                    sx={sxIngredientName}>{ingredient.name}</Typography>
+                                </CardContent>
                             </Card>
                         ))
                         :
@@ -88,7 +93,7 @@ function ComboTool() {
             </Box >
 
             {/* ingredient name map */}
-            <Box sx={sxCardContainer}>
+            {/* <Box sx={sxCardContainer}>
                 {
                     combo ?
                         combo.map(ingredient => (
@@ -96,7 +101,7 @@ function ComboTool() {
                         ))
                         :
                         <p></p>}
-            </Box>
+            </Box> */}
             <Box sx={sxButtonContainer}>
 
                 {/* if combo tool has at least 1 ingredient, clear button renders */}
