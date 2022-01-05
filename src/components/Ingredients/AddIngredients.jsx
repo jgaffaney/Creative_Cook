@@ -49,7 +49,31 @@ function AddIngredients() {
         {
             value: 'Winter',
             label: 'Winter'
-        }
+        },
+        {
+            value: 'Summer-Autumn',
+            label: 'Summer-Autumn'
+          },
+          {
+            value: 'Autumn-Winter',
+            label: 'Autumn-Winter'
+          },
+          {
+            value: 'Winter-Spring',
+            label: 'Winter-Spring'
+          },
+          {
+            value: 'Spring-Early Autumn',
+            label: 'Spring-Early Autumn'
+          },
+          {
+            value: 'Spring-Summer',
+            label: 'Spring-Summer'
+          },
+          {
+            value: 'Year-round',
+            label: 'Year-round'
+          }
     ]
 
     // for type dropdown
@@ -81,7 +105,31 @@ function AddIngredients() {
         {
             value: 'Fat',
             label: 'Fat'
-        }
+        },
+        {
+            value: 'Grain',
+            label: 'Grain'
+          },
+          {
+            value: 'Green',
+            label: 'Green'
+          },
+          {
+            value: 'Legume',
+            label: 'Legume'
+          },
+          {
+            value: 'Nut',
+            label: 'Nut'
+          },
+          {
+            value: 'Herb',
+            label: 'Herb'
+          },
+          {
+            value: 'Raw',
+            label: 'Raw'
+          }
     ]
     const sxAddIngredient = {
         display: 'flex',
