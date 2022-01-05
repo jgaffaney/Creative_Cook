@@ -15,6 +15,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import Confetti from 'react-confetti'
 import { useWindowSize, useTimeout } from 'react-use';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+
 
 // --- MUI sx STYLES --- // 
 import {
@@ -60,7 +63,7 @@ function Profile() {
 
   useEffect(() => {
     if (userCombos.length >= comboGoal.goal) {
-      dispatch({ type: 'UPDATE_COMBO_GOAL', payload: comboGoal})
+      dispatch({ type: 'UPDATE_COMBO_GOAL', payload: comboGoal })
     }
   }, [userCombos, comboGoal])
 
@@ -69,7 +72,7 @@ function Profile() {
       dispatch({ type: 'UPDATE_RECIPE_GOAL', payload: recipeGoal })
     }
   }, [recipeSaved, recipeGoal])
-    
+
   useEffect(() => {
     if (ingredientUnique.length >= ingredientGoal.goal) {
       dispatch({ type: 'UPDATE_INGREDIENT_GOAL', payload: ingredientGoal })
@@ -82,7 +85,7 @@ function Profile() {
     textAlign: 'center',
     color: theme.palette.text.secondary,
   }));
-  
+
   return (
     <Box sx={sxProfilePageContainer}>
       <Box sx={sxPageContent}>
@@ -104,16 +107,28 @@ function Profile() {
               <Grid item xs={4}>
                 <Typography>New Combos - Goal: {comboGoal.goal} </Typography>
                 <Item>Goal Progress: {userCombos.length}/{comboGoal.goal}</Item>
+                <Alert severity="success">
+                    <AlertTitle>Congratulations!!!</AlertTitle>
+                    You hit your Combo Goal! <strong>Keep it Up!</strong>
+                  </Alert>
               </Grid>
               <Grid item xs={4}>
                 <Typography>New Recipes - Goal: {recipeGoal.goal} </Typography>
                 <Item>Goal Progress: {recipeSaved.length}/{recipeGoal.goal}</Item>
+                <Alert severity="success">
+                    <AlertTitle>Congratulations!!!</AlertTitle>
+                    You hit your Recipe Goal! <strong>Keep it Up!</strong>
+                  </Alert>
               </Grid>
               {comboGoal.goal &&
                 <Grid item xs={4}>
                   <Typography>New Ingredients - Goal: {ingredientGoal.goal} </Typography>
                   <Item>Goal Progress: {ingredientUnique.length}/{ingredientGoal.goal}</Item>
                   <Confetti width={width} height={height} recycle={!isComplete()} />
+                  <Alert severity="success">
+                    <AlertTitle>Congratulations!!!</AlertTitle>
+                    You hit your Ingredient Goal! <strong>Keep it Up!</strong>
+                  </Alert>
                 </Grid>}
             </Grid>
             <Typography size={18}>Metrics</Typography>
@@ -133,8 +148,8 @@ function Profile() {
           <Box sx={sxBottomSection}>
             <Typography size={18}>Saved Flavor Combos</Typography>
             <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-            {/* <Typography>Saved Flavor Combos</Typography> */}
-            {/* <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+              {/* <Typography>Saved Flavor Combos</Typography> */}
+              {/* <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
               {Array.from(Array(12)).map((_, index) => (
                 <Grid item xs={2} sm={4} md={4} key={index}>
                   <Item>Saved Flavor Combos</Item>
@@ -142,20 +157,20 @@ function Profile() {
               ))}
             </Grid> */}
             </Grid>
-          <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-            {userCombos.map((combo) => {
+            <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+              {userCombos.map((combo) => {
 
-              return (
-                <Grid item xs={2} sm={4} md={4} key={combo.id} >
-                  <Item >
-                    <List>
-                      <ListItem sx={{p: 3, border: '1px solid black', }}>{combo.name}</ListItem>
-                    </List>
-                  </Item>
-                </Grid>
-              )
-            })}
-          </Grid>
+                return (
+                  <Grid item xs={2} sm={4} md={4} key={combo.id} >
+                    <Item >
+                      <List>
+                        <ListItem sx={{ p: 3, border: '1px solid black', }}>{combo.name}</ListItem>
+                      </List>
+                    </Item>
+                  </Grid>
+                )
+              })}
+            </Grid>
           </Box>
         </Box>
       </Box>
