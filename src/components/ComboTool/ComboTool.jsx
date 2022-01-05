@@ -23,7 +23,7 @@ function ComboTool() {
     const sxButtonContainer = {
         display: 'flex',
         flexDirection: 'row',
-        border: '1px solid red',
+        // border: '1px solid red',
         justifyContent: 'center',
         width: '50%',
         mx: 'auto',
@@ -46,7 +46,7 @@ function ComboTool() {
     const sxCardContainer = {
         display: 'flex',
         flexDirection: 'row',
-        border: '1px solid red',
+        // border: '1px solid red',
         justifyContent: 'center',
         width: '50%',
         mx: 'auto',
