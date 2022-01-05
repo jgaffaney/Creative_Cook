@@ -46,6 +46,7 @@ function Home() {
     const feedContent = useSelector((store) => store.challenge);
     const searchText = useSelector(store => store.ingredientSearch);
     const userCombos = useSelector(store => store.userCombos);
+    
 
     const handleSearch = (searchText) => {
         console.log('CLICKED on handleSearch');
@@ -119,6 +120,9 @@ function Home() {
                     {/* GOALS progress */}
                     <Box>
                         <Typography variant="body1">Side Section: Goal Progress</Typography>
+                        <Typography>{userCombos.length}</Typography>
+                        <Typography>{userCombos[1]?.name}</Typography>
+                        <Typography>{userCombos[2]?.name}</Typography>
                     </Box>
 
                 </Box>
