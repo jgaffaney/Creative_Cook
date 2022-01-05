@@ -172,20 +172,20 @@ function Home() {
                     {/* recent COMBOS */}
                     <Box onClick={() => handleClick('profile')} sx={sxClickableDiv}>
                         <Typography variant="h6" sx={sxCenterText}>Recent Combos</Typography>
-                        {recentCombos.map((combo, i) => (
+                        {recentCombos?.map((combo, i) => (
                             <Typography key={i} variant="body1" sx={sxCenterText}>{combo.name}</Typography>
                         ))}
                     </Box>
 
                     {/* GOALS progress */}
-                    {userGoals.map((goal, j) => (
+                    {/* {userGoals?.map((goal, j) => (
                         <Typography key={j} variant="body1" sx={sxCenterText}>hello</Typography>
                     ))}
                     {userGoals}
                     <Box onClick={() => handleClick('profile')} sx={sxClickableDiv}>
                         <Typography variant="h6" sx={sxCenterText}>Goal Progress</Typography>
                         <Typography variant="body1" sx={sxCenterText}>content</Typography>
-                    </Box>
+                    </Box> */}
 
                 </Box>
 
@@ -197,7 +197,7 @@ function Home() {
                         <Box sx={sxSearchContainer}>
 
                             <IngredientAutocomplete />
-                            <Button onClick={() => handleSearch(searchText)} variant="contained">search</Button>
+                            <Button onClick={() => handleSearch(searchText)} variant="outlined">search</Button>
                         </Box>
 
 
@@ -209,7 +209,7 @@ function Home() {
 
                         <Box sx={sxFeedContainer}>
 
-                            {feedContent.map((content) => {
+                            {feedContent?.map((content) => {
                                 // console.log('--- this is the feedContent', feedContent);
                                 // console.log('--- this is the content', content);
 
@@ -271,7 +271,7 @@ function Home() {
                                         {user.is_admin ? <Button onClick={() => handleClick('remove', content)}
                                             sx={sxRemoveButton}
                                             variant="contained"
-                                            size="small">Remove</Button> : <></>}
+                                            size="small">Remove From Feed </Button> : <></>}
 
                                     </Paper>
                                 )

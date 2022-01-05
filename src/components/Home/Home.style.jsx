@@ -16,13 +16,20 @@ export const sxClickableDiv = {
 }
 
 export const sxClickableCombo = {
+    // border: '1px solid yellow',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    height: 'auto',
+    width: 'auto',
     cursor: 'pointer',
+    gap: .5,
 }
 
 
 // CONTAINER that centers everything on this page
 export const sxHomePageContainer = {
-    // border: '1px solid red',
+    // border: '1px solid purple',
     display: 'flex',
     justifyContent: 'center',
 }
@@ -34,9 +41,12 @@ export const sxPageContent = {
     flexDirection: 'row',
     justifyContent: 'center',
     width: '80%',
-    height: 'auto',
+    // height: 'auto',
     m: 2,
     gap: 1,
+
+    position: 'relative',
+    // position: 'relative',
 }
 
 
@@ -49,9 +59,13 @@ export const sxLeftColumn = {
     display: 'flex',
     flexDirection: 'column',
     minWidth: 220,
+    maxWidth: 220,
     gap: 2,
-    // position: 'sticky',
-    // top: 200,
+    height: 'auto',
+
+    position: 'absolute',
+    right: 'calc(100% / 2)',
+    mr: '285px',
 
 }
 
@@ -88,7 +102,6 @@ export const sxCenterText = {
 
 
 
-
 // RIGHT COLUMN holds the top and bottom sections 
 export const sxRightColumn = {
     // border: '1px solid blue',
@@ -96,10 +109,15 @@ export const sxRightColumn = {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    maxWidth: '60%',
-    minWidth: 550,
+    // maxWidth: 550,
+    width: 550,
+    height: 'auto',
+    // mx: 'auto',
 
-    height: '100%',
+
+
+    position: 'relative',
+    // top: 100,
 }
 
 
@@ -167,10 +185,11 @@ export const sxContentPaper = {
     // border: '1px solid green',
     display: 'flex',
     flexDirection: 'column',
+    justifyContent: 'center',
+    // alignItems: 'center',
     width: 500, 
     height: 'auto',
-    justifyContent: 'center',
-    alignItems: 'center',
+    
     p: 2,
     borderRadius: 2,
     cursor: 'pointer',
@@ -186,7 +205,8 @@ export const sxPhotoIngredientContainer = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    width: '60%',
+    gap: 7,
+    width: 350,
     mx: 'auto',
     my: 1,
     // gap: 2,
@@ -200,17 +220,19 @@ export const sxPhotoIngredient = {
     height: 70,
     boxShadow: 3,
     borderRadius: '50%',
-    mx: 'auto',
-    mb: 1,
+    backgroundSize: 'cover',
 };
 
 export const sxComboDescription = {
     // border: '1px solid blue',
-    width: '90%',
+    width: '100%',
     height: 'auto',
     textAlign: 'center',
 }
 
 export const sxRemoveButton = {
-    
+    width: '50%',
+    mx: 'auto',
+    mt: 1,
+    bgcolor: 'error.main',
 }
