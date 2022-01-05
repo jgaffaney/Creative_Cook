@@ -94,7 +94,7 @@ function Nav() {
     mx: 'auto',
     zIndex: 100,
 
-    width: '95%',
+    width: '100%',
     bgcolor: 'white',
     borderBottom: '1px solid gray',
   }

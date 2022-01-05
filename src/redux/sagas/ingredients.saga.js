@@ -5,21 +5,21 @@ import { resolvePromiseAction } from '@adobe/redux-saga-promise'
 
 // gets all ingredients from DB and sends them to ingredients reducer
 function* fetchIngredients() {
-    console.log('in fetchIngredients saga');
+    // console.log('in fetchIngredients saga');
     try {
         const response = yield axios.get('/api/ingredients');
-        console.log('response from GET ingred: ', response);
+        // console.log('--- response from fetchIngredients: ', response);
 
         yield put({ type: 'SET_INGREDIENTS', payload: response.data })
     } catch (error) {
-        console.log('Error on fetchIngredients: ', error);
+        console.log('--- ERROR on fetchIngredients: ', error);
     }
 }
 
 function* postIngredient(action) {
-    console.log('In postIngredient Saga with: ', action);
+    // console.log('In postIngredient Saga with: ', action);
     try {
-        yield axios.post('/api/ingredients', action.payload)
+        yield axios.post('---/api/ingredients', action.payload)
         yield put({ type: 'FETCH_INGREDIENTS' });
     } catch (error) {
         console.log('Error on postIngredient: ', error);

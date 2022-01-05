@@ -47,6 +47,8 @@ function Profile() {
   const ingredientUnique = useSelector((store) => store.ingredientUnique);
   const recipeGoal = useSelector((store) => store.recipeGoal);
   const recipeSaved = useSelector((store) => store.recipeSaved);
+  const goal = useSelector((store) => store.goal);
+  console.log('--- profile page goal', goal);
   const dispatch = useDispatch();
 
   const { width, height } = useWindowSize();
