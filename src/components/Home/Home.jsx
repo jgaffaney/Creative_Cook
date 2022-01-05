@@ -144,7 +144,7 @@ function Home() {
 
     // limit the amount of content we display on the profile section === 3
     const recentCombos = userCombos?.slice(0, 3);
-    // console.log('homepage first 3 recentCombos', recentCombos);
+    console.log('homepage first 3 recentCombos', recentCombos);
     // console.log('--- homepage userGoals', userGoals);
 
 
@@ -215,25 +215,23 @@ function Home() {
 
                                 let feedContentIngredients = [];
                                 let IngArray = content.ingredient_list
+                                // console.log('--- this is the IngArray', content.ingredient_list);
 
                                 function ingredientFilter(ingredients) {
-                                    // for (let i = 0; i < ingredients.length; i++) {
-                                    //   if (ingredients[i].id === IngArray[0]) {
-                                    //     feedContentIngredients.push(ingredients[i])
-                                    //   } else if (ingredients[i].id === IngArray[1]) {
-                                    //     feedContentIngredients.push(ingredients[i])
-                                    //   } else if (ingredients[i].id === IngArray[2]) {
-                                    //     feedContentIngredients.push(ingredients[i])
-                                    //   }
+                                
                                     for (let ingredient of ingredients) {
                                         if (ingredient.id === IngArray[0]) {
+                                            // console.log('--- ingArray[0]', ingredient);
                                             feedContentIngredients.push(ingredient)
-                                        } else if (ingredient.id === IngArray[1]) {
+                                        } if (ingredient.id === IngArray[1]) {
+                                            // console.log('--- ingArray[1]', ingredient);
                                             feedContentIngredients.push(ingredient)
-                                        } else if (ingredient.id === IngArray[2]) {
+                                        } if (ingredient.id === IngArray[2]) {
+                                            // console.log('--- ingArray[2]', ingredient);
                                             feedContentIngredients.push(ingredient)
                                         }
                                     }
+                                    // console.log('--- end of fun feedContentIngredients', feedContentIngredients);
                                 }
 
                                 ingredientFilter(ingredients)
@@ -252,12 +250,12 @@ function Home() {
                                             <Typography variant="h6" sx={{ textAlign: 'center' }}>{content.name}</Typography>
 
                                             <Box sx={sxPhotoIngredientContainer}>
-                                                <CardMedia sx={sxPhotoIngredient} component="img" image={feedContentIngredients[0]?.pic} />
+                                                <CardMedia sx={sxPhotoIngredient} component="img" image={feedContentIngredients[2]?.pic} />
 
                                                 <CardMedia sx={sxPhotoIngredient} component="img" image={feedContentIngredients[1]?.pic} />
 
                                                 {content.ingredient_list?.length > 2 ?
-                                                    <CardMedia sx={sxPhotoIngredient} component="img" image={feedContentIngredients[2]?.pic} />
+                                                    <CardMedia sx={sxPhotoIngredient} component="img" image={feedContentIngredients[0]?.pic} />
                                                     : <></>}
 
                                             </Box>

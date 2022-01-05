@@ -58,14 +58,18 @@ export const sxLeftColumn = {
     // border: '1px solid green',
     display: 'flex',
     flexDirection: 'column',
-    minWidth: 220,
-    maxWidth: 220,
+    minWidth: 250,
+    maxWidth: 250,
     gap: 2,
     height: 'auto',
 
+    borderRadius: 3,
+    // boxShadow: 20,
+
+
     position: 'absolute',
-    right: 'calc(100% / 2)',
-    mr: '285px',
+    right: 'calc(50% + 290px)',
+    // mr: '305px',
 
 }
 
@@ -80,8 +84,8 @@ export const sxProfileContainer = {
 // PROFILE PHOTOS properties being held in the left column
 export const sxPhotoBox = {
     // border: '1px solid lightgray',
-    width: 150,
-    height: 150,
+    width: 100,
+    height: 100,
     boxShadow: 2,
     my: 2,
     borderRadius: '50%',
