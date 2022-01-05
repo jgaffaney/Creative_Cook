@@ -3,6 +3,30 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
+// combo get pairings relevant to searched ingredient
+router.get('/pairings', rejectUnauthenticated, (req, res) => {
+    console.log('params in pairings GET: ', req.params.id);
+    const id = req.params.id;
+    const queryText = `
+    SELECT "ingredients"."id", "ingredients"."description", "ingredients"."pic", INITCAP("ingredients"."name") AS name FROM "ingredients"
+    JOIN "pairings" ON "pairings"."ingredient_two_id" = "ingredients"."id"
+    WHERE "pairings"."ingredient_one_id" = $1
+    UNION
+    SELECT "ingredients"."id", "ingredients"."description", "ingredients"."pic", INITCAP("ingredients"."name") AS name FROM "ingredients"
+    JOIN "pairings" ON "pairings"."ingredient_one_id" = "ingredients"."id"
+    WHERE "pairings"."ingredient_two_id" = $2;
+    `
+    const values = [id];
+    pool.query(queryText, values)
+        .then(response => {
+            console.log('response from GET pairings: ', response);
+            res.send(response.rows)
+        }).catch(err => {
+            console.log('Error on GET pairings: ', err);
+            res.sendStatus(500);
+        })
+}); // End GET
+
 
 // Combo GET route
 router.get('/', rejectUnauthenticated, (req, res) => {

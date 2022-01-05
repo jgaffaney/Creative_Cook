@@ -27,7 +27,7 @@ const sxRecipeContainer = {
     display: 'flex',
     flexWrap: 'wrap',
     flexDirection: 'row',
-    border: '1px solid red',
+    // border: '1px solid red',
     gap: 2,
     justifyContent: 'center',
 }
@@ -76,8 +76,7 @@ function RecipeList() {
 
     return (
         <>
-            <h1>RECIPE LIST</h1>
-            <Paper>
+            {/* <h1>RECIPE LIST</h1> */}
                 <Box sx={sxRecipeContainer}>
                     {recipes.length > 0 ?
                         recipes.map(recipe => (
@@ -132,9 +131,8 @@ function RecipeList() {
                             </>
                         ))
                         :
-                        <p></p>}
+                        <></>}
                 </Box>
-            </Paper>
         </>
     )
 
