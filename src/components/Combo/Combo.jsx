@@ -19,7 +19,7 @@ import {
 } from '@mui/material'
 import { styled } from '@mui/material/styles';
 import IngredientAutocomplete from '../IngredientAutocomplete/IngredientAutocomplete';
-import {sxSearchContainer} from '../Home/Home.style'
+import { sxSearchContainer } from '../Home/Home.style'
 
 function Combo() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
@@ -75,6 +75,10 @@ function Combo() {
 
   const searchText = useSelector(store => store.ingredientSearch)
   const pairings = useSelector(store => store.pairings)
+  const pairingOne = useSelector(store => store.comboPairingOne)
+  const pairingTwo = useSelector(store => store.comboPairingTwo)
+
+
   const handleSearch = (searchText) => {
     console.log('CLICKED on handleSearch');
     console.log('this is the searchText', searchText);
@@ -87,61 +91,85 @@ function Combo() {
       return alert('Make a selection from the list')
     }
     // put ingredient into the reducer
-    dispatch({ type: 'CLEAR_COMBO_AND_RECIPE'})
+    dispatch({ type: 'CLEAR_COMBO_AND_RECIPE' })
     dispatch({ type: 'SET_COMBO_INGREDIENT', payload: searchedIngredientOne[0] })
-    dispatch({ type: 'FETCH_COMBO_PAIRINGS', payload: searchedIngredientOne[0].id })
   }
+
+  useEffect(() => {
+    switch (combo.length) {
+      case 1:
+        dispatch({ type: 'FETCH_INGREDIENT_ONE_PAIRINGS', payload: combo[0].id });
+        break;
+      case 2:
+        dispatch({ type: 'FETCH_INGREDIENT_TWO_PAIRINGS', payload: combo[1].id });
+        break;
+      case 3:
+        dispatch({ type: 'FETCH_RECIPES', payload: combo });
+        break;
+    }
+  }, [combo])
+
+  const pairingOneIds = new Set(pairingOne.map(({ id }) => id));
+  let combined = [
+    ...pairingOne,
+    ...pairingTwo.filter(({ id }) => !pairingOneIds.has(id))
+  ];
+
+  if (combo.length === 2) {
+    combined = combined.filter(ingredient => ingredient.id != combo[0].id).filter(ingredient => ingredient.id != combo[1].id);
+  }
+
+  console.log('combined is:', combined);
 
   return (
     <div className="container">
 
       {/* ingredient search */}
-      {combo.length === 0 ? 
-      <>
-      <Typography sx={sxSearchContainer}
-      variant="h5">Find Your First Ingredient</Typography>
-      <Box sx={sxSearchContainer}>
+      {combo.length === 0 &&
+        <>
+          <Typography sx={sxSearchContainer}
+            variant="h5">Find Your First Ingredient</Typography>
+          <Box sx={sxSearchContainer}>
 
-        <IngredientAutocomplete />
-        <Button onClick={() => handleSearch(searchText)} variant="contained">search</Button>
-      </Box>
-      </>
-       : <></> }
+            <IngredientAutocomplete />
+            <Button onClick={() => handleSearch(searchText)} variant="contained">search</Button>
+          </Box>
+        </>
+      }
       {/* combo selector */}
       <ComboTool />
 
       {/* ingredient listing */}
-      {combo.length > 0 && combo.length < 3 ?
-      
-      <Box sx={sxIngredientContainer}>
-        {ingredients.map(ingredient => (
-          <Tooltip sx={sxTooltip}
-            title={
-              <>
-                <Typography
-                  variant="body1">{ingredient.description}</Typography>
-              </>
+      {combo.length > 0 && combo.length < 3 &&
+        <Box sx={sxIngredientContainer}>
+          {combined.map(ingredient => (
+            <Tooltip sx={sxTooltip}
+              title={
+                <>
+                  <Typography
+                    variant="body1">{ingredient.description}</Typography>
+                </>
               }
-          >
-            <Card elevation={3}
-              onClick={() => dispatch({ type: 'SET_COMBO_INGREDIENT', payload: ingredient })}
-              sx={sxCardContent}>
-              <CardMedia
-                sx={sxPhotoBox}
-                component="img"
-                image={ingredient.pic}
-                alt={ingredient.name}
-              />
-              <Typography
-                sx={sxCardTypography}
-                gutterBottom variant="body1" component="div">
-                {ingredient.name}
-              </Typography>
-            </Card>
-          </Tooltip>
-        ))}
-      </Box>
-       : <p></p> }
+            >
+              <Card elevation={3}
+                onClick={() => dispatch({ type: 'SET_COMBO_INGREDIENT', payload: ingredient })}
+                sx={sxCardContent}>
+                <CardMedia
+                  sx={sxPhotoBox}
+                  component="img"
+                  image={ingredient.pic}
+                  alt={ingredient.name}
+                />
+                <Typography
+                  sx={sxCardTypography}
+                  gutterBottom variant="body1" component="div">
+                  {ingredient.name}
+                </Typography>
+              </Card>
+            </Tooltip>
+          ))}
+        </Box>
+      }
 
       <RecipeList />
     </div>
