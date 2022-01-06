@@ -56,6 +56,7 @@ function Home() {
     const recipeSaved = useSelector((store) => store.recipeSaved);
     const ingredientGoal = useSelector((store) => store.ingredientGoal);
     const ingredientUnique = useSelector((store) => store.ingredientUnique);
+    const combo = useSelector((store) => store.combo);
 
 
     useEffect(() => {
@@ -89,6 +90,12 @@ function Home() {
     function handleClick(action, content, ingredientOne, ingredientTwo, ingredientThree) {
 
         switch (action) {
+
+            case 'profile':
+                console.log('CLICKED on the profile image button');
+                history.push('/profile')
+                break;
+
             // only ADMIN will have the ability to see remove button on combos cards;
             case 'remove':
                 console.log('CLICKED remove feed combo card');
@@ -98,13 +105,7 @@ function Home() {
                 dispatch({ type: 'REMOVE_FEED_ITEM', payload: content.id })
                 break;
 
-            case 'profile':
-                console.log('CLICKED on the profile image button');
-                history.push('/profile')
-                break;
-
             case 'combo':
-
                 console.log('CLICKED on the featured combo');
                 console.log('--- the three ingredients to send to dispatch', ingredientOne, ingredientTwo, ingredientThree);
 
@@ -119,7 +120,7 @@ function Home() {
                 // only dispatch the 3rd ingredient if there's 3 ingredients in the combo; 
                 { ingredientThree && dispatch({ type: 'SET_COMBO_INGREDIENT', payload: ingredientThree[0] }) }
                 
-                dispatch({ type: 'FETCH_RECIPES', payload: comboArray })
+                // dispatch({ type: 'FETCH_RECIPES', payload: combo })
                 // console.log('--- selectCombo', comboArray);
 
                 history.push('/combo')

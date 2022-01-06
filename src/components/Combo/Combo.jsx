@@ -32,6 +32,21 @@ function Combo() {
     dispatch({ type: 'FETCH_INGREDIENTS' })
   }, [])
 
+  useEffect( ()=> {
+    switch(combo.length){
+      case 1:
+        dispatch({ type: 'FETCH_INGREDIENT_ONE_PAIRINGS', payload: combo[0].id });
+      break;
+      case 2:
+      dispatch({ type: 'FETCH_INGREDIENT_TWO_PAIRINGS', payload: combo[1].id });
+      break;
+      case 3:
+        dispatch({ type: 'FETCH_RECIPES', payload: combo });
+      break;
+    }
+  }, [combo])
+  
+
   const sxIngredientContainer = {
     display: 'flex',
     flexWrap: 'wrap',
@@ -72,6 +87,7 @@ function Combo() {
   const sxTooltip = {
     borderRadius: 5,
   }
+
 
   const searchText = useSelector(store => store.ingredientSearch)
   const pairings = useSelector(store => store.pairings)
