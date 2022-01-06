@@ -49,6 +49,7 @@ function Profile() {
   const recipeSaved = useSelector((store) => store.recipeSaved);
   const goal = useSelector((store) => store.goal);
   console.log('--- profile page goal', goal);
+  const weeklyCombos = useSelector((store) => store.weeklyCombos);
   const dispatch = useDispatch();
 
   const { width, height } = useWindowSize();
@@ -61,6 +62,7 @@ function Profile() {
     dispatch({ type: 'FETCH_INGREDIENT_UNIQUE' })
     dispatch({ type: 'FETCH_RECIPE_GOAL' })
     dispatch({ type: 'FETCH_RECIPE_SAVED' })
+    dispatch({ type: 'FETCH_WEEKLY_COMBOS' })
   }, [])
 
   useEffect(() => {
@@ -136,7 +138,7 @@ function Profile() {
             <Typography size={18}>Metrics</Typography>
             <Grid container spacing={2}>
               <Grid item xs={4}>
-                <Item>Metrics/Weekly</Item>
+                <Item>Combos Made This Week: {weeklyCombos.length}</Item>
               </Grid>
               <Grid item xs={4}>
                 <Item>Metrics/Monthly</Item>
