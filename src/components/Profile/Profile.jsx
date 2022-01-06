@@ -51,6 +51,7 @@ function Profile() {
   console.log('--- profile page goal', goal);
   const weeklyCombos = useSelector((store) => store.weeklyCombos);
   const monthlyCombos = useSelector((store) => store.monthlyCombos);
+  const yearlyCombos = useSelector((store) => store.yearlyCombos);
   const dispatch = useDispatch();
 
   const { width, height } = useWindowSize();
@@ -65,6 +66,7 @@ function Profile() {
     dispatch({ type: 'FETCH_RECIPE_SAVED' })
     dispatch({ type: 'FETCH_WEEKLY_COMBOS' })
     dispatch({ type: 'FETCH_MONTHLY_COMBOS' })
+    dispatch({ type: 'FETCH_YEARLY_COMBOS' })
   }, [])
 
   useEffect(() => {
@@ -142,7 +144,7 @@ function Profile() {
               <Grid item xs={4}>
                 <Item>Combos Made This Week: {weeklyCombos.length}</Item>
                 <Item>Combos Made This Month: {monthlyCombos.length}</Item>
-                <Item>Combos Made This Year: {weeklyCombos.length}</Item>
+                <Item>Combos Made This Year: {yearlyCombos.length}</Item>
               </Grid>
               <Grid item xs={4}>
                 <Item>Metrics/Monthly</Item>
