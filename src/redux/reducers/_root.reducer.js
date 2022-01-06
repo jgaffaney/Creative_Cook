@@ -18,6 +18,7 @@ import unpaired from './unpaired.reducer';
 import top5 from './top5.reducer';
 import weeklyCombos from './weekly_combo.reducer';
 import monthlyCombos from './monthly_combo.reducer';
+import yearlyCombos from './yearly_combo.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -50,6 +51,7 @@ const rootReducer = combineReducers({
   top5,       // holds the top five most used ingredients by all users
   weeklyCombos, // holds combos made from logged in user within the past week
   monthlyCombos, // holds combos made from logged in user within the past month
+  yearlyCombos, // holds combos made from logged in user within the past year
 });
 
 export default rootReducer;
