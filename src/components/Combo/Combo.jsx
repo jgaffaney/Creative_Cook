@@ -93,7 +93,6 @@ function Combo() {
     // put ingredient into the reducer
     dispatch({ type: 'CLEAR_COMBO_AND_RECIPE' })
     dispatch({ type: 'SET_COMBO_INGREDIENT', payload: searchedIngredientOne[0] })
-    // dispatch({ type: 'FETCH_INGREDIENT_ONE_PAIRINGS', payload: searchedIngredientOne[0].id })
   }
 
   useEffect(() => {
@@ -110,18 +109,23 @@ function Combo() {
     }
   }, [combo])
 
- const pairingOneIds = new Set (pairingOne.map(({ id }) => id ));
- const combined = [
-   ...pairingOne,
-   ...pairingTwo.filter(({ id }) => !pairingOneIds.has(id))
- ];
- console.log('combined is:', combined);
- 
+  const pairingOneIds = new Set(pairingOne.map(({ id }) => id));
+  let combined = [
+    ...pairingOne,
+    ...pairingTwo.filter(({ id }) => !pairingOneIds.has(id))
+  ];
+
+  if (combo.length === 2) {
+    combined = combined.filter(ingredient => ingredient.id != combo[0].id).filter(ingredient => ingredient.id != combo[1].id);
+  }
+
+  console.log('combined is:', combined);
+
   return (
     <div className="container">
 
       {/* ingredient search */}
-      {combo.length === 0 ?
+      {combo.length === 0 &&
         <>
           <Typography sx={sxSearchContainer}
             variant="h5">Find Your First Ingredient</Typography>
@@ -131,13 +135,12 @@ function Combo() {
             <Button onClick={() => handleSearch(searchText)} variant="contained">search</Button>
           </Box>
         </>
-        : <></>}
+      }
       {/* combo selector */}
       <ComboTool />
 
       {/* ingredient listing */}
-      {combo.length > 0 && combo.length < 3 ?
-
+      {combo.length > 0 && combo.length < 3 &&
         <Box sx={sxIngredientContainer}>
           {combined.map(ingredient => (
             <Tooltip sx={sxTooltip}
@@ -166,7 +169,7 @@ function Combo() {
             </Tooltip>
           ))}
         </Box>
-        : <p></p>}
+      }
 
       <RecipeList />
     </div>
