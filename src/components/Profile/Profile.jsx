@@ -15,6 +15,7 @@ import IconButton from '@mui/material/IconButton';
 import Collapse from '@mui/material/Collapse';
 import Button from '@mui/material/Button';
 import CloseIcon from '@mui/icons-material/Close';
+import TextField from '@mui/material/TextField';
 
 // --- MUI sx STYLES --- // 
 import {
@@ -106,7 +107,26 @@ function Profile() {
           <Box sx={sxMiddleSection}>
             <Typography size={24}>Goal Progress</Typography>
             <Grid container spacing={2} alignItems="stretch">
-              {comboGoal.goal &&
+              
+              {comboGoal.goal == 0 &&
+                <Grid item xs={4}>
+                  <Alert severity="success">
+                    <AlertTitle>Set Your Combo Goal!</AlertTitle>
+                    {/* This is a success alert — <strong>check it out!</strong> */}
+                  </Alert>
+                  <TextField
+          id="outlined-number"
+          label="Number"
+          type="number"
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+
+                </Grid>
+              }
+
+              {comboGoal.goal > 0 &&
                 <Grid item xs={4}>
                   <Typography>New Combos - Goal: {comboGoal.goal} </Typography>
                   <Item>Goal Progress: {userCombos.length}/{comboGoal.goal}</Item>
@@ -136,7 +156,27 @@ function Profile() {
                     </Collapse>
                   }
                 </Grid>}
-              {comboGoal.goal &&
+
+                {recipeGoal.goal == 0 &&
+                <Grid item xs={4}>
+                  <Alert severity="success">
+                    <AlertTitle>Set Your Recipe Goal!</AlertTitle>
+                    {/* This is a success alert — <strong>check it out!</strong> */}
+                  </Alert>
+                  <TextField
+          id="outlined-number"
+          label="Number"
+          type="number"
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+
+                </Grid>
+              }
+
+
+              {recipeGoal.goal > 0 &&
                 <Grid item xs={4}>
                   <Typography>New Recipes - Goal: {recipeGoal.goal} </Typography>
                   <Item>Goal Progress: {recipeSaved.length}/{recipeGoal.goal}</Item>
@@ -165,7 +205,26 @@ function Profile() {
                       </Alert>
                     </Collapse>}
                 </Grid>}
-              {ingredientGoal.goal &&
+
+                {ingredientGoal.goal == 0 &&
+                <Grid item xs={4}>
+                  <Alert severity="success">
+                    <AlertTitle>Set Your Ingredient Goal!</AlertTitle>
+                    {/* This is a success alert — <strong>check it out!</strong> */}
+                  </Alert>
+                  <TextField
+          id="outlined-number"
+          label="Number"
+          type="number"
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+
+                </Grid>
+              }
+
+              {ingredientGoal.goal > 0 &&
                 <Grid item xs={4}>
                   <Typography>New Ingredients - Goal: {ingredientGoal.goal} </Typography>
                   <Item>Goal Progress: {ingredientUnique.length}/{ingredientGoal.goal}</Item>
