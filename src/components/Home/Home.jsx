@@ -133,9 +133,10 @@ function Home() {
 
 
     // limit the amount of content we display on the profile section === 3
+    // console.log('--- homepage userGoals', userGoals);
     const recentCombos = userCombos?.slice(0, 3);
     // console.log('homepage first 3 recentCombos', recentCombos);
-    // console.log('--- homepage userGoals', userGoals);
+    
 
 
     return (
@@ -174,14 +175,6 @@ function Home() {
                         <Typography variant="body1" sx={sxCenterText}>Recipe Goals:{recipeSaved.length}/{recipeGoal.goal}</Typography>
                         <Typography variant="body1" sx={sxCenterText}>Ingredient Goals:{ingredientUnique.length}/{ingredientGoal.goal}</Typography>
                     </Box>
-                    {/* {userGoals?.map((goal, j) => (
-                        <Typography key={j} variant="body1" sx={sxCenterText}>hello</Typography>
-                    ))}
-                    {userGoals}
-                    <Box onClick={() => handleClick('profile')} sx={sxClickableDiv}>
-                        <Typography variant="h6" sx={sxCenterText}>Goal Progress</Typography>
-                        <Typography variant="body1" sx={sxCenterText}>content</Typography>
-                    </Box> */}
 
                 </Box>
 
@@ -195,7 +188,6 @@ function Home() {
                             <IngredientAutocomplete />
                             <Button onClick={() => handleSearch(searchText)} variant="outlined">search</Button>
                         </Box>
-
 
                     </Box>
 
