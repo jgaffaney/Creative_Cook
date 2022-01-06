@@ -139,6 +139,8 @@ function Profile() {
             <Grid container spacing={2}>
               <Grid item xs={4}>
                 <Item>Combos Made This Week: {weeklyCombos.length}</Item>
+                <Item>Combos Made This Month: {weeklyCombos.length}</Item>
+                <Item>Combos Made This Year: {weeklyCombos.length}</Item>
               </Grid>
               <Grid item xs={4}>
                 <Item>Metrics/Monthly</Item>

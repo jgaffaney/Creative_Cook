@@ -14,6 +14,7 @@ import recipeGoalSaga from './recipeGoal.saga';
 import recipeSavedSaga from './recipeSaved.saga';
 import top5Saga from './top5.saga';
 import weeklyComboSaga from './weekly_combo.saga';
+import monthlyComboSaga from './monthly_combo.saga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -39,5 +40,6 @@ export default function* rootSaga() {
     recipeSavedSaga(),
     top5Saga(),
     weeklyComboSaga(),
+    monthlyComboSaga(),
   ]);
 }
