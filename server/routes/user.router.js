@@ -24,23 +24,24 @@ router.post('/register', (req, res) => {
   
 
   const username = req.body.username;
+  const email = req.body.email
   const password = encryptLib.encryptPassword(req.body.password);
-  const displayName = req.body.displayName
   const bio = req.body.bio;
   const pic = req.body.pic; 
-  const age = req.body.age;
+  const location = req.body.location
+  const birthday = req.body.birthday;
   const gender = req.body.gender;
-  const familySize = req.body.familySize;
   const maritalStatus = req.body.maritalStatus; 
+  const familySize = req.body.familySize;
   const isAdmin = req.body.isAdmin;
 
   const queryText = `
     INSERT INTO   "user" 
-      ("username", "password", "display_name", "bio", "pic", "age", "gender", "family_size", "marital_status", "is_admin")
+      ("username", "email", "password", "bio", "pic", "location", "birthday", "gender", "marital_status", "family_size", "is_admin")
     VALUES 
-      ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING "id" ; `;
+      ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id" ; `;
 
-  let values = [username, password, displayName, bio, pic, age, gender, familySize, maritalStatus, isAdmin]
+  let values = [username, email, password, bio, pic, location, birthday, gender, maritalStatus, familySize, isAdmin]
 
   pool
     .query(queryText, values)
