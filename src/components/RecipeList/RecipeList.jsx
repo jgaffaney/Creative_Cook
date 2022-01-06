@@ -78,8 +78,8 @@ function RecipeList() {
         <>
             {/* <h1>RECIPE LIST</h1> */}
                 <Box sx={sxRecipeContainer}>
-                    {recipes.length > 0 ?
-                        recipes.map(recipe => (
+                    {
+                        recipes?.map(recipe => (
                             <>
                                 <Card elevation={3}
                                 sx={sxRecipeCard}>
@@ -130,8 +130,7 @@ function RecipeList() {
                                 </Card>
                             </>
                         ))
-                        :
-                        <></>}
+                        }
                 </Box>
         </>
     )

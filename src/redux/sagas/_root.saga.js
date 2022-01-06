@@ -6,8 +6,12 @@ import userSaga from './user.saga';
 import challengeSaga from './challenge.saga'
 import ingredientSaga from './ingredients.saga';
 import comboSaga from './combo.saga';
-import goalSaga from './goal.saga';
+import comboGoalSaga from './comboGoal.saga';
 import pairingsSaga from './pairings.saga';
+import ingredientGoalSaga from './ingredientGoal.saga';
+import ingredientUniqueSaga from './ingredientUnique.saga';
+import recipeGoalSaga from './recipeGoal.saga';
+import recipeSavedSaga from './recipeSaved.saga';
 import top5Saga from './top5.saga';
 import comboPairingSaga from './combo.pairing.saga';
 
@@ -27,8 +31,12 @@ export default function* rootSaga() {
     ingredientSaga(),
     recipeSaga(),
     comboSaga(),
-    goalSaga(),
+    comboGoalSaga(),
     pairingsSaga(),
+    ingredientGoalSaga(),
+    ingredientUniqueSaga(),
+    recipeGoalSaga(),
+    recipeSavedSaga(),
     top5Saga(),
     comboPairingSaga(),
   ]);
