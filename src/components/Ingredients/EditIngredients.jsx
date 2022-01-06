@@ -248,7 +248,7 @@ const foodType = [
     },
     { field: 'id', hide: true, editable: true },
     { field: 'name', headerName: 'Name', editable: true },
-    { field: 'description', headerName: 'Description', editable: true, flex: true, resizable: true },
+    { field: 'description', headerName: 'Description', editable: true, flex: true },
     { field: 'pic', headerName: 'Pic', editable: true },
     { field: 'taste', headerName: 'Taste', editable: true },
     { field: 'season', headerName: 'Season', editable: true, valueOptions: seasons, type: 'singleSelect' },

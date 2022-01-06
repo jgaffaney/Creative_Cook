@@ -16,6 +16,7 @@ import recipeGoal from './recipeGoal.reducer';
 import recipeSaved from './recipeSaved.reducer';
 import unpaired from './unpaired.reducer';
 import top5 from './top5.reducer';
+import uploadedFile from './uploadFile.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -46,6 +47,7 @@ const rootReducer = combineReducers({
   ingredientSearch, // holds search text for <IngredientAutocomplete> 
   unpaired,    // holds the ingredients that are not paired with the selected ingredient
   top5,       // holds the top five most used ingredients by all users
+  uploadedFile,  // holds the csv to be uploaded to the database
 });
 
 export default rootReducer;

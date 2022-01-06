@@ -40,10 +40,20 @@ function* editIngredient(action) {
 
 }
 
+function* uploadFile(action) {
+    try {
+        yield put({type: 'SET_FILE', payload: action.payload});
+        yield axios.post('/api/ingredients/bulk', action.payload);
+    } catch (error) {
+        
+    }
+}
+
 function* ingredientsSaga() {
     yield takeLatest('FETCH_INGREDIENTS', fetchIngredients);
     yield takeLatest('POST_INGREDIENT', postIngredient);
     yield takeLatest('EDIT_INGREDIENT.TRIGGER', editIngredient)
+    yield takeLatest('SET_FILE_UPLOAD', uploadFile);
 }
 
 export default ingredientsSaga;

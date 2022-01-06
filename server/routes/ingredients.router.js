@@ -22,13 +22,13 @@ router.get('/', (req, res) => {
 // posts a new ingredient to DB
 router.post('/', (req, res) => {
     console.log('in ingredients POST with: ', req.body);
-    
+
     const queryText = `
     INSERT INTO ingredients ("name", "description", "pic", "taste", "season", "weight", "volume", "type")
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8);
     `
-    const values = [req.body.name, req.body.description, req.body.pic, req.body.taste, 
-                    req.body.season, req.body.weight, req.body.volume, req.body.type]
+    const values = [req.body.name, req.body.description, req.body.pic, req.body.taste,
+    req.body.season, req.body.weight, req.body.volume, req.body.type]
     pool.query(queryText, values)
         .then(response => {
             res.sendStatus(201)
@@ -51,7 +51,7 @@ router.put('/', (req, res) => {
     pool.query(queryText, values)
         .then(response => {
             res.send(response)
-        }).catch(err=> {
+        }).catch(err => {
             console.log('Error on PUT ingredients: ', err);
             res.sendStatus(500);
         })
@@ -72,6 +72,21 @@ router.get('/top5', (req, res) => {
         }).catch(err => {
             console.log("Error in top five ingredients GET: ", err);
             res.sendStatus(500)
+        })
+});
+
+// POSTS bulk ingredients data to DB
+router.post('/bulk/', (req, res) => {
+    console.log('in bulk post with: ', req.body);
+    const queryText = `
+    COPY ingredients(name, description, pic, taste, weight, volume, season, type) FROM ${req.body} (DELIMITER ',');
+    `;
+    pool.query(queryText)
+        .then(response => {
+            console.log('response from db on bulk copy: ', response);
+            
+        }).catch(err => {
+            console.log('Error from DB on bulk copy: ', err);
         })
 });
 
