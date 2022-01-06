@@ -75,4 +75,55 @@ router.post('/', (req, res) => {
         })
 });
 
+// Weekly Combo GET route
+router.get('/weekly', rejectUnauthenticated, (req, res) => {
+    const queryText = `
+        SELECT "name", "date_created" FROM "combos"
+        WHERE "user_id" = $1 AND "date_created" >= now() - interval '1 week'
+        ORDER BY "date_created" DESC;
+        `;
+    pool.query(queryText, [req.user.id])
+        .then(result => {
+            res.send(result.rows); // Contains all combos
+        })
+        .catch(err => {
+            console.log('Error in Combo GET', err);
+            res.sendStatus(500);
+        })
+}); // End GET
+
+// Monthly Combo GET route
+router.get('/monthly', rejectUnauthenticated, (req, res) => {
+    const queryText = `
+        SELECT "name", "date_created" FROM "combos"
+        WHERE "user_id" = $1 AND "date_created" >= now() - interval '1 month'
+        ORDER BY "date_created" DESC;
+        `;
+    pool.query(queryText, [req.user.id])
+        .then(result => {
+            res.send(result.rows); // Contains all combos
+        })
+        .catch(err => {
+            console.log('Error in Combo GET', err);
+            res.sendStatus(500);
+        })
+}); // End GET
+
+// Yearly Combo GET route
+router.get('/yearly', rejectUnauthenticated, (req, res) => {
+    const queryText = `
+        SELECT "name", "date_created" FROM "combos"
+        WHERE "user_id" = $1 AND "date_created" >= now() - interval '1 year'
+        ORDER BY "date_created" DESC;
+        `;
+    pool.query(queryText, [req.user.id])
+        .then(result => {
+            res.send(result.rows); // Contains all combos
+        })
+        .catch(err => {
+            console.log('Error in Combo GET', err);
+            res.sendStatus(500);
+        })
+}); // End GET
+
 module.exports = router;
