@@ -67,6 +67,7 @@ function Profile() {
     dispatch({ type: 'FETCH_WEEKLY_COMBOS' })
     dispatch({ type: 'FETCH_MONTHLY_COMBOS' })
     dispatch({ type: 'FETCH_YEARLY_COMBOS' })
+    dispatch({ type: 'FETCH_USER_RECIPES' })
   }, [])
 
   useEffect(() => {
@@ -94,7 +95,9 @@ function Profile() {
     color: theme.palette.text.secondary,
   }));
 
-  console.log('!!', userCombos);
+  console.log('!!', userRecipes);
+
+
 
   return (
     <Box sx={sxProfilePageContainer}>
@@ -118,17 +121,17 @@ function Profile() {
                 <Typography>New Combos - Goal: {comboGoal.goal} </Typography>
                 <Item>Goal Progress: {userCombos.length}/{comboGoal.goal}</Item>
                 <Alert severity="success">
-                    <AlertTitle>Congratulations!!!</AlertTitle>
-                    You hit your Combo Goal! <strong>Keep it Up!</strong>
-                  </Alert>
+                  <AlertTitle>Congratulations!!!</AlertTitle>
+                  You hit your Combo Goal! <strong>Keep it Up!</strong>
+                </Alert>
               </Grid>
               <Grid item xs={4}>
                 <Typography>New Recipes - Goal: {recipeGoal.goal} </Typography>
                 <Item>Goal Progress: {recipeSaved.length}/{recipeGoal.goal}</Item>
                 <Alert severity="success">
-                    <AlertTitle>Congratulations!!!</AlertTitle>
-                    You hit your Recipe Goal! <strong>Keep it Up!</strong>
-                  </Alert>
+                  <AlertTitle>Congratulations!!!</AlertTitle>
+                  You hit your Recipe Goal! <strong>Keep it Up!</strong>
+                </Alert>
               </Grid>
               {comboGoal.goal &&
                 <Grid item xs={4}>
@@ -171,12 +174,16 @@ function Profile() {
             </Grid>
             <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
               {userCombos.map((combo) => {
-
                 return (
                   <Grid item xs={2} sm={4} md={4} key={combo.id} >
                     <Item >
                       <List>
                         <ListItem sx={{ p: 3, border: '1px solid black', }}>{combo.name}</ListItem>
+                        {userRecipes.map((recipe) => {
+                          return (
+                            <Typography>{recipe.combo_id === combo.id ? recipe.label : <></>}</Typography>
+                          )
+                        })}
                       </List>
                     </Item>
                   </Grid>
