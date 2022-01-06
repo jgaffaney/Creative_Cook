@@ -61,7 +61,7 @@ export const sxMiddleSection = {
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    height: 300,
+    height: 400,
   }
 
 export const sxPhotoBox = {

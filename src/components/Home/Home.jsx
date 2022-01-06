@@ -185,11 +185,11 @@ function Home() {
                     </Box>
 
                     {/* GOALS progress */}
-                    <Box>
-                        <Typography variant="body1">Goal Progress</Typography>
-                        <Typography>Combo Goals:{userCombos.length}/{comboGoal.goal}</Typography>
-                        <Typography>Recipe Goals:{recipeSaved.length}/{recipeGoal.goal}</Typography>
-                        <Typography>Ingredient Goals:{ingredientUnique.length}/{ingredientGoal.goal}</Typography>
+                    <Box onClick={() => handleClick('profile')} sx={sxClickableDiv}>
+                        <Typography variant="h6" sx={sxCenterText}>Goal Progress</Typography>
+                        <Typography sx={sxCenterText}>Combo Goals:{userCombos.length}/{comboGoal.goal}</Typography>
+                        <Typography sx={sxCenterText}>Recipe Goals:{recipeSaved.length}/{recipeGoal.goal}</Typography>
+                        <Typography sx={sxCenterText}>Ingredient Goals:{ingredientUnique.length}/{ingredientGoal.goal}</Typography>
                     </Box>
                     {/* {userGoals?.map((goal, j) => (
                         <Typography key={j} variant="body1" sx={sxCenterText}>hello</Typography>
