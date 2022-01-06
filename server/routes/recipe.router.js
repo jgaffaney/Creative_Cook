@@ -108,4 +108,20 @@ router.post('/user', (req, res) => {
   // POST route code here
 });
 
+// userRecipes GET route
+router.get('/userRecipes', rejectUnauthenticated, (req, res) => {
+  const queryText = `
+      SELECT * FROM "recipes"
+      WHERE "user_id" = $1;
+      `;
+  pool.query(queryText, [req.user.id])
+      .then(result => {
+          res.send(result.rows); // Contains all combos
+      })
+      .catch(err => {
+          console.log('Error in userRecipe GET', err);
+          res.sendStatus(500);
+      })
+}); // End GET
+
 module.exports = router;

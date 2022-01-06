@@ -94,6 +94,8 @@ function Profile() {
     color: theme.palette.text.secondary,
   }));
 
+  console.log('!!', userCombos);
+
   return (
     <Box sx={sxProfilePageContainer}>
       <Box sx={sxPageContent}>
