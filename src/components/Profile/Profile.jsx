@@ -107,7 +107,7 @@ function Profile() {
           <Box sx={sxMiddleSection}>
             <Typography size={24}>Goal Progress</Typography>
             <Grid container spacing={2} alignItems="stretch">
-              
+
               {comboGoal.goal == 0 &&
                 <Grid item xs={4}>
                   <Alert severity="success">
@@ -115,14 +115,14 @@ function Profile() {
                     {/* This is a success alert — <strong>check it out!</strong> */}
                   </Alert>
                   <TextField
-          id="outlined-number"
-          label="Number"
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
-
+                    id="outlined-number"
+                    label="Set Combo Goal"
+                    type="number"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                  <Button variant="outlined">Submit Combo Goal</Button>
                 </Grid>
               }
 
@@ -157,21 +157,21 @@ function Profile() {
                   }
                 </Grid>}
 
-                {recipeGoal.goal == 0 &&
+              {recipeGoal.goal == 0 &&
                 <Grid item xs={4}>
                   <Alert severity="success">
                     <AlertTitle>Set Your Recipe Goal!</AlertTitle>
                     {/* This is a success alert — <strong>check it out!</strong> */}
                   </Alert>
                   <TextField
-          id="outlined-number"
-          label="Number"
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
-
+                    id="outlined-number"
+                    label="Set Recipe Goal"
+                    type="number"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                  <Button variant="outlined">Submit Recipe Goal</Button>
                 </Grid>
               }
 
@@ -206,20 +206,21 @@ function Profile() {
                     </Collapse>}
                 </Grid>}
 
-                {ingredientGoal.goal == 0 &&
+              {ingredientGoal.goal == 0 &&
                 <Grid item xs={4}>
                   <Alert severity="success">
                     <AlertTitle>Set Your Ingredient Goal!</AlertTitle>
                     {/* This is a success alert — <strong>check it out!</strong> */}
                   </Alert>
                   <TextField
-          id="outlined-number"
-          label="Number"
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
+                    id="outlined-number"
+                    label="Set Ingredient Goal"
+                    type="number"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                  <Button variant="outlined">Submit Ingredient Goal</Button>
 
                 </Grid>
               }
