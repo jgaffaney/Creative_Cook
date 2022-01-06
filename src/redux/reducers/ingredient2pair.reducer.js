@@ -7,4 +7,4 @@ const comboPairingTwoReducer = (state = [], action) => {
     }
 }
 
-export default pairingsReducer;
+export default comboPairingTwoReducer;

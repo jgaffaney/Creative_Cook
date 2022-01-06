@@ -4,8 +4,8 @@ const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 // combo get pairings relevant to searched ingredient
-router.get('/pairings', rejectUnauthenticated, (req, res) => {
-    console.log('params in pairings GET: ', req.params.id);
+router.get('/pairings/:id', rejectUnauthenticated, (req, res) => {
+    console.log('params in combo/pairings GET: ', req.params.id);
     const id = req.params.id;
     const queryText = `
     SELECT "ingredients"."id", "ingredients"."description", "ingredients"."pic", INITCAP("ingredients"."name") AS name FROM "ingredients"
@@ -16,7 +16,7 @@ router.get('/pairings', rejectUnauthenticated, (req, res) => {
     JOIN "pairings" ON "pairings"."ingredient_one_id" = "ingredients"."id"
     WHERE "pairings"."ingredient_two_id" = $2;
     `
-    const values = [id];
+    const values = [id, id];
     pool.query(queryText, values)
         .then(response => {
             console.log('response from GET pairings: ', response);
@@ -48,7 +48,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 /**
  * POST route template
  */
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated, (req, res) => {
     // POST route code here
     console.log('hello from combo post');
     let id = req.user.id;

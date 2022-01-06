@@ -71,8 +71,7 @@ function ComboTool() {
             {/* 3 ingredient display */}
             < Box sx={sxCardContainer} >
                 {
-                    combo ?
-                        combo.map(ingredient => (
+                        combo?.map(ingredient => (
                             <Card elevation={0}
                                 onClick={console.log('clicked')}
                                 key={ingredient.id}>
@@ -88,20 +87,10 @@ function ComboTool() {
                                 </CardContent>
                             </Card>
                         ))
-                        :
-                        <p></p >}
+                        }
             </Box >
 
-            {/* ingredient name map */}
-            {/* <Box sx={sxCardContainer}>
-                {
-                    combo ?
-                        combo.map(ingredient => (
-                            <Typography key={ingredient.id} sx={sxIngredientName}>{ingredient.name}</Typography>
-                        ))
-                        :
-                        <p></p>}
-            </Box> */}
+            
             <Box sx={sxButtonContainer}>
 
                 {/* if combo tool has at least 1 ingredient, clear button renders */}
