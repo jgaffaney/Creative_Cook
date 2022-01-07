@@ -125,4 +125,19 @@ router.get('/userRecipes', rejectUnauthenticated, (req, res) => {
       })
 }); // End GET
 
+router.put('/', (req, res) => {
+  const queryText = `
+    UPDATE recipes
+    SET made_on = NOW(), is_cooked = TRUE
+    WHERE id = $1;  
+  `;
+  pool.query(queryText, [req.body.id])
+      .then(response => {
+          res.sendStatus(200)
+      }).catch(err=> {
+          console.log('Error on recipe PUT: ', err);
+          res.sendStatus(500);
+      })
+})
+
 module.exports = router;
