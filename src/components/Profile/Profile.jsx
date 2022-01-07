@@ -81,6 +81,44 @@ function Profile() {
   //   }
   // }, [ingredientUnique, ingredientGoal])
 
+  //Set Goals
+  const handleComboGoalClick = (event) => {
+    // event.preventDefault();
+    dispatch({ type: 'UPDATE_COMBO_GOAL', payload: comboGoal })
+    alert('You Clicked on the Combo Goal Button!');
+  }
+
+  const handleRecipeGoalClick = (event) => {
+    // event.preventDefault();
+    dispatch({ type: 'UPDATE_RECIPE_GOAL', payload: recipeGoal })
+    alert('You Clicked on the Recipe Goal Button!');
+  }
+
+  const handleIngredientGoalClick = (event) => {
+    // event.preventDefault();
+    dispatch({ type: 'UPDATE_INGREDIENT_GOAL', payload: ingredientGoal })
+    alert('You Clicked on the Ingredient Goal Button!');
+  }
+
+  //Reset Buttons for Goals
+  const resetComboGoal = (event) => {
+    // event.preventDefault();
+    dispatch({ type: 'RESET_COMBO_GOAL', payload: comboGoal })
+    alert('You Clicked on the Reset Combo Goal Button!');
+  }
+
+  const resetRecipeGoal = (event) => {
+    // event.preventDefault();
+    dispatch({ type: 'RESET_RECIPE_GOAL', payload: recipeGoal })
+    alert('You Clicked on the Reset Recipe Goal Button!');
+  }
+
+  const resetIngredientGoal = (event) => {
+    // event.preventDefault();
+    dispatch({ type: 'RESET_INGREDIENT_GOAL', payload: ingredientGoal })
+    alert('You Clicked on the Reset Ingredient Goal Button!');
+  }
+
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -108,7 +146,7 @@ function Profile() {
             <Typography size={24}>Goal Progress</Typography>
             <Grid container spacing={2} alignItems="stretch">
 
-              {comboGoal.goal == 0 &&
+              {comboGoal.goal === null &&
                 <Grid item xs={4}>
                   <Alert severity="success">
                     <AlertTitle>Set Your Combo Goal!</AlertTitle>
@@ -122,14 +160,15 @@ function Profile() {
                       shrink: true,
                     }}
                   />
-                  <Button variant="outlined">Submit Combo Goal</Button>
+                  <Button variant="outlined" onClick={() => handleComboGoalClick()}>Submit Combo Goal</Button>
                 </Grid>
               }
 
               {comboGoal.goal > 0 &&
                 <Grid item xs={4}>
-                  <Typography>New Combos - Goal: {comboGoal.goal} </Typography>
+                  <Typography>New Combos - Goal: {comboGoal.goal} <Button variant="outlined" onClick={() => resetComboGoal()}>Reset Combo Goal</Button> </Typography>
                   <Item>Goal Progress: {userCombos.length}/{comboGoal.goal}</Item>
+                  <Button variant="outlined" onClick={() => resetComboGoal()}>Reset Combo Goal</Button>
                   {(userCombos.length >= comboGoal.goal) &&
                     <Confetti width={width} height={height} recycle={!isComplete()} />
                   }
@@ -157,7 +196,7 @@ function Profile() {
                   }
                 </Grid>}
 
-              {recipeGoal.goal == 0 &&
+              {recipeGoal.goal == null &&
                 <Grid item xs={4}>
                   <Alert severity="success">
                     <AlertTitle>Set Your Recipe Goal!</AlertTitle>
@@ -171,14 +210,14 @@ function Profile() {
                       shrink: true,
                     }}
                   />
-                  <Button variant="outlined">Submit Recipe Goal</Button>
+                  <Button variant="outlined" onClick={() => handleRecipeGoalClick()}>Submit Recipe Goal</Button>
                 </Grid>
               }
 
 
               {recipeGoal.goal > 0 &&
                 <Grid item xs={4}>
-                  <Typography>New Recipes - Goal: {recipeGoal.goal} </Typography>
+                  <Typography>New Recipes - Goal: {recipeGoal.goal} <Button variant="outlined" onClick={() => resetRecipeGoal()}>Reset Recipe Goal</Button> </Typography>
                   <Item>Goal Progress: {recipeSaved.length}/{recipeGoal.goal}</Item>
                   {(recipeSaved.length >= recipeGoal.goal) &&
                     <Confetti width={width} height={height} recycle={!isComplete()} />
@@ -206,7 +245,7 @@ function Profile() {
                     </Collapse>}
                 </Grid>}
 
-              {ingredientGoal.goal == 0 &&
+              {ingredientGoal.goal == null &&
                 <Grid item xs={4}>
                   <Alert severity="success">
                     <AlertTitle>Set Your Ingredient Goal!</AlertTitle>
@@ -220,14 +259,14 @@ function Profile() {
                       shrink: true,
                     }}
                   />
-                  <Button variant="outlined">Submit Ingredient Goal</Button>
+                  <Button variant="outlined" onClick={() => handleIngredientGoalClick()}>Submit Ingredient Goal</Button>
 
                 </Grid>
               }
 
               {ingredientGoal.goal > 0 &&
                 <Grid item xs={4}>
-                  <Typography>New Ingredients - Goal: {ingredientGoal.goal} </Typography>
+                  <Typography>New Ingredients - Goal: {ingredientGoal.goal} <Button variant="outlined" onClick={() => resetIngredientGoal()}>Reset Ingredient Goal</Button> </Typography>
                   <Item>Goal Progress: {ingredientUnique.length}/{ingredientGoal.goal}</Item>
                   {(ingredientUnique.length >= ingredientGoal.goal) &&
                     <Confetti width={width} height={height} recycle={!isComplete()} />
