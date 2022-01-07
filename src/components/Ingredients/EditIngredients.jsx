@@ -12,10 +12,18 @@ import {
 } from '@mui/x-data-grid';
 import ClearIcon from '@mui/icons-material/Clear';
 import SearchIcon from '@mui/icons-material/Search';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useDispatch, useSelector } from 'react-redux';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import editGridData from './myAction';
+
+// --- sx STYLES --- // 
+import {
+  sxTableFiltersContainer,
+  sxSearchBar,
+  sxDataGridContainer,
+} from './Ingredients.style';
 
 
 // cleans up search string
@@ -28,21 +36,15 @@ function escapeRegExp(value) {
 function QuickSearchToolbar(props) {
 
   return (
-    <Box
-      sx={{
-        p: 0.5,
-        pb: 0,
-        justifyContent: 'space-between',
-        display: 'flex',
-        alignItems: 'flex-start',
-        flexWrap: 'wrap',
-      }}
-    >
-      <div>
+    <Box sx={sxTableFiltersContainer}>
+
+      <Box sx={{ display: 'flex', gap: 2 }}>
         <GridToolbarFilterButton />
         <GridToolbarDensitySelector />
-      </div>
+      </Box>
+
       <TextField
+        sx={sxSearchBar}
         variant="standard"
         value={props.value}
         onChange={props.onChange}
@@ -61,24 +63,9 @@ function QuickSearchToolbar(props) {
             </IconButton>
           ),
         }}
-        sx={{
-          width: {
-            xs: 1,
-            sm: 'auto',
-          },
-          m: (theme) => theme.spacing(1, 0.5, 1.5),
-          '& .MuiSvgIcon-root': {
-            mr: 0.5,
-          },
-          '& .MuiInput-underline:before': {
-            borderBottom: 1,
-            borderColor: 'divider',
-          },
-        }}
       />
     </Box>
   );
-
 }
 
 QuickSearchToolbar.propTypes = {
@@ -99,20 +86,20 @@ export default function EditIngredients() {
 
   const seasons = [
     {
-        value: 'Spring',
-        label: 'Spring'
+      value: 'Spring',
+      label: 'Spring'
     },
     {
-        value: 'Summer',
-        label: 'Summer'
+      value: 'Summer',
+      label: 'Summer'
     },
     {
-        value: 'Autumn',
-        label: 'Autumn'
+      value: 'Autumn',
+      label: 'Autumn'
     },
     {
-        value: 'Winter',
-        label: 'Winter'
+      value: 'Winter',
+      label: 'Winter'
     },
     {
       value: 'Summer-Autumn',
@@ -138,62 +125,62 @@ export default function EditIngredients() {
       value: 'Year-round',
       label: 'Year-round'
     },
-]
+  ]
 
-const foodType = [
-  {
+  const foodType = [
+    {
       value: 'Protein: Air',
       label: 'Protein: Air'
-  },
-  {
+    },
+    {
       value: 'Protein: Land',
       label: 'Protein: Land'
-  },
-  {
+    },
+    {
       value: 'Protein: Sea',
       label: 'Protein: Sea'
-  },
-  {
+    },
+    {
       value: 'Vegetable',
       label: 'Vegetable'
-  },
-  {
+    },
+    {
       value: 'Fruit',
       label: 'Fruit'
-  },
-  {
+    },
+    {
       value: 'Dairy',
       label: 'Dairy'
-  },
-  {
+    },
+    {
       value: 'Fat',
       label: 'Fat'
-  },
-  {
-    value: 'Grain',
-    label: 'Grain'
-  },
-  {
-    value: 'Green',
-    label: 'Green'
-  },
-  {
-    value: 'Legume',
-    label: 'Legume'
-  },
-  {
-    value: 'Nut',
-    label: 'Nut'
-  },
-  {
-    value: 'Herb',
-    label: 'Herb'
-  },
-  {
-    value: 'Raw',
-    label: 'Raw'
-  },
-]
+    },
+    {
+      value: 'Grain',
+      label: 'Grain'
+    },
+    {
+      value: 'Green',
+      label: 'Green'
+    },
+    {
+      value: 'Legume',
+      label: 'Legume'
+    },
+    {
+      value: 'Nut',
+      label: 'Nut'
+    },
+    {
+      value: 'Herb',
+      label: 'Herb'
+    },
+    {
+      value: 'Raw',
+      label: 'Raw'
+    },
+  ]
 
 
   const handleCloseSnackbar = () => setSnackbar(null);
@@ -209,15 +196,15 @@ const foodType = [
   const renderEditButton = (params) => {
     return (
       <Button
-        variant="contained"
-        color="primary"
+        // sx={{border: 2}}
+        variant="outlined"
+        color="error"
         size="small"
-        style={{ marginLeft: 16 }}
         onClick={() => {
           editIngredient(JSON.stringify(params.row.id))
         }}
       >
-        Delete
+        <DeleteForeverIcon fontSize='small' color='error' />
       </Button>
     )
   }
@@ -285,9 +272,10 @@ const foodType = [
   // console.log('Demo Data: ', data);
 
   return (
-    <Box sx={{ height: 600, width: 1 }}>
+    <Box sx={sxDataGridContainer}>
       {/* {rows && ( */}
       <DataGrid
+        density="compact"
         components={{ Toolbar: QuickSearchToolbar }}
         rows={rows}
         columns={columns}

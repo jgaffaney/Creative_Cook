@@ -1,5 +1,16 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import EditIngredients from '../Ingredients/EditIngredients';
+import AddIngredients from '../Ingredients/AddIngredients';
+import PairingsTool from '../Ingredients/PairingsTool';
+
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+
+// --- sx STYLES --- // 
+import {
+  sxIngredientsPageContainer,
+} from './Ingredients.style';
 
 function Ingredients() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
@@ -9,14 +20,15 @@ function Ingredients() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch({type: 'FETCH_INGREDIENTS'})
+    dispatch({ type: 'FETCH_INGREDIENTS' })
   }, [])
 
   return (
-    <div className="container">
-      <h2>Welcome To The Ingredients Page!</h2>
-        {/* <p>{ingredients[0].name}</p> */}
-    </div>
+    <Box sx={sxIngredientsPageContainer}>
+      <AddIngredients />
+      <EditIngredients />
+      <PairingsTool />
+    </Box>
   );
 }
 

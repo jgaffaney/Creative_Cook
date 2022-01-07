@@ -32,6 +32,7 @@ export const sxHomePageContainer = {
     // border: '1px solid purple',
     display: 'flex',
     justifyContent: 'center',
+    p: 2,
 }
 
 // PAGE CONTENT holds the left column and the right column
