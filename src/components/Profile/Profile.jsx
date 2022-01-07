@@ -2,14 +2,9 @@ import React, { useEffect, useState } from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { styled } from '@mui/material/styles';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import CardMedia from '@mui/material/CardMedia';
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
 import AddTaskIcon from '@mui/icons-material/AddTask';
 import DeleteIcon from '@mui/icons-material/Delete';
 import RefreshIcon from '@mui/icons-material/Refresh';
@@ -17,6 +12,20 @@ import Confetti from 'react-confetti'
 import { useWindowSize, useTimeout } from 'react-use';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
+import {
+  Box,
+  Card,
+  CardActions,
+  CardContent,
+  Button,
+  Typography,
+  CardMedia,
+  CardActionArea,
+  CardHeader,
+  Avatar,
+  IconButton,
+  Paper
+} from '@mui/material';
 
 
 // --- MUI sx STYLES --- // 
@@ -32,6 +41,12 @@ import {
   sxBottomSection,
   sxButtonBox,
   sxGoals,
+  sxRecipeContainer,
+  sxRecipeCard,
+  sxCardContent,
+  sxCardTitle,
+  sxBox,
+  sxCardActions,
 } from './Profile.style';
 
 import List from '@mui/material/List';
@@ -172,7 +187,7 @@ function Profile() {
               ))}
             </Grid> */}
             </Grid>
-            <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+            {/* <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
               {userCombos.map((combo) => {
                 return (
                   <Grid item xs={2} sm={4} md={4} key={combo.id} >
@@ -181,7 +196,7 @@ function Profile() {
                         <ListItem sx={{ p: 3, border: '1px solid black', }}>{combo.name}</ListItem>
                         {userRecipes.map((recipe) => {
                           return (
-                            <Typography>{recipe.combo_id === combo.id ? recipe.label : <></>}</Typography>
+                            <Typography>{recipe.combo_id === combo.id && recipe.label}</Typography>
                           )
                         })}
                       </List>
@@ -189,7 +204,53 @@ function Profile() {
                   </Grid>
                 )
               })}
-            </Grid>
+            </Grid> */}
+
+            <Box sx={sxRecipeContainer}>
+              {userCombos.length > 0 &&
+                userCombos.map(combo => (
+                  <>
+                    <Card elevation={3}
+                      sx={sxRecipeCard}>
+                      {/* <CardMedia
+                        sx={sxRecipeImage}
+                        component="img"
+                        height="140"
+                        image={recipe.recipe.image}
+                        alt={recipe.recipe.label}
+                      /> */}
+                      <CardContent sx={sxCardContent}>
+                        <Typography
+                          sx={sxCardTitle}
+                          mt={-3}
+                          gutterBottom variant="h5" component="div">
+                          {combo.name}
+                        </Typography>
+                        <Box sx={sxBox}>
+                          <Typography
+                            mt={0}
+                            variant="body2" color="text.secondary">
+                            <>
+                              {
+                                <ul>
+                                  {userRecipes.map(recipe => (
+                                   <> <Typography
+                                      onClick={() => window.open(`_${recipe.url}`.split(`_`)[1], `_blank`)}
+                                      size="small"
+                                    >{recipe.combo_id === combo.id && recipe.label}</Typography>
+                                    {recipe.combo_id === combo.id && recipe.is_cooked === false && <Button>Cooked</Button>}</>
+                                  ))}
+                                </ul>
+                              }
+                            </>
+                          </Typography>
+                        </Box>
+                      </CardContent>
+                    </Card>
+                  </>
+                ))}
+            </Box>
+
           </Box>
         </Box>
       </Box>
@@ -200,3 +261,5 @@ function Profile() {
 }
 
 export default Profile;
+
+
