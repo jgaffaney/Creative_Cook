@@ -69,10 +69,10 @@ router.put('/', (req, res) => {
     const id = req.user.id
     const queryText = `
     UPDATE "user_metrics"
-    SET "goal" = 5
-    WHERE "user_id" = $1 AND "metric_id" = $2; 
+    SET "goal" = $1
+    WHERE "user_id" = $2 AND "metric_id" = $3; 
     `;
-    values = [id, req.body.metric_id]
+    values = [req.body.goal, id, req.body.metric_id]
     console.log("!!!", req.body);
     pool.query(queryText, values)
         .then(response => {

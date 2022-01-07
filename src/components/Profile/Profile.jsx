@@ -54,6 +54,10 @@ function Profile() {
 
   const [open, setOpen] = React.useState(true);
 
+  const [updateComboGoal, setUpdateComboGoal] = useState({goal: null, name: 'combo', metric_id: 1});
+  const [updateRecipeGoal, setUpdateRecipeGoal] = useState({goal: null, name: 'recipe', metric_id: 2});
+  const [updateIngredientGoal, setUpdateIngredientGoal] = useState({goal: null, name: 'ingredient', metric_id: 3});
+
   useEffect(() => {
     dispatch({ type: 'FETCH_COMBOS' })
     dispatch({ type: 'FETCH_COMBO_GOAL' })
@@ -81,44 +85,57 @@ function Profile() {
   //   }
   // }, [ingredientUnique, ingredientGoal])
 
-  //Set Goals
+  // handle Change with user set goals
+  const handleComboChange = (event,property) => {
+    setUpdateComboGoal({...updateComboGoal, [property]: event.target.value})
+  };
+
+  const handleRecipeChange = (event,property) => {
+    setUpdateRecipeGoal({...updateRecipeGoal, [property]: event.target.value})
+  };
+
+  const handleIngredientChange = (event,property) => {
+    setUpdateIngredientGoal({...updateIngredientGoal, [property]: event.target.value})
+  };
+
+  //Set Goals on submit click
   const handleComboGoalClick = (event) => {
     // event.preventDefault();
-    dispatch({ type: 'UPDATE_COMBO_GOAL', payload: comboGoal })
-    alert('You Clicked on the Combo Goal Button!');
+    dispatch({ type: 'UPDATE_COMBO_GOAL', payload: updateComboGoal })
+    console.log('comboGoal', comboGoal);
+    // alert('You Clicked on the Combo Goal Button!');
   }
 
   const handleRecipeGoalClick = (event) => {
     // event.preventDefault();
-    dispatch({ type: 'UPDATE_RECIPE_GOAL', payload: recipeGoal })
-    alert('You Clicked on the Recipe Goal Button!');
+    dispatch({ type: 'UPDATE_RECIPE_GOAL', payload: updateRecipeGoal })
+    // alert('You Clicked on the Recipe Goal Button!');
   }
 
   const handleIngredientGoalClick = (event) => {
     // event.preventDefault();
-    dispatch({ type: 'UPDATE_INGREDIENT_GOAL', payload: ingredientGoal })
-    alert('You Clicked on the Ingredient Goal Button!');
+    dispatch({ type: 'UPDATE_INGREDIENT_GOAL', payload: updateIngredientGoal })
+    // alert('You Clicked on the Ingredient Goal Button!');
   }
 
   //Reset Buttons for Goals
   const resetComboGoal = (event) => {
     // event.preventDefault();
     dispatch({ type: 'RESET_COMBO_GOAL', payload: comboGoal })
-    alert('You Clicked on the Reset Combo Goal Button!');
+    // alert('You Clicked on the Reset Combo Goal Button!');
   }
 
   const resetRecipeGoal = (event) => {
     // event.preventDefault();
     dispatch({ type: 'RESET_RECIPE_GOAL', payload: recipeGoal })
-    alert('You Clicked on the Reset Recipe Goal Button!');
+    // alert('You Clicked on the Reset Recipe Goal Button!');
   }
 
   const resetIngredientGoal = (event) => {
     // event.preventDefault();
     dispatch({ type: 'RESET_INGREDIENT_GOAL', payload: ingredientGoal })
-    alert('You Clicked on the Reset Ingredient Goal Button!');
+    // alert('You Clicked on the Reset Ingredient Goal Button!');
   }
-
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -156,11 +173,13 @@ function Profile() {
                     id="outlined-number"
                     label="Set Combo Goal"
                     type="number"
+                    value = {comboGoal.goal}
+                    onChange = {(event) => handleComboChange(event, 'goal')}
                     InputLabelProps={{
                       shrink: true,
                     }}
                   />
-                  <Button variant="outlined" onClick={() => handleComboGoalClick()}>Submit Combo Goal</Button>
+                  <Button variant="outlined" onClick= {handleComboGoalClick}>Set Combo Goal</Button>
                 </Grid>
               }
 
@@ -168,7 +187,7 @@ function Profile() {
                 <Grid item xs={4}>
                   <Typography>New Combos - Goal: {comboGoal.goal} <Button variant="outlined" onClick={() => resetComboGoal()}>Reset Combo Goal</Button> </Typography>
                   <Item>Goal Progress: {userCombos.length}/{comboGoal.goal}</Item>
-                  <Button variant="outlined" onClick={() => resetComboGoal()}>Reset Combo Goal</Button>
+                  {/* <Button variant="outlined" onClick={() => resetComboGoal()}>Reset Combo Goal</Button> */}
                   {(userCombos.length >= comboGoal.goal) &&
                     <Confetti width={width} height={height} recycle={!isComplete()} />
                   }
@@ -206,11 +225,13 @@ function Profile() {
                     id="outlined-number"
                     label="Set Recipe Goal"
                     type="number"
+                    value = {recipeGoal.goal}
+                    onChange = {(event) => handleRecipeChange(event, 'goal')}
                     InputLabelProps={{
                       shrink: true,
                     }}
                   />
-                  <Button variant="outlined" onClick={() => handleRecipeGoalClick()}>Submit Recipe Goal</Button>
+                  <Button variant="outlined" onClick={handleRecipeGoalClick}>Set Recipe Goal</Button>
                 </Grid>
               }
 
@@ -255,11 +276,13 @@ function Profile() {
                     id="outlined-number"
                     label="Set Ingredient Goal"
                     type="number"
+                    value = {ingredientGoal.goal}
+                    onChange = {(event) => handleIngredientChange(event, 'goal')}
                     InputLabelProps={{
                       shrink: true,
                     }}
                   />
-                  <Button variant="outlined" onClick={() => handleIngredientGoalClick()}>Submit Ingredient Goal</Button>
+                  <Button variant="outlined" onClick={handleIngredientGoalClick}>Set Ingredient Goal</Button>
 
                 </Grid>
               }
