@@ -50,14 +50,14 @@ function Home() {
     const feedContent = useSelector((store) => store.challenge);
     const searchText = useSelector(store => store.ingredientSearch);
     const userCombos = useSelector(store => store.userCombos);
-    const comboGoal = useSelector((store) => store.comboGoal);    
+    const comboGoal = useSelector((store) => store.comboGoal);
     const userGoals = useSelector((store) => store.goal);
     const recipeGoal = useSelector((store) => store.recipeGoal);
     const recipeSaved = useSelector((store) => store.recipeSaved);
     const ingredientGoal = useSelector((store) => store.ingredientGoal);
     const ingredientUnique = useSelector((store) => store.ingredientUnique);
-  
-  
+    const combo = useSelector((store) => store.combo);
+
 
     useEffect(() => {
         dispatch({ type: 'FETCH_CHALLENGE' });
@@ -68,6 +68,10 @@ function Home() {
 
     // SEARCH function will capture first ingredient and then push you to the combo page to complete combo
     const handleSearch = (searchText) => {
+
+        // let's dump the reducer so we know it's empty before starting a new combo;
+        dispatch({ type: 'CLEAR_COMBO_AND_RECIPE' })
+
         console.log('CLICKED on handleSearch');
         console.log('this is the searchText', searchText);
 
@@ -87,56 +91,41 @@ function Home() {
 
 
     // pageDirection clicks to take to you to the right page.
-    function handleClick(action, content) {
+    function handleClick(action, content, ingredientOne, ingredientTwo, ingredientThree) {
 
         switch (action) {
-
-            // ADMIN will have the ability to see remove button on combos cards;
-            case 'remove':
-                console.log('CLICKED remove feed combo card');
-                // console.log('ingredient from fee combo to be removed', content);
-                console.log('feed content remove id:', content.id);
-
-                // dispatch remove feed content by id
-                dispatch({ type: 'REMOVE_FEED_ITEM', payload: content.id })
-
-                break;
 
             case 'profile':
                 console.log('CLICKED on the profile image button');
                 history.push('/profile')
                 break;
 
+            // only ADMIN will have the ability to see remove button on combos cards;
+            case 'remove':
+                console.log('CLICKED remove feed combo card');
+                // console.log('ingredient from fee combo to be removed', content);
+                console.log('feed content remove id:', content.id);
+                // dispatch remove feed content by id
+                dispatch({ type: 'REMOVE_FEED_ITEM', payload: content.id })
+                break;
+
             case 'combo':
                 console.log('CLICKED on the featured combo');
+                console.log('--- the three ingredients to send to dispatch', ingredientOne, ingredientTwo, ingredientThree);
+
+                const comboArray = [ ingredientOne[0], ingredientTwo[0], ingredientThree[0] ]
+                console.log('--- custom comboArray for searching recipes', comboArray);
+
                 // first make sure the reducer is empty and ready to receive the combo we click on;
                 dispatch({ type: 'CLEAR_COMBO_AND_RECIPE' })
 
-                // this is just the array of ids; 
-                const comboIngredientIds = content.ingredient_list;
-                // console.log('--- comboIngredientIds', comboIngredientIds);
-
-                // need to get the list of ingredient objects from the store.ingredients in order to send the right data type to combo reducer;
-                const crossFilteredIngredients = ingredients.filter(item => {
-                    return comboIngredientIds.indexOf(item.id) != -1;
-                });
-                console.log('--- crossFilteredIngredients filtered down ingredients based on ingredients list', crossFilteredIngredients);
-
-                // we need to DISPATCH the ingredient OBJECT and the ingredients in the right order;
-                const ingredientOne = crossFilteredIngredients.filter(ingredient => ingredient?.id === comboIngredientIds[0])
-                // console.log('--- filtered ingredientOne', ingredientOne);
                 dispatch({ type: 'SET_COMBO_INGREDIENT', payload: ingredientOne[0] })
-
-                const ingredientTwo = crossFilteredIngredients.filter(ingredient => ingredient?.id === comboIngredientIds[1])
-                // console.log('--- filtered ingredientTwo', ingredientTwo);
                 dispatch({ type: 'SET_COMBO_INGREDIENT', payload: ingredientTwo[0] })
-
                 // only dispatch the 3rd ingredient if there's 3 ingredients in the combo; 
-                if (crossFilteredIngredients.length > 2) {
-                    const ingredientThree = crossFilteredIngredients.filter(ingredient => ingredient?.id === comboIngredientIds[2])
-                    // console.log('--- filtered ingredientThree', ingredientThree);
-                    dispatch({ type: 'SET_COMBO_INGREDIENT', payload: ingredientThree[0] })
-                }
+                { ingredientThree && dispatch({ type: 'SET_COMBO_INGREDIENT', payload: ingredientThree[0] }) }
+                
+                // dispatch({ type: 'FETCH_RECIPES', payload: combo })
+                // console.log('--- selectCombo', comboArray);
 
                 history.push('/combo')
                 break;
@@ -144,15 +133,13 @@ function Home() {
             default:
                 break;
         }
-
     }; // handleClick
 
 
-
     // limit the amount of content we display on the profile section === 3
-    const recentCombos = userCombos?.slice(0, 3);
-    console.log('homepage first 3 recentCombos', recentCombos);
     // console.log('--- homepage userGoals', userGoals);
+    const recentCombos = userCombos?.slice(0, 3);
+    // console.log('homepage first 3 recentCombos', recentCombos);
 
 
     return (
@@ -170,7 +157,7 @@ function Home() {
                         {/* <Typography><p>{user.bio}</p></Typography> */}
                     </Box>
 
-                    {/* any METRICS will go here */}
+                    {/* METRICS will go here */}
                     <Box onClick={() => handleClick('profile')} sx={sxClickableDiv}>
                         <Typography variant="h6" sx={sxCenterText}>Metrics</Typography>
                         <Typography variant="body1" sx={sxCenterText}>content</Typography>
@@ -191,14 +178,18 @@ function Home() {
                         <Typography sx={sxCenterText}>Recipe Goals:{recipeSaved.length}/{recipeGoal.goal}</Typography>
                         <Typography sx={sxCenterText}>Ingredient Goals:{ingredientUnique.length}/{ingredientGoal.goal}</Typography>
                     </Box>
+
+                    </Box>
                     {/* {userGoals?.map((goal, j) => (
                         <Typography key={j} variant="body1" sx={sxCenterText}>hello</Typography>
                     ))}
                     {userGoals}
                     <Box onClick={() => handleClick('profile')} sx={sxClickableDiv}>
                         <Typography variant="h6" sx={sxCenterText}>Goal Progress</Typography>
-                        <Typography variant="body1" sx={sxCenterText}>content</Typography>
-                    </Box> */}
+                        <Typography variant="body1" sx={sxCenterText}>Combo Goals:{userCombos.length}/{comboGoal.goal}</Typography>
+                        <Typography variant="body1" sx={sxCenterText}>Recipe Goals:{recipeSaved.length}/{recipeGoal.goal}</Typography>
+                        <Typography variant="body1" sx={sxCenterText}>Ingredient Goals:{ingredientUnique.length}/{ingredientGoal.goal}</Typography>
+                    </Box>
 
                 </Box>
 
@@ -213,7 +204,6 @@ function Home() {
                             <Button onClick={() => handleSearch(searchText)} variant="outlined">search</Button>
                         </Box>
 
-
                     </Box>
 
                     <Box sx={sxBottomSection}>
@@ -225,64 +215,52 @@ function Home() {
                             {feedContent?.map((content) => {
                                 // console.log('--- this is the feedContent', feedContent);
                                 // console.log('--- this is the content', content);
+                                // console.log('--- this is the content.ingredient list:', content.ingredient_list);
 
-                                let feedContentIngredients = [];
-                                let IngArray = content.ingredient_list
-                                // console.log('--- this is the IngArray', content.ingredient_list);
+                                const comboIngredientIds = content.ingredient_list;
 
-                                function ingredientFilter(ingredients) {
-                                
-                                    for (let ingredient of ingredients) {
-                                        if (ingredient.id === IngArray[0]) {
-                                            // console.log('--- ingArray[0]', ingredient);
-                                            feedContentIngredients.push(ingredient)
-                                        } if (ingredient.id === IngArray[1]) {
-                                            // console.log('--- ingArray[1]', ingredient);
-                                            feedContentIngredients.push(ingredient)
-                                        } if (ingredient.id === IngArray[2]) {
-                                            // console.log('--- ingArray[2]', ingredient);
-                                            feedContentIngredients.push(ingredient)
-                                        }
-                                    }
-                                    // console.log('--- end of fun feedContentIngredients', feedContentIngredients);
-                                }
+                                const feedContentFilteredIngredients = ingredients?.filter(item => {
+                                    return comboIngredientIds.indexOf(item.id) != -1;
+                                });
+                                // console.log('--- feedContentFilteredIngredients filtered down ingredients based on ingredients list', feedContentFilteredIngredients);
 
-                                ingredientFilter(ingredients)
-                                // console.log('--- ingredientFilter(ingredients)', ingredientFilter(ingredients));
-                                // console.log('IngArray id list:', IngArray);
-                                // console.log('--- feedContentIngredients:', feedContentIngredients);
+                                // ensure we keep the same order of ingredients for when we click on the combo and it populates the reducer; 
+                                const ingredientOne = feedContentFilteredIngredients.filter(ingredient => ingredient?.id === comboIngredientIds[0])
+                                // console.log('--- feedContent .map ingredientOne', ingredientOne);
+                                const ingredientTwo = feedContentFilteredIngredients.filter(ingredient => ingredient?.id === comboIngredientIds[1])
+                                // console.log('--- feedContent .map ingredientTwo', ingredientTwo);
+                                const ingredientThree = feedContentFilteredIngredients.filter(ingredient => ingredient?.id === comboIngredientIds[2])
+                                // console.log('--- feedContent .map ingredientThree', ingredientThree);
 
                                 return (
                                     <Paper key={content.id} sx={sxContentPaper} elevation={2}>
 
                                         {/* needed an extra Box just to separate the comboClick; remove button sits on top of this DIV and  fire when button is pushed */}
-                                        <Box onClick={() => handleClick('combo', content)} sx={sxClickableCombo} >
+                                        <Box onClick={() => handleClick('combo', content, ingredientOne, ingredientTwo, ingredientThree)} sx={sxClickableCombo}>
 
                                             <Typography variant="body1" sx={{ textAlign: 'center' }} >{content.date_posted?.split('T')[0]}</Typography>
 
                                             <Typography variant="h6" sx={{ textAlign: 'center' }}>{content.name}</Typography>
 
                                             <Box sx={sxPhotoIngredientContainer}>
-                                                <CardMedia sx={sxPhotoIngredient} component="img" image={feedContentIngredients[2]?.pic} />
+                                                <CardMedia sx={sxPhotoIngredient} component="img" image={ingredientOne[0]?.pic} />
 
-                                                <CardMedia sx={sxPhotoIngredient} component="img" image={feedContentIngredients[1]?.pic} />
+                                                <CardMedia sx={sxPhotoIngredient} component="img" image={ingredientTwo[0]?.pic} />
 
-                                                {content.ingredient_list?.length > 2 ?
-                                                    <CardMedia sx={sxPhotoIngredient} component="img" image={feedContentIngredients[0]?.pic} />
-                                                    : <></>}
-
+                                                {/* check to see if we have a 3rd ingredient before appending */}
+                                                {content.ingredient_list?.length > 2 &&
+                                                    <CardMedia sx={sxPhotoIngredient} component="img" image={ingredientThree[0]?.pic} />}
                                             </Box>
 
-
                                             <Typography variant="body1" sx={sxComboDescription}>{content.description}</Typography>
-                                            {/* <Typography variant="body1">{feedContentIngredients[0]?.name}, {feedContentIngredients[1]?.name}{feedContentIngredients[2] ? (', ' + feedContentIngredients[2]?.name) : ""}</Typography> */}
+
                                         </Box>
 
                                         {/* only allow ADMIN use see and use the remove feed button to remove feed items */}
-                                        {user.is_admin ? <Button onClick={() => handleClick('remove', content)}
+                                        {user.is_admin && <Button onClick={() => handleClick('remove', content)}
                                             sx={sxRemoveButton}
                                             variant="contained"
-                                            size="small">Remove From Feed </Button> : <></>}
+                                            size="small">Remove From Feed </Button>}
 
                                     </Paper>
                                 )
@@ -294,8 +272,37 @@ function Home() {
 
             </Box>
         </Box >
+           
     );
 };
 
 
 export default Home;
+
+
+
+
+ // let IngArray = content.ingredient_list
+                                // console.log('--- this is the IngArray', content.ingredient_list);
+
+                                // function ingredientFilter(ingredients) {
+
+                                //     for (let ingredient of ingredients) {
+                                //         if (ingredient.id === IngArray[0]) {
+                                //             // console.log('--- ingArray[0]', ingredient);
+                                //             feedContentIngredients.push(ingredient)
+                                //         } if (ingredient.id === IngArray[1]) {
+                                //             // console.log('--- ingArray[1]', ingredient);
+                                //             feedContentIngredients.push(ingredient)
+                                //         } if (ingredient.id === IngArray[2]) {
+                                //             // console.log('--- ingArray[2]', ingredient);
+                                //             feedContentIngredients.push(ingredient)
+                                //         }
+                                //     }
+                                //     // console.log('--- end of fun feedContentIngredients', feedContentIngredients);
+                                // }
+
+                                // ingredientFilter(ingredients)
+                                // console.log('--- ingredientFilter(ingredients)', ingredientFilter(ingredients));
+                                // console.log('IngArray id list:', IngArray);
+                                // console.log('--- feedContentIngredients:', feedContentIngredients);

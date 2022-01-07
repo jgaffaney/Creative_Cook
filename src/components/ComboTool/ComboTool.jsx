@@ -67,7 +67,7 @@ function ComboTool() {
         ml: 1,
         borderRadius: '50%',
         // mx: 'auto',
-      };
+    };
 
       
 
@@ -76,52 +76,40 @@ function ComboTool() {
             {/* 3 ingredient display */}
             < Box sx={sxCardContainer} >
                 {
-                    combo ?
-                        combo.map(ingredient => (
-                            <Card elevation={0}
-                                onClick={console.log('clicked')}
-                                key={ingredient.id}>
-                                    <CardMedia
-                                    sx={sxPhotoBox}
-                                        component="img"
-                                        height="140"
-                                        image={ingredient.pic}
-                                        alt={ingredient.name} />
-                                <CardContent>
-                                    <Typography variant=''
+                    combo?.map(ingredient => (
+                        <Card elevation={0}
+                            onClick={console.log('clicked')}
+                            key={ingredient.id}>
+                            <CardMedia
+                                sx={sxPhotoBox}
+                                component="img"
+                                height="140"
+                                image={ingredient.pic}
+                                alt={ingredient.name} />
+                            <CardContent>
+                                <Typography variant=''
                                     sx={sxIngredientName}>{ingredient.name}</Typography>
-                                </CardContent>
-                            </Card>
-                        ))
-                        :
-                        <p></p >}
+                            </CardContent>
+                        </Card>
+                    ))
+                }
             </Box >
 
-            {/* ingredient name map */}
-            {/* <Box sx={sxCardContainer}>
-                {
-                    combo ?
-                        combo.map(ingredient => (
-                            <Typography key={ingredient.id} sx={sxIngredientName}>{ingredient.name}</Typography>
-                        ))
-                        :
-                        <p></p>}
-            </Box> */}
+
             <Box sx={sxButtonContainer}>
 
                 {/* if combo tool has at least 1 ingredient, clear button renders */}
-                {combo.length >= 1 ?
+                {combo.length >= 1 &&
                     <Box>
                         <Button
                             variant="outlined"
                             sx={sxButton}
                             onClick={() => dispatch({ type: 'CLEAR_COMBO_AND_RECIPE' })}>CLEAR</Button>
                     </Box>
-                    :
-                    <p></p>}
+                }
 
                 {/* if combo tool has at least 2 ingredients, show save button */}
-                {combo.length >= 2 ?
+                {combo.length >= 2 &&
                     <>
                         <Box>
                             <Button
@@ -136,8 +124,7 @@ function ComboTool() {
                                 onClick={() => dispatch({ type: 'SAVE_NEW_COMBO', payload: combo })}>SAVE</Button>
                         </Box>
                     </>
-                    :
-                    <p></p>}
+                }
             </Box>
         </>
     )
