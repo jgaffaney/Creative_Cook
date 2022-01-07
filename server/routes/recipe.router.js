@@ -2,11 +2,14 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 const axios = require('axios');
+const {
+  rejectUnauthenticated,
+} = require('../modules/authentication-middleware');
 
 /**
  * GET route template
  */
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
   // GET route code here
   // destructuring the params into the first, second, and 3rd ingredients
   console.log('req.query:', req.query);
@@ -29,7 +32,7 @@ router.get('/', (req, res) => {
 /**
  * POST route template
  */
-router.post('/user', (req, res) => {
+router.post('/user', rejectUnauthenticated, (req, res) => {
   console.log('inside recipe router POST');
   let combo = req.body.combo;
   console.log('this is combo', combo);
@@ -66,6 +69,8 @@ router.post('/user', (req, res) => {
   } // end comboNamer
   ingredientLister(combo);
   comboNamer(combo);
+  
+
   const insertComboQuery = `
         INSERT INTO "combos" ("user_id", "ingredient_list", "name")
         VALUES ($1, $2, $3)
@@ -91,7 +96,6 @@ router.post('/user', (req, res) => {
         .then(result => {
           // Now that both are done, send back success!
           res.sendStatus(201);
-          // res.send(createdComboId);
         })
         // catch for 2nd query
         .catch(err => {
