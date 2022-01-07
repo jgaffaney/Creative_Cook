@@ -235,10 +235,17 @@ function Profile() {
                                 <ul>
                                   {userRecipes.map(recipe => (
                                    <> <Typography
+                                      key={recipe.id}
                                       onClick={() => window.open(`_${recipe.url}`.split(`_`)[1], `_blank`)}
                                       size="small"
                                     >{recipe.combo_id === combo.id && recipe.label}</Typography>
-                                    {recipe.combo_id === combo.id && recipe.is_cooked === false && <Button>Cooked</Button>}</>
+                                    {recipe.combo_id === combo.id && recipe.is_cooked === false && 
+                                    <Button
+                                        onClick={() => dispatch({
+                                          type: 'UPDATE_RECIPE',
+                                          payload: {recipe}
+                                  })}
+                                    >Cooked</Button>}</>
                                   ))}
                                 </ul>
                               }

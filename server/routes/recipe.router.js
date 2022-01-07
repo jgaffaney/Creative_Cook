@@ -125,13 +125,14 @@ router.get('/userRecipes', rejectUnauthenticated, (req, res) => {
       })
 }); // End GET
 
-router.put('/', (req, res) => {
+router.put('/:id', (req, res) => {
+  let id = req.params.id;
   const queryText = `
     UPDATE recipes
     SET made_on = NOW(), is_cooked = TRUE
     WHERE id = $1;  
   `;
-  pool.query(queryText, [req.body.id])
+  pool.query(queryText, [id])
       .then(response => {
           res.sendStatus(200)
       }).catch(err=> {

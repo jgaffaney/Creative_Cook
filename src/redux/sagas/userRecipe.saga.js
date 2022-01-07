@@ -13,7 +13,7 @@ function* fetchUserRecipes() {
 
 function* updateRecipe(action) {
     try {
-        yield axios.put(`/api/recipes`, action.payload);
+        yield axios.put(`/api/recipes/${action.payload.recipe.id}`, action.payload);
         yield put({type: 'FETCH_USER_RECIPES'})
     } catch (error) {
         console.log('Error on updateRecipe: ', error);
