@@ -141,4 +141,22 @@ router.put('/:id', (req, res) => {
       })
 })
 
+// Recipe Metrics GET route
+router.get('/metrics', rejectUnauthenticated, (req, res) => {
+  const queryText = `
+        SELECT COUNT(DISTINCT url) FILTER (WHERE "user_id" = $1 AND "made_on" >= now() - interval '1 week') AS weekly,
+        COUNT(DISTINCT url) FILTER (WHERE "user_id" = $1 AND "made_on" >= now() - interval '1 month') AS monthly,
+        COUNT(DISTINCT url) FILTER (WHERE "user_id" = $1 AND "made_on" >= now() - interval '1 year') AS yearly
+        FROM recipes;
+      `;
+  pool.query(queryText, [req.user.id])
+      .then(result => {
+          res.send(result.rows);
+      })
+      .catch(err => {
+          console.log('Error in Recipe GET', err);
+          res.sendStatus(500);
+      })
+}); // End GET
+
 module.exports = router;

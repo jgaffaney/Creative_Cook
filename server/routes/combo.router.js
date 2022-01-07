@@ -84,7 +84,7 @@ router.get('/weekly', rejectUnauthenticated, (req, res) => {
         `;
     pool.query(queryText, [req.user.id])
         .then(result => {
-            res.send(result.rows); // Contains all combos
+            res.send(result.rows);
         })
         .catch(err => {
             console.log('Error in Combo GET', err);
@@ -101,7 +101,7 @@ router.get('/monthly', rejectUnauthenticated, (req, res) => {
         `;
     pool.query(queryText, [req.user.id])
         .then(result => {
-            res.send(result.rows); // Contains all combos
+            res.send(result.rows);
         })
         .catch(err => {
             console.log('Error in Combo GET', err);
@@ -118,7 +118,7 @@ router.get('/yearly', rejectUnauthenticated, (req, res) => {
         `;
     pool.query(queryText, [req.user.id])
         .then(result => {
-            res.send(result.rows); // Contains all combos
+            res.send(result.rows);
         })
         .catch(err => {
             console.log('Error in Combo GET', err);
