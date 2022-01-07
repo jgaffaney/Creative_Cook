@@ -192,7 +192,7 @@ function RegisterForm() {
             <MenuItem value={'Single'}>Single</MenuItem>
             <MenuItem value={'Married'}>Married</MenuItem>
             <MenuItem value={'Partnership'}>Partnership</MenuItem>
-            {/* <MenuItem hidden value={'Prefer not to answer'}>Prefer not to answer</MenuItem> */}
+            <MenuItem hidden value={'Prefer not to answer'}>Prefer not to answer</MenuItem>
           </Select>
         </FormControl>
 
