@@ -51,6 +51,7 @@ import {
 
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
+import combo from '../../redux/reducers/combo.reducer';
 
 function Profile() {
   const user = useSelector((store) => store.user);
@@ -67,6 +68,7 @@ function Profile() {
   const weeklyCombos = useSelector((store) => store.weeklyCombos);
   const monthlyCombos = useSelector((store) => store.monthlyCombos);
   const yearlyCombos = useSelector((store) => store.yearlyCombos);
+  const recipeMetrics = useSelector((store) => store.recipeMetrics);
   const dispatch = useDispatch();
 
   const { width, height } = useWindowSize();
@@ -83,6 +85,7 @@ function Profile() {
     dispatch({ type: 'FETCH_MONTHLY_COMBOS' })
     dispatch({ type: 'FETCH_YEARLY_COMBOS' })
     dispatch({ type: 'FETCH_USER_RECIPES' })
+    dispatch({ type: 'FETCH_RECIPE_METRICS' })
   }, [])
 
   useEffect(() => {
@@ -110,7 +113,8 @@ function Profile() {
     color: theme.palette.text.secondary,
   }));
 
-  console.log('!!', userRecipes);
+  console.log('!!', userCombos);
+  console.log('!!', recipeMetrics);
 
 
 
@@ -167,10 +171,12 @@ function Profile() {
                 <Item>Combos Made This Year: {yearlyCombos.length}</Item>
               </Grid>
               <Grid item xs={4}>
-                <Item>Metrics/Monthly</Item>
+              <Item>Combos Made This Week: {recipeMetrics[0].weekly}</Item>
+                <Item>Combos Made This Month: {recipeMetrics[0].monthly}</Item>
+                <Item>Combos Made This Year: {recipeMetrics[0].yearly}</Item>
               </Grid>
               <Grid item xs={4}>
-                <Item>Metrics/Total</Item>
+                <Item>Metrics/Ingredients</Item>
               </Grid>
             </Grid>
           </Box>
