@@ -68,8 +68,8 @@ router.post('/user', (req, res) => {
   ingredientLister(combo);
   comboNamer(combo);
   const insertComboQuery = `
-        INSERT INTO "combos" ("user_id", "ingredient_list", "name")
-        VALUES ($1, $2, $3)
+        INSERT INTO "combos" ("user_id", "ingredient_list", "name", "date_created")
+        VALUES ($1, $2, $3, NOW())
         RETURNING "id";
         `;
   // first Query saves combo
