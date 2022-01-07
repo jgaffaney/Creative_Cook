@@ -28,8 +28,11 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 // Challenge POST route
 router.post('/', rejectUnauthenticated, (req, res) => {
 
-    // req.user.is_admin?
-    // then run query
+    console.log('--- req.user.is_admin', req.user.is_admin);
+
+    // if(req.user.is_admin){
+        // run the code below
+    // }
 
     const queryText = `
         INSERT INTO "feed_content" 
