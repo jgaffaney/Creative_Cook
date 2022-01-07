@@ -11,8 +11,18 @@ function* fetchUserRecipes() {
     }
 };
 
+function* updateRecipe(action) {
+    try {
+        yield axios.put(`/api/recipes`, action.payload);
+        yield put({type: 'FETCH_USER_RECIPES'})
+    } catch (error) {
+        console.log('Error on updateRecipe: ', error);
+    }
+};
+
 function* userRecipesSaga() {
     yield takeLatest('FETCH_USER_RECIPES', fetchUserRecipes);
+    yield takeLatest('UPDATE_RECIPE', updateRecipe);
 } 
 
 
