@@ -82,7 +82,7 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     // call comboNamer and ingredientLister with req.body to format for DB
     comboNamer(req.body);
     ingredientLister(req.body);
-
+ 
     const queryText = `
         INSERT INTO "combos" ("user_id", "ingredient_list", "name")
         VALUES ($1, $2, $3)

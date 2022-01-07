@@ -22,9 +22,20 @@ function* updateComboGoal(action) {
     }
 };
 
+function* resetComboGoal(action) {
+    console.log('In resetComboGoal Saga')
+    try {
+        yield axios.put(`/api/goal/reset`, action.payload);
+        yield put({type: 'FETCH_COMBO_GOAL'})
+    } catch (error) {
+        console.log('Error on resetComboGoal: ', error);
+    }
+}
+
 function* comboGoalSaga() {
     yield takeLatest('FETCH_COMBO_GOAL', fetchComboGoals);
     yield takeLatest('UPDATE_COMBO_GOAL', updateComboGoal);
+    yield takeLatest('RESET_COMBO_GOAL', resetComboGoal);
 } 
 
 

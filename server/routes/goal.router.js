@@ -69,7 +69,25 @@ router.put('/', (req, res) => {
     const id = req.user.id
     const queryText = `
     UPDATE "user_metrics"
-    SET "goal" = "goal" +5
+    SET "goal" = $1
+    WHERE "user_id" = $2 AND "metric_id" = $3; 
+    `;
+    values = [req.body.goal, id, req.body.metric_id]
+    console.log("!!!", req.body);
+    pool.query(queryText, values)
+        .then(response => {
+            res.sendStatus(200)
+        }).catch(err=> {
+            console.log('Error on PUT goal: ', err);
+            res.sendStatus(500);
+        })
+})
+
+router.put('/reset', (req, res) => {
+    const id = req.user.id
+    const queryText = `
+    UPDATE "user_metrics"
+    SET "goal" = null
     WHERE "user_id" = $1 AND "metric_id" = $2; 
     `;
     values = [id, req.body.metric_id]
@@ -82,5 +100,6 @@ router.put('/', (req, res) => {
             res.sendStatus(500);
         })
 })
+
 
 module.exports = router;
