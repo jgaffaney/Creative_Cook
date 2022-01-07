@@ -61,13 +61,17 @@ function Home() {
 
     useEffect(() => {
         dispatch({ type: 'FETCH_CHALLENGE' });
-        // dispatch({ type: 'FETCH_COMBOS' });
+        dispatch({ type: 'FETCH_COMBOS' });
         dispatch({ type: 'FETCH_INGREDIENTS' });
     }, []);
 
 
     // SEARCH function will capture first ingredient and then push you to the combo page to complete combo
     const handleSearch = (searchText) => {
+
+        // let's dump the reducer so we know it's empty before starting a new combo;
+        dispatch({ type: 'CLEAR_COMBO_AND_RECIPE' })
+
         console.log('CLICKED on handleSearch');
         console.log('this is the searchText', searchText);
 
@@ -136,7 +140,6 @@ function Home() {
     // console.log('--- homepage userGoals', userGoals);
     const recentCombos = userCombos?.slice(0, 3);
     // console.log('homepage first 3 recentCombos', recentCombos);
-    
 
 
     return (

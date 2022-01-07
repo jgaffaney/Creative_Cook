@@ -47,7 +47,7 @@ function LoginPage() {
       </center>
 
       {/* open the registration form when we click on the button above */}
-      {registerFormStatus ? <RegisterForm /> : <></>}
+      {registerFormStatus && <RegisterForm />}
 
     </Box>
 
