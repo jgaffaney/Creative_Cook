@@ -88,6 +88,10 @@ function Profile() {
     dispatch({ type: 'FETCH_RECIPE_METRICS' })
   }, [])
 
+  // useEffect(() => {
+  //   dispatch({ type: 'FETCH_RECIPE_METRICS' })
+  // }, [recipeMetrics])
+
   useEffect(() => {
     if (userCombos.length >= comboGoal.goal) {
       dispatch({ type: 'UPDATE_COMBO_GOAL', payload: comboGoal })
@@ -171,9 +175,10 @@ function Profile() {
                 <Item>Combos Made This Year: {yearlyCombos.length}</Item>
               </Grid>
               <Grid item xs={4}>
-              <Item>Combos Made This Week: {recipeMetrics[0].weekly}</Item>
-                <Item>Combos Made This Month: {recipeMetrics[0].monthly}</Item>
-                <Item>Combos Made This Year: {recipeMetrics[0].yearly}</Item>
+                {recipeMetrics[0] && <>
+                <Item>Recipes Cooked This Week: {recipeMetrics[0].weekly}</Item>
+                <Item>Recipes Cooked This Month: {recipeMetrics[0].monthly}</Item>
+                <Item>Recipes Cooked This Year: {recipeMetrics[0].yearly}</Item></>}
               </Grid>
               <Grid item xs={4}>
                 <Item>Metrics/Ingredients</Item>
@@ -193,38 +198,12 @@ function Profile() {
               ))}
             </Grid> */}
             </Grid>
-            {/* <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-              {userCombos.map((combo) => {
-                return (
-                  <Grid item xs={2} sm={4} md={4} key={combo.id} >
-                    <Item >
-                      <List>
-                        <ListItem sx={{ p: 3, border: '1px solid black', }}>{combo.name}</ListItem>
-                        {userRecipes.map((recipe) => {
-                          return (
-                            <Typography>{recipe.combo_id === combo.id && recipe.label}</Typography>
-                          )
-                        })}
-                      </List>
-                    </Item>
-                  </Grid>
-                )
-              })}
-            </Grid> */}
-
             <Box sx={sxRecipeContainer}>
               {userCombos.length > 0 &&
                 userCombos.map(combo => (
                   <>
                     <Card elevation={3}
                       sx={sxRecipeCard}>
-                      {/* <CardMedia
-                        sx={sxRecipeImage}
-                        component="img"
-                        height="140"
-                        image={recipe.recipe.image}
-                        alt={recipe.recipe.label}
-                      /> */}
                       <CardContent sx={sxCardContent}>
                         <Typography
                           sx={sxCardTitle}
@@ -240,18 +219,18 @@ function Profile() {
                               {
                                 <ul>
                                   {userRecipes.map(recipe => (
-                                   <> <Typography
+                                    <> <Typography
                                       key={recipe.id}
                                       onClick={() => window.open(`_${recipe.url}`.split(`_`)[1], `_blank`)}
                                       size="small"
                                     >{recipe.combo_id === combo.id && recipe.label}</Typography>
-                                    {recipe.combo_id === combo.id && recipe.is_cooked === false && 
-                                    <Button
-                                        onClick={() => dispatch({
-                                          type: 'UPDATE_RECIPE',
-                                          payload: {recipe}
-                                  })}
-                                    >Cooked</Button>}</>
+                                      {recipe.combo_id === combo.id && recipe.is_cooked === false &&
+                                        <Button
+                                          onClick={() => dispatch({
+                                            type: 'UPDATE_RECIPE',
+                                            payload: { recipe }
+                                          })}
+                                        >Cooked</Button>}</>
                                   ))}
                                 </ul>
                               }

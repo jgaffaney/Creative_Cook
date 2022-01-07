@@ -1,4 +1,4 @@
-const recipeMetrics = (state = {}, action) => {
+const recipeMetrics = (state = [], action) => {
     switch(action.type) {
         case 'SET_RECIPE_METRICS':
             return action.payload;
