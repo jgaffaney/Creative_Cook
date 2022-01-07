@@ -2,6 +2,8 @@ import axios from 'axios';
 import { call, put, delay, takeLatest } from 'redux-saga/effects';
 // import { promises as fsPromises } from 'fs'
 import { resolvePromiseAction } from '@adobe/redux-saga-promise'
+// import { upload } from 'multer';
+
 
 // gets all ingredients from DB and sends them to ingredients reducer
 function* fetchIngredients() {
@@ -19,7 +21,7 @@ function* fetchIngredients() {
 function* postIngredient(action) {
     // console.log('In postIngredient Saga with: ', action);
     try {
-        yield axios.post('---/api/ingredients', action.payload)
+        yield axios.post('/api/ingredients/bulk', action.payload)
         yield put({ type: 'FETCH_INGREDIENTS' });
     } catch (error) {
         console.log('Error on postIngredient: ', error);
@@ -33,7 +35,7 @@ function* editIngredient(action) {
         const { seconds, value } = action.payload
         yield delay(seconds * 1000)
         yield call(resolvePromiseAction, action, value)
-        yield put({type: 'FETCH_INGREDIENTS'})
+        yield put({ type: 'FETCH_INGREDIENTS' })
     } catch (error) {
         console.log('Error on editIngredient: ', error);
     }
@@ -42,18 +44,43 @@ function* editIngredient(action) {
 
 function* uploadFile(action) {
     try {
-        yield put({type: 'SET_FILE', payload: action.payload});
-        yield axios.post('/api/ingredients/bulk', action.payload);
+        yield put({ type: 'SET_FILE', payload: action.payload });
+        // const formData = new FormData();
+        // formData.append('csv', selectedFile)
+        // yield axios.post('/api/ingredients/bulk', formData, {
+        //     headers: {
+        //       'Content-Type': 'multipart/form-data'
+        //     }});
     } catch (error) {
-        
+
     }
 }
 
-function* ingredientsSaga() {
-    yield takeLatest('FETCH_INGREDIENTS', fetchIngredients);
-    yield takeLatest('POST_INGREDIENT', postIngredient);
-    yield takeLatest('EDIT_INGREDIENT.TRIGGER', editIngredient)
-    yield takeLatest('SET_FILE_UPLOAD', uploadFile);
-}
+function* postFile(action) {
+    console.log('in postFile saga with action.payload.data: ', action.payload);
+    const formData = new FormData();
+    formData.append("file", action.payload);
+    try {
+        yield axios.post('/api/ingredients/bulk', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }});
+    } catch (error) {
+        console.log('Error in postFile: ', error);
+        
+    }
 
-export default ingredientsSaga;
+}
+    
+
+
+
+function* ingredientsSaga() {
+            yield takeLatest('FETCH_INGREDIENTS', fetchIngredients);
+            yield takeLatest('POST_INGREDIENT', postIngredient);
+            yield takeLatest('EDIT_INGREDIENT.TRIGGER', editIngredient)
+            yield takeLatest('SET_FILE_UPLOAD', uploadFile);
+            yield takeLatest('POST_FILE', postFile)
+        }
+
+        export default ingredientsSaga;

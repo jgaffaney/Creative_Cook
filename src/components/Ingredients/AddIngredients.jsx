@@ -22,7 +22,7 @@ function AddIngredients() {
 
     const [newIngredient, setNewIngredient] = useState(defaultIngredient);
     const [isSelected, setIsSelected] = useState();
-	const [isFilePicked, setIsFilePicked] = useState(false);
+    const [isFilePicked, setIsFilePicked] = useState(false);
     // const [season, setSeason] = useState('');
     // const [type, setType] = useState('');
 
@@ -152,14 +152,16 @@ function AddIngredients() {
         borderBottom: '1px solid gray',
     }
 
+
+
     const changeHandler = (event) => {
-        dispatch({type: 'SET_FILE_UPLOAD', payload: event.target.files[0]});
-		setIsSelected(true);
+        dispatch({ type: 'SET_FILE_UPLOAD', payload: event.target.files[0] });
+        setIsSelected(true);
     }
 
     const handleSubmission = () => {
-
-    }    
+        dispatch({ type: 'POST_FILE', payload: selectedFile})
+    }
 
     return (
         <>
@@ -261,26 +263,32 @@ function AddIngredients() {
                 </Box>
             </div>
             <div>
+                {/* <form action="/api/ingredients/bulk" encType="multipart/form-data" method="post">
+                    <div className="form-group">
+                        <input type="file" className="form-control-file" name="uploaded_file" />
+                        {/* <input type="file" className="form-control" placeholder="Choose File" name="newFile" /> */}
+                {/* <button onClick={handleSubmission}>Submit</button>
+                    </div>
+                </form> */}
+                <form encType="multipart/form-data">
                 <input type="file" name="file" onChange={changeHandler} />
                 {isSelected ? (
-				<div>
-					<p>Filename: {selectedFile.name}</p>
-					{/* <p>Filetype: {selectedFile.type}</p>
-					<p>Size in bytes: {selectedFile.size}</p>
-					<p>
-						lastModifiedDate:{' '}
-						{selectedFile.lastModifiedDate.toLocaleDateString()}
-					</p> */}
-				</div>
-			) : (
-				<p>Select a file to show details</p>
-			)}
-                <div>
-                    <button onClick={handleSubmission}>Submit</button>
-                </div>
+                    <div>
+                        <p>Filename: {selectedFile.name}</p>
+                        <p>Filetype: {selectedFile.type}</p>
+                        <p>Size in bytes: {selectedFile.size}</p>
+                        <p>
+                            lastModifiedDate:{' '}
+                            {selectedFile.lastModifiedDate.toLocaleDateString()}
+                        </p>
+                    </div>
+                ) : (
+                    <p>Select a file to show details</p>
+                )}
+                <button onClick={handleSubmission}>Submit</button>
+                </form>
             </div>
-        </>
-    )
+        </>)
 }
 
 export default AddIngredients;
