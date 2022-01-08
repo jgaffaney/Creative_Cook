@@ -1,7 +1,7 @@
 const comboGoal = (state = [], action) => {
     switch (action.type) {
         case 'SET_COMBO_GOAL':
-            return [...state, action.payload];
+            return action.payload;
         case 'LOGOUT':
             return [];
         default:

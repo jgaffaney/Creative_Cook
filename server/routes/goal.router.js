@@ -7,9 +7,9 @@ const router = express.Router();
  */
 router.get('/', (req, res) => {
     const queryText = `
-SELECT "goal", "name", "metric_id" FROM "user_metrics"
-JOIN "metrics" ON "metrics".id = "user_metrics".metric_id
-WHERE "user_id" = $1;
+    SELECT * FROM "user_metrics"
+    WHERE "user_id" = $1
+    ORDER BY metric_id;
         `;
     pool.query(queryText, [req.user.id])
         .then(result => {
@@ -101,7 +101,7 @@ router.put('/reset', (req, res) => {
     const id = req.user.id
     const queryText = `
     UPDATE "user_metrics"
-    SET "goal" = null
+    SET "goal" = 0
     WHERE "user_id" = $1 AND "metric_id" = $2; 
     `;
     values = [id, req.body.metric_id]

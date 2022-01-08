@@ -54,14 +54,9 @@ function Profile() {
 
   const [open, setOpen] = React.useState(true);
 
-  const [updateComboGoal, setUpdateComboGoal] = useState({ goal: null, name: 'combo', metric_id: 1 });
-  const [updateRecipeGoal, setUpdateRecipeGoal] = useState({ goal: null, name: 'recipe', metric_id: 2 });
-  const [updateIngredientGoal, setUpdateIngredientGoal] = useState({ goal: null, name: 'ingredient', metric_id: 3 });
-
-  const [postComboGoal, setPostComboGoal] = useState({ goal: null, metric_id: 1 });
-  const [postRecipeGoal, setPostRecipeGoal] = useState({ goal: null, metric_id: 2 });
-  const [postIngredientGoal, setPostIngredientGoal] = useState({ goal: null, metric_id: 3 });
-
+  const [updateComboGoal, setUpdateComboGoal] = useState({ goal: 0, name: 'combo', metric_id: 1 });
+  const [updateRecipeGoal, setUpdateRecipeGoal] = useState({ goal: 0, name: 'recipe', metric_id: 2 });
+  const [updateIngredientGoal, setUpdateIngredientGoal] = useState({ goal: 0, name: 'ingredient', metric_id: 3 });
 
   useEffect(() => {
     dispatch({ type: 'FETCH_COMBOS' })
@@ -71,38 +66,6 @@ function Profile() {
     dispatch({ type: 'FETCH_RECIPE_GOAL' })
     dispatch({ type: 'FETCH_RECIPE_SAVED' })
   }, [])
-
-  // useEffect(() => {
-  //   if (userCombos.length >= comboGoal.goal) {
-  //     dispatch({ type: 'UPDATE_COMBO_GOAL', payload: comboGoal })
-  //   }
-  // }, [userCombos, comboGoal])
-
-  // useEffect(() => {
-  //   if (recipeSaved.length >= recipeGoal.goal) {
-  //     dispatch({ type: 'UPDATE_RECIPE_GOAL', payload: recipeGoal })
-  //   }
-  // }, [recipeSaved, recipeGoal])
-
-  // useEffect(() => {
-  //   if (ingredientUnique.length >= ingredientGoal.goal) {
-  //     dispatch({ type: 'UPDATE_INGREDIENT_GOAL', payload: ingredientGoal })
-  //   }
-  // }, [ingredientUnique, ingredientGoal])
-
-  // handle Post with user set goals
-  const handleComboPost = (event, property) => {
-    setPostComboGoal({ ...postComboGoal, [property]: event.target.value })
-  };
-
-  const handleRecipePost = (event, property) => {
-    setPostRecipeGoal({ ...postRecipeGoal, [property]: event.target.value })
-  };
-
-  const handleIngredientPost = (event, property) => {
-    setPostIngredientGoal({ ...postIngredientGoal, [property]: event.target.value })
-  };
-
 
   // handle Change with user set goals
   const handleComboChange = (event, property) => {
@@ -118,63 +81,29 @@ function Profile() {
   };
 
   //Set Goals on submit click
-  const handleComboGoalPost = (event) => {
-    // event.preventDefault();
-    dispatch({ type: 'POST_COMBO_GOAL', payload: postComboGoal })
-    console.log('comboGoal', comboGoal);
-    // alert('You Clicked on the Combo Goal Button!');
-  }
-
-  const handleRecipeGoalPost = (event) => {
-    // event.preventDefault();
-    dispatch({ type: 'POST_RECIPE_GOAL', payload: postRecipeGoal })
-    // alert('You Clicked on the Recipe Goal Button!');
-  }
-
-  const handleIngredientGoalPost = (event) => {
-    // event.preventDefault();
-    dispatch({ type: 'POST_INGREDIENT_GOAL', payload: postIngredientGoal })
-    // alert('You Clicked on the Ingredient Goal Button!');
-  }
-
-
-  //Set Goals on submit click
   const handleComboGoalClick = (event) => {
-    // event.preventDefault();
     dispatch({ type: 'UPDATE_COMBO_GOAL', payload: updateComboGoal })
-    console.log('comboGoal', comboGoal);
-    // alert('You Clicked on the Combo Goal Button!');
   }
 
   const handleRecipeGoalClick = (event) => {
-    // event.preventDefault();
     dispatch({ type: 'UPDATE_RECIPE_GOAL', payload: updateRecipeGoal })
-    // alert('You Clicked on the Recipe Goal Button!');
   }
 
   const handleIngredientGoalClick = (event) => {
-    // event.preventDefault();
     dispatch({ type: 'UPDATE_INGREDIENT_GOAL', payload: updateIngredientGoal })
-    // alert('You Clicked on the Ingredient Goal Button!');
   }
 
-  //Reset Buttons for Goals
+  //Update Buttons for Goals
   const resetComboGoal = (event) => {
-    // event.preventDefault();
-    dispatch({ type: 'RESET_COMBO_GOAL', payload: comboGoal })
-    // alert('You Clicked on the Reset Combo Goal Button!');
+    dispatch({ type: 'RESET_COMBO_GOAL', payload: updateComboGoal })
   }
 
   const resetRecipeGoal = (event) => {
-    // event.preventDefault();
-    dispatch({ type: 'RESET_RECIPE_GOAL', payload: recipeGoal })
-    // alert('You Clicked on the Reset Recipe Goal Button!');
+    dispatch({ type: 'RESET_RECIPE_GOAL', payload: updateRecipeGoal })
   }
 
   const resetIngredientGoal = (event) => {
-    // event.preventDefault();
-    dispatch({ type: 'RESET_INGREDIENT_GOAL', payload: ingredientGoal })
-    // alert('You Clicked on the Reset Ingredient Goal Button!');
+    dispatch({ type: 'RESET_INGREDIENT_GOAL', payload: updateIngredientGoal })
   }
 
   const Item = styled(Paper)(({ theme }) => ({
@@ -203,36 +132,17 @@ function Profile() {
             <Typography size={24}>Goal Progress</Typography>
             <Grid container spacing={2} alignItems="stretch">
 
-            {/* {!comboGoal.goal
-              ? <Grid item xs={4}>
-                  <Item>
-                  <Alert severity="success">
-                    <AlertTitle>Set Your Recipe Goal!</AlertTitle>
-                    Set Your First Goal! — <strong>try it out!</strong>
-                  </Alert>
-
-                  </Item>
-                </Grid>
-              : <Grid item xs={12}>
-                  <Item>
-                    <Typography>{comboGoal.goal} Combo Goal</Typography>
-                  </Item>
-                </Grid>
-            } */}
-
-              {comboGoal.goal == null &&
+              {comboGoal.goal == 0 &&
                 <Grid item xs={4}>
                   <Alert severity="success">
                     <AlertTitle>Set Your Combo Goal! </AlertTitle>
                     Progress Currently at {userCombos.length} — <strong>try it out!</strong>
                   </Alert>
                   <TextField
-                    // width="90%"
                     id="outlined-number"
                     label="Set Combo Goal"
                     type="number"
-                    value={comboGoal.goal}
-                    onChange={(event) => handleComboPost(event, 'goal')}
+                    onChange={(event) => handleComboChange(event, 'goal')}
                     InputLabelProps={{
                       shrink: true,
                     }}
@@ -266,25 +176,23 @@ function Profile() {
                         }
                         sx={{ mb: 2 }}
                       >
-                        <AlertTitle>Congratulations! You hit your Combo Goal!</AlertTitle>
-                       Progress Currently at {userCombos.length} <strong>Keep on Cooking!</strong>
+                        <AlertTitle>Congratulations!! You hit your Combo Goal! </AlertTitle>
+                        Update your Goal and <strong>Keep on Cooking!</strong>
                       </Alert>
                     </Collapse>
                   }
                 </Grid>}
 
-              {recipeGoal.goal == null &&
+              {recipeGoal.goal == 0 &&
                 <Grid item xs={4}>
                   <Alert severity="success">
                     <AlertTitle>Set Your Recipe Goal!</AlertTitle>
                     Progress Currently at {recipeSaved.length} — <strong>try it out!</strong>
                   </Alert>
                   <TextField
-                    // width="90%"
                     id="outlined-number"
                     label="Set Recipe Goal"
                     type="number"
-                    value={recipeGoal.goal}
                     onChange={(event) => handleRecipeChange(event, 'goal')}
                     InputLabelProps={{
                       shrink: true,
@@ -293,7 +201,6 @@ function Profile() {
                   <Button variant="outlined" onClick={handleRecipeGoalClick}>Set Recipe Goal</Button>
                 </Grid>
               }
-
 
               {recipeGoal.goal > 0 &&
                 <Grid item xs={4}>
@@ -320,24 +227,22 @@ function Profile() {
                         }
                         sx={{ mb: 2 }}
                       >
-                        <AlertTitle>Congratulations! You hit your Recipe Goal!</AlertTitle>
+                        <AlertTitle>Congratulations!! You hit your Recipe Goal!</AlertTitle>
                         Update your Goal and <strong>Keep on Cooking!</strong>
                       </Alert>
                     </Collapse>}
                 </Grid>}
 
-              {ingredientGoal.goal == null &&
+              {ingredientGoal.goal == 0 &&
                 <Grid item xs={4}>
                   <Alert severity="success">
                     <AlertTitle>Set Your Ingredient Goal!</AlertTitle>
                     Progress Currently at {ingredientUnique.length} — <strong>try it out!</strong>
                   </Alert>
                   <TextField
-                    // width="90%"
                     id="outlined-number"
                     label="Set Ingredient Goal"
                     type="number"
-                    value={ingredientGoal.goal}
                     onChange={(event) => handleIngredientChange(event, 'goal')}
                     InputLabelProps={{
                       shrink: true,
@@ -373,7 +278,7 @@ function Profile() {
                         }
                         sx={{ mb: 2 }}
                       >
-                        <AlertTitle>Congratulations!</AlertTitle>
+                        <AlertTitle>Congratulations!! You hit your Ingredient Goal!</AlertTitle>
                         Update your Goal and <strong>Keep on Cooking!</strong>
                       </Alert>
                     </Collapse>}
