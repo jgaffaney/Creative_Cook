@@ -14,8 +14,8 @@ const copyFrom = require('pg-copy-streams').from;
 router.get('/', (req, res) => {
     console.log('in ingredients GET');
     const queryText = `
-    SELECT * FROM ingredients
-    ORDER BY lower(name);
+    SELECT id, INITCAP("ingredients"."name") AS name, description, pic, taste, season, weight, volume, type FROM ingredients
+    ORDER BY name;
     `
     pool.query(queryText)
         .then(response => {
@@ -89,7 +89,7 @@ router.post('/bulk/', upload.single('file'), (req, res) => {
 
     pool.connect(function (err, client, done) {
         let stream = client.query(copyFrom(`
-        COPY ingredients (name, description, pic, taste, weight, volume) FROM STDIN DELIMITER ',' CSV HEADER;
+        COPY ingredients (name, description, pic, taste, weight, volume, type) FROM STDIN DELIMITER ',' CSV HEADER;
         `));
         let fileStream = fs.createReadStream(req.file.path);
         // fileStream.on('error', done)

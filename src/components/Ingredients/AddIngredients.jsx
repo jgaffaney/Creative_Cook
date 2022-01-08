@@ -4,6 +4,7 @@ import {
 } from "@mui/material";
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import UploadPairings from "./UploadPairings";
 
 function AddIngredients() {
 
@@ -263,13 +264,6 @@ function AddIngredients() {
                 </Box>
             </div>
             <div>
-                {/* <form action="/api/ingredients/bulk" encType="multipart/form-data" method="post">
-                    <div className="form-group">
-                        <input type="file" className="form-control-file" name="uploaded_file" />
-                        {/* <input type="file" className="form-control" placeholder="Choose File" name="newFile" /> */}
-                {/* <button onClick={handleSubmission}>Submit</button>
-                    </div>
-                </form> */}
                 <form encType="multipart/form-data">
                 <input type="file" name="file" onChange={changeHandler} />
                 {isSelected ? (
@@ -287,6 +281,7 @@ function AddIngredients() {
                 )}
                 <button onClick={handleSubmission}>Submit</button>
                 </form>
+                <UploadPairings />
             </div>
         </>)
 }
