@@ -5,8 +5,8 @@ import { put, takeLatest } from 'redux-saga/effects';
 function* fetchRecipeGoals() {
     try {
         const response = yield axios.get('/api/goal/')
-        console.log("response.data[0]", response.data[0]);
-        yield put({ type: 'SET_RECIPE_GOAL', payload: response.data[0] });
+        console.log("response.data[1]", response.data[1]);
+        yield put({ type: 'SET_RECIPE_GOAL', payload: response.data[1] });
     } catch (err) {
         console.log('GET ERROR IN GOAL SAGA', err);
     }
