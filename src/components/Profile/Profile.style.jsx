@@ -66,7 +66,7 @@ export const sxMiddleSection = {
 
 export const sxPhotoBox = {
     // border: '1px solid lightgray',
-    width: 120,
+    width: 220,
     height: 220,
     boxShadow: 3,
     mb: .25,
