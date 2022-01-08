@@ -27,6 +27,8 @@ import {
   Paper
 } from '@mui/material';
 
+import Collapse from '@mui/material/Collapse';
+import CloseIcon from '@mui/icons-material/Close';
 
 // --- MUI sx STYLES --- // 
 import {
@@ -51,7 +53,6 @@ import {
 
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import combo from '../../redux/reducers/combo.reducer';
 
 function Profile() {
   const user = useSelector((store) => store.user);
@@ -73,6 +74,12 @@ function Profile() {
   const { width, height } = useWindowSize();
   const [isComplete] = useTimeout(8000);
 
+  const [open, setOpen] = React.useState(true);
+
+  const [updateComboGoal, setUpdateComboGoal] = useState({goal: null, name: 'combo', metric_id: 1});
+  const [updateRecipeGoal, setUpdateRecipeGoal] = useState({goal: null, name: 'recipe', metric_id: 2});
+  const [updateIngredientGoal, setUpdateIngredientGoal] = useState({goal: null, name: 'ingredient', metric_id: 3});
+
   useEffect(() => {
     dispatch({ type: 'FETCH_COMBOS' })
     dispatch({ type: 'FETCH_COMBO_GOAL' })
@@ -86,24 +93,75 @@ function Profile() {
     dispatch({ type: 'FETCH_INGREDIENT_METRICS' })
   }, [])
 
+  // useEffect(() => {
+  //   if (userCombos.length >= comboGoal.goal) {
+  //     dispatch({ type: 'UPDATE_COMBO_GOAL', payload: comboGoal })
+  //   }
+  // }, [userCombos, comboGoal])
 
-  useEffect(() => {
-    if (userCombos.length >= comboGoal.goal) {
-      dispatch({ type: 'UPDATE_COMBO_GOAL', payload: comboGoal })
-    }
-  }, [userCombos, comboGoal])
+  // useEffect(() => {
+  //   if (recipeSaved.length >= recipeGoal.goal) {
+  //     dispatch({ type: 'UPDATE_RECIPE_GOAL', payload: recipeGoal })
+  //   }
+  // }, [recipeSaved, recipeGoal])
 
-  useEffect(() => {
-    if (recipeSaved.length >= recipeGoal.goal) {
-      dispatch({ type: 'UPDATE_RECIPE_GOAL', payload: recipeGoal })
-    }
-  }, [recipeSaved, recipeGoal])
+  // useEffect(() => {
+  //   if (ingredientUnique.length >= ingredientGoal.goal) {
+  //     dispatch({ type: 'UPDATE_INGREDIENT_GOAL', payload: ingredientGoal })
+  //   }
+  // }, [ingredientUnique, ingredientGoal])
 
-  useEffect(() => {
-    if (ingredientUnique.length >= ingredientGoal.goal) {
-      dispatch({ type: 'UPDATE_INGREDIENT_GOAL', payload: ingredientGoal })
-    }
-  }, [ingredientUnique, ingredientGoal])
+  // handle Change with user set goals
+  const handleComboChange = (event,property) => {
+    setUpdateComboGoal({...updateComboGoal, [property]: event.target.value})
+  };
+
+  const handleRecipeChange = (event,property) => {
+    setUpdateRecipeGoal({...updateRecipeGoal, [property]: event.target.value})
+  };
+
+  const handleIngredientChange = (event,property) => {
+    setUpdateIngredientGoal({...updateIngredientGoal, [property]: event.target.value})
+  };
+
+  //Set Goals on submit click
+  const handleComboGoalClick = (event) => {
+    // event.preventDefault();
+    dispatch({ type: 'UPDATE_COMBO_GOAL', payload: updateComboGoal })
+    console.log('comboGoal', comboGoal);
+    // alert('You Clicked on the Combo Goal Button!');
+  }
+
+  const handleRecipeGoalClick = (event) => {
+    // event.preventDefault();
+    dispatch({ type: 'UPDATE_RECIPE_GOAL', payload: updateRecipeGoal })
+    // alert('You Clicked on the Recipe Goal Button!');
+  }
+
+  const handleIngredientGoalClick = (event) => {
+    // event.preventDefault();
+    dispatch({ type: 'UPDATE_INGREDIENT_GOAL', payload: updateIngredientGoal })
+    // alert('You Clicked on the Ingredient Goal Button!');
+  }
+
+  //Reset Buttons for Goals
+  const resetComboGoal = (event) => {
+    // event.preventDefault();
+    dispatch({ type: 'RESET_COMBO_GOAL', payload: comboGoal })
+    // alert('You Clicked on the Reset Combo Goal Button!');
+  }
+
+  const resetRecipeGoal = (event) => {
+    // event.preventDefault();
+    dispatch({ type: 'RESET_RECIPE_GOAL', payload: recipeGoal })
+    // alert('You Clicked on the Reset Recipe Goal Button!');
+  }
+
+  const resetIngredientGoal = (event) => {
+    // event.preventDefault();
+    dispatch({ type: 'RESET_INGREDIENT_GOAL', payload: ingredientGoal })
+    // alert('You Clicked on the Reset Ingredient Goal Button!');
+  }
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -135,31 +193,159 @@ function Profile() {
           <Box sx={sxMiddleSection}>
             <Typography size={24}>Goal Progress</Typography>
             <Grid container spacing={2} alignItems="stretch">
-              <Grid item xs={4}>
-                <Typography>New Combos - Goal: {comboGoal.goal} </Typography>
-                <Item>Goal Progress: {userCombos.length}/{comboGoal.goal}</Item>
-                <Alert severity="success">
-                  <AlertTitle>Congratulations!!!</AlertTitle>
-                  You hit your Combo Goal! <strong>Keep it Up!</strong>
-                </Alert>
-              </Grid>
-              <Grid item xs={4}>
-                <Typography>New Recipes - Goal: {recipeGoal.goal} </Typography>
-                <Item>Goal Progress: {recipeSaved.length}/{recipeGoal.goal}</Item>
-                <Alert severity="success">
-                  <AlertTitle>Congratulations!!!</AlertTitle>
-                  You hit your Recipe Goal! <strong>Keep it Up!</strong>
-                </Alert>
-              </Grid>
-              {comboGoal.goal &&
+
+              {comboGoal.goal === null &&
                 <Grid item xs={4}>
-                  <Typography>New Ingredients - Goal: {ingredientGoal.goal} </Typography>
-                  <Item>Goal Progress: {ingredientUnique.length}/{ingredientGoal.goal}</Item>
-                  <Confetti width={width} height={height} recycle={!isComplete()} />
                   <Alert severity="success">
-                    <AlertTitle>Congratulations!!!</AlertTitle>
-                    You hit your Ingredient Goal! <strong>Keep it Up!</strong>
+                    <AlertTitle>Set Your Combo Goal!</AlertTitle>
+                    {/* This is a success alert — <strong>check it out!</strong> */}
                   </Alert>
+                  <TextField
+                    id="outlined-number"
+                    label="Set Combo Goal"
+                    type="number"
+                    value = {comboGoal.goal}
+                    onChange = {(event) => handleComboChange(event, 'goal')}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                  <Button variant="outlined" onClick= {handleComboGoalClick}>Set Combo Goal</Button>
+                </Grid>
+              }
+
+              {comboGoal.goal > 0 &&
+                <Grid item xs={4}>
+                  <Typography>New Combos - Goal: {comboGoal.goal} <Button variant="outlined" onClick={() => resetComboGoal()}>Reset Combo Goal</Button> </Typography>
+                  <Item>Goal Progress: {userCombos.length}/{comboGoal.goal}</Item>
+                  {/* <Button variant="outlined" onClick={() => resetComboGoal()}>Reset Combo Goal</Button> */}
+                  {(userCombos.length >= comboGoal.goal) &&
+                    <Confetti width={width} height={height} recycle={!isComplete()} />
+                  }
+                  {(userCombos.length >= comboGoal.goal) &&
+                    <Collapse in={open}>
+                      <Alert
+                        action={
+                          <IconButton
+                            aria-label="close"
+                            color="inherit"
+                            size="small"
+                            onClick={() => {
+                              setOpen(false);
+                            }}
+                          >
+                            <CloseIcon fontSize="inherit" />
+                          </IconButton>
+                        }
+                        sx={{ mb: 2 }}
+                      >
+                        <AlertTitle>Congratulations!!!</AlertTitle>
+                        You hit your Combo Goal! <strong>Keep it Up!</strong>
+                      </Alert>
+                    </Collapse>
+                  }
+                </Grid>}
+
+              {recipeGoal.goal == null &&
+                <Grid item xs={4}>
+                  <Alert severity="success">
+                    <AlertTitle>Set Your Recipe Goal!</AlertTitle>
+                    {/* This is a success alert — <strong>check it out!</strong> */}
+                  </Alert>
+                  <TextField
+                    id="outlined-number"
+                    label="Set Recipe Goal"
+                    type="number"
+                    value = {recipeGoal.goal}
+                    onChange = {(event) => handleRecipeChange(event, 'goal')}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                  <Button variant="outlined" onClick={handleRecipeGoalClick}>Set Recipe Goal</Button>
+                </Grid>
+              }
+
+
+              {recipeGoal.goal > 0 &&
+                <Grid item xs={4}>
+                  <Typography>New Recipes - Goal: {recipeGoal.goal} <Button variant="outlined" onClick={() => resetRecipeGoal()}>Reset Recipe Goal</Button> </Typography>
+                  <Item>Goal Progress: {recipeSaved.length}/{recipeGoal.goal}</Item>
+                  {(recipeSaved.length >= recipeGoal.goal) &&
+                    <Confetti width={width} height={height} recycle={!isComplete()} />
+                  }
+                  {(recipeSaved.length >= recipeGoal.goal) &&
+                    <Collapse in={open}>
+                      <Alert
+                        action={
+                          <IconButton
+                            aria-label="close"
+                            color="inherit"
+                            size="small"
+                            onClick={() => {
+                              setOpen(false);
+                            }}
+                          >
+                            <CloseIcon fontSize="inherit" />
+                          </IconButton>
+                        }
+                        sx={{ mb: 2 }}
+                      >
+                        <AlertTitle>Congratulations!!!</AlertTitle>
+                        You hit your Recipe Goal! <strong>Keep it Up!</strong>
+                      </Alert>
+                    </Collapse>}
+                </Grid>}
+
+              {ingredientGoal.goal == null &&
+                <Grid item xs={4}>
+                  <Alert severity="success">
+                    <AlertTitle>Set Your Ingredient Goal!</AlertTitle>
+                    {/* This is a success alert — <strong>check it out!</strong> */}
+                  </Alert>
+                  <TextField
+                    id="outlined-number"
+                    label="Set Ingredient Goal"
+                    type="number"
+                    value = {ingredientGoal.goal}
+                    onChange = {(event) => handleIngredientChange(event, 'goal')}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                  <Button variant="outlined" onClick={handleIngredientGoalClick}>Set Ingredient Goal</Button>
+
+                </Grid>
+              }
+
+              {ingredientGoal.goal > 0 &&
+                <Grid item xs={4}>
+                  <Typography>New Ingredients - Goal: {ingredientGoal.goal} <Button variant="outlined" onClick={() => resetIngredientGoal()}>Reset Ingredient Goal</Button> </Typography>
+                  <Item>Goal Progress: {ingredientUnique.length}/{ingredientGoal.goal}</Item>
+                  {(ingredientUnique.length >= ingredientGoal.goal) &&
+                    <Confetti width={width} height={height} recycle={!isComplete()} />
+                  }
+                  {(ingredientUnique.length >= ingredientGoal.goal) &&
+                    <Collapse in={open}>
+                      <Alert
+                        action={
+                          <IconButton
+                            aria-label="close"
+                            color="inherit"
+                            size="small"
+                            onClick={() => {
+                              setOpen(false);
+                            }}
+                          >
+                            <CloseIcon fontSize="inherit" />
+                          </IconButton>
+                        }
+                        sx={{ mb: 2 }}
+                      >
+                        <AlertTitle>Congratulations!!!</AlertTitle>
+                        You hit your Ingredient Goal! <strong>Keep it Up!</strong>
+                      </Alert>
+                    </Collapse>}
                 </Grid>}
             </Grid>
             <Typography size={18}>Metrics</Typography>
@@ -238,8 +424,6 @@ function Profile() {
         </Box>
       </Box>
     </Box >
-
-
   );
 }
 

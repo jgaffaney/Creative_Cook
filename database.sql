@@ -5,6 +5,7 @@ CREATE TYPE "gender" AS ENUM ('Female', 'Male', 'Other', 'Prefer not to answer')
 
 CREATE TYPE "marital_status" AS ENUM ('Single', 'Married', 'Partnership');
 
+OLD TALBE FOR REFERENCE
 CREATE TABLE "user" (
 	"id" serial NOT NULL PRIMARY KEY,
 	"username" varchar(255) NOT NULL,
@@ -17,6 +18,7 @@ CREATE TABLE "user" (
 	"family_size" int,
 	"marital_status" marital_status,
 	"is_admin" bool NOT NULL DEFAULT false);
+
 	
 CREATE TYPE "season" AS ENUM ('Summer', 'Spring', 'Winter', 'Autumn');
 
@@ -43,14 +45,16 @@ CREATE TABLE "combos" (
 	"id" serial NOT NULL PRIMARY KEY,
 	"user_id" int REFERENCES "user",
 	"ingredient_list" int[] NOT NULL,
-	"name" varchar(255));
+	"name" varchar(255)),
+	"date_created" DATE;
 
 CREATE TABLE "recipes" (
 	"id" serial NOT NULL PRIMARY KEY,
 	"combo_id" int REFERENCES "combos",
     "user_id" int REFERENCES "user",
-	"made_on" TIMESTAMP,
-	"edamam_id" varchar(255) NOT NULL);
+	"made_on" DATE,
+	"url" varchar(255) NOT NULL),
+	"label" VARCHAR(255);
 
 CREATE TABLE "metrics" (
 	"id" serial NOT NULL PRIMARY KEY,
@@ -220,3 +224,23 @@ VALUES
 (114,15,5),
 (115,13,12),
 (116,1,30);
+
+
+-- ALTERATIONS to user table. 
+
+ALTER TYPE marital_status ADD VALUE 'Prefer not to answer';
+
+ALTER TABLE "user"
+DROP COLUMN "display_name";
+
+ALTER TABLE "user"
+DROP COLUMN "age";
+
+ALTER TABLE "user"
+ADD "email" varchar(255) NOT NULL;
+
+ALTER TABLE "user"
+ADD "location" varchar(255);
+
+ALTER TABLE "user"
+ADD "birthday" DATE;

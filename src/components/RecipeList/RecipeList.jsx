@@ -11,7 +11,9 @@ import {
     CardHeader,
     Avatar,
     IconButton,
-    Paper
+    Paper,
+    List,
+    ListItem
 } from '@mui/material';
 import { red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -76,9 +78,10 @@ function RecipeList() {
 
     return (
         <>
+            {/* <h1>RECIPE LIST</h1> */}
                 <Box sx={sxRecipeContainer}>
-                    {recipes.length > 0 ?
-                        recipes.map(recipe => (
+                    {
+                        recipes?.map(recipe => (
                             <>
                                 <Card elevation={3}
                                 sx={sxRecipeCard}>
@@ -118,7 +121,7 @@ function RecipeList() {
                                                     {
                                                         <ul>
                                                             {recipe.recipe.ingredientLines.map(ingredient => (
-                                                                <li>{ingredient}</li>
+                                                                <li key={ingredient.id}>{ingredient}</li>
                                                             ))}
                                                         </ul>
                                                     }
@@ -129,8 +132,7 @@ function RecipeList() {
                                 </Card>
                             </>
                         ))
-                        :
-                        <p></p>}
+                        }
                 </Box>
         </>
     )

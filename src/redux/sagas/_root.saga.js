@@ -17,6 +17,8 @@ import comboMetricsSaga from './combo_metrics.saga';
 import userRecipesSaga from './userRecipe.saga';
 import recipeMetricsSaga from './recipe_metrics.saga';
 import ingredientMetricsSaga from './ingredient_metrics.saga';
+import comboPairingSaga from './combo.pairing.saga';
+
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
 // This is imported in index.js as rootSaga
@@ -44,5 +46,6 @@ export default function* rootSaga() {
     userRecipesSaga(),
     recipeMetricsSaga(),
     ingredientMetricsSaga(),
+    comboPairingSaga(),
   ]);
 }

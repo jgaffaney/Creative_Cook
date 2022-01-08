@@ -22,9 +22,21 @@ function* updateRecipeGoal(action) {
     }
 };
 
+function* resetRecipeGoal(action) {
+    console.log('In resetRecipeGoal Saga')
+    try {
+        yield axios.put(`/api/goal/reset`, action.payload);
+        yield put({type: 'FETCH_RECIPE_GOAL'})
+    } catch (error) {
+        console.log('Error on resetRecipeGoal: ', error);
+    }
+};
+
+
 function* recipeGoalSaga() {
     yield takeLatest('FETCH_RECIPE_GOAL', fetchRecipeGoals);
     yield takeLatest('UPDATE_RECIPE_GOAL', updateRecipeGoal);
+    yield takeLatest('RESET_RECIPE_GOAL', resetRecipeGoal);
 } 
 
 
