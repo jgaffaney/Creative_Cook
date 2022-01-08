@@ -69,6 +69,7 @@ function Profile() {
   const monthlyCombos = useSelector((store) => store.monthlyCombos);
   const yearlyCombos = useSelector((store) => store.yearlyCombos);
   const recipeMetrics = useSelector((store) => store.recipeMetrics);
+  const ingredientMetrics = useSelector((store) => store.ingredientMetrics);
   const dispatch = useDispatch();
 
   const { width, height } = useWindowSize();
@@ -86,6 +87,7 @@ function Profile() {
     dispatch({ type: 'FETCH_YEARLY_COMBOS' })
     dispatch({ type: 'FETCH_USER_RECIPES' })
     dispatch({ type: 'FETCH_RECIPE_METRICS' })
+    dispatch({ type: 'FETCH_INGREDIENT_METRICS' })
   }, [])
 
   // useEffect(() => {
@@ -181,7 +183,10 @@ function Profile() {
                 <Item>Recipes Cooked This Year: {recipeMetrics[0].yearly}</Item></>}
               </Grid>
               <Grid item xs={4}>
-                <Item>Metrics/Ingredients</Item>
+              {ingredientMetrics[0] && <>
+                <Item>Unique Ingredients Used This Week: {ingredientMetrics[0].weekly}</Item>
+                <Item>Unique Ingredients Used This Month: {ingredientMetrics[0].monthly}</Item>
+                <Item>Unique Ingredients Used This Year: {ingredientMetrics[0].yearly}</Item></>}
               </Grid>
             </Grid>
           </Box>
