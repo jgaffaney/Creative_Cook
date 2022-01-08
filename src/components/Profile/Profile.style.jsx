@@ -35,7 +35,7 @@ export const sxRightColumn = {
   }
 
 export const sxTopLeftSection = {
-    border: '1px solid green',
+    border: '1px solid black',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -46,7 +46,7 @@ export const sxTopLeftSection = {
   }
 
 export const sxTopRightSection = {
-    border: '1px solid red',
+    border: '1px solid black',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -102,3 +102,41 @@ export const sxGoals = {
     width: '100%',
     height: 250,
   }
+
+  export const sxRecipeContainer = {
+    display: 'flex',
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    // border: '1px solid red',
+    gap: 2,
+    justifyContent: 'center',
+}
+
+export const sxRecipeCard = {
+  width: 345,
+  height: 550,
+  backgroundColor: '#fffdfa',
+  elevation: 24,
+  borderRadius: 5,
+}
+
+export const sxCardContent = {
+  height: 150,
+}
+
+export const sxCardTitle = {
+  textAlign: 'center',
+  height: 'auto',
+}
+
+export const sxBox = {
+  height: 180,
+  overflow: 'scroll',
+}
+
+export const sxCardActions = {
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'flex-end',
+  justifyContent: 'space-between',
+}

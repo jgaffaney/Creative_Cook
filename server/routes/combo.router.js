@@ -84,8 +84,8 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     ingredientLister(req.body);
  
     const queryText = `
-        INSERT INTO "combos" ("user_id", "ingredient_list", "name")
-        VALUES ($1, $2, $3)
+        INSERT INTO "combos" ("user_id", "ingredient_list", "name", "date_created")
+        VALUES ($1, $2, $3, NOW())
         RETURNING "id";
         `;
     let values = [id, ingredientList, name]
@@ -97,5 +97,23 @@ router.post('/', rejectUnauthenticated, (req, res) => {
             res.sendStatus(500);
         })
 });
+
+// Combo Metrics GET route
+router.get('/metrics', rejectUnauthenticated, (req, res) => {
+    const queryText = `
+          SELECT COUNT(DISTINCT name) FILTER (WHERE "user_id" = $1 AND "date_created" >= now() - interval '1 week') AS weekly,
+          COUNT(DISTINCT name) FILTER (WHERE "user_id" = $1 AND "date_created" >= now() - interval '1 month') AS monthly,
+          COUNT(DISTINCT name) FILTER (WHERE "user_id" = $1 AND "date_created" >= now() - interval '1 year') AS yearly
+          FROM combos;
+        `;
+    pool.query(queryText, [req.user.id])
+        .then(result => {
+            res.send(result.rows);
+        })
+        .catch(err => {
+            console.log('Error in Combo GET', err);
+            res.sendStatus(500);
+        })
+  }); // End GET
 
 module.exports = router;

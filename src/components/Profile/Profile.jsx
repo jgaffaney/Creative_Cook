@@ -2,20 +2,33 @@ import React, { useEffect, useState } from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { styled } from '@mui/material/styles';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import CardMedia from '@mui/material/CardMedia';
+import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
+import AddTaskIcon from '@mui/icons-material/AddTask';
+import DeleteIcon from '@mui/icons-material/Delete';
+import RefreshIcon from '@mui/icons-material/Refresh';
 import Confetti from 'react-confetti'
 import { useWindowSize, useTimeout } from 'react-use';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
-import IconButton from '@mui/material/IconButton';
+import {
+  Box,
+  Card,
+  CardActions,
+  CardContent,
+  Button,
+  Typography,
+  CardMedia,
+  CardActionArea,
+  CardHeader,
+  Avatar,
+  IconButton,
+  Paper
+} from '@mui/material';
+
 import Collapse from '@mui/material/Collapse';
-import Button from '@mui/material/Button';
 import CloseIcon from '@mui/icons-material/Close';
-import TextField from '@mui/material/TextField';
 
 // --- MUI sx STYLES --- // 
 import {
@@ -30,6 +43,12 @@ import {
   sxBottomSection,
   sxButtonBox,
   sxGoals,
+  sxRecipeContainer,
+  sxRecipeCard,
+  sxCardContent,
+  sxCardTitle,
+  sxBox,
+  sxCardActions,
 } from './Profile.style';
 
 import List from '@mui/material/List';
@@ -45,8 +64,11 @@ function Profile() {
   const ingredientUnique = useSelector((store) => store.ingredientUnique);
   const recipeGoal = useSelector((store) => store.recipeGoal);
   const recipeSaved = useSelector((store) => store.recipeSaved);
-  // const goal = useSelector((store) => store.goal);
-  // console.log('--- profile page goal', goal);
+  const goal = useSelector((store) => store.goal);
+  console.log('--- profile page goal', goal);
+  const comboMetrics = useSelector((store) => store.comboMetrics);
+  const recipeMetrics = useSelector((store) => store.recipeMetrics);
+  const ingredientMetrics = useSelector((store) => store.ingredientMetrics);
   const dispatch = useDispatch();
 
   const { width, height } = useWindowSize();
@@ -65,6 +87,10 @@ function Profile() {
     dispatch({ type: 'FETCH_INGREDIENT_UNIQUE' })
     dispatch({ type: 'FETCH_RECIPE_GOAL' })
     dispatch({ type: 'FETCH_RECIPE_SAVED' })
+    dispatch({ type: 'FETCH_COMBO_METRICS' })
+    dispatch({ type: 'FETCH_USER_RECIPES' })
+    dispatch({ type: 'FETCH_RECIPE_METRICS' })
+    dispatch({ type: 'FETCH_INGREDIENT_METRICS' })
   }, [])
 
   // handle Change with user set goals
@@ -112,6 +138,7 @@ function Profile() {
     textAlign: 'center',
     color: theme.palette.text.secondary,
   }));
+
 
   return (
     <Box sx={sxProfilePageContainer}>
@@ -287,35 +314,22 @@ function Profile() {
             <Typography size={18}>Metrics</Typography>
             <Grid container spacing={2}>
               <Grid item xs={4}>
-                <Item>Metrics/Weekly</Item>
+                {comboMetrics[0] && <>
+                  <Item>Combos Made in the Past Seven Days: {comboMetrics[0].weekly}</Item>
+                  <Item>Combos Made in the Past 30 Days: {comboMetrics[0].monthly}</Item>
+                  <Item>Combos Made in the Past 365 Days: {comboMetrics[0].yearly}</Item></>}
               </Grid>
               <Grid item xs={4}>
-                <Item>Metrics/Weekly</Item>
+                {recipeMetrics[0] && <>
+                  <Item>Recipes Cooked in the Past Seven Days: {recipeMetrics[0].weekly}</Item>
+                  <Item>Recipes Cooked in the Past 30 Days: {recipeMetrics[0].monthly}</Item>
+                  <Item>Recipes Cooked in the Past 365 Days: {recipeMetrics[0].yearly}</Item></>}
               </Grid>
               <Grid item xs={4}>
-                <Item>Metrics/Weekly</Item>
-              </Grid>
-            </Grid>
-            <Grid container spacing={2}>
-              <Grid item xs={4}>
-                <Item>Metrics/Monthly</Item>
-              </Grid>
-              <Grid item xs={4}>
-                <Item>Metrics/Monthly</Item>
-              </Grid>
-              <Grid item xs={4}>
-                <Item>Metrics/Monthly</Item>
-              </Grid>
-            </Grid>
-            <Grid container spacing={2}>
-              <Grid item xs={4}>
-                <Item>Metrics/Yearly</Item>
-              </Grid>
-              <Grid item xs={4}>
-                <Item>Metrics/Yearly</Item>
-              </Grid>
-              <Grid item xs={4}>
-                <Item>Metrics/Yearly</Item>
+                {ingredientMetrics[0] && <>
+                  <Item>Unique Ingredients Used in the Past Seven Days: {ingredientMetrics[0].weekly}</Item>
+                  <Item>Unique Ingredients Used in the Past 30 Days: {ingredientMetrics[0].monthly}</Item>
+                  <Item>Unique Ingredients Used in the Past 365 Days: {ingredientMetrics[0].yearly}</Item></>}
               </Grid>
             </Grid>
           </Box>
@@ -324,20 +338,51 @@ function Profile() {
             <Typography size={18}>Saved Flavor Combos</Typography>
             <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
             </Grid>
-            <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-              {userCombos.map((combo) => {
+            <Box sx={sxRecipeContainer}>
+              {userCombos.length > 0 &&
+                userCombos.map(combo => (
+                  <>
+                    <Card elevation={3}
+                      sx={sxRecipeCard}>
+                      <CardContent sx={sxCardContent}>
+                        <Typography
+                          sx={sxCardTitle}
+                          mt={-3}
+                          gutterBottom variant="h5" component="div">
+                          {combo.name}
+                        </Typography>
+                        <Box sx={sxBox}>
+                          <Typography
+                            mt={0}
+                            variant="body2" color="text.secondary">
+                            <>
+                              {
+                                <ul>
+                                  {userRecipes.map(recipe => (
+                                    <> <Typography
+                                      key={recipe.id}
+                                      onClick={() => window.open(`_${recipe.url}`.split(`_`)[1], `_blank`)}
+                                      size="small"
+                                    >{recipe.combo_id === combo.id && recipe.label}</Typography>
+                                      {recipe.combo_id === combo.id && recipe.is_cooked === false &&
+                                        <Button
+                                          onClick={() => dispatch({
+                                            type: 'UPDATE_RECIPE',
+                                            payload: { recipe }
+                                          })}
+                                        >Cooked</Button>}</>
+                                  ))}
+                                </ul>
+                              }
+                            </>
+                          </Typography>
+                        </Box>
+                      </CardContent>
+                    </Card>
+                  </>
+                ))}
+            </Box>
 
-                return (
-                  <Grid item xs={2} sm={4} md={4} key={combo.id} >
-                    <Item >
-                      <List>
-                        <ListItem sx={{ p: 3, border: '1px solid black', }}>{combo.name}</ListItem>
-                      </List>
-                    </Item>
-                  </Grid>
-                )
-              })}
-            </Grid>
           </Box>
         </Box>
       </Box>
@@ -346,3 +391,5 @@ function Profile() {
 }
 
 export default Profile;
+
+
