@@ -1,6 +1,6 @@
 import {
     FormControl, Box, TextField,
-    MenuItem, Button, Grid
+    MenuItem, Button, Grid, Typography,
 } from "@mui/material";
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -149,8 +149,8 @@ function AddIngredients() {
     }
 
     return (
-        <div>
-            <h2>Add New Ingredient</h2>
+        <Box>
+            <Typography variant="h4">Add New Ingredient</Typography>
             <Box sx={sxAddIngredient}>
                 <FormControl>
                     <Grid container spacing={1} sx={{ marginLeft: '10%', marginRight: '10%' }}>
@@ -245,7 +245,7 @@ function AddIngredients() {
                     <Button variant='outlined' size='small' sx={{ width: '250px', m: 'auto' }} onClick={handleSubmit}>Submit</Button>
                 </FormControl>
             </Box>
-        </div>
+        </Box>
     )
 }
 

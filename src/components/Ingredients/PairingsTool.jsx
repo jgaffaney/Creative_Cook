@@ -71,8 +71,8 @@ const PairingsTool = () => {
 
 
     const columns = [
-        { field: 'id', headerName: 'ID' },
-        { field: 'name', headerName: 'Name' },
+        { field: 'id', headerName: 'ID',},
+        { field: 'name', headerName: 'Name', width: 420},
     ]
 
     const addNewPairing = (params) => {
@@ -113,14 +113,14 @@ const PairingsTool = () => {
     return (
 
         <Box sx={sxPairingToolContainer}>
-            <Typography variant="h4" sx={sxCenterText}>Pairings Tool</Typography>
+            <Typography variant="h4" sx={sxCenterText}>Manage Ingredient Pairs</Typography>
             <Box sx={sxSearchContainer}>
                 <IngredientAutocomplete />
-                <Button onClick={handleSetIngredient} variant='contained' >Search</Button>
+                <Button onClick={handleSetIngredient} variant='outlined' >Search</Button>
 
             </Box>
 
-            {/* force to search first, display tools if there's content*/}
+            {/* force user to search for their first desired ingredient, then display pairing tables content*/}
             {pairedWith &&
                 <Box sx={sxPairWithContainer}>
                     <Box sx={sxPairedWithContent}>
@@ -133,7 +133,7 @@ const PairingsTool = () => {
                             <Typography variant="h5" sx={sxPairToolHeader}>Search For an Ingredient to Start the Paring Process</Typography>}
 
                         <DataGrid
-                            sx={{ cursor: 'pointer' }}
+                            sx={{ cursor: 'pointer', }}
                             density="compact"
                             rows={pairings}
                             columns={columns}
@@ -145,7 +145,7 @@ const PairingsTool = () => {
                         {pairedWith ?
                             <>
                                 <Typography variant="h5" sx={sxPairToolHeader}>Not Paired With {pairedWith[0].toUpperCase() + pairedWith.substring(1)} </Typography>
-                                <Typography variant="body1" sx={{ textAlign: 'center', mt: -1, mb: 1, }}>Click to pair an ingredient</Typography>
+                                <Typography variant="body1" sx={{ textAlign: 'center', mt: -1, mb: 1, }}>Click to assign ingredient as pairing</Typography>
                             </>
                             :
                             <Typography variant="h5" sx={sxPairToolHeader}>No ingredient selected</Typography>}

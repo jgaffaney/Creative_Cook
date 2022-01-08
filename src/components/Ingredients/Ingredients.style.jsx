@@ -11,7 +11,7 @@
 
 // CONTAINER that holds everything on this page
 export const sxIngredientsPageContainer = {
-    border: '1px solid red',
+    // border: '1px solid red',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -77,8 +77,8 @@ export const sxDataGridContainer = {
 
 // hold all of the PairingTool contents
 export const sxPairingToolContainer = {
-    border: '1px solid blue',
-    mt: 2,
+    // border: '1px solid blue',
+    mt: 4,
     // display: 'flex',
     // justifyContent: 'center',
     // alignItems: 'center',
