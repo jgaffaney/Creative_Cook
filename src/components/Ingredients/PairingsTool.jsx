@@ -116,7 +116,7 @@ const PairingsTool = () => {
             <Typography variant="h4" sx={sxCenterText}>Manage Ingredient Pairs</Typography>
             <Box sx={sxSearchContainer}>
                 <IngredientAutocomplete />
-                <Button onClick={handleSetIngredient} variant='outlined' >Search</Button>
+                <Button onClick={handleSetIngredient} variant='outlined ' >Search</Button>
 
             </Box>
 

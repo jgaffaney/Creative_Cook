@@ -63,8 +63,9 @@ export const sxSearchBar = {
 
 // holds everything in the ingredient Data Grid
 export const sxDataGridContainer = {
-    // border: '1px solid red', 
+    border: '1px solid red', 
     mt: 4,
+    mb: 8,
     height: 650, 
     width: 1 
 }
@@ -78,8 +79,8 @@ export const sxDataGridContainer = {
 
 // hold all of the PairingTool contents
 export const sxPairingToolContainer = {
-    // border: '1px solid blue',
-    mt: 4,
+    border: '1px solid blue',
+    // mt: 4,
     // display: 'flex',
     // justifyContent: 'center',
     // alignItems: 'center',

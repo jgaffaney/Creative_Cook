@@ -5,6 +5,7 @@ import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import {
   DataGrid,
   GridToolbarDensitySelector,
@@ -23,6 +24,7 @@ import {
   sxTableFiltersContainer,
   sxSearchBar,
   sxDataGridContainer,
+  sxCenterText,
 } from './Ingredients.style';
 
 
@@ -39,7 +41,7 @@ function QuickSearchToolbar(props) {
     <Box sx={sxTableFiltersContainer}>
 
       {/* controlling the spacing of the search bar & filter / density controls */}
-      <Box sx={{ display: 'flex', gap: 2}}>
+      <Box sx={{ display: 'flex', gap: 2 }}>
         <GridToolbarFilterButton />
         <GridToolbarDensitySelector />
       </Box>
@@ -196,17 +198,19 @@ export default function EditIngredients() {
   // creates the Edit button for each row in the data grid
   const renderEditButton = (params) => {
     return (
-      <Button
-        // sx={{border: 2}}
-        variant="outlined"
+      <Box
         color="error"
-        size="small"
+        sx={{display: 'flex', justifyContent: 'center', alignItems: 'center',}}
+        // variant="outlined"
+        // size="small"
+
+        // we need to delete here
         onClick={() => {
           editIngredient(JSON.stringify(params.row.id))
         }}
       >
         <DeleteForeverIcon fontSize='small' color='error' />
-      </Button>
+      </Box>
     )
   }
 
@@ -229,21 +233,23 @@ export default function EditIngredients() {
   const columns = [
     {
       field: 'delete',
-      headerName: '',
+      headerName: 'X',
       renderCell: renderEditButton,
       disableClickEventBubbling: true,
+      width: 10,
       // editable: true
     },
-    { field: 'id', hide: true, editable: true},
-    { field: 'name', headerName: 'Name', editable: true, width: 100 },
+    { field: 'id', hide: true, editable: true },
+    { field: 'name', headerName: 'Name', editable: true, width: 150, },
     // { field: 'description', headerName: 'Description', editable: true, flex: true, resizable: true},
-    { field: 'description', headerName: 'Description', editable: true, width: 400},
-    { field: 'type', headerName: 'Type', editable: true, valueOptions: foodType, type: 'singleSelect', width: 125},
-    { field: 'pic', headerName: 'Pic', editable: true, width: 125},
-    { field: 'season', headerName: 'Season', editable: true, valueOptions: seasons, type: 'singleSelect' },
-    { field: 'taste', headerName: 'Taste', editable: true },
-    { field: 'weight', headerName: 'Weight', editable: true },
-    { field: 'volume', headerName: 'Volume', editable: true },
+    { field: 'description', headerName: 'Description', editable: true, width: 400, },
+    { field: 'type', headerName: 'Type', editable: true, valueOptions: foodType, type: 'singleSelect', width: 150 },
+    { field: 'season', headerName: 'Season', editable: true, valueOptions: seasons, type: 'singleSelect', width: 160, },
+    { field: 'pic', headerName: 'Pic', editable: true, width: 125, },
+
+    { field: 'taste', headerName: 'Taste', editable: true, width: 120 },
+    { field: 'weight', headerName: 'Weight', editable: true, width: 120},
+    { field: 'volume', headerName: 'Volume', editable: true, width: 120 },
   ];
 
   // search function for the data grid
@@ -275,6 +281,7 @@ export default function EditIngredients() {
 
   return (
     <Box sx={sxDataGridContainer}>
+      <Typography variant="h4" sx={sxCenterText}>{ingredients?.length} Ingredients</Typography>
       {/* {rows && ( */}
       <DataGrid
         density="compact"
