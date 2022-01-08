@@ -187,7 +187,7 @@ function Profile() {
               {comboGoal.goal > 0 &&
                 <Grid item xs={4}>
                   <Typography>New Combos - Goal: {comboGoal.goal}  </Typography>
-                  <Item>Goal Progress: {userCombos.length}/{comboGoal.goal}</Item>
+                  <Item >Goal Progress: {userCombos.length}/{comboGoal.goal}</Item>
                   <Button variant="outlined" onClick={() => resetComboGoal()}>Update Combo Goal</Button>
                   {(userCombos.length >= comboGoal.goal) &&
                     <Confetti width={width} height={height} recycle={!isComplete()} />
@@ -286,7 +286,7 @@ function Profile() {
                       shrink: true,
                     }}
                   />
-                  <Button variant="outlined" onClick={handleIngredientGoalClick}>Set Goal</Button>
+                  <Button variant="outlined" onClick={handleIngredientGoalClick}>Set Ingredient Goal</Button>
 
                 </Grid>
               }

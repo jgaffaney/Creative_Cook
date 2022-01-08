@@ -35,23 +35,26 @@ export const sxRightColumn = {
   }
 
 export const sxTopLeftSection = {
-    border: '1px solid black',
+    border: '1px solid green',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     width: '25%',
     height: 300,
+    padding: '1rem',
   }
 
 export const sxTopRightSection = {
-    border: '1px solid black',
+    border: '1px solid red',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     width: '75%',
     height: 300,
+    padding: '1rem',
+   
   }
 
 export const sxMiddleSection = {
