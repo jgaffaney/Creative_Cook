@@ -60,14 +60,12 @@ CREATE TABLE "recipes" (
 CREATE TABLE "metrics" (
 	"id" serial NOT NULL PRIMARY KEY,
 	"name" varchar(255) NOT NULL),
-	"combos_goal" int;
 
 CREATE TABLE "user_metrics" (
 	"id" serial NOT NULL PRIMARY KEY,
 	"user_id" int NOT NULL REFERENCES "user",
 	"metric_id" int NOT NULL REFERENCES "metrics",
-	"goal" int,
-    "progress" int);
+	"goal" int);
 
 CREATE TABLE "feed_content" (
 	"id" serial NOT NULL PRIMARY KEY,
