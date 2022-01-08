@@ -40,6 +40,7 @@ export const sxTableFiltersContainer = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    py: 2,
     gap: 10,
 }
 
@@ -55,7 +56,7 @@ export const sxSearchBar = {
         mr: 0.5,
       },
       '& .MuiInput-underline:before': {
-        borderBottom: 1,
+        borderBottom: 2,
         borderColor: 'divider',
       },
 }

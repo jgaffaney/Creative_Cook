@@ -3,21 +3,23 @@
 
 CREATE TYPE "gender" AS ENUM ('Female', 'Male', 'Other', 'Prefer not to answer');
 
-CREATE TYPE "marital_status" AS ENUM ('Single', 'Married', 'Partnership');
+CREATE TYPE "marital_status" AS ENUM ('Single', 'Married', 'Partnership', 'Prefer not to answer');
 
-OLD TALBE FOR REFERENCE
 CREATE TABLE "user" (
 	"id" serial NOT NULL PRIMARY KEY,
 	"username" varchar(255) NOT NULL,
-	"display_name" varchar(255),
-	"password" varchar(255),
-	"bio" varchar(255),
+	"email" varchar(255) NOT NULL,
+	"password" varchar(255) NOT NULL,
+
+	"bio" varchar(510),
 	"pic" varchar(255),
-	"age" int,
+	"location" varchar(255),
+	"birthday" DATE,
 	"gender" gender,
-	"family_size" int,
 	"marital_status" marital_status,
-	"is_admin" bool NOT NULL DEFAULT false);
+	"family_size" int,
+	"is_admin" bool NOT NULL DEFAULT FALSE
+);
 
 	
 CREATE TYPE "season" AS ENUM ('Summer', 'Spring', 'Winter', 'Autumn');

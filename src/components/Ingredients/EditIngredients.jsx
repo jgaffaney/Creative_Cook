@@ -38,7 +38,8 @@ function QuickSearchToolbar(props) {
   return (
     <Box sx={sxTableFiltersContainer}>
 
-      <Box sx={{ display: 'flex', gap: 2 }}>
+      {/* controlling the spacing of the search bar & filter / density controls */}
+      <Box sx={{ display: 'flex', gap: 2}}>
         <GridToolbarFilterButton />
         <GridToolbarDensitySelector />
       </Box>
@@ -227,21 +228,22 @@ export default function EditIngredients() {
   // an array for the column headers, including the edit button for every row
   const columns = [
     {
-      field: 'edit',
+      field: 'delete',
       headerName: '',
       renderCell: renderEditButton,
       disableClickEventBubbling: true,
-      editable: true
+      // editable: true
     },
-    { field: 'id', hide: true, editable: true },
-    { field: 'name', headerName: 'Name', editable: true },
-    { field: 'description', headerName: 'Description', editable: true, flex: true, resizable: true },
-    { field: 'pic', headerName: 'Pic', editable: true },
-    { field: 'taste', headerName: 'Taste', editable: true },
+    { field: 'id', hide: true, editable: true},
+    { field: 'name', headerName: 'Name', editable: true, width: 100 },
+    // { field: 'description', headerName: 'Description', editable: true, flex: true, resizable: true},
+    { field: 'description', headerName: 'Description', editable: true, width: 400},
+    { field: 'type', headerName: 'Type', editable: true, valueOptions: foodType, type: 'singleSelect', width: 125},
+    { field: 'pic', headerName: 'Pic', editable: true, width: 125},
     { field: 'season', headerName: 'Season', editable: true, valueOptions: seasons, type: 'singleSelect' },
+    { field: 'taste', headerName: 'Taste', editable: true },
     { field: 'weight', headerName: 'Weight', editable: true },
     { field: 'volume', headerName: 'Volume', editable: true },
-    { field: 'type', headerName: 'Type', editable: true, valueOptions: foodType, type: 'singleSelect' },
   ];
 
   // search function for the data grid
@@ -278,6 +280,7 @@ export default function EditIngredients() {
         density="compact"
         components={{ Toolbar: QuickSearchToolbar }}
         rows={rows}
+        rowHeight={50}
         columns={columns}
         onCellEditCommit={handleCellEditCommit}
         componentsProps={{
