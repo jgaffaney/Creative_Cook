@@ -20,35 +20,52 @@ function UploadPairings() {
 
         console.log('results from papaParse: ', results);
 
-        for (let pairOne of results.data) {
-            for (let ingredient of ingredients) {
-                if (pairOne.ingredientName === ingredient.name) {
-                    pairOne.ingredientName === ingredient.id;
-                    console.log('found id');
-                    break;
-                }
-                if (pairOne.ingredient === ingredient.name) {
-                    pairOne.ingredient === ingredient.id;
-                    console.log('found id again');
-                    break;
-                }
-            }
-        }
+        // for (let pairOne of results.data) {
+        //     console.log('pairOne.ingredientName in first loop: ', pairOne.ingredientName.toLowerCase());
+        //     for (let ingredient of ingredients) {
+        //         console.log('ingredient in second loop: ', ingredient.name.toLowerCase());
+        //         if (pairOne.ingredientName.toLowerCase() === ingredient.name.toLowerCase()) {
+        //             pairOne.ingredientName = ingredient.id;
+        //             console.log('found id');
+        //             break;
+        //         }
+        //         if (pairOne.ingredient.toLowerCase() === ingredient.name.toLowerCase()) {
+        //             pairOne.ingredient = ingredient.id;
+        //             console.log('found id again');
+        //             break;
+        //         }
+        //     }
+        // }
         console.log('results after convert ids: ', results);
     }
 
 
     const config = {
         header: true,
-        dynamicTyping: true,
+        dynamicTyping: false,
         preview: 0,
         worker: false,
         comments: false,
         step: undefined,
         complete: function (results, file) {
             console.log("Parsing complete:", results, file);
-            convertToIds(results);
+            dispatch({ type: 'POST_PAIRINGS_FILE', payload: selectedFile})
         },
+        transform: function(value, header){
+            value = value.toLowerCase()
+            console.log('value in transform: ', value.toLowerCase());
+            // console.log('header in transform: ', header);
+            for(let ingredient of ingredients){
+                console.log('ingredient in transform loop: ', ingredient.name.toLowerCase());
+                if (value === ingredient.name.toLowerCase()) {
+                        console.log('value match with: ', value.toLowerCase());
+                        console.log('ingredient.id: ', ingredient.id);
+                        value = ingredient.id;
+                        console.log('value after reassign: ', value);
+                    }
+                }
+                return value;
+            },
         delimitersToGuess: [',', '\t', '|', ';', Papa.RECORD_SEP, Papa.UNIT_SEP]
     }
 
@@ -62,7 +79,6 @@ function UploadPairings() {
 
 
 
-        // dispatch({ type: 'POST_PAIRINGS_FILE', payload: selectedFile})
     }
 
     return (
