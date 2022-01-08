@@ -65,9 +65,7 @@ function Profile() {
   const recipeSaved = useSelector((store) => store.recipeSaved);
   const goal = useSelector((store) => store.goal);
   console.log('--- profile page goal', goal);
-  const weeklyCombos = useSelector((store) => store.weeklyCombos);
-  const monthlyCombos = useSelector((store) => store.monthlyCombos);
-  const yearlyCombos = useSelector((store) => store.yearlyCombos);
+  const comboMetrics = useSelector((store) => store.comboMetrics);
   const recipeMetrics = useSelector((store) => store.recipeMetrics);
   const ingredientMetrics = useSelector((store) => store.ingredientMetrics);
   const dispatch = useDispatch();
@@ -82,9 +80,7 @@ function Profile() {
     dispatch({ type: 'FETCH_INGREDIENT_UNIQUE' })
     dispatch({ type: 'FETCH_RECIPE_GOAL' })
     dispatch({ type: 'FETCH_RECIPE_SAVED' })
-    dispatch({ type: 'FETCH_WEEKLY_COMBOS' })
-    dispatch({ type: 'FETCH_MONTHLY_COMBOS' })
-    dispatch({ type: 'FETCH_YEARLY_COMBOS' })
+    dispatch({ type: 'FETCH_COMBO_METRICS' })
     dispatch({ type: 'FETCH_USER_RECIPES' })
     dispatch({ type: 'FETCH_RECIPE_METRICS' })
     dispatch({ type: 'FETCH_INGREDIENT_METRICS' })
@@ -169,21 +165,22 @@ function Profile() {
             <Typography size={18}>Metrics</Typography>
             <Grid container spacing={2}>
               <Grid item xs={4}>
-                <Item>Combos Made in the Past Seven Days: {weeklyCombos.length}</Item>
-                <Item>Combos Made in the Past 30 Days: {monthlyCombos.length}</Item>
-                <Item>Combos Made in the Past 365 Days: {yearlyCombos.length}</Item>
+                {comboMetrics[0] && <>
+                  <Item>Combos Made in the Past Seven Days: {comboMetrics[0].weekly}</Item>
+                  <Item>Combos Made in the Past 30 Days: {comboMetrics[0].monthly}</Item>
+                  <Item>Combos Made in the Past 365 Days: {comboMetrics[0].yearly}</Item></>}
               </Grid>
               <Grid item xs={4}>
                 {recipeMetrics[0] && <>
-                <Item>Recipes Cooked in the Past Seven Days: {recipeMetrics[0].weekly}</Item>
-                <Item>Recipes Cooked in the Past 30 Days: {recipeMetrics[0].monthly}</Item>
-                <Item>Recipes Cooked in the Past 365 Days: {recipeMetrics[0].yearly}</Item></>}
+                  <Item>Recipes Cooked in the Past Seven Days: {recipeMetrics[0].weekly}</Item>
+                  <Item>Recipes Cooked in the Past 30 Days: {recipeMetrics[0].monthly}</Item>
+                  <Item>Recipes Cooked in the Past 365 Days: {recipeMetrics[0].yearly}</Item></>}
               </Grid>
               <Grid item xs={4}>
-              {ingredientMetrics[0] && <>
-                <Item>Unique Ingredients Used in the Past Seven Days: {ingredientMetrics[0].weekly}</Item>
-                <Item>Unique Ingredients Used in the Past 30 Days: {ingredientMetrics[0].monthly}</Item>
-                <Item>Unique Ingredients Used in the Past 365 Days: {ingredientMetrics[0].yearly}</Item></>}
+                {ingredientMetrics[0] && <>
+                  <Item>Unique Ingredients Used in the Past Seven Days: {ingredientMetrics[0].weekly}</Item>
+                  <Item>Unique Ingredients Used in the Past 30 Days: {ingredientMetrics[0].monthly}</Item>
+                  <Item>Unique Ingredients Used in the Past 365 Days: {ingredientMetrics[0].yearly}</Item></>}
               </Grid>
             </Grid>
           </Box>

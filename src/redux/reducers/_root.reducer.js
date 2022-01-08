@@ -16,9 +16,7 @@ import recipeGoal from './recipeGoal.reducer';
 import recipeSaved from './recipeSaved.reducer';
 import unpaired from './unpaired.reducer';
 import top5 from './top5.reducer';
-import weeklyCombos from './weekly_combo.reducer';
-import monthlyCombos from './monthly_combo.reducer';
-import yearlyCombos from './yearly_combo.reducer';
+import comboMetrics from './combo_metrics.reducer';
 import userRecipes from './user_recipes.reducer';
 import recipeMetrics from './recipe_metrics.reducer';
 import ingredientMetrics from './ingredient_metrics.reducer';
@@ -52,9 +50,7 @@ const rootReducer = combineReducers({
   ingredientSearch, // holds search text for <IngredientAutocomplete> 
   unpaired,    // holds the ingredients that are not paired with the selected ingredient
   top5,       // holds the top five most used ingredients by all users
-  weeklyCombos, // holds combos made from logged in user within the past week
-  monthlyCombos, // holds combos made from logged in user within the past month
-  yearlyCombos, // holds combos made from logged in user within the past year
+  comboMetrics, // holds all combo profile metrics
   userRecipes, // holds all saved recipes from the user
   recipeMetrics, // holds all recipe profile metrics
   ingredientMetrics, // holds all ingredient profile metrics

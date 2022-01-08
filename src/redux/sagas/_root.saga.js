@@ -13,9 +13,7 @@ import ingredientUniqueSaga from './ingredientUnique.saga';
 import recipeGoalSaga from './recipeGoal.saga';
 import recipeSavedSaga from './recipeSaved.saga';
 import top5Saga from './top5.saga';
-import weeklyComboSaga from './weekly_combo.saga';
-import monthlyComboSaga from './monthly_combo.saga';
-import yearlyComboSaga from './yearly_combo.saga';
+import comboMetricsSaga from './combo_metrics.saga';
 import userRecipesSaga from './userRecipe.saga';
 import recipeMetricsSaga from './recipe_metrics.saga';
 import ingredientMetricsSaga from './ingredient_metrics.saga';
@@ -42,9 +40,7 @@ export default function* rootSaga() {
     recipeGoalSaga(),
     recipeSavedSaga(),
     top5Saga(),
-    weeklyComboSaga(),
-    monthlyComboSaga(),
-    yearlyComboSaga(),
+    comboMetricsSaga(),
     userRecipesSaga(),
     recipeMetricsSaga(),
     ingredientMetricsSaga(),
