@@ -19,6 +19,9 @@ function ComboTool() {
     const user = useSelector((store) => store.user);
     const dispatch = useDispatch();
     const combo = useSelector(store => store.combo);
+    const userCombos = useSelector((store) => store.userCombos);
+    const comboGoal = useSelector((store) => store.comboGoal);
+
 
     // clear/save button container
     const sxButtonContainer = {
@@ -65,6 +68,8 @@ function ComboTool() {
         borderRadius: '50%',
         // mx: 'auto',
     };
+
+      
 
     return (
         <>

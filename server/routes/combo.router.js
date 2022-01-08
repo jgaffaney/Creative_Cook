@@ -45,9 +45,8 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         })
 }); // End GET
 
-/**
- * POST route template
- */
+
+// Combo POST route
 router.post('/', rejectUnauthenticated, (req, res) => {
     // POST route code here
     console.log('hello from combo post');
@@ -79,11 +78,11 @@ router.post('/', rejectUnauthenticated, (req, res) => {
         name = name.slice(0, -2)
         console.log('name is', name);
     } // end comboNamer
-    
+
     // call comboNamer and ingredientLister with req.body to format for DB
     comboNamer(req.body);
     ingredientLister(req.body);
-
+ 
     const queryText = `
         INSERT INTO "combos" ("user_id", "ingredient_list", "name")
         VALUES ($1, $2, $3)
