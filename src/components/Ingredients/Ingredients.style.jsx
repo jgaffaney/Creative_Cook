@@ -6,7 +6,6 @@
 
 
 
-
 // -- Ingredient Page -- //
 
 // CONTAINER that holds everything on this page
@@ -30,6 +29,38 @@ export const sxPairToolHeader = {
     my: 2,
 }
 
+
+// -- AddIngredients Component -- //
+
+export const sxAddIngredientHeaderContainer = {
+    display: 'flex', 
+    justifyContent: 'center', 
+    alignItems: 'center',
+    gap: 1,
+}
+
+
+export const sxAddIngredient = {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+
+    position: 'sticky',
+    top: 0,
+    m: 1,
+    mx: 'auto',
+    zIndex: 100,
+
+    width: '95%',
+    bgcolor: 'white',
+    borderBottom: '1px solid gray',
+}
+
+export const sxTextInputForm = {
+    // border: '1px solid red',
+    width: 250,
+}
 
 
 // -- EditIngredients Component -- // 
@@ -63,9 +94,9 @@ export const sxSearchBar = {
 
 // holds everything in the ingredient Data Grid
 export const sxDataGridContainer = {
-    border: '1px solid red', 
-    mt: 4,
-    mb: 8,
+    // border: '1px solid red', 
+    mt: 6,
+    mb: 12,
     height: 650, 
     width: 1 
 }
@@ -79,7 +110,7 @@ export const sxDataGridContainer = {
 
 // hold all of the PairingTool contents
 export const sxPairingToolContainer = {
-    border: '1px solid blue',
+    // border: '1px solid blue',
     // mt: 4,
     // display: 'flex',
     // justifyContent: 'center',

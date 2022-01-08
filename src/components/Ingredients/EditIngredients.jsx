@@ -86,6 +86,7 @@ export default function EditIngredients() {
   const [searchText, setSearchText] = useState('');
   const [rows, setRows] = useState([]);
   const [snackbar, setSnackbar] = useState(null);
+  
 
   const seasons = [
     {
@@ -242,7 +243,7 @@ export default function EditIngredients() {
     { field: 'id', hide: true, editable: true },
     { field: 'name', headerName: 'Name', editable: true, width: 150, },
     // { field: 'description', headerName: 'Description', editable: true, flex: true, resizable: true},
-    { field: 'description', headerName: 'Description', editable: true, width: 400, },
+    { field: 'description', headerName: 'Description', editable: true, width: 600, },
     { field: 'type', headerName: 'Type', editable: true, valueOptions: foodType, type: 'singleSelect', width: 150 },
     { field: 'season', headerName: 'Season', editable: true, valueOptions: seasons, type: 'singleSelect', width: 160, },
     { field: 'pic', headerName: 'Pic', editable: true, width: 125, },
