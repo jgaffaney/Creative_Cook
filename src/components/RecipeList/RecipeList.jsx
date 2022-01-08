@@ -16,6 +16,7 @@ import {
     MenuItem,
     InputLabel,
     FormControl,
+    Snackbar,
 } from '@mui/material';
 import { red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -80,6 +81,10 @@ const sxMenuItem = {
 const sxSelectLabel = {
     mx: 'auto',
     pb: 0.5,
+    color: 'primary.main',
+    borderColor: 'primary.main',
+    // border: '1px solid'
+    width: 150,
 }
 
 const sxHealthFilter = {
@@ -89,15 +94,29 @@ const sxHealthFilter = {
     justifyContent: 'center',
     width: '50%',
     mx: 'auto',
-    mt: 1,
+    // mt: 1,
     mb: 3,
-    pl: 2,
-    pr: 0.5,
+    // pl: 2,
+    // pr: 0.5,
 }
 
 
 
+
 function RecipeList() {
+
+
+    // <Snackbar
+    //     open={open}
+    //     autoHideDuration={6000}
+    //     onClose={handleClose}
+    //     message="Recipe Saved"
+    //     action={action}
+    // />
+
+    // const handleClick = () => {
+
+    // }
 
     const recipes = useSelector(store => store.recipes)
     const dispatch = useDispatch();
@@ -106,15 +125,17 @@ function RecipeList() {
 
     return (
         <>
+        {/* <Button onClick={handleClick}>Open simple snackbar</Button> */}
             {combo.length === 3 &&
                 <>
                     <Box sx={sxHealthFilter}>
-                        <FormControl sx={{ display: 'flex', mx: 'auto', width: 150 }}>
-                            <InputLabel sx={sxSelectLabel}>Health Filters</InputLabel>
+                        <FormControl >
+                            <InputLabel
+                            sx={sxSelectLabel}>Health Filters</InputLabel>
                             <Select
-                                color="primary"
+                            sx={{ display: 'flex', mx: 'auto', width: 150, borderColor: 'primary.main' }}
                                 size="small"
-                                label="Health filters"
+                                label="healthFilters"
                                 value={healthFilter}
                                 onChange={(event) => dispatch({
                                     type: 'FETCH_RECIPES', payload:

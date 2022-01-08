@@ -29,10 +29,12 @@ function ComboTool() {
         justifyContent: 'center',
         width: '50%',
         mx: 'auto',
+        mb: 2,
     }
 
     const sxButton = {
         margin: 2,
+        width: 150,
     }
 
     // ingredient container for combo tool
