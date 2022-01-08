@@ -170,10 +170,6 @@ function Profile() {
     color: theme.palette.text.secondary,
   }));
 
-  console.log('!!', userCombos);
-  console.log('!!', recipeMetrics);
-
-
 
   return (
     <Box sx={sxProfilePageContainer}>
