@@ -1,6 +1,11 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const multer = require('multer')
+const upload = multer({ dest: 'uploads/' })
+const fs = require('fs');
+const copyFrom = require('pg-copy-streams').from;
+
 
 router.get('/:id', (req, res) => {
     console.log('params in pairings GET: ', req.params.id);

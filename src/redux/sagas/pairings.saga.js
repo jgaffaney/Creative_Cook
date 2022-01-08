@@ -49,10 +49,27 @@ function* deletePairing(action) {
     }
 }
 
+function* postBulkPairing(action) {
+    console.log('in postBulkPairing with payload: ', action.payload);
+
+    const formData = new FormData();
+    formData.append("file", action.payload);
+    try {
+        yield axios.post('/api/bulkPairings/', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }});
+    } catch (error) {
+        console.log('Error in postBulkPairing: ', error);
+    }
+    
+}
+
 function* pairingsSaga() {
     yield takeLatest('FETCH_PAIRINGS', fetchPairings)
     yield takeLatest('ADD_PAIRING', addNewPairing)
     yield takeLatest('DELETE_PAIRING', deletePairing)
+    yield takeLatest('POST_PAIRINGS_FILE', postBulkPairing)
 }
 
 export default pairingsSaga;
