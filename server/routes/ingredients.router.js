@@ -75,4 +75,22 @@ router.get('/top5', (req, res) => {
         })
 });
 
+// ingredient Metrics GET route
+router.get('/metrics', (req, res) => {
+    const queryText = `
+          SELECT COUNT(DISTINCT ingredient) FILTER (WHERE "user_id" = 14 AND "date_created" >= now() - interval '1 week') AS weekly,
+          COUNT(DISTINCT ingredient) FILTER (WHERE "user_id" = 14 AND "date_created" >= now() - interval '1 month') AS monthly,
+          COUNT(DISTINCT ingredient) FILTER (WHERE "user_id" = 14 AND "date_created" >= now() - interval '1 year') AS yearly
+          FROM combos, unnest(ingredient_list) AS ingredient;    
+        `;
+    pool.query(queryText, [req.user.id])
+        .then(result => {
+            res.send(result.rows);
+        })
+        .catch(err => {
+            console.log('Error in ingredient GET', err);
+            res.sendStatus(500);
+        })
+  }); // End GET
+
 module.exports = router;
