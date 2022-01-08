@@ -16,6 +16,10 @@ import recipeGoal from './recipeGoal.reducer';
 import recipeSaved from './recipeSaved.reducer';
 import unpaired from './unpaired.reducer';
 import top5 from './top5.reducer';
+import comboMetrics from './combo_metrics.reducer';
+import userRecipes from './user_recipes.reducer';
+import recipeMetrics from './recipe_metrics.reducer';
+import ingredientMetrics from './ingredient_metrics.reducer';
 import comboPairingOne from './ingredient1pair.reducer';
 import comboPairingTwo from './ingredient2pair.reducer';
 import healthFilter from './health.filter.reducer'
@@ -42,6 +46,15 @@ const rootReducer = combineReducers({
   recipeSaved,
   unpaired, // holds the ingredients that are not paired with the selected ingredient
   top5, // holds the top five most used ingredients by all users
+  // goal,
+  pairings,    // holds all the pairings available in the database-admin edit only
+  ingredientSearch, // holds search text for <IngredientAutocomplete> 
+  unpaired,    // holds the ingredients that are not paired with the selected ingredient
+  top5,       // holds the top five most used ingredients by all users
+  comboMetrics, // holds all combo profile metrics
+  userRecipes, // holds all saved recipes from the user
+  recipeMetrics, // holds all recipe profile metrics
+  ingredientMetrics, // holds all ingredient profile metrics
   comboPairingOne, // holds pairings for first ingredient selected when creating a combo
   comboPairingTwo, // holds pairings for second ingredient selected when creating a combo
   healthFilter, // holds the health filter for recipes search

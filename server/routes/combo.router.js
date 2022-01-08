@@ -50,7 +50,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 router.post('/', rejectUnauthenticated, (req, res) => {
     // POST route code here
     console.log('hello from combo post');
-    let id = req.user.id;
+    let userId = req.user.id;
     let ingredientList = '{';
     let name = '';
 
@@ -82,20 +82,53 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     // call comboNamer and ingredientLister with req.body to format for DB
     comboNamer(req.body);
     ingredientLister(req.body);
- 
-    const queryText = `
-        INSERT INTO "combos" ("user_id", "ingredient_list", "name")
-        VALUES ($1, $2, $3)
-        RETURNING "id";
+
+    const ifExistsQuery = `
+  SELECT "combos".id, "combos".user_id, "combos".ingredient_list, "combos".name FROM "combos"
+  WHERE "combos".user_id = $1 AND "combos".ingredient_list = $2 AND "combos".name = $3;
+  `;
+
+    const insertComboQuery = `
+        INSERT INTO "combos" ("user_id", "ingredient_list", "name", "date_created")
+        VALUES ($1, $2, $3, NOW());
         `;
-    let values = [id, ingredientList, name]
-    pool.query(queryText, values)
-        .then(response => {
-            res.sendStatus(200);
+    let comboValues = [userId, ingredientList, name]
+    pool.query(ifExistsQuery, comboValues)
+    .then(result => {
+        if (result.rows.length >= 1) {
+            res.sendStatus(201);
+        } else if (result.rows.length === 0){ // if no existing combo comes back from DB, save combo then recipe
+            pool.query(insertComboQuery, comboValues)
+            .then(result => {
+                res.sendStatus(201)
+            })
+            .catch(err => {
+                res.sendStatus(500);
+            })
+        }
+    })
+    .catch(err => {
+        res.sendStatus(500)
+    })
+
+});
+
+// Combo Metrics GET route
+router.get('/metrics', rejectUnauthenticated, (req, res) => {
+    const queryText = `
+          SELECT COUNT(DISTINCT name) FILTER (WHERE "user_id" = $1 AND "date_created" >= now() - interval '1 week') AS weekly,
+          COUNT(DISTINCT name) FILTER (WHERE "user_id" = $1 AND "date_created" >= now() - interval '1 month') AS monthly,
+          COUNT(DISTINCT name) FILTER (WHERE "user_id" = $1 AND "date_created" >= now() - interval '1 year') AS yearly
+          FROM combos;
+        `;
+    pool.query(queryText, [req.user.id])
+        .then(result => {
+            res.send(result.rows);
         })
         .catch(err => {
+            console.log('Error in Combo GET', err);
             res.sendStatus(500);
         })
-});
+}); // End GET
 
 module.exports = router;
