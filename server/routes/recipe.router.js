@@ -168,9 +168,9 @@ router.put('/:id', (req, res) => {
 // Recipe Metrics GET route
 router.get('/metrics', rejectUnauthenticated, (req, res) => {
   const queryText = `
-        SELECT COUNT(DISTINCT url) FILTER (WHERE "user_id" = $1 AND "made_on" >= now() - interval '1 week') AS weekly,
-        COUNT(DISTINCT url) FILTER (WHERE "user_id" = $1 AND "made_on" >= now() - interval '1 month') AS monthly,
-        COUNT(DISTINCT url) FILTER (WHERE "user_id" = $1 AND "made_on" >= now() - interval '1 year') AS yearly
+        SELECT COUNT(DISTINCT url) FILTER (WHERE "user_id" = $1 AND is_cooked = true AND "made_on" >= now() - interval '1 week') AS weekly,
+        COUNT(DISTINCT url) FILTER (WHERE "user_id" = $1 AND is_cooked = true AND "made_on" >= now() - interval '1 month') AS monthly,
+        COUNT(DISTINCT url) FILTER (WHERE "user_id" = $1 AND is_cooked = true AND "made_on" >= now() - interval '1 year') AS yearly
         FROM recipes;
       `;
   pool.query(queryText, [req.user.id])
