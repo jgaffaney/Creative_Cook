@@ -41,11 +41,29 @@ router.post('/register', (req, res) => {
     VALUES 
       ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id" ; `;
 
+  const queryText2  = `
+  INSERT INTO "user_metrics" (user_id, metric_id, goal)
+  VALUES ($1, 1, 0), ($1, 2, 0), ($1, 3, 0);
+  `;
+
   let values = [username, email, password, bio, pic, location, birthday, gender, maritalStatus, familySize, isAdmin]
 
   pool
     .query(queryText, values)
-    .then(() => res.sendStatus(201))
+    .then(result => {
+      const createdComboId = result.rows[0].id;
+      console.log('this is createdComboId:', createdComboId);
+      pool.query(queryText2, [createdComboId])
+      .then(result => {
+        res.sendStatus(201);
+      }) 
+      // catch for 2nd query
+      .catch(err => {
+        console.log('err', err);
+        res.sendStatus(500);
+      })
+      
+    })
     .catch((err) => {
       console.log('User registration failed: ', err);
       res.sendStatus(500);
