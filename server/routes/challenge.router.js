@@ -5,6 +5,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 
 // Challenge GET route
 router.get('/', rejectUnauthenticated, (req, res) => {
+    
     const queryText = `
         SELECT 	"feed_content"."id", "feed_content"."type", "feed_content"."description", 
                 "feed_content"."combo_id", "feed_content"."date_posted", "combos"."user_id", "combos"."ingredient_list", "combos"."name" 
@@ -26,6 +27,13 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
 // Challenge POST route
 router.post('/', rejectUnauthenticated, (req, res) => {
+
+    console.log('--- req.user.is_admin', req.user.is_admin);
+
+    // if(req.user.is_admin){
+        // run the code below
+    // }
+
     const queryText = `
         INSERT INTO "feed_content" 
             ("type", "description", "combo_id")

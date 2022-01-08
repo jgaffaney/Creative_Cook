@@ -16,8 +16,13 @@ import recipeGoal from './recipeGoal.reducer';
 import recipeSaved from './recipeSaved.reducer';
 import unpaired from './unpaired.reducer';
 import top5 from './top5.reducer';
+<<<<<<< HEAD
 import uploadedFile from './uploadFile.reducer';
 
+=======
+import comboPairingOne from './ingredient1pair.reducer';
+import comboPairingTwo from './ingredient2pair.reducer';
+>>>>>>> main
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -32,7 +37,7 @@ const rootReducer = combineReducers({
   recipes,    // holds the response of recipes from API (edamam)
   combo,      // holds the selected ingredients while creating a flavor combo (3 ingredients)
   userCombos, // Holds the logged in user's combos
-  comboSelect, // holds the selected ingredients while creating a flavor combo (3 ingredients)
+  // comboSelect, // holds the selected ingredients while creating a flavor combo (3 ingredients)
   comboGoal,
   pairings, // holds all the pairings available in the database-admin edit only
   ingredientSearch, // holds search text for <IngredientAutocomplete> 
@@ -42,12 +47,17 @@ const rootReducer = combineReducers({
   recipeSaved,
   unpaired, // holds the ingredients that are not paired with the selected ingredient
   top5, // holds the top five most used ingredients by all users
+<<<<<<< HEAD
   // goal,
   pairings,    // holds all the pairings available in the database-admin edit only
   ingredientSearch, // holds search text for <IngredientAutocomplete> 
   unpaired,    // holds the ingredients that are not paired with the selected ingredient
   top5,       // holds the top five most used ingredients by all users
   uploadedFile,  // holds the csv to be uploaded to the database
+=======
+  comboPairingOne, // holds pairings for first ingredient selected when creating a combo
+  comboPairingTwo, // holds pairings for second ingredient selected when creating a combo
+>>>>>>> main
 });
 
 export default rootReducer;
