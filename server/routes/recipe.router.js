@@ -2,11 +2,14 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 const axios = require('axios');
+const {
+  rejectUnauthenticated,
+} = require('../modules/authentication-middleware');
 
 /**
  * GET route template
  */
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
   // GET route code here
   // destructuring the params into the first, second, and 3rd ingredients
   console.log('req.query:', req.query);
@@ -29,7 +32,7 @@ router.get('/', (req, res) => {
 /**
  * POST route template
  */
-router.post('/user', (req, res) => {
+router.post('/user', rejectUnauthenticated, (req, res) => {
   console.log('inside recipe router POST');
   let combo = req.body.combo;
   console.log('this is combo', combo);
@@ -66,46 +69,68 @@ router.post('/user', (req, res) => {
   } // end comboNamer
   ingredientLister(combo);
   comboNamer(combo);
+
+  // values to send to DB for combo query
+  let comboValues = [userId, ingredientList, name]
+  // values to send to DB for recipe query
+  // let recipeValues = [createdComboId, userId, url, label]
+
+  // query to check DB if saved combo exists
+  const ifExistsQuery = `
+  SELECT "combos".id, "combos".user_id, "combos".ingredient_list, "combos".name FROM "combos"
+  WHERE "combos".user_id = $1 AND "combos".ingredient_list = $2 AND "combos".name = $3;
+  `;
+  // query to save non existing combo to DB
   const insertComboQuery = `
-        INSERT INTO "combos" ("user_id", "ingredient_list", "name")
-        VALUES ($1, $2, $3)
+        INSERT INTO "combos" ("user_id", "ingredient_list", "name", "date_created")
+        VALUES ($1, $2, $3, NOW())
         RETURNING "id";
         `;
-  // first Query saves combo
-  let comboValues = [userId, ingredientList, name]
-  pool.query(insertComboQuery, comboValues)
+  // query to save recipe to saved combo
+  const insertRecipeQuery = `
+          INSERT INTO "recipes" ("combo_id", "user_id", "url", "label", "made_on")
+          VALUES  ($1, $2, $3, $4, NOW());
+          `;
+
+  pool.query(ifExistsQuery, comboValues)
     .then(result => {
-
-      console.log('New Combo Id:', result.rows[0].id); //ID IS HERE!
-
-      const createdComboId = result.rows[0].id
-
-      // Now handle saving recipe
-      const insertRecipeQuery = `
-      INSERT INTO "recipes" ("combo_id", "user_id", "url", "label")
-      VALUES  ($1, $2, $3, $4);
-      `
-      let recipeValues = [createdComboId, userId, url, label]
-      // second query inserts into recipe table
-      pool.query(insertRecipeQuery, recipeValues)
+      if (result.rows.length >= 1) {
+        // let existingComboId = result.rows[0].id;
+        pool.query(insertRecipeQuery, [result.rows[0].id, userId, url, label])
         .then(result => {
-          // Now that both are done, send back success!
           res.sendStatus(201);
-          // res.send(createdComboId);
-        })
-        // catch for 2nd query
-        .catch(err => {
+        }).catch(err => {
           console.log('err', err);
           res.sendStatus(500);
         })
-
-    })
-    // catch for 1st query
-    .catch(err => {
+        
+      } else if (result.rows.length === 0){ // if no existing combo comes back from DB, save combo then recipe
+       pool.query(insertComboQuery, comboValues)
+       .then(result => {
+        pool.query(insertRecipeQuery, [result.rows[0].id, userId, url, label])
+        .then(result => {
+          res.sendStatus(201);
+        }).catch(err => {
+          console.log('err', err);
+          res.sendStatus(500);
+        }) // .catch for insertRecipeQuery
+       }).catch(err => {   // end .then for insertComboQuery
+        console.log('err', err);
+        res.sendStatus(500);
+      })     
+    } // close else if
+  } 
+    ).catch(err => { // close ifExist .then
       console.log('err', err);
       res.sendStatus(500);
     })
-  // POST route code here
+  
+    
+  
+
+
+
+
 });
 
 module.exports = router;

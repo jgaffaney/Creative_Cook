@@ -11,7 +11,9 @@ import {
     CardHeader,
     Avatar,
     IconButton,
-    Paper
+    Paper,
+    List,
+    ListItem
 } from '@mui/material';
 import { red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -119,7 +121,7 @@ function RecipeList() {
                                                     {
                                                         <ul>
                                                             {recipe.recipe.ingredientLines.map(ingredient => (
-                                                                <li>{ingredient}</li>
+                                                                <li key={ingredient.id}>{ingredient}</li>
                                                             ))}
                                                         </ul>
                                                     }
