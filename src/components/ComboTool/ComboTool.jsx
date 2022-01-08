@@ -30,6 +30,7 @@ function ComboTool() {
         width: '50%',
         mx: 'auto',
         mb: 2,
+        
     }
 
     const sxButton = {
