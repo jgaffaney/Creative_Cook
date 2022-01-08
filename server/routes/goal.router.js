@@ -62,7 +62,21 @@ router.get('/recipe', (req, res) => {
  * POST route template
  */
 router.post('/', (req, res) => {
-  
+    console.log('hello from combo post');
+  const queryText = `
+    INSERT INTO "user_metrics" ("user_id", "goal", "metric_id")
+    VALUES ($1, $2, $3);
+    `;
+    pool.query(queryText, [req.user.id, req.body.goal, req.body.metric_id])
+        .then(result => {
+            res.sendStatus(201);
+        }
+        )
+        .catch(err => {
+            console.log('Error in POST', err);
+            res.sendStatus(500);
+        }
+        )
 });
 
 router.put('/', (req, res) => {

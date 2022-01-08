@@ -58,6 +58,11 @@ function Profile() {
   const [updateRecipeGoal, setUpdateRecipeGoal] = useState({ goal: null, name: 'recipe', metric_id: 2 });
   const [updateIngredientGoal, setUpdateIngredientGoal] = useState({ goal: null, name: 'ingredient', metric_id: 3 });
 
+  const [postComboGoal, setPostComboGoal] = useState({ goal: null, metric_id: 1 });
+  const [postRecipeGoal, setPostRecipeGoal] = useState({ goal: null, metric_id: 2 });
+  const [postIngredientGoal, setPostIngredientGoal] = useState({ goal: null, metric_id: 3 });
+
+
   useEffect(() => {
     dispatch({ type: 'FETCH_COMBOS' })
     dispatch({ type: 'FETCH_COMBO_GOAL' })
@@ -85,6 +90,20 @@ function Profile() {
   //   }
   // }, [ingredientUnique, ingredientGoal])
 
+  // handle Post with user set goals
+  const handleComboPost = (event, property) => {
+    setPostComboGoal({ ...postComboGoal, [property]: event.target.value })
+  };
+
+  const handleRecipePost = (event, property) => {
+    setPostRecipeGoal({ ...postRecipeGoal, [property]: event.target.value })
+  };
+
+  const handleIngredientPost = (event, property) => {
+    setPostIngredientGoal({ ...postIngredientGoal, [property]: event.target.value })
+  };
+
+
   // handle Change with user set goals
   const handleComboChange = (event, property) => {
     setUpdateComboGoal({ ...updateComboGoal, [property]: event.target.value })
@@ -97,6 +116,27 @@ function Profile() {
   const handleIngredientChange = (event, property) => {
     setUpdateIngredientGoal({ ...updateIngredientGoal, [property]: event.target.value })
   };
+
+  //Set Goals on submit click
+  const handleComboGoalPost = (event) => {
+    // event.preventDefault();
+    dispatch({ type: 'POST_COMBO_GOAL', payload: postComboGoal })
+    console.log('comboGoal', comboGoal);
+    // alert('You Clicked on the Combo Goal Button!');
+  }
+
+  const handleRecipeGoalPost = (event) => {
+    // event.preventDefault();
+    dispatch({ type: 'POST_RECIPE_GOAL', payload: postRecipeGoal })
+    // alert('You Clicked on the Recipe Goal Button!');
+  }
+
+  const handleIngredientGoalPost = (event) => {
+    // event.preventDefault();
+    dispatch({ type: 'POST_INGREDIENT_GOAL', payload: postIngredientGoal })
+    // alert('You Clicked on the Ingredient Goal Button!');
+  }
+
 
   //Set Goals on submit click
   const handleComboGoalClick = (event) => {
@@ -163,7 +203,24 @@ function Profile() {
             <Typography size={24}>Goal Progress</Typography>
             <Grid container spacing={2} alignItems="stretch">
 
-              {comboGoal.goal === null &&
+            {/* {!comboGoal.goal
+              ? <Grid item xs={4}>
+                  <Item>
+                  <Alert severity="success">
+                    <AlertTitle>Set Your Recipe Goal!</AlertTitle>
+                    Set Your First Goal! — <strong>try it out!</strong>
+                  </Alert>
+
+                  </Item>
+                </Grid>
+              : <Grid item xs={12}>
+                  <Item>
+                    <Typography>{comboGoal.goal} Combo Goal</Typography>
+                  </Item>
+                </Grid>
+            } */}
+
+              {comboGoal.goal == null &&
                 <Grid item xs={4}>
                   <Alert severity="success">
                     <AlertTitle>Set Your Combo Goal! </AlertTitle>
@@ -175,7 +232,7 @@ function Profile() {
                     label="Set Combo Goal"
                     type="number"
                     value={comboGoal.goal}
-                    onChange={(event) => handleComboChange(event, 'goal')}
+                    onChange={(event) => handleComboPost(event, 'goal')}
                     InputLabelProps={{
                       shrink: true,
                     }}

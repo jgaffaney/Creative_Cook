@@ -12,6 +12,17 @@ function* fetchComboGoals() {
     }
 };
 
+function* postComboGoal(action) {
+    console.log('In postComboGoal Saga')
+    try {
+        yield axios.post(`/api/goal`, action.payload);
+        console.log('action.payload', action.payload);
+        yield put({type: 'FETCH_COMBO_GOAL'})
+    } catch (error) {
+        console.log('Error on postComboGoal: ', error);
+    }
+}
+
 function* updateComboGoal(action) {
     console.log('In updateGoal Saga')
     try {
@@ -36,6 +47,7 @@ function* comboGoalSaga() {
     yield takeLatest('FETCH_COMBO_GOAL', fetchComboGoals);
     yield takeLatest('UPDATE_COMBO_GOAL', updateComboGoal);
     yield takeLatest('RESET_COMBO_GOAL', resetComboGoal);
+    yield takeLatest('POST_COMBO_GOAL', postComboGoal);
 } 
 
 
