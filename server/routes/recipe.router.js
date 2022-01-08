@@ -2,9 +2,7 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 const axios = require('axios');
-const {
-  rejectUnauthenticated,
-} = require('../modules/authentication-middleware');
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 /**
  * GET route template
@@ -132,5 +130,57 @@ router.post('/user', rejectUnauthenticated, (req, res) => {
 
 
 });
+
+// userRecipes GET route
+router.get('/userRecipes', rejectUnauthenticated, (req, res) => {
+  const queryText = `
+      SELECT * FROM "recipes"
+      WHERE "user_id" = $1;
+      `;
+  pool.query(queryText, [req.user.id])
+      .then(result => {
+          res.send(result.rows); // Contains all combos
+      })
+      .catch(err => {
+          console.log('Error in userRecipe GET', err);
+          res.sendStatus(500);
+      })
+}); // End GET
+
+router.put('/:id', (req, res) => {
+  console.log('req', req.body);
+  
+  let id = req.params.id;
+  const queryText = `
+    UPDATE recipes
+    SET made_on = NOW(), is_cooked = TRUE
+    WHERE id = $1;  
+  `;
+  pool.query(queryText, [req.body.recipe.id])
+      .then(response => {
+          res.sendStatus(200)
+      }).catch(err=> {
+          console.log('Error on recipe PUT: ', err);
+          res.sendStatus(500);
+      })
+})
+
+// Recipe Metrics GET route
+router.get('/metrics', rejectUnauthenticated, (req, res) => {
+  const queryText = `
+        SELECT COUNT(DISTINCT url) FILTER (WHERE "user_id" = $1 AND is_cooked = true AND "made_on" >= now() - interval '1 week') AS weekly,
+        COUNT(DISTINCT url) FILTER (WHERE "user_id" = $1 AND is_cooked = true AND "made_on" >= now() - interval '1 month') AS monthly,
+        COUNT(DISTINCT url) FILTER (WHERE "user_id" = $1 AND is_cooked = true AND "made_on" >= now() - interval '1 year') AS yearly
+        FROM recipes;
+      `;
+  pool.query(queryText, [req.user.id])
+      .then(result => {
+          res.send(result.rows);
+      })
+      .catch(err => {
+          console.log('Error in Recipe GET', err);
+          res.sendStatus(500);
+      })
+}); // End GET
 
 module.exports = router;

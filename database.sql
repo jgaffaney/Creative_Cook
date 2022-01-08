@@ -54,7 +54,8 @@ CREATE TABLE "recipes" (
     "user_id" int REFERENCES "user",
 	"made_on" DATE,
 	"url" varchar(255) NOT NULL),
-	"label" VARCHAR(255);
+	"label" VARCHAR(255),
+	"is_cooked" BOOLEAN DEFAULT FALSE;
 
 CREATE TABLE "metrics" (
 	"id" serial NOT NULL PRIMARY KEY,
