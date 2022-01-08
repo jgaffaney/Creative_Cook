@@ -21,6 +21,7 @@ import monthlyCombos from './monthly_combo.reducer';
 import yearlyCombos from './yearly_combo.reducer';
 import userRecipes from './user_recipes.reducer';
 import recipeMetrics from './recipe_metrics.reducer';
+import ingredientMetrics from './ingredient_metrics.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -56,6 +57,7 @@ const rootReducer = combineReducers({
   yearlyCombos, // holds combos made from logged in user within the past year
   userRecipes, // holds all saved recipes from the user
   recipeMetrics, // holds all recipe profile metrics
+  ingredientMetrics, // holds all ingredient profile metrics
 });
 
 export default rootReducer;
