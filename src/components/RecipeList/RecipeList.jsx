@@ -78,7 +78,8 @@ const sxMenuItem = {
 }
 
 const sxSelectLabel = {
-    mx: 'auto'
+    mx: 'auto',
+    pb: 0.5,
 }
 
 const sxHealthFilter = {
@@ -91,7 +92,7 @@ const sxHealthFilter = {
     mt: 1,
     mb: 3,
     pl: 2,
-    pr: 1,
+    pr: 0.5,
 }
 
 
