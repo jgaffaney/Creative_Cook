@@ -114,7 +114,7 @@ function Feed() {
   return (
     <>
       <Box sx={sxMetrics}>
-        <Typography>App Wide User Metrics</Typography>
+        <Typography variant='h4' sx={{mb: 4}}>App Wide User Metrics</Typography>
         <Box sx={sxMetrics}>
           <Grid container spacing={2}>
             <Grid item xs={4}>
@@ -137,7 +137,7 @@ function Feed() {
       </Box>
       <br />
       <Box sx={sxFeaturedCombo}>
-        <Typography sx={{ textAlign: "center" }}>Create Featured Combo</Typography>
+        <Typography variant='h4' sx={{ textAlign: "center", my: 4}}>Create Featured Combo</Typography>
 
         {/* combo selector */}
         <ComboTool />
