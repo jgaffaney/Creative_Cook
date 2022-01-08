@@ -76,9 +76,9 @@ function Profile() {
 
   const [open, setOpen] = React.useState(true);
 
-  const [updateComboGoal, setUpdateComboGoal] = useState({goal: null, name: 'combo', metric_id: 1});
-  const [updateRecipeGoal, setUpdateRecipeGoal] = useState({goal: null, name: 'recipe', metric_id: 2});
-  const [updateIngredientGoal, setUpdateIngredientGoal] = useState({goal: null, name: 'ingredient', metric_id: 3});
+  const [updateComboGoal, setUpdateComboGoal] = useState({ goal: 0, name: 'combo', metric_id: 1 });
+  const [updateRecipeGoal, setUpdateRecipeGoal] = useState({ goal: 0, name: 'recipe', metric_id: 2 });
+  const [updateIngredientGoal, setUpdateIngredientGoal] = useState({ goal: 0, name: 'ingredient', metric_id: 3 });
 
   useEffect(() => {
     dispatch({ type: 'FETCH_COMBOS' })
@@ -93,74 +93,43 @@ function Profile() {
     dispatch({ type: 'FETCH_INGREDIENT_METRICS' })
   }, [])
 
-  // useEffect(() => {
-  //   if (userCombos.length >= comboGoal.goal) {
-  //     dispatch({ type: 'UPDATE_COMBO_GOAL', payload: comboGoal })
-  //   }
-  // }, [userCombos, comboGoal])
-
-  // useEffect(() => {
-  //   if (recipeSaved.length >= recipeGoal.goal) {
-  //     dispatch({ type: 'UPDATE_RECIPE_GOAL', payload: recipeGoal })
-  //   }
-  // }, [recipeSaved, recipeGoal])
-
-  // useEffect(() => {
-  //   if (ingredientUnique.length >= ingredientGoal.goal) {
-  //     dispatch({ type: 'UPDATE_INGREDIENT_GOAL', payload: ingredientGoal })
-  //   }
-  // }, [ingredientUnique, ingredientGoal])
-
   // handle Change with user set goals
-  const handleComboChange = (event,property) => {
-    setUpdateComboGoal({...updateComboGoal, [property]: event.target.value})
+  const handleComboChange = (event, property) => {
+    setUpdateComboGoal({ ...updateComboGoal, [property]: event.target.value })
   };
 
-  const handleRecipeChange = (event,property) => {
-    setUpdateRecipeGoal({...updateRecipeGoal, [property]: event.target.value})
+  const handleRecipeChange = (event, property) => {
+    setUpdateRecipeGoal({ ...updateRecipeGoal, [property]: event.target.value })
   };
 
-  const handleIngredientChange = (event,property) => {
-    setUpdateIngredientGoal({...updateIngredientGoal, [property]: event.target.value})
+  const handleIngredientChange = (event, property) => {
+    setUpdateIngredientGoal({ ...updateIngredientGoal, [property]: event.target.value })
   };
 
   //Set Goals on submit click
   const handleComboGoalClick = (event) => {
-    // event.preventDefault();
     dispatch({ type: 'UPDATE_COMBO_GOAL', payload: updateComboGoal })
-    console.log('comboGoal', comboGoal);
-    // alert('You Clicked on the Combo Goal Button!');
   }
 
   const handleRecipeGoalClick = (event) => {
-    // event.preventDefault();
     dispatch({ type: 'UPDATE_RECIPE_GOAL', payload: updateRecipeGoal })
-    // alert('You Clicked on the Recipe Goal Button!');
   }
 
   const handleIngredientGoalClick = (event) => {
-    // event.preventDefault();
     dispatch({ type: 'UPDATE_INGREDIENT_GOAL', payload: updateIngredientGoal })
-    // alert('You Clicked on the Ingredient Goal Button!');
   }
 
-  //Reset Buttons for Goals
+  //Update Buttons for Goals
   const resetComboGoal = (event) => {
-    // event.preventDefault();
-    dispatch({ type: 'RESET_COMBO_GOAL', payload: comboGoal })
-    // alert('You Clicked on the Reset Combo Goal Button!');
+    dispatch({ type: 'RESET_COMBO_GOAL', payload: updateComboGoal })
   }
 
   const resetRecipeGoal = (event) => {
-    // event.preventDefault();
-    dispatch({ type: 'RESET_RECIPE_GOAL', payload: recipeGoal })
-    // alert('You Clicked on the Reset Recipe Goal Button!');
+    dispatch({ type: 'RESET_RECIPE_GOAL', payload: updateRecipeGoal })
   }
 
   const resetIngredientGoal = (event) => {
-    // event.preventDefault();
-    dispatch({ type: 'RESET_INGREDIENT_GOAL', payload: ingredientGoal })
-    // alert('You Clicked on the Reset Ingredient Goal Button!');
+    dispatch({ type: 'RESET_INGREDIENT_GOAL', payload: updateIngredientGoal })
   }
 
   const Item = styled(Paper)(({ theme }) => ({
@@ -190,31 +159,30 @@ function Profile() {
             <Typography size={24}>Goal Progress</Typography>
             <Grid container spacing={2} alignItems="stretch">
 
-              {comboGoal.goal === null &&
+              {comboGoal.goal == 0 &&
                 <Grid item xs={4}>
                   <Alert severity="success">
-                    <AlertTitle>Set Your Combo Goal!</AlertTitle>
-                    {/* This is a success alert — <strong>check it out!</strong> */}
+                    <AlertTitle>Set Your Combo Goal! </AlertTitle>
+                    Progress Currently at {userCombos.length} — <strong>try it out!</strong>
                   </Alert>
                   <TextField
                     id="outlined-number"
                     label="Set Combo Goal"
                     type="number"
-                    value = {comboGoal.goal}
-                    onChange = {(event) => handleComboChange(event, 'goal')}
+                    onChange={(event) => handleComboChange(event, 'goal')}
                     InputLabelProps={{
                       shrink: true,
                     }}
                   />
-                  <Button variant="outlined" onClick= {handleComboGoalClick}>Set Combo Goal</Button>
+                  <Button variant="outlined" onClick={handleComboGoalClick}>Set Combo Goal</Button>
                 </Grid>
               }
 
               {comboGoal.goal > 0 &&
                 <Grid item xs={4}>
-                  <Typography>New Combos - Goal: {comboGoal.goal} <Button variant="outlined" onClick={() => resetComboGoal()}>Reset Combo Goal</Button> </Typography>
-                  <Item>Goal Progress: {userCombos.length}/{comboGoal.goal}</Item>
-                  {/* <Button variant="outlined" onClick={() => resetComboGoal()}>Reset Combo Goal</Button> */}
+                  <Typography>New Combos - Goal: {comboGoal.goal}  </Typography>
+                  <Item >Goal Progress: {userCombos.length}/{comboGoal.goal}</Item>
+                  <Button variant="outlined" onClick={() => resetComboGoal()}>Update Combo Goal</Button>
                   {(userCombos.length >= comboGoal.goal) &&
                     <Confetti width={width} height={height} recycle={!isComplete()} />
                   }
@@ -235,25 +203,24 @@ function Profile() {
                         }
                         sx={{ mb: 2 }}
                       >
-                        <AlertTitle>Congratulations!!!</AlertTitle>
-                        You hit your Combo Goal! <strong>Keep it Up!</strong>
+                        <AlertTitle>Congratulations!! You hit your Combo Goal! </AlertTitle>
+                        Update your Goal and <strong>Keep on Cooking!</strong>
                       </Alert>
                     </Collapse>
                   }
                 </Grid>}
 
-              {recipeGoal.goal == null &&
+              {recipeGoal.goal == 0 &&
                 <Grid item xs={4}>
                   <Alert severity="success">
                     <AlertTitle>Set Your Recipe Goal!</AlertTitle>
-                    {/* This is a success alert — <strong>check it out!</strong> */}
+                    Progress Currently at {recipeSaved.length} — <strong>try it out!</strong>
                   </Alert>
                   <TextField
                     id="outlined-number"
                     label="Set Recipe Goal"
                     type="number"
-                    value = {recipeGoal.goal}
-                    onChange = {(event) => handleRecipeChange(event, 'goal')}
+                    onChange={(event) => handleRecipeChange(event, 'goal')}
                     InputLabelProps={{
                       shrink: true,
                     }}
@@ -262,11 +229,11 @@ function Profile() {
                 </Grid>
               }
 
-
               {recipeGoal.goal > 0 &&
                 <Grid item xs={4}>
-                  <Typography>New Recipes - Goal: {recipeGoal.goal} <Button variant="outlined" onClick={() => resetRecipeGoal()}>Reset Recipe Goal</Button> </Typography>
+                  <Typography>New Recipes - Goal: {recipeGoal.goal}  </Typography>
                   <Item>Goal Progress: {recipeSaved.length}/{recipeGoal.goal}</Item>
+                  <Button variant="outlined" onClick={() => resetRecipeGoal()}>Update Recipe Goal</Button>
                   {(recipeSaved.length >= recipeGoal.goal) &&
                     <Confetti width={width} height={height} recycle={!isComplete()} />
                   }
@@ -287,24 +254,23 @@ function Profile() {
                         }
                         sx={{ mb: 2 }}
                       >
-                        <AlertTitle>Congratulations!!!</AlertTitle>
-                        You hit your Recipe Goal! <strong>Keep it Up!</strong>
+                        <AlertTitle>Congratulations!! You hit your Recipe Goal!</AlertTitle>
+                        Update your Goal and <strong>Keep on Cooking!</strong>
                       </Alert>
                     </Collapse>}
                 </Grid>}
 
-              {ingredientGoal.goal == null &&
+              {ingredientGoal.goal == 0 &&
                 <Grid item xs={4}>
                   <Alert severity="success">
                     <AlertTitle>Set Your Ingredient Goal!</AlertTitle>
-                    {/* This is a success alert — <strong>check it out!</strong> */}
+                    Progress Currently at {ingredientUnique.length} — <strong>try it out!</strong>
                   </Alert>
                   <TextField
                     id="outlined-number"
                     label="Set Ingredient Goal"
                     type="number"
-                    value = {ingredientGoal.goal}
-                    onChange = {(event) => handleIngredientChange(event, 'goal')}
+                    onChange={(event) => handleIngredientChange(event, 'goal')}
                     InputLabelProps={{
                       shrink: true,
                     }}
@@ -316,8 +282,9 @@ function Profile() {
 
               {ingredientGoal.goal > 0 &&
                 <Grid item xs={4}>
-                  <Typography>New Ingredients - Goal: {ingredientGoal.goal} <Button variant="outlined" onClick={() => resetIngredientGoal()}>Reset Ingredient Goal</Button> </Typography>
+                  <Typography>New Ingredients - Goal: {ingredientGoal.goal}  </Typography>
                   <Item>Goal Progress: {ingredientUnique.length}/{ingredientGoal.goal}</Item>
+                  <Button variant="outlined" onClick={() => resetIngredientGoal()}>Update Ingredient Goal</Button>
                   {(ingredientUnique.length >= ingredientGoal.goal) &&
                     <Confetti width={width} height={height} recycle={!isComplete()} />
                   }
@@ -338,8 +305,8 @@ function Profile() {
                         }
                         sx={{ mb: 2 }}
                       >
-                        <AlertTitle>Congratulations!!!</AlertTitle>
-                        You hit your Ingredient Goal! <strong>Keep it Up!</strong>
+                        <AlertTitle>Congratulations!! You hit your Ingredient Goal!</AlertTitle>
+                        Update your Goal and <strong>Keep on Cooking!</strong>
                       </Alert>
                     </Collapse>}
                 </Grid>}

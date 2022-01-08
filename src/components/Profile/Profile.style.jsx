@@ -42,6 +42,7 @@ export const sxTopLeftSection = {
     alignItems: 'center',
     width: '25%',
     height: 300,
+    padding: '1rem',
   }
 
 export const sxTopRightSection = {
@@ -52,6 +53,8 @@ export const sxTopRightSection = {
     alignItems: 'center',
     width: '75%',
     height: 300,
+    padding: '1rem',
+   
   }
 
 export const sxMiddleSection = {
@@ -66,7 +69,7 @@ export const sxMiddleSection = {
 
 export const sxPhotoBox = {
     // border: '1px solid lightgray',
-    width: 120,
+    width: 220,
     height: 220,
     boxShadow: 3,
     mb: .25,
