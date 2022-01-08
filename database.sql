@@ -43,14 +43,16 @@ CREATE TABLE "combos" (
 	"id" serial NOT NULL PRIMARY KEY,
 	"user_id" int REFERENCES "user",
 	"ingredient_list" int[] NOT NULL,
-	"name" varchar(255));
+	"name" varchar(255)),
+	"date_created" DATE;
 
 CREATE TABLE "recipes" (
 	"id" serial NOT NULL PRIMARY KEY,
 	"combo_id" int REFERENCES "combos",
     "user_id" int REFERENCES "user",
-	"made_on" TIMESTAMP,
-	"edamam_id" varchar(255) NOT NULL);
+	"made_on" DATE,
+	"url" varchar(255) NOT NULL),
+	"label" VARCHAR(255);
 
 CREATE TABLE "metrics" (
 	"id" serial NOT NULL PRIMARY KEY,
