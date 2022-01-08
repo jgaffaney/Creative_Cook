@@ -18,6 +18,7 @@ import unpaired from './unpaired.reducer';
 import top5 from './top5.reducer';
 import comboPairingOne from './ingredient1pair.reducer';
 import comboPairingTwo from './ingredient2pair.reducer';
+import healthFilter from './health.filter.reducer'
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -32,7 +33,6 @@ const rootReducer = combineReducers({
   recipes,    // holds the response of recipes from API (edamam)
   combo,      // holds the selected ingredients while creating a flavor combo (3 ingredients)
   userCombos, // Holds the logged in user's combos
-  // comboSelect, // holds the selected ingredients while creating a flavor combo (3 ingredients)
   comboGoal,
   pairings, // holds all the pairings available in the database-admin edit only
   ingredientSearch, // holds search text for <IngredientAutocomplete> 
@@ -44,6 +44,7 @@ const rootReducer = combineReducers({
   top5, // holds the top five most used ingredients by all users
   comboPairingOne, // holds pairings for first ingredient selected when creating a combo
   comboPairingTwo, // holds pairings for second ingredient selected when creating a combo
+  healthFilter, // holds the health filter for recipes search
 });
 
 export default rootReducer;

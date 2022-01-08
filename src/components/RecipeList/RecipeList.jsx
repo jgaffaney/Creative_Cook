@@ -11,7 +11,11 @@ import {
     CardHeader,
     Avatar,
     IconButton,
-    Paper
+    Paper,
+    Select,
+    MenuItem,
+    InputLabel,
+    FormControl,
 } from '@mui/material';
 import { red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -20,7 +24,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Collapse from '@mui/material/Collapse';
 import { styled } from '@mui/material/styles';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
 const sxRecipeContainer = {
@@ -68,70 +72,138 @@ const sxCardTitle = {
     height: 'auto',
 }
 
+const sxMenuItem = {
+    display: 'flex',
+    justifyContent: 'center'
+}
+
+const sxSelectLabel = {
+    mx: 'auto'
+}
+
+const sxHealthFilter = {
+    display: 'flex',
+    flexDirection: 'row',
+    // border: '1px solid red',
+    justifyContent: 'center',
+    width: '50%',
+    mx: 'auto',
+    mt: 1,
+    mb: 3,
+    pl: 2,
+    pr: 1,
+}
+
+
 
 function RecipeList() {
+
     const recipes = useSelector(store => store.recipes)
     const dispatch = useDispatch();
     const combo = useSelector(store => store.combo)
+    const healthFilter = useSelector(store => store.healthFilter)
 
     return (
         <>
-            {/* <h1>RECIPE LIST</h1> */}
-                <Box sx={sxRecipeContainer}>
-                    {
-                        recipes?.map(recipe => (
-                            <>
-                                <Card elevation={3}
+            {combo.length === 3 &&
+                <>
+                    <Box sx={sxHealthFilter}>
+                        <FormControl sx={{ display: 'flex', mx: 'auto', width: 150 }}>
+                            <InputLabel sx={sxSelectLabel}>Health Filters</InputLabel>
+                            <Select
+                                color="primary"
+                                size="small"
+                                label="Health filters"
+                                value={healthFilter}
+                                onChange={(event) => dispatch({
+                                    type: 'FETCH_RECIPES', payload:
+                                    {
+                                        combo: combo,
+                                        filter: event.target.value
+                                    }
+                                })}
+                                labelId="label" id="healthFilters" value={healthFilter}>
+                                <MenuItem
+                                    sx={sxMenuItem}
+                                    value="dairy-free">Dairy Free</MenuItem>
+                                <MenuItem
+                                    sx={sxMenuItem}
+                                    value="gluten-free">Gluten Free</MenuItem>
+                                <MenuItem
+                                    sx={sxMenuItem}
+                                    value="peanut-free">Peanut Free</MenuItem>
+                                <MenuItem
+                                    sx={sxMenuItem}
+                                    value="pescatarian">Pescatarian</MenuItem>
+                                <MenuItem
+                                    sx={sxMenuItem}
+                                    value="vegetarian">Vegetarian</MenuItem>
+                                <MenuItem
+                                    sx={sxMenuItem}
+                                    value="vegan">Vegan</MenuItem>
+                                <MenuItem
+                                    sx={sxMenuItem}
+                                    value="">None</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Box>
+                </>
+            }
+            <Box sx={sxRecipeContainer}>
+                {
+                    recipes?.map(recipe => (
+                        <>
+                            <Card elevation={3}
                                 sx={sxRecipeCard}>
-                                    <CardMedia
-                                        sx={sxRecipeImage}
-                                        component="img"
-                                        height="140"
-                                        image={recipe.recipe.image}
-                                        alt={recipe.recipe.label}
-                                    />
-                                    <CardActions sx={sxCardActions}>
-                                        <Button
-                                            onClick={() => window.open(`_${recipe.recipe.url}`.split(`_`)[1], `_blank`)}
-                                            size="small">Start Recipe</Button>
-                                        <Button
-                                            onClick={() => dispatch({
-                                                type: 'SAVE_USER_RECIPE',
-                                                payload: {
-                                                    recipe: recipe.recipe,
-                                                    combo: combo
-                                                }
-                                            })}
-                                            size="small">Save Recipe</Button>
-                                    </CardActions>
-                                    <CardContent sx={sxCardContent}>
+                                <CardMedia
+                                    sx={sxRecipeImage}
+                                    component="img"
+                                    height="140"
+                                    image={recipe.recipe.image}
+                                    alt={recipe.recipe.label}
+                                />
+                                <CardActions sx={sxCardActions}>
+                                    <Button
+                                        onClick={() => window.open(`_${recipe.recipe.url}`.split(`_`)[1], `_blank`)}
+                                        size="small">Start Recipe</Button>
+                                    <Button
+                                        onClick={() => dispatch({
+                                            type: 'SAVE_USER_RECIPE',
+                                            payload: {
+                                                recipe: recipe.recipe,
+                                                combo: combo
+                                            }
+                                        })}
+                                        size="small">Save Recipe</Button>
+                                </CardActions>
+                                <CardContent sx={sxCardContent}>
+                                    <Typography
+                                        sx={sxCardTitle}
+                                        mt={-3}
+                                        gutterBottom variant="h5" component="div">
+                                        {recipe.recipe.label}
+                                    </Typography>
+                                    <Box sx={sxBox}>
                                         <Typography
-                                            sx={sxCardTitle}
-                                            mt={-3}
-                                            gutterBottom variant="h5" component="div">
-                                            {recipe.recipe.label}
+                                            mt={0}
+                                            variant="body2" color="text.secondary">
+                                            <>
+                                                {
+                                                    <ul>
+                                                        {recipe.recipe.ingredientLines.map(ingredient => (
+                                                            <li>{ingredient}</li>
+                                                        ))}
+                                                    </ul>
+                                                }
+                                            </>
                                         </Typography>
-                                        <Box sx={sxBox}>
-                                            <Typography
-                                                mt={0}
-                                                variant="body2" color="text.secondary">
-                                                <>
-                                                    {
-                                                        <ul>
-                                                            {recipe.recipe.ingredientLines.map(ingredient => (
-                                                                <li>{ingredient}</li>
-                                                            ))}
-                                                        </ul>
-                                                    }
-                                                </>
-                                            </Typography>
-                                        </Box>
-                                    </CardContent>
-                                </Card>
-                            </>
-                        ))
-                        }
-                </Box>
+                                    </Box>
+                                </CardContent>
+                            </Card>
+                        </>
+                    ))
+                }
+            </Box>
         </>
     )
 

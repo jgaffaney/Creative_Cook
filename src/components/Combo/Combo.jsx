@@ -41,7 +41,12 @@ function Combo() {
         dispatch({ type: 'FETCH_INGREDIENT_TWO_PAIRINGS', payload: combo[1].id });
         break;
       case 3:
-        dispatch({ type: 'FETCH_RECIPES', payload: combo });
+        dispatch({
+          type: 'FETCH_RECIPES', payload: {
+            combo: combo,
+            filter: healthFilter
+          }
+        });
         break;
     }
   }, [combo])
@@ -105,6 +110,7 @@ function Combo() {
   const pairings = useSelector(store => store.pairings)
   const pairingOne = useSelector(store => store.comboPairingOne)
   const pairingTwo = useSelector(store => store.comboPairingTwo)
+  const healthFilter = useSelector(store => store.healthFilter)
 
 
   const handleSearch = (searchText) => {
@@ -132,7 +138,13 @@ function Combo() {
         dispatch({ type: 'FETCH_INGREDIENT_TWO_PAIRINGS', payload: combo[1].id });
         break;
       case 3:
-        dispatch({ type: 'FETCH_RECIPES', payload: combo });
+        dispatch({
+          type: 'FETCH_RECIPES', payload:
+          {
+            combo: combo,
+            filter: healthFilter
+          }
+        });
         break;
     }
   }, [combo])
@@ -182,36 +194,39 @@ function Combo() {
       <ComboTool />
 
       {/* super combo ingredients list */}
-      <Typography sx={sxIngredientContainer}> SUPER COMBO LANGUAGE HERE?? </Typography>
+
       {superCombo.length > 0 && combo.length < 3 &&
-        <Box sx={sxIngredientContainer}>
-          {superCombo.map(ingredient => (
-            <Tooltip sx={sxTooltip}
-              title={
-                <>
+        <>
+          <Typography sx={sxIngredientContainer}>Super Combos</Typography>
+          <Box sx={sxIngredientContainer}>
+            {superCombo.map(ingredient => (
+              <Tooltip sx={sxTooltip}
+                title={
+                  <>
+                    <Typography
+                      variant="body1">{ingredient.description}</Typography>
+                  </>
+                }
+              >
+                <Card elevation={3}
+                  onClick={() => dispatch({ type: 'SET_COMBO_INGREDIENT', payload: ingredient })}
+                  sx={sxSuperComboCardContent}>
+                  <CardMedia
+                    sx={sxPhotoBox}
+                    component="img"
+                    image={ingredient.pic}
+                    alt={ingredient.name}
+                  />
                   <Typography
-                    variant="body1">{ingredient.description}</Typography>
-                </>
-              }
-            >
-              <Card elevation={3}
-                onClick={() => dispatch({ type: 'SET_COMBO_INGREDIENT', payload: ingredient })}
-                sx={sxSuperComboCardContent}>
-                <CardMedia
-                  sx={sxPhotoBox}
-                  component="img"
-                  image={ingredient.pic}
-                  alt={ingredient.name}
-                />
-                <Typography
-                  sx={sxCardTypography}
-                  gutterBottom variant="body1" component="div">
-                  {ingredient.name}
-                </Typography>
-              </Card>
-            </Tooltip>
-          ))}
-        </Box>
+                    sx={sxCardTypography}
+                    gutterBottom variant="body1" component="div">
+                    {ingredient.name}
+                  </Typography>
+                </Card>
+              </Tooltip>
+            ))}
+          </Box>
+        </>
       }
 
       {/* combined ingredient listing with no duplicates */}

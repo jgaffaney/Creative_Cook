@@ -10,12 +10,17 @@ router.get('/', (req, res) => {
   // GET route code here
   // destructuring the params into the first, second, and 3rd ingredients
   console.log('req.query:', req.query);
-  const { first, second, third } = req.query;
+  const { first, second, third, health } = req.query;
   // creating a string using 3 ingredients for get request
   let searchString = `${first}, ${second}, ${third}`;
+  let healthFilter = '';
+  // if a health filter is received by server, add string to URL
+  if(health != ''){
+    healthFilter = `&health=${health}`
+  }
   console.log('searchString is', searchString);
 
-  axios.get(`https://api.edamam.com/api/recipes/v2?app_key=${process.env.APP_KEY}&app_id=${process.env.APP_ID}&type=public&q=${searchString}`)
+  axios.get(`https://api.edamam.com/api/recipes/v2?app_key=${process.env.APP_KEY}&app_id=${process.env.APP_ID}&type=public&q=${searchString}${healthFilter}`)
     .then(response => {
       console.log('response is', response);
       res.send(response.data);

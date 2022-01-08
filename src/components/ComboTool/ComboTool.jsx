@@ -16,11 +16,9 @@ import {
 
 function ComboTool() {
 
-    const user = useSelector((store) => store.user);
     const dispatch = useDispatch();
     const combo = useSelector(store => store.combo);
-    const userCombos = useSelector((store) => store.userCombos);
-    const comboGoal = useSelector((store) => store.comboGoal);
+    const healthFilter = useSelector(store => store.healthFilter)
 
 
     // clear/save button container
@@ -69,7 +67,7 @@ function ComboTool() {
         // mx: 'auto',
     };
 
-      
+
 
     return (
         <>
@@ -115,7 +113,12 @@ function ComboTool() {
                             <Button
                                 variant="outlined"
                                 sx={sxButton}
-                                onClick={() => dispatch({ type: 'FETCH_RECIPES', payload: combo })}>GET RECIPES</Button>
+                                onClick={() => dispatch({
+                                    type: 'FETCH_RECIPES', payload: {
+                                        combo: combo,
+                                        filter: healthFilter
+                                    }
+                                })}>GET RECIPES</Button>
                         </Box>
                         <Box>
                             <Button
