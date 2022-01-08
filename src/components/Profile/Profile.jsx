@@ -90,9 +90,6 @@ function Profile() {
     dispatch({ type: 'FETCH_INGREDIENT_METRICS' })
   }, [])
 
-  // useEffect(() => {
-  //   dispatch({ type: 'FETCH_RECIPE_METRICS' })
-  // }, [recipeMetrics])
 
   useEffect(() => {
     if (userCombos.length >= comboGoal.goal) {
@@ -172,21 +169,21 @@ function Profile() {
             <Typography size={18}>Metrics</Typography>
             <Grid container spacing={2}>
               <Grid item xs={4}>
-                <Item>Combos Made This Week: {weeklyCombos.length}</Item>
-                <Item>Combos Made This Month: {monthlyCombos.length}</Item>
-                <Item>Combos Made This Year: {yearlyCombos.length}</Item>
+                <Item>Combos Made in the Past Seven Days: {weeklyCombos.length}</Item>
+                <Item>Combos Made in the Past 30 Days: {monthlyCombos.length}</Item>
+                <Item>Combos Made in the Past 365 Days: {yearlyCombos.length}</Item>
               </Grid>
               <Grid item xs={4}>
                 {recipeMetrics[0] && <>
-                <Item>Recipes Cooked This Week: {recipeMetrics[0].weekly}</Item>
-                <Item>Recipes Cooked This Month: {recipeMetrics[0].monthly}</Item>
-                <Item>Recipes Cooked This Year: {recipeMetrics[0].yearly}</Item></>}
+                <Item>Recipes Cooked in the Past Seven Days: {recipeMetrics[0].weekly}</Item>
+                <Item>Recipes Cooked in the Past 30 Days: {recipeMetrics[0].monthly}</Item>
+                <Item>Recipes Cooked in the Past 365 Days: {recipeMetrics[0].yearly}</Item></>}
               </Grid>
               <Grid item xs={4}>
               {ingredientMetrics[0] && <>
-                <Item>Unique Ingredients Used This Week: {ingredientMetrics[0].weekly}</Item>
-                <Item>Unique Ingredients Used This Month: {ingredientMetrics[0].monthly}</Item>
-                <Item>Unique Ingredients Used This Year: {ingredientMetrics[0].yearly}</Item></>}
+                <Item>Unique Ingredients Used in the Past Seven Days: {ingredientMetrics[0].weekly}</Item>
+                <Item>Unique Ingredients Used in the Past 30 Days: {ingredientMetrics[0].monthly}</Item>
+                <Item>Unique Ingredients Used in the Past 365 Days: {ingredientMetrics[0].yearly}</Item></>}
               </Grid>
             </Grid>
           </Box>
@@ -194,14 +191,6 @@ function Profile() {
           <Box sx={sxBottomSection}>
             <Typography size={18}>Saved Flavor Combos</Typography>
             <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-              {/* <Typography>Saved Flavor Combos</Typography> */}
-              {/* <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-              {Array.from(Array(12)).map((_, index) => (
-                <Grid item xs={2} sm={4} md={4} key={index}>
-                  <Item>Saved Flavor Combos</Item>
-                </Grid>
-              ))}
-            </Grid> */}
             </Grid>
             <Box sx={sxRecipeContainer}>
               {userCombos.length > 0 &&
