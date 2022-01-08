@@ -169,7 +169,19 @@ function Home() {
                     </Box>
 
                     {/* GOALS progress */}
-                    <Box sx={sxClickableDiv} onClick={() => handleClick('profile')} >
+                    <Box onClick={() => handleClick('profile')} sx={sxClickableDiv}>
+                        <Typography variant="h6" sx={sxCenterText}>Goal Progress</Typography>
+                        <Typography sx={sxCenterText}>Combo Goals:{userCombos.length}/{comboGoal.goal}</Typography>
+                        <Typography sx={sxCenterText}>Recipe Goals:{recipeSaved.length}/{recipeGoal.goal}</Typography>
+                        <Typography sx={sxCenterText}>Ingredient Goals:{ingredientUnique.length}/{ingredientGoal.goal}</Typography>
+                    </Box>
+
+                    </Box>
+                    {/* {userGoals?.map((goal, j) => (
+                        <Typography key={j} variant="body1" sx={sxCenterText}>hello</Typography>
+                    ))}
+                    {userGoals}
+                    <Box onClick={() => handleClick('profile')} sx={sxClickableDiv}>
                         <Typography variant="h6" sx={sxCenterText}>Goal Progress</Typography>
                         <Typography variant="body1" sx={sxCenterText}>Combo Goals:{userCombos.length}/{comboGoal.goal}</Typography>
                         <Typography variant="body1" sx={sxCenterText}>Recipe Goals:{recipeSaved.length}/{recipeGoal.goal}</Typography>
@@ -257,6 +269,7 @@ function Home() {
 
             </Box>
         </Box >
+           
     );
 };
 

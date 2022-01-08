@@ -13,6 +13,10 @@ import ingredientUniqueSaga from './ingredientUnique.saga';
 import recipeGoalSaga from './recipeGoal.saga';
 import recipeSavedSaga from './recipeSaved.saga';
 import top5Saga from './top5.saga';
+import comboMetricsSaga from './combo_metrics.saga';
+import userRecipesSaga from './userRecipe.saga';
+import recipeMetricsSaga from './recipe_metrics.saga';
+import ingredientMetricsSaga from './ingredient_metrics.saga';
 import comboPairingSaga from './combo.pairing.saga';
 
 // rootSaga is the primary saga.
@@ -38,6 +42,10 @@ export default function* rootSaga() {
     recipeGoalSaga(),
     recipeSavedSaga(),
     top5Saga(),
+    comboMetricsSaga(),
+    userRecipesSaga(),
+    recipeMetricsSaga(),
+    ingredientMetricsSaga(),
     comboPairingSaga(),
   ]);
 }
