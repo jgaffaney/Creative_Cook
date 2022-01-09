@@ -23,7 +23,22 @@ import CardMedia from '@mui/material/CardMedia';
 
 
 // -- sx Styles -- //
+
 import { sxSearchContainer } from '../Home/Home.style'
+
+import {
+  sxFeaturedCombo,
+  sxMetrics,
+  sxFlavorCombos,
+  sxIngredientContainer,
+  sxPhotoBox,
+  sxCardContent,
+  sxSuperComboCardContent,
+  sxCardTypography,
+  sxTooltip,
+} from './Feed.style';
+
+
 
 function Feed() {
   const user = useSelector((store) => store.user);
@@ -130,34 +145,7 @@ function Feed() {
     setOpen(false);
   };
 
-  const sxFeaturedCombo = {
-    display: 'flex',
-    flexDirection: 'column',
-    mx: 'auto',
-    width: '90%',
-  }
 
-  const sxMetrics = {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '90%',
-    mx: 'auto',
-    height: 'auto',
-  }
-
-  const sxFlavorCombos = {
-    border: '1px solid black',
-    // display: 'flex',
-    // flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: 200,
-    overflow: 'auto',
-    mb: 2
-  }
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -168,60 +156,6 @@ function Feed() {
 
   console.log('Challenge', newChallenge);
   console.log(topFiveIngredients);
-
-  const sxIngredientContainer = {
-    display: 'flex',
-    flexWrap: 'wrap',
-    flexDirection: 'row',
-    // border: '1px solid red',
-    gap: 2,
-    justifyContent: 'center',
-    mb: 2,
-  }
-
-  const sxPhotoBox = {
-    // border: '1px solid red',
-    width: 35,
-    height: 35,
-    boxShadow: 3,
-    my: 2,
-    ml: 1,
-    borderRadius: '50%',
-    // mx: 'auto',
-  };
-
-  const sxCardContent = {
-    // border: '1px solid red',
-    display: 'flex',
-    justifyContent: 'left',
-    // gap: 2,
-    alignItems: 'center',
-    width: 250,
-    height: 50,
-    borderRadius: 5,
-  }
-
-  const sxSuperComboCardContent = {
-    border: '5px solid #00d61d',
-    display: 'flex',
-    justifyContent: 'left',
-    // gap: 2,
-    alignItems: 'center',
-    width: 250,
-    height: 50,
-    borderRadius: 5,
-  }
-
-  const sxCardTypography = {
-    display: 'flex',
-    justifyContent: 'center',
-    width: '100%',
-  }
-
-  const sxTooltip = {
-    borderRadius: 5,
-  }
-
 
 
 
@@ -255,19 +189,19 @@ function Feed() {
         <Box sx={sxMetrics}>
           <Grid container spacing={2}>
             <Grid item xs={4}>
-              <Item>Top 5 Ingredients Used:
-                <Typography sx={{ fontSize: 12 }}>{topFiveIngredients[0]?.name} ({top5[0]?.times_used})</Typography>
-                <Typography sx={{ fontSize: 12 }}>{topFiveIngredients[1]?.name} ({top5[1]?.times_used})</Typography>
-                <Typography sx={{ fontSize: 12 }}>{topFiveIngredients[2]?.name} ({top5[2]?.times_used})</Typography>
-                <Typography sx={{ fontSize: 12 }}>{topFiveIngredients[3]?.name} ({top5[3]?.times_used})</Typography>
-                <Typography sx={{ fontSize: 12 }}>{topFiveIngredients[4]?.name} ({top5[4]?.times_used})</Typography>
+              <Item sx={{height: 150}}><Typography variant='h6'>Top 5 Ingredients Used:</Typography>
+                <Typography variant='body1'>{topFiveIngredients[0]?.name} ({top5[0]?.times_used})</Typography>
+                <Typography variant='body1'>{topFiveIngredients[1]?.name} ({top5[1]?.times_used})</Typography>
+                <Typography variant='body1'>{topFiveIngredients[2]?.name} ({top5[2]?.times_used})</Typography>
+                <Typography variant='body1'>{topFiveIngredients[3]?.name} ({top5[3]?.times_used})</Typography>
+                <Typography variant='body1'>{topFiveIngredients[4]?.name} ({top5[4]?.times_used})</Typography>
               </Item>
             </Grid>
             <Grid item xs={4}>
-              <Item>% of Used Ingredients by Type</Item>
+              <Item sx={{height: 150}}><Typography variant='h6'>% of Used Ingredients by Type</Typography></Item>
             </Grid>
             <Grid item xs={4}>
-              <Item>% of Users by Family Size</Item>
+              <Item sx={{height: 150}}><Typography variant='h6'>% of Users by Family Size</Typography></Item>
             </Grid>
           </Grid>
         </Box>
@@ -377,7 +311,7 @@ function Feed() {
 
 
 
-        <Typography sx={{ textAlign: "center" }}>Saved Flavor Combos</Typography>
+        <Typography variant='h4' sx={{ textAlign: "center", mt: 2, }}>Saved Flavor Combos</Typography>
         <Box sx={sxFlavorCombos}>
           <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
             {userCombos.map((combo) => {

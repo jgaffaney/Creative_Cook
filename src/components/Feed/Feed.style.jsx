@@ -1,0 +1,87 @@
+
+
+
+export const sxFeaturedCombo = {
+    display: 'flex',
+    flexDirection: 'column',
+    mx: 'auto',
+    width: '90%',
+}
+
+export const sxMetrics = {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '90%',
+    mx: 'auto',
+    height: 'auto',
+}
+
+export const sxFlavorCombos = {
+    border: '1px solid black',
+    // display: 'flex',
+    // flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: 200,
+    overflow: 'auto',
+    mb: 2
+}
+
+
+
+
+export const sxIngredientContainer = {
+    display: 'flex',
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    // border: '1px solid red',
+    gap: 2,
+    justifyContent: 'center',
+    mb: 2,
+}
+
+export const sxPhotoBox = {
+    // border: '1px solid red',
+    width: 35,
+    height: 35,
+    boxShadow: 3,
+    my: 2,
+    ml: 1,
+    borderRadius: '50%',
+    // mx: 'auto',
+};
+
+export const sxCardContent = {
+    // border: '1px solid red',
+    display: 'flex',
+    justifyContent: 'left',
+    // gap: 2,
+    alignItems: 'center',
+    width: 250,
+    height: 50,
+    borderRadius: 5,
+}
+
+export const sxSuperComboCardContent = {
+    border: '5px solid #00d61d',
+    display: 'flex',
+    justifyContent: 'left',
+    // gap: 2,
+    alignItems: 'center',
+    width: 250,
+    height: 50,
+    borderRadius: 5,
+}
+
+export const sxCardTypography = {
+    display: 'flex',
+    justifyContent: 'center',
+    width: '100%',
+}
+
+export const sxTooltip = {
+    borderRadius: 5,
+}
