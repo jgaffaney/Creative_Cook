@@ -24,7 +24,8 @@ import {
   CardHeader,
   Avatar,
   IconButton,
-  Paper
+  Paper,
+  Tooltip,
 } from '@mui/material';
 
 import Collapse from '@mui/material/Collapse';
@@ -377,7 +378,8 @@ function Profile() {
             </Grid>
           </Box>
           <Box sx={sxBottomSection}>
-            <Typography sx={{ textAlign: "center", pb: 4 }}>Saved Flavor Combos</Typography>
+            <Typography variant="h4" sx={{ textAlign: "center" }}>Saved Flavor Combos</Typography>
+            <Typography variant="body2" sx={{ textAlign: "center", pb: 4 }}>(Click on a recipe to view it, or click {<CheckIcon />} to mark a recipe as cooked)</Typography>
             <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
             </Grid>
             <Box sx={sxRecipeContainer}>
@@ -434,23 +436,24 @@ function Profile() {
                               <>
                                 {
                                   <List>
-                                    {recipeChecker.length > 0 && uncookedChecker.length > 0 && <Typography sx={{fontWeight: 'bold'}}>Uncooked Recipes</Typography>}
+                                    {recipeChecker.length > 0 && uncookedChecker.length > 0 && <Typography sx={{ fontWeight: 'bold' }}>Uncooked Recipes</Typography>}
                                     {userRecipes.map((recipe, i) => {
                                       return (
                                         <>{i === userRecipes.length - 1 && recipeChecker.length === 0 &&
                                           <Typography
                                             sx={{ mt: 1.7 }}
                                             onClick={() => handleClick('combo', ingredientOne, ingredientTwo, ingredientThree)}
-                                            >No recipes saved, click here to search recipes for this combo
-                                            </Typography>}
+                                          >No recipes saved, click here to search recipes for this combo
+                                          </Typography>}
                                           {recipe.combo_id === combo.id && recipe.is_cooked === false &&
                                             <><ListItem
                                               sx={sxRecipeUrl}
                                               key={recipe.id}
                                               size="small"
-                                            ><span
-                                              onClick={() => window.open(`_${recipe.url}`.split(`_`)[1], `_blank`)}
-                                            >{recipe.label}</span>
+                                            >
+                                              <span
+                                                onClick={() => window.open(`_${recipe.url}`.split(`_`)[1], `_blank`)}
+                                              >{recipe.label}</span>
                                               <Button
                                                 size='small'
                                                 sx={sxRecipeButton}
@@ -462,7 +465,7 @@ function Profile() {
                                       )
                                     })
                                     }
-                                    {recipeChecker.length > 0 && cookedChecker.length > 0 && <Typography sx={{fontWeight: 'bold'}}>Cooked Recipes</Typography>}
+                                    {recipeChecker.length > 0 && cookedChecker.length > 0 && <Typography sx={{ fontWeight: 'bold' }}>Cooked Recipes</Typography>}
                                     {userRecipes.map(recipe => (
                                       <>{recipe.combo_id === combo.id && recipe.is_cooked === true &&
                                         <><ListItem
