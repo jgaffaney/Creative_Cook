@@ -50,6 +50,8 @@ import {
   sxBox,
   sxCardActions,
   sxPhotoIngredientContainer,
+  sxRecipeUrl,
+  sxRecipeButton,
 } from './Profile.style';
 
 import {
@@ -72,7 +74,6 @@ function Profile() {
   const recipeGoal = useSelector((store) => store.recipeGoal);
   const recipeSaved = useSelector((store) => store.recipeSaved);
   const goal = useSelector((store) => store.goal);
-  console.log('--- profile page goal', goal);
   const comboMetrics = useSelector((store) => store.comboMetrics);
   const recipeMetrics = useSelector((store) => store.recipeMetrics);
   const ingredientMetrics = useSelector((store) => store.ingredientMetrics);
@@ -149,35 +150,35 @@ function Profile() {
     color: theme.palette.text.secondary,
   }));
 
-   // pageDirection clicks to take to you to the right page.
-   function handleClick(action, ingredientOne, ingredientTwo, ingredientThree) {
+  // pageDirection clicks to take to you to the right page.
+  function handleClick(action, ingredientOne, ingredientTwo, ingredientThree) {
 
     switch (action) {
-        case 'combo':
-            console.log('CLICKED on the featured combo');
-            console.log('--- the three ingredients to send to dispatch', ingredientOne, ingredientTwo, ingredientThree);
+      case 'combo':
+        console.log('CLICKED on the featured combo');
+        console.log('--- the three ingredients to send to dispatch', ingredientOne, ingredientTwo, ingredientThree);
 
-            const comboArray = [ ingredientOne[0], ingredientTwo[0], ingredientThree[0] ]
-            console.log('--- custom comboArray for searching recipes', comboArray);
+        const comboArray = [ingredientOne[0], ingredientTwo[0], ingredientThree[0]]
+        console.log('--- custom comboArray for searching recipes', comboArray);
 
-            // first make sure the reducer is empty and ready to receive the combo we click on;
-            dispatch({ type: 'CLEAR_COMBO_AND_RECIPE' })
+        // first make sure the reducer is empty and ready to receive the combo we click on;
+        dispatch({ type: 'CLEAR_COMBO_AND_RECIPE' })
 
-            dispatch({ type: 'SET_COMBO_INGREDIENT', payload: ingredientOne[0] })
-            dispatch({ type: 'SET_COMBO_INGREDIENT', payload: ingredientTwo[0] })
-            // only dispatch the 3rd ingredient if there's 3 ingredients in the combo; 
-            { ingredientThree && dispatch({ type: 'SET_COMBO_INGREDIENT', payload: ingredientThree[0] }) }
-            
-            // dispatch({ type: 'FETCH_RECIPES', payload: combo })
-            // console.log('--- selectCombo', comboArray);
+        dispatch({ type: 'SET_COMBO_INGREDIENT', payload: ingredientOne[0] })
+        dispatch({ type: 'SET_COMBO_INGREDIENT', payload: ingredientTwo[0] })
+        // only dispatch the 3rd ingredient if there's 3 ingredients in the combo; 
+        { ingredientThree && dispatch({ type: 'SET_COMBO_INGREDIENT', payload: ingredientThree[0] }) }
 
-            history.push('/combo')
-            break;
+        // dispatch({ type: 'FETCH_RECIPES', payload: combo })
+        // console.log('--- selectCombo', comboArray);
 
-        default:
-            break;
+        history.push('/combo')
+        break;
+
+      default:
+        break;
     }
-}; // handleClick
+  }; // handleClick
 
 
   return (
@@ -373,9 +374,8 @@ function Profile() {
               </Grid>
             </Grid>
           </Box>
-          <Typography sx={{ textAlign: "center" }}>Saved Flavor Combos</Typography>
           <Box sx={sxBottomSection}>
-            <Typography size={18}>Saved Flavor Combos</Typography>
+            <Typography sx={{ textAlign: "center", pb: 4 }}>Saved Flavor Combos</Typography>
             <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
             </Grid>
             <Box sx={sxRecipeContainer}>
@@ -427,22 +427,33 @@ function Profile() {
                               variant="body2" color="text.secondary">
                               <>
                                 {
-                                  <ul>
+                                  <List>
                                     {userRecipes.map(recipe => (
-                                      <> <Typography
-                                        key={recipe.id}
-                                        onClick={() => window.open(`_${recipe.url}`.split(`_`)[1], `_blank`)}
-                                        size="small"
-                                      >{recipe.combo_id === combo.id && recipe.label}</Typography>
-                                        {recipe.combo_id === combo.id && recipe.is_cooked === false &&
+                                      <>{recipe.combo_id === combo.id && recipe.is_cooked === false &&
+                                        <><ListItem
+                                          sx={sxRecipeUrl}
+                                          key={recipe.id}
+                                          onClick={() => window.open(`_${recipe.url}`.split(`_`)[1], `_blank`)}
+                                          size="small"
+                                        >{recipe.label}</ListItem>
                                           <Button
+                                            sx={sxRecipeButton}
                                             onClick={() => dispatch({
                                               type: 'UPDATE_RECIPE',
                                               payload: { recipe }
                                             })}
-                                          >Cooked</Button>}</>
+                                          >Cooked</Button></>}</>
                                     ))}
-                                  </ul>
+                                    {userRecipes.map(recipe => (
+                                      <>{recipe.combo_id === combo.id && recipe.is_cooked === true &&
+                                        <><ListItem
+                                          sx={sxRecipeUrl}
+                                          key={recipe.id}
+                                          onClick={() => window.open(`_${recipe.url}`.split(`_`)[1], `_blank`)}
+                                          size="small"
+                                        >{recipe.label}</ListItem></>}</>
+                                    ))}
+                                  </List>
                                 }
                               </>
                             </Typography>

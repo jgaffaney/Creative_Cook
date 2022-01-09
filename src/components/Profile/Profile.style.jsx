@@ -1,6 +1,8 @@
 
 // --- PROFILE PAGE STYLES --- // 
 
+import { Translate } from "@mui/icons-material"
+
   //box stylings
   export const sxProfilePageContainer = {
     // border: '1px solid red',
@@ -113,7 +115,7 @@ export const sxGoals = {
 }
 
 export const sxRecipeCard = {
-  width: 345,
+  width: 400,
   height: 300,
   backgroundColor: '#fffdfa',
   elevation: 24,
@@ -130,8 +132,12 @@ export const sxCardTitle = {
 }
 
 export const sxBox = {
-  height: 180,
-  overflow: 'scroll',
+  height: 125,
+  overflow: 'auto',
+  // display: 'flex',
+  textAlign: 'center',
+  alignItems: 'center',
+  // transform: translate('-50%', '-50%')
 }
 
 export const sxCardActions = {
@@ -152,4 +158,13 @@ export const sxPhotoIngredientContainer = {
   my: 1,
   pb: 2,
 
+}
+
+export const sxRecipeUrl = {
+  flex: '80%',
+}
+
+export const sxRecipeButton = {
+  flex: '20%',
+  textAlign: 'start'
 }
