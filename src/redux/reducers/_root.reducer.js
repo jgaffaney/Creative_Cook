@@ -16,12 +16,17 @@ import recipeGoal from './recipeGoal.reducer';
 import recipeSaved from './recipeSaved.reducer';
 import unpaired from './unpaired.reducer';
 import top5 from './top5.reducer';
+import uploadedFile from './uploadFile.reducer';
 import comboMetrics from './combo_metrics.reducer';
 import userRecipes from './user_recipes.reducer';
 import recipeMetrics from './recipe_metrics.reducer';
 import ingredientMetrics from './ingredient_metrics.reducer';
 import comboPairingOne from './ingredient1pair.reducer';
 import comboPairingTwo from './ingredient2pair.reducer';
+import seasons from './seasons.reducer';
+import types from './types.reducer';
+
+
 import healthFilter from './health.filter.reducer'
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -47,6 +52,7 @@ const rootReducer = combineReducers({
   unpaired, // holds the ingredients that are not paired with the selected ingredient
   top5, // holds the top five most used ingredients by all users
   // goal,
+  uploadedFile,  // holds the csv to be uploaded to the database
   pairings,    // holds all the pairings available in the database-admin edit only
   ingredientSearch, // holds search text for <IngredientAutocomplete> 
   unpaired,    // holds the ingredients that are not paired with the selected ingredient
@@ -57,6 +63,8 @@ const rootReducer = combineReducers({
   ingredientMetrics, // holds all ingredient profile metrics
   comboPairingOne, // holds pairings for first ingredient selected when creating a combo
   comboPairingTwo, // holds pairings for second ingredient selected when creating a combo
+  seasons, // holds enum values from season column in DB
+  types, // hold enum values from type column in DB
   healthFilter, // holds the health filter for recipes search
 });
 
