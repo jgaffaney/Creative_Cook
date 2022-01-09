@@ -174,9 +174,15 @@ function Home() {
                     {/* GOALS progress */}
                     <Box onClick={() => handleClick('profile')} sx={sxClickableDiv}>
                         <Typography variant="h6" sx={sxCenterText}>Goal Progress</Typography>
-                        <Typography sx={sxCenterText}>Combo Goals:{userCombos.length}/{comboGoal.goal}</Typography>
-                        <Typography sx={sxCenterText}>Recipe Goals:{recipeSaved.length}/{recipeGoal.goal}</Typography>
-                        <Typography sx={sxCenterText}>Ingredient Goals:{ingredientUnique.length}/{ingredientGoal.goal}</Typography>
+                        {comboGoal.goal == null && <Typography variant="body1" sx={sxCenterText}>Set Combo Goal</Typography>}
+                        {comboGoal.goal >= 1 && 
+                        <Typography sx={sxCenterText}>Combo Goals:{userCombos.length}/{comboGoal.goal}</Typography>}
+                        {recipeGoal.goal == null && <Typography variant="body1" sx={sxCenterText}>Set Recipe Goal</Typography>}
+                        {recipeGoal.goal >= 1 &&
+                        <Typography sx={sxCenterText}>Recipe Goals:{recipeSaved.length}/{recipeGoal.goal}</Typography>}
+                        {ingredientGoal.goal == null && <Typography variant="body1" sx={sxCenterText}>Set Ingredient Goal</Typography>}
+                        {ingredientGoal.goal >= 1 &&
+                        <Typography sx={sxCenterText}>Ingredient Goals:{ingredientUnique.length}/{ingredientGoal.goal}</Typography>}
                     </Box>
 
                     </Box>

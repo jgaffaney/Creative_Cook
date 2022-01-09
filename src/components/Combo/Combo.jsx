@@ -32,20 +32,25 @@ function Combo() {
     dispatch({ type: 'FETCH_INGREDIENTS' })
   }, [])
 
-  useEffect( ()=> {
-    switch(combo.length){
+  useEffect(() => {
+    switch (combo.length) {
       case 1:
         dispatch({ type: 'FETCH_INGREDIENT_ONE_PAIRINGS', payload: combo[0].id });
-      break;
+        break;
       case 2:
-      dispatch({ type: 'FETCH_INGREDIENT_TWO_PAIRINGS', payload: combo[1].id });
-      break;
+        dispatch({ type: 'FETCH_INGREDIENT_TWO_PAIRINGS', payload: combo[1].id });
+        break;
       case 3:
-        dispatch({ type: 'FETCH_RECIPES', payload: combo });
-      break;
+        dispatch({
+          type: 'FETCH_RECIPES', payload: {
+            combo: combo,
+            filter: healthFilter
+          }
+        });
+        break;
     }
   }, [combo])
-  
+
 
   const sxIngredientContainer = {
     display: 'flex',
@@ -54,6 +59,7 @@ function Combo() {
     // border: '1px solid red',
     gap: 2,
     justifyContent: 'center',
+    mb: 2,
   }
 
   const sxPhotoBox = {
@@ -78,6 +84,17 @@ function Combo() {
     borderRadius: 5,
   }
 
+  const sxSuperComboCardContent = {
+    border: '5px solid #00d61d',
+    display: 'flex',
+    justifyContent: 'left',
+    // gap: 2,
+    alignItems: 'center',
+    width: 250,
+    height: 50,
+    borderRadius: 5,
+  }
+
   const sxCardTypography = {
     display: 'flex',
     justifyContent: 'center',
@@ -93,6 +110,7 @@ function Combo() {
   const pairings = useSelector(store => store.pairings)
   const pairingOne = useSelector(store => store.comboPairingOne)
   const pairingTwo = useSelector(store => store.comboPairingTwo)
+  const healthFilter = useSelector(store => store.healthFilter)
 
 
   const handleSearch = (searchText) => {
@@ -120,22 +138,42 @@ function Combo() {
         dispatch({ type: 'FETCH_INGREDIENT_TWO_PAIRINGS', payload: combo[1].id });
         break;
       case 3:
-        dispatch({ type: 'FETCH_RECIPES', payload: combo });
+        dispatch({
+          type: 'FETCH_RECIPES', payload:
+          {
+            combo: combo,
+            filter: healthFilter
+          }
+        });
         break;
     }
   }, [combo])
 
+  // superCombo is filters the two ingredient pairings and creates new array with duplicates
+  let superCombo = pairingOne.filter(o1 => pairingTwo.some(o2 => o1.id === o2.id));
+
   const pairingOneIds = new Set(pairingOne.map(({ id }) => id));
+  const superComboIds = new Set(superCombo.map(({ id }) => id));
+
+  // filter any duplicate ingredients out of two pairing lists
   let combined = [
     ...pairingOne,
     ...pairingTwo.filter(({ id }) => !pairingOneIds.has(id))
   ];
 
+  // filter out super combo ingredients from combined pairing list
+  combined = [
+    ...combined.filter(({ id }) => !superComboIds.has(id))
+  ]
+
+  // filter out ingredients in combo tool from ingredient listing
   if (combo.length === 2) {
     combined = combined.filter(ingredient => ingredient.id != combo[0].id).filter(ingredient => ingredient.id != combo[1].id);
   }
 
+
   console.log('combined is:', combined);
+  console.log('superCombo is:', superCombo);
 
   return (
     <div className="container">
@@ -155,7 +193,43 @@ function Combo() {
       {/* combo selector */}
       <ComboTool />
 
-      {/* ingredient listing */}
+      {/* super combo ingredients list */}
+
+      {superCombo.length > 0 && combo.length < 3 &&
+        <>
+          <Typography sx={sxIngredientContainer}>Super Combos</Typography>
+          <Box sx={sxIngredientContainer}>
+            {superCombo.map(ingredient => (
+              <Tooltip sx={sxTooltip}
+                title={
+                  <>
+                    <Typography
+                      variant="body1">{ingredient.description}</Typography>
+                  </>
+                }
+              >
+                <Card elevation={3}
+                  onClick={() => dispatch({ type: 'SET_COMBO_INGREDIENT', payload: ingredient })}
+                  sx={sxSuperComboCardContent}>
+                  <CardMedia
+                    sx={sxPhotoBox}
+                    component="img"
+                    image={ingredient.pic}
+                    alt={ingredient.name}
+                  />
+                  <Typography
+                    sx={sxCardTypography}
+                    gutterBottom variant="body1" component="div">
+                    {ingredient.name}
+                  </Typography>
+                </Card>
+              </Tooltip>
+            ))}
+          </Box>
+        </>
+      }
+
+      {/* combined ingredient listing with no duplicates */}
       {combo.length > 0 && combo.length < 3 &&
         <Box sx={sxIngredientContainer}>
           {combined.map(ingredient => (
