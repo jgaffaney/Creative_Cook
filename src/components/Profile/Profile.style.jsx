@@ -133,11 +133,9 @@ export const sxCardTitle = {
 
 export const sxBox = {
   height: 125,
-  overflow: 'auto',
-  // display: 'flex',
+  overflow: 'scroll',
   textAlign: 'center',
   alignItems: 'center',
-  // transform: translate('-50%', '-50%')
 }
 
 export const sxCardActions = {
@@ -161,10 +159,10 @@ export const sxPhotoIngredientContainer = {
 }
 
 export const sxRecipeUrl = {
-  flex: '80%',
+  flex: '90%',
 }
 
 export const sxRecipeButton = {
-  flex: '20%',
-  textAlign: 'start'
+  flex: '10%',
+  justifyContent: 'flex-end',
 }

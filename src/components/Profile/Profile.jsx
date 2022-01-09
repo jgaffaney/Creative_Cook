@@ -62,6 +62,8 @@ import {
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import { useHistory } from 'react-router';
+import { fontStyle } from '@mui/system';
+import CheckIcon from '@mui/icons-material/Check';
 
 function Profile() {
   const user = useSelector((store) => store.user);
@@ -397,7 +399,11 @@ function Profile() {
                   const ingredientThree = feedContentFilteredIngredients.filter(ingredient => ingredient?.id === comboIngredientIds[2])
                   // console.log('--- feedContent .map ingredientThree', ingredientThree);
 
-
+                  let recipeChecker = userRecipes.filter(r => r.combo_id === combo.id)
+                  let cookedChecker = userRecipes.filter(r => r.is_cooked === true && r.combo_id === combo.id)
+                  let uncookedChecker = userRecipes.filter(r => r.is_cooked === false && r.combo_id === combo.id)
+                  // console.log('cookedChecker', cookedChecker);
+                  // console.log('uncookedChecker', uncookedChecker);
 
                   return (
                     <>
@@ -428,22 +434,35 @@ function Profile() {
                               <>
                                 {
                                   <List>
-                                    {userRecipes.map(recipe => (
-                                      <>{recipe.combo_id === combo.id && recipe.is_cooked === false &&
-                                        <><ListItem
-                                          sx={sxRecipeUrl}
-                                          key={recipe.id}
-                                          onClick={() => window.open(`_${recipe.url}`.split(`_`)[1], `_blank`)}
-                                          size="small"
-                                        >{recipe.label}</ListItem>
-                                          <Button
-                                            sx={sxRecipeButton}
-                                            onClick={() => dispatch({
-                                              type: 'UPDATE_RECIPE',
-                                              payload: { recipe }
-                                            })}
-                                          >Cooked</Button></>}</>
-                                    ))}
+                                    {recipeChecker.length > 0 && uncookedChecker.length > 0 && <Typography sx={{fontWeight: 'bold'}}>Uncooked Recipes</Typography>}
+                                    {userRecipes.map((recipe, i) => {
+                                      return (
+                                        <>{i === userRecipes.length - 1 && recipeChecker.length === 0 &&
+                                          <Typography
+                                            sx={{ mt: 1.7 }}
+                                            onClick={() => handleClick('combo', ingredientOne, ingredientTwo, ingredientThree)}
+                                            >No recipes saved, click here to search recipes for this combo
+                                            </Typography>}
+                                          {recipe.combo_id === combo.id && recipe.is_cooked === false &&
+                                            <><ListItem
+                                              sx={sxRecipeUrl}
+                                              key={recipe.id}
+                                              size="small"
+                                            ><span
+                                              onClick={() => window.open(`_${recipe.url}`.split(`_`)[1], `_blank`)}
+                                            >{recipe.label}</span>
+                                              <Button
+                                                size='small'
+                                                sx={sxRecipeButton}
+                                                onClick={() => dispatch({
+                                                  type: 'UPDATE_RECIPE',
+                                                  payload: { recipe }
+                                                })}
+                                              >{<CheckIcon />}</Button></ListItem></>}</>
+                                      )
+                                    })
+                                    }
+                                    {recipeChecker.length > 0 && cookedChecker.length > 0 && <Typography sx={{fontWeight: 'bold'}}>Cooked Recipes</Typography>}
                                     {userRecipes.map(recipe => (
                                       <>{recipe.combo_id === combo.id && recipe.is_cooked === true &&
                                         <><ListItem
@@ -467,7 +486,7 @@ function Profile() {
 
           </Box>
         </Box>
-      </Box>
+      </Box >
     </Box >
   );
 }
