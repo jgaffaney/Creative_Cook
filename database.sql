@@ -33,7 +33,10 @@ CREATE TABLE "ingredients" (
 	"season" SEASON,
 	"weight" varchar(255),
 	"volume" varchar(255),
-	"type" TYPE);
+	"type" TYPE),
+	"funtction" varchar(255),
+	"technique" varchar(255),
+	"botanicalRelative" varchar(255);
 
 
 CREATE TABLE "pairings" (

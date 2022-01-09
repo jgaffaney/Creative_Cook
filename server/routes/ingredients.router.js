@@ -32,11 +32,12 @@ router.post('/', (req, res) => {
     console.log('in ingredients POST with: ', req.body);
 
     const queryText = `
-    INSERT INTO ingredients ("name", "description", "pic", "taste", "season", "weight", "volume", "type")
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8);
+    INSERT INTO ingredients ("name", "description", "pic", "taste", "season", "weight", "volume", "type", "function", "technique", "botanicalRelative")
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, &9, &10, &11);
     `
     const values = [req.body.name, req.body.description, req.body.pic, req.body.taste,
-    req.body.season, req.body.weight, req.body.volume, req.body.type]
+    req.body.season, req.body.weight, req.body.volume, req.body.type, 
+    req.body.function, req.body.technique, req.body.botanicalRelative];
     pool.query(queryText, values)
         .then(response => {
             res.sendStatus(201)

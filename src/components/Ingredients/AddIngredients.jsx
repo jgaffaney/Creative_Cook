@@ -17,6 +17,9 @@ function AddIngredients() {
         taste: '',
         weight: '',
         volume: '',
+        function: '',
+        technique: '',
+        botanicalRelative: '',
     }
 
     const selectedFile = useSelector(state => state.uploadedFile);
@@ -157,6 +160,33 @@ function AddIngredients() {
                                             {option}
                                         </MenuItem>
                                     ))}
+                                </TextField>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <TextField
+                                    id="function-input"
+                                    label="Function"
+                                    variant="outlined"
+                                    value={newIngredient.function}
+                                    onChange={(event) => handleChange(event, 'function')}>
+                                </TextField>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <TextField
+                                    id="technique-input"
+                                    label="Technique"
+                                    variant="outlined"
+                                    value={newIngredient.technique}
+                                    onChange={(event) => handleChange(event, 'technique')}>
+                                </TextField>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <TextField
+                                    id="botanical-input"
+                                    label="Botanical Relative"
+                                    variant="outlined"
+                                    value={newIngredient.botanicalRelative}
+                                    onChange={(event) => handleChange(event, 'botanicalRelative')}>
                                 </TextField>
                             </Grid>
                         </Grid>
