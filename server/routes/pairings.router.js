@@ -1,6 +1,11 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const multer = require('multer')
+const upload = multer({ dest: 'uploads/' })
+const fs = require('fs');
+const copyFrom = require('pg-copy-streams').from;
+
 
 router.get('/:id', (req, res) => {
     console.log('params in pairings GET: ', req.params.id);
@@ -12,7 +17,8 @@ router.get('/:id', (req, res) => {
     UNION
     SELECT "ingredients"."id", INITCAP("ingredients"."name") AS name FROM "ingredients"
     JOIN "pairings" ON "pairings"."ingredient_one_id" = "ingredients"."id"
-    WHERE "pairings"."ingredient_two_id" = $1;
+    WHERE "pairings"."ingredient_two_id" = $1
+    ORDER BY name;
     `
     const values = [id];
     pool.query(queryText, values)

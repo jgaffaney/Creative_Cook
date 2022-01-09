@@ -1,17 +1,25 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const multer = require('multer')
+const upload = multer({ dest: 'uploads/' })
+const fs = require('fs');
+const path = require('path');
+const stream = require('stream');
+const fastcsv = require('fast-csv');
+const csv = require('csv-parser');
+const copyFrom = require('pg-copy-streams').from;
 
 // request all ingredients from DB
 router.get('/', (req, res) => {
     console.log('in ingredients GET');
     const queryText = `
-    SELECT * FROM ingredients
-    ORDER BY lower(name);
+    SELECT id, INITCAP("ingredients"."name") AS name, description, pic, taste, season, weight, volume, type FROM ingredients
+    ORDER BY name;
     `
     pool.query(queryText)
         .then(response => {
-            console.log('Response from GET ingredients DB: ', response.rows);
+            // console.log('Response from GET ingredients DB: ', response.rows);
             res.send(response.rows)
         }).catch(err => {
             console.log("Error on GET ingredients from DB: ", err);
@@ -22,13 +30,14 @@ router.get('/', (req, res) => {
 // posts a new ingredient to DB
 router.post('/', (req, res) => {
     console.log('in ingredients POST with: ', req.body);
-    
+
     const queryText = `
-    INSERT INTO ingredients ("name", "description", "pic", "taste", "season", "weight", "volume", "type")
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8);
+    INSERT INTO ingredients ("name", "description", "pic", "taste", "season", "weight", "volume", "type", "function", "technique", "botanicalRelative")
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, &9, &10, &11);
     `
-    const values = [req.body.name, req.body.description, req.body.pic, req.body.taste, 
-                    req.body.season, req.body.weight, req.body.volume, req.body.type]
+    const values = [req.body.name, req.body.description, req.body.pic, req.body.taste,
+    req.body.season, req.body.weight, req.body.volume, req.body.type, 
+    req.body.function, req.body.technique, req.body.botanicalRelative];
     pool.query(queryText, values)
         .then(response => {
             res.sendStatus(201)
@@ -51,7 +60,7 @@ router.put('/', (req, res) => {
     pool.query(queryText, values)
         .then(response => {
             res.send(response)
-        }).catch(err=> {
+        }).catch(err => {
             console.log('Error on PUT ingredients: ', err);
             res.sendStatus(500);
         })
@@ -73,6 +82,78 @@ router.get('/top5', (req, res) => {
             console.log("Error in top five ingredients GET: ", err);
             res.sendStatus(500)
         })
+});
+
+// POSTS bulk ingredients data to DB
+router.post('/bulk/', upload.single('file'), (req, res) => {
+    console.log('in bulk post with: ', req.file);
+
+    pool.connect(function (err, client, done) {
+        let stream = client.query(copyFrom(`
+        COPY ingredients (name, description, pic, taste, weight, volume, type) FROM STDIN DELIMITER ',' CSV HEADER;
+        `));
+        let fileStream = fs.createReadStream(req.file.path);
+        // fileStream.on('error', done)
+        // stream.on('error', done)
+        stream.on('finish', function (err, result) {
+            if(err) {
+                console.log('this is a stream error:', err);
+            } else {
+                console.log('upload successful');
+                res.sendStatus(200);
+            }
+        });
+        fileStream.pipe(stream);
+    })
+
+    // .on('finish', (response) => {
+    //     console.log('DB upload complete', response)
+    //     res.sendStatus(200)
+    // });
+
+
+
+    //     csv())
+    // .on('data', (row) => {
+    //     console.log(row);
+    // })
+    // .on('end', () => {
+    //     console.log('CSV file upload complete');
+
+    // })
+
+    // let stream = fs.createReadStream(req.file.path);
+    // let csvData = [];
+    // let csvStream = fastcsv
+    //     .parse()
+    //     .on('data', function(data) {
+    //         csvData.push(data);
+    //     })
+    //     // remove the header
+    //     .on('end', function() {
+    //         csvData.shift();
+    //     })
+    //     stream.pipe(csvStream);
+
+    // let parser = new stream();
+    // parser._transform = function(data, done) {
+    //     this.push(data);
+    //     done();
+    // }
+    // process.stdin
+    //     .pipe(parser)
+    //     .pipe(process.stdout);
+    //     process.stdout.on('error', process.exit);
+    // const queryText = `
+    // COPY ingredients (name, description, pic, taste, season, weight, volume, type) FROM STDIN CSV;
+    // `;
+    // pool.query(queryText)
+    //     .then(response => {
+    //         console.log('response from DB bulk in: ', response);
+    //     }).catch(err => {
+    //         console.log('error on bulk in DB: ', err);
+    //     })
+
 });
 
 // ingredient Metrics GET route
