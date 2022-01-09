@@ -33,33 +33,58 @@ export const sxPairToolHeader = {
 // -- AddIngredients Component -- //
 
 export const sxAddIngredientHeaderContainer = {
+    // border: '1px solid blue',
     display: 'flex', 
     justifyContent: 'center', 
     alignItems: 'center',
     gap: 1,
 }
 
+export const sxCenterContent = {
+    // border: '1px solid blue',
+    display: 'flex', 
+    flexDirection: 'column',
+    justifyContent: 'center', 
+    alignItems: 'center',
+    px: 4,
+}
 
-export const sxAddIngredient = {
+
+export const sxFormContent = {
+    // border: '1px solid green',
+    display: 'flex',
+    flexDirection: 'row',
+    // flexWrap: 'wrap',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 1,
+    width: '100%',
+    
+    // alignItems: 'center',
+
+    // position: 'sticky',
+    // top: 0,
+    // m: 1,
+    // mx: 'auto',
+    // zIndex: 100,
+
+    // width: '95%',
+    // bgcolor: 'white',
+    // borderBottom: '1px solid gray',
+}
+
+export const sxFormColumn = {
+    // border: '1px solid green',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    width: '100%',
+    gap: 2,
 
-    position: 'sticky',
-    top: 0,
-    m: 1,
-    mx: 'auto',
-    zIndex: 100,
-
-    width: '95%',
-    bgcolor: 'white',
-    borderBottom: '1px solid gray',
 }
 
 export const sxTextInputForm = {
     // border: '1px solid red',
-    width: 250,
+    width: '100%',
 }
 
 

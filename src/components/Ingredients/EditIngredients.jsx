@@ -91,108 +91,6 @@ export default function EditIngredients() {
   const [snackbar, setSnackbar] = useState(null);
   
 
-<<<<<<< HEAD
-  const seasons = [
-    {
-      value: 'Spring',
-      label: 'Spring'
-    },
-    {
-      value: 'Summer',
-      label: 'Summer'
-    },
-    {
-      value: 'Autumn',
-      label: 'Autumn'
-    },
-    {
-      value: 'Winter',
-      label: 'Winter'
-    },
-    {
-      value: 'Summer-Autumn',
-      label: 'Summer-Autumn'
-    },
-    {
-      value: 'Autumn-Winter',
-      label: 'Autumn-Winter'
-    },
-    {
-      value: 'Winter-Spring',
-      label: 'Winter-Spring'
-    },
-    {
-      value: 'Spring-Early Autumn',
-      label: 'Spring-Early Autumn'
-    },
-    {
-      value: 'Spring-Summer',
-      label: 'Spring-Summer'
-    },
-    {
-      value: 'Year-round',
-      label: 'Year-round'
-    },
-  ]
-
-  const foodType = [
-    {
-      value: 'Protein: Air',
-      label: 'Protein: Air'
-    },
-    {
-      value: 'Protein: Land',
-      label: 'Protein: Land'
-    },
-    {
-      value: 'Protein: Sea',
-      label: 'Protein: Sea'
-    },
-    {
-      value: 'Vegetable',
-      label: 'Vegetable'
-    },
-    {
-      value: 'Fruit',
-      label: 'Fruit'
-    },
-    {
-      value: 'Dairy',
-      label: 'Dairy'
-    },
-    {
-      value: 'Fat',
-      label: 'Fat'
-    },
-    {
-      value: 'Grain',
-      label: 'Grain'
-    },
-    {
-      value: 'Green',
-      label: 'Green'
-    },
-    {
-      value: 'Legume',
-      label: 'Legume'
-    },
-    {
-      value: 'Nut',
-      label: 'Nut'
-    },
-    {
-      value: 'Herb',
-      label: 'Herb'
-    },
-    {
-      value: 'Raw',
-      label: 'Raw'
-    },
-  ]
-
-
-=======
->>>>>>> main
   const handleCloseSnackbar = () => setSnackbar(null);
 
   // called when edit button clicked
@@ -247,7 +145,6 @@ export default function EditIngredients() {
       // editable: true
     },
     { field: 'id', hide: true, editable: true },
-<<<<<<< HEAD
     { field: 'name', headerName: 'Name', editable: true, width: 150, },
     // { field: 'description', headerName: 'Description', editable: true, flex: true, resizable: true},
     { field: 'description', headerName: 'Description', editable: true, width: 600, },
@@ -258,16 +155,6 @@ export default function EditIngredients() {
     { field: 'taste', headerName: 'Taste', editable: true, width: 120 },
     { field: 'weight', headerName: 'Weight', editable: true, width: 120},
     { field: 'volume', headerName: 'Volume', editable: true, width: 120 },
-=======
-    { field: 'name', headerName: 'Name', editable: true },
-    { field: 'description', headerName: 'Description', editable: true, flex: true },
-    { field: 'pic', headerName: 'Pic', editable: true },
-    { field: 'taste', headerName: 'Taste', editable: true },
-    { field: 'season', headerName: 'Season', editable: true, valueOptions: seasons, type: 'singleSelect' },
-    { field: 'weight', headerName: 'Weight', editable: true },
-    { field: 'volume', headerName: 'Volume', editable: true },
-    { field: 'type', headerName: 'Type', editable: true, valueOptions: foodType, type: 'singleSelect' },
->>>>>>> main
   ];
 
   // search function for the data grid
@@ -298,13 +185,9 @@ export default function EditIngredients() {
   // console.log('Demo Data: ', data);
 
   return (
-<<<<<<< HEAD
     <Box sx={sxDataGridContainer}>
       <Typography variant="h4" sx={sxCenterText}>{ingredients?.length} Ingredients</Typography>
       {/* {rows && ( */}
-=======
-    <Box sx={{ height: 600, width: 1 }}>
->>>>>>> main
       <DataGrid
         density="compact"
         components={{ Toolbar: QuickSearchToolbar }}

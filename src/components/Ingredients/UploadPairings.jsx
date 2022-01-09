@@ -3,6 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import Papa from 'papaparse';
 import { CSVLink, CSVDownload } from 'react-csv';
 
+import {
+    FormControl, Box, TextField,
+    MenuItem, Button, Grid, Typography,
+} from "@mui/material";
+
 function UploadPairings() {
 
     const dispatch = useDispatch();
@@ -103,8 +108,7 @@ function UploadPairings() {
     // }, [parsedResults])
 
     return (
-        <div>
-            <h1>Pairings Upload</h1>
+        <Box>
             <form encType="multipart/form-data">
                 <input type="file" name="file" onChange={changeHandler} />
                 {isSelected ? (
@@ -118,9 +122,9 @@ function UploadPairings() {
                         </p>
                     </div>
                 ) : (
-                    <p>Select a file to show details</p>
+                    <Typography sx={{p: 1}} variant="body1">Select a file to show details</Typography>
                 )}
-                <button onClick={handleSubmission}>Submit</button>
+                <Button variant="contained" onClick={handleSubmission}>Submit</Button>
             </form>
             {parsedResults &&
                 <CSVDownload 
@@ -135,7 +139,7 @@ function UploadPairings() {
                 //     }}
                 //     > Download Me! </CSVLink>
             }
-        </div>
+        </Box>
     )
 }
 

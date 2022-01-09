@@ -10,9 +10,11 @@ import UploadPairings from "./UploadPairings";
 // --- sx STYLES --- // 
 import {
     sxCenterText,
-    sxAddIngredient,
+    sxFormContent,
     sxAddIngredientHeaderContainer,
     sxTextInputForm,
+    sxFormColumn,
+    sxCenterContent,
 } from './Ingredients.style';
 
 function AddIngredients() {
@@ -31,12 +33,6 @@ function AddIngredients() {
         botanicalRelative: '',
     }
 
-<<<<<<< HEAD
-    const [ingredientFormStatus, setIngredientFormStatus] = useState(false);
-    const [newIngredient, setNewIngredient] = useState(defaultIngredient)
-    // const [season, setSeason] = useState('');
-    // const [type, setType] = useState('');
-=======
     const selectedFile = useSelector(state => state.uploadedFile);
     const seasons = useSelector(state => state.seasons);
     const foodType = useSelector(state => state.types)
@@ -44,7 +40,8 @@ function AddIngredients() {
     const [newIngredient, setNewIngredient] = useState(defaultIngredient);
     const [isSelected, setIsSelected] = useState();
     const [isFilePicked, setIsFilePicked] = useState(false);
->>>>>>> main
+    const [ingredientFormStatus, setIngredientFormStatus] = useState(false);
+    const [pairingsFormStatus, setPairingsFormStatus] = useState(false);
 
     // handle season change
     const handleChange = (event, string) => {
@@ -56,112 +53,6 @@ function AddIngredients() {
         dispatch({ type: 'POST_INGREDIENT', payload: newIngredient })
     };
 
-<<<<<<< HEAD
-    const toggleStatus = () => {
-        console.log('toggleStatus clicked');
-        setIngredientFormStatus(!ingredientFormStatus)
-    }
-
-    // for seasons dropdown
-    const seasons = [
-        {
-            value: 'Spring',
-            label: 'Spring'
-        },
-        {
-            value: 'Summer',
-            label: 'Summer'
-        },
-        {
-            value: 'Autumn',
-            label: 'Autumn'
-        },
-        {
-            value: 'Winter',
-            label: 'Winter'
-        },
-        {
-            value: 'Summer-Autumn',
-            label: 'Summer-Autumn'
-        },
-        {
-            value: 'Autumn-Winter',
-            label: 'Autumn-Winter'
-        },
-        {
-            value: 'Winter-Spring',
-            label: 'Winter-Spring'
-        },
-        {
-            value: 'Spring-Early Autumn',
-            label: 'Spring-Early Autumn'
-        },
-        {
-            value: 'Spring-Summer',
-            label: 'Spring-Summer'
-        },
-        {
-            value: 'Year-round',
-            label: 'Year-round'
-        }
-    ]
-
-    // for type dropdown
-    const foodType = [
-        {
-            value: 'Protein: Air',
-            label: 'Protein: Air'
-        },
-        {
-            value: 'Protein: Land',
-            label: 'Protein: Land'
-        },
-        {
-            value: 'Protein: Sea',
-            label: 'Protein: Sea'
-        },
-        {
-            value: 'Vegetable',
-            label: 'Vegetable'
-        },
-        {
-            value: 'Fruit',
-            label: 'Fruit'
-        },
-        {
-            value: 'Dairy',
-            label: 'Dairy'
-        },
-        {
-            value: 'Fat',
-            label: 'Fat'
-        },
-        {
-            value: 'Grain',
-            label: 'Grain'
-        },
-        {
-            value: 'Green',
-            label: 'Green'
-        },
-        {
-            value: 'Legume',
-            label: 'Legume'
-        },
-        {
-            value: 'Nut',
-            label: 'Nut'
-        },
-        {
-            value: 'Herb',
-            label: 'Herb'
-        },
-        {
-            value: 'Raw',
-            label: 'Raw'
-        }
-    ]
-=======
     const sxAddIngredient = {
         display: 'flex',
         flexDirection: 'column',
@@ -173,7 +64,7 @@ function AddIngredients() {
         m: 1,
         mx: 'auto',
         zIndex: 100,
->>>>>>> main
+    }
 
 
     // handle new csv file for ingredients
@@ -184,189 +75,71 @@ function AddIngredients() {
 
     // post new csv file for ingredients to DB
     const handleSubmission = () => {
-        dispatch({ type: 'POST_FILE', payload: selectedFile})
+        dispatch({ type: 'POST_FILE', payload: selectedFile })
+    }
+
+    const toggleStatus = (type) => {
+
+        switch (type) {
+            case 'add':
+                setIngredientFormStatus(!ingredientFormStatus)
+                break;
+
+            case 'upload':
+                setPairingsFormStatus(!pairingsFormStatus)
+                break;
+
+            default:
+                break;
+        }
+
+
     }
 
     return (
-<<<<<<< HEAD
         <Box>
-            <Box sx={sxAddIngredientHeaderContainer}>
-                <Typography variant="h4" sx={sxCenterText}>Add New Ingredient</Typography>
-                <Button onClick={toggleStatus} sx={{ borderRadius: 4 }}><AddCircleIcon fontSize="large" /></Button>
-            </Box>
-            {ingredientFormStatus &&
-=======
-        <>
-            <div>
-                <h2>Add New Ingredient</h2>
->>>>>>> main
-                <Box sx={sxAddIngredient}>
-                    <FormControl>
-                        <Grid container spacing={1} sx={{ marginLeft: '10%', marginRight: '10%' }}>
-                            <Grid item xs={12} md={6}>
+
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, }}>
+
+                <Box sx={sxAddIngredientHeaderContainer}>
+                    <Typography variant="h5" sx={sxCenterText}>Add New Ingredient</Typography>
+                    <Button onClick={() => toggleStatus('add')} sx={{ borderRadius: 4 }}><AddCircleIcon fontSize="large" /></Button>
+                </Box>
+
+                {ingredientFormStatus &&
+                    <Box sx={sxCenterContent}>
+                        <FormControl sx={sxFormContent}>
+                            <Box sx={sxFormColumn}>
                                 <TextField
-<<<<<<< HEAD
                                     sx={sxTextInputForm}
                                     id="name-input"
                                     label="Ingredient Name"
                                     variant="outlined"
                                     size="small"
-=======
-                                    id="name-input"
-                                    label="Ingredient Name"
-                                    variant="outlined"
->>>>>>> main
                                     value={newIngredient.name}
                                     onChange={(event) => handleChange(event, 'name')}>
                                 </TextField>
-                            </Grid>
-                            <Grid item xs={12} md={6}>
+
                                 <TextField
-<<<<<<< HEAD
                                     sx={sxTextInputForm}
-=======
->>>>>>> main
-                                    id="season-input"
-                                    select
-                                    defaultValue=''
-                                    label="Season"
-                                    variant="outlined"
-<<<<<<< HEAD
-                                    size="small"
-                                    onChange={(event) => handleChange(event, 'season')}
-                                >
-                                    {seasons.map((option) => (
-                                        <MenuItem key={option.value} value={option.value}>
-                                            {option.label}
-=======
-                                    onChange={(event) => handleChange(event, 'season')}
-                                >
-                                    {seasons.map((option) => (
-                                        <MenuItem key={option} value={option}>
-                                            {option}
->>>>>>> main
-                                        </MenuItem>
-                                    ))}
-                                </TextField>
-                            </Grid>
-                            <Grid item xs={12} md={6}>
-                                <TextField
-<<<<<<< HEAD
-                                    sx={sxTextInputForm}
-=======
->>>>>>> main
                                     id="description-input"
                                     label="Description"
                                     multiline
+                                    rows={3.46}
                                     variant="outlined"
-<<<<<<< HEAD
                                     size="small"
-=======
->>>>>>> main
                                     value={newIngredient.description}
                                     onChange={(event) => handleChange(event, 'description')}>
                                 </TextField>
-                            </Grid>
-                            <Grid item xs={12} md={6}>
-                                <TextField
-<<<<<<< HEAD
-                                    sx={sxTextInputForm}
-                                    id="weight-input"
-                                    label="Weight"
-                                    variant="outlined"
-                                    size="small"
-=======
-                                    id="weight-input"
-                                    label="Weight"
-                                    variant="outlined"
->>>>>>> main
-                                    value={newIngredient.weight}
-                                    onChange={(event) => handleChange(event, 'weight')}>
-                                </TextField>
-                            </Grid>
-                            <Grid item xs={12} md={6}>
-                                <TextField
-<<<<<<< HEAD
-                                    sx={sxTextInputForm}
-                                    id="pic-input"
-                                    label="Picture URL"
-                                    variant="outlined"
-                                    size="small"
-=======
-                                    id="pic-input"
-                                    label="Picture URL"
-                                    variant="outlined"
->>>>>>> main
-                                    value={newIngredient.pic}
-                                    onChange={(event) => handleChange(event, 'pic')}>
-                                </TextField>
-                            </Grid>
-<<<<<<< HEAD
-                            <Grid item xs={12} md={4}>
+
                                 <TextField
                                     sx={sxTextInputForm}
-                                    id="volume-input"
-                                    label="Volume"
-                                    variant="outlined"
-                                    size="small"
-=======
-                            <Grid item xs={12} md={6}>
-                                <TextField
-                                    id="volume-input"
-                                    label="Volume"
-                                    variant="outlined"
->>>>>>> main
-                                    value={newIngredient.volume}
-                                    onChange={(event) => handleChange(event, 'volume')}>
-                                </TextField>
-                            </Grid>
-                            <Grid item xs={12} md={6}>
-                                <TextField
-<<<<<<< HEAD
-                                    sx={sxTextInputForm}
-                                    id="taste-input"
-                                    label="Taste"
-                                    variant="outlined"
-                                    size="small"
-=======
-                                    id="taste-input"
-                                    label="Taste"
-                                    variant="outlined"
->>>>>>> main
-                                    value={newIngredient.taste}
-                                    onChange={(event) => handleChange(event, 'taste')}>
-                                </TextField>
-                            </Grid>
-                            <Grid item xs={12} md={6}>
-                                <TextField
-<<<<<<< HEAD
-                                    sx={sxTextInputForm}
-=======
->>>>>>> main
                                     id="type-input"
                                     select
                                     defaultValue=''
                                     label="Type"
                                     variant="outlined"
-<<<<<<< HEAD
                                     size="small"
-                                    onChange={(event) => handleChange(event, 'type')}
-                                >
-                                    {foodType.map((option) => (
-                                        <MenuItem key={option.value} value={option.value}>
-                                            {option.label}
-                                        </MenuItem>
-                                    ))}
-                                </TextField>
-                                <Button variant='outlined' size='small' sx={{mt: 3}} onClick={handleSubmit}>Submit</Button>
-                            </Grid>
-                        </Grid>
-                    </FormControl>
-                </Box>
-            }
-        </Box>
-    )
-=======
                                     onChange={(event) => handleChange(event, 'type')}
                                 >
                                     {foodType.map((option) => (
@@ -375,61 +148,138 @@ function AddIngredients() {
                                         </MenuItem>
                                     ))}
                                 </TextField>
-                            </Grid>
-                            <Grid item xs={12} md={6}>
+                            </Box>
+
+                            <Box sx={sxFormColumn}>
                                 <TextField
+                                    sx={sxTextInputForm}
+                                    id="season-input"
+                                    select
+                                    defaultValue=''
+                                    label="Season"
+                                    variant="outlined"
+                                    size="small"
+                                    onChange={(event) => handleChange(event, 'season')}
+                                >
+                                    {seasons.map((option) => (
+                                        <MenuItem key={option} value={option}>
+                                            {option}
+                                        </MenuItem>
+                                    ))}
+                                </TextField>
+
+                                <TextField
+                                    sx={sxTextInputForm}
+                                    id="pic-input"
+                                    label="Picture URL"
+                                    variant="outlined"
+                                    size="small"
+                                    value={newIngredient.pic}
+                                    onChange={(event) => handleChange(event, 'pic')}>
+                                </TextField>
+
+                                <TextField
+                                    sx={sxTextInputForm}
+                                    id="weight-input"
+                                    label="Weight"
+                                    variant="outlined"
+                                    size="small"
+                                    value={newIngredient.weight}
+                                    onChange={(event) => handleChange(event, 'weight')}>
+                                </TextField>
+
+                                <TextField
+                                    sx={sxTextInputForm}
+                                    id="volume-input"
+                                    label="Volume"
+                                    variant="outlined"
+                                    size="small"
+                                    value={newIngredient.volume}
+                                    onChange={(event) => handleChange(event, 'volume')}>
+                                </TextField>
+                            </Box>
+
+                            <Box sx={sxFormColumn}>
+                                <TextField
+                                    sx={sxTextInputForm}
+                                    id="taste-input"
+                                    label="Taste"
+                                    variant="outlined"
+                                    size="small"
+                                    value={newIngredient.taste}
+                                    onChange={(event) => handleChange(event, 'taste')}>
+                                </TextField>
+
+                                <TextField
+                                    sx={sxTextInputForm}
                                     id="function-input"
                                     label="Function"
                                     variant="outlined"
+                                    size="small"
                                     value={newIngredient.function}
                                     onChange={(event) => handleChange(event, 'function')}>
                                 </TextField>
-                            </Grid>
-                            <Grid item xs={12} md={6}>
+
                                 <TextField
+                                    sx={sxTextInputForm}
                                     id="technique-input"
                                     label="Technique"
                                     variant="outlined"
+                                    size="small"
                                     value={newIngredient.technique}
                                     onChange={(event) => handleChange(event, 'technique')}>
                                 </TextField>
-                            </Grid>
-                            <Grid item xs={12} md={6}>
+
                                 <TextField
+                                    sx={sxTextInputForm}
                                     id="botanical-input"
                                     label="Botanical Relative"
                                     variant="outlined"
+                                    size="small"
                                     value={newIngredient.botanicalRelative}
                                     onChange={(event) => handleChange(event, 'botanicalRelative')}>
                                 </TextField>
-                            </Grid>
-                        </Grid>
-                        <Button variant='outlined' size='small' sx={{ width: '250px', m: 'auto' }} onClick={handleSubmit}>Submit</Button>
-                    </FormControl>
+                            </Box>
+
+                        </FormControl>
+                        <Button variant='outlined' size='medium' sx={{ width: 250, mx: 'auto', mt: 1, }} onClick={handleSubmit}>Submit</Button>
+                    </Box>
+                }
+
+
+                <Box sx={sxAddIngredientHeaderContainer}>
+                    <Typography variant="h5" sx={sxCenterText}>Upload Pairings .csv</Typography>
+                    <Button onClick={() => toggleStatus('upload')} sx={{ borderRadius: 4 }}><AddCircleIcon fontSize="large" /></Button>
                 </Box>
-            </div>
-            <div>
-                <form encType="multipart/form-data">
-                <input type="file" name="file" onChange={changeHandler} />
-                {isSelected ? (
-                    <div>
-                        <p>Filename: {selectedFile.name}</p>
-                        <p>Filetype: {selectedFile.type}</p>
-                        <p>Size in bytes: {selectedFile.size}</p>
-                        <p>
-                            lastModifiedDate:{' '}
-                            {selectedFile.lastModifiedDate.toLocaleDateString()}
-                        </p>
-                    </div>
-                ) : (
-                    <p>Select a file to show details</p>
-                )}
-                <button onClick={handleSubmission}>Submit</button>
-                </form>
-                <UploadPairings />
-            </div>
-        </>)
->>>>>>> main
+
+                {pairingsFormStatus &&
+                    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                        <form encType="multipart/form-data">
+                            <input type="file" name="file" onChange={changeHandler} />
+                            {isSelected ? (
+                                <Box>
+                                    <Typography variant="body1">Filename: {selectedFile.name}</Typography>
+                                    <Typography variant="body1">Filetype: {selectedFile.type}</Typography>
+                                    <Typography variant="body1">Size in bytes: {selectedFile.size}</Typography>
+                                    <Typography variant="body1">
+                                        lastModifiedDate:{' '}
+                                        {selectedFile.lastModifiedDate.toLocaleDateString()}
+                                    </Typography>
+                                </Box>
+                            ) : (
+                                <Typography sx={{ p: 1 }} variant="body1">Select a file to show details</Typography>
+                            )}
+                            <Button variant="contained" onClick={handleSubmission}>Submit</Button>
+                        </form>
+                        <UploadPairings />
+                    </Box>}
+
+            </Box>
+
+
+
+        </Box >
+    )
 }
 
 export default AddIngredients;
