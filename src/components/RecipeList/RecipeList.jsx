@@ -12,11 +12,9 @@ import {
     Avatar,
     IconButton,
     Paper,
-    Select,
-    MenuItem,
-    InputLabel,
-    FormControl,
-    Snackbar,
+    List,
+    ListItem,
+    Alert
 } from '@mui/material';
 import { red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -25,8 +23,12 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Collapse from '@mui/material/Collapse';
 import { styled } from '@mui/material/styles';
-import { useEffect, useState } from "react";
+import { useState, forwardRef, useRef, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+// import Snackbar from "../Snackbar/Snackbar";
+import Snackbar from '@mui/material/Snackbar';
+// import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 const sxRecipeContainer = {
     display: 'flex',
@@ -73,104 +75,48 @@ const sxCardTitle = {
     height: 'auto',
 }
 
-const sxMenuItem = {
-    display: 'flex',
-    justifyContent: 'center'
-}
-
-const sxSelectLabel = {
-    mx: 'auto',
-    pb: 0.5,
-    color: 'primary.main',
-    borderColor: 'primary.main',
-    // border: '1px solid'
-    width: 150,
-}
-
-const sxHealthFilter = {
-    display: 'flex',
-    flexDirection: 'row',
-    // border: '1px solid red',
-    justifyContent: 'center',
-    width: '50%',
-    mx: 'auto',
-    // mt: 1,
-    mb: 3,
-    // pl: 2,
-    // pr: 0.5,
-}
-
-
-
 
 function RecipeList() {
-
-
-    // <Snackbar
-    //     open={open}
-    //     autoHideDuration={6000}
-    //     onClose={handleClose}
-    //     message="Recipe Saved"
-    //     action={action}
-    // />
-
-    // const handleClick = () => {
-
-    // }
 
     const recipes = useSelector(store => store.recipes)
     const dispatch = useDispatch();
     const combo = useSelector(store => store.combo)
-    const healthFilter = useSelector(store => store.healthFilter)
+    const snackbar = useSelector(store => store.recipeSnackbar)
+
+    const [open, setOpen] = useState(false);
+
+    const handleClick = () => {
+        try {
+            console.log('inside handleClick');
+            setOpen(true);
+            setTimeout(() => {
+                setOpen(false);
+            }, 3000)
+        } catch (error) {
+            console.log('error');
+        }
+        dispatch({ type: 'SET_HIDDEN_SNACKBAR' })
+    };
+
+    if (snackbar) {
+        handleClick();
+    }
 
     return (
         <>
-        {/* <Button onClick={handleClick}>Open simple snackbar</Button> */}
-            {combo.length === 3 &&
-                <>
-                    <Box sx={sxHealthFilter}>
-                        <FormControl >
-                            <InputLabel
-                            sx={sxSelectLabel}>Health Filters</InputLabel>
-                            <Select
-                            sx={{ display: 'flex', mx: 'auto', width: 150, borderColor: 'primary.main' }}
-                                size="small"
-                                label="healthFilters"
-                                value={healthFilter}
-                                onChange={(event) => dispatch({
-                                    type: 'FETCH_RECIPES', payload:
-                                    {
-                                        combo: combo,
-                                        filter: event.target.value
-                                    }
-                                })}
-                                labelId="label" id="healthFilters" value={healthFilter}>
-                                <MenuItem
-                                    sx={sxMenuItem}
-                                    value="dairy-free">Dairy Free</MenuItem>
-                                <MenuItem
-                                    sx={sxMenuItem}
-                                    value="gluten-free">Gluten Free</MenuItem>
-                                <MenuItem
-                                    sx={sxMenuItem}
-                                    value="peanut-free">Peanut Free</MenuItem>
-                                <MenuItem
-                                    sx={sxMenuItem}
-                                    value="pescatarian">Pescatarian</MenuItem>
-                                <MenuItem
-                                    sx={sxMenuItem}
-                                    value="vegetarian">Vegetarian</MenuItem>
-                                <MenuItem
-                                    sx={sxMenuItem}
-                                    value="vegan">Vegan</MenuItem>
-                                <MenuItem
-                                    sx={sxMenuItem}
-                                    value="">None</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </Box>
-                </>
-            }
+            <Snackbar
+                open={open}
+                autoHideDuration={6000}
+                // onClose={handleClose}
+                // message="Recipe Saved!"
+            // action={action}
+            >
+                <Alert severity="success" sx={{ width: 300 }}>
+                "Recipe Saved!"
+                </Alert>
+            </Snackbar>
+
+            {/* <h1>RECIPE LIST</h1> */}
             <Box sx={sxRecipeContainer}>
                 {
                     recipes?.map(recipe => (
@@ -193,7 +139,7 @@ function RecipeList() {
                                             type: 'SAVE_USER_RECIPE',
                                             payload: {
                                                 recipe: recipe.recipe,
-                                                combo: combo
+                                                combo: combo,
                                             }
                                         })}
                                         size="small">Save Recipe</Button>
@@ -213,7 +159,7 @@ function RecipeList() {
                                                 {
                                                     <ul>
                                                         {recipe.recipe.ingredientLines.map(ingredient => (
-                                                            <li>{ingredient}</li>
+                                                            <li key={ingredient.id}>{ingredient}</li>
                                                         ))}
                                                     </ul>
                                                 }

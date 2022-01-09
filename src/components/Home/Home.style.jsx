@@ -137,7 +137,6 @@ export const sxTopSection = {
     alignItems: 'center',
     width: '100%',
     height: '25vh',
-
 }
 
 // SEARCH CONTAINER holds text input and the search button

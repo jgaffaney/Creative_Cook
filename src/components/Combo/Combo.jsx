@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import { useDispatch, useSelector } from 'react-redux';
 import ComboTool from '../ComboTool/ComboTool';
@@ -16,10 +16,12 @@ import {
   CardContent,
   Typography,
   Tooltip,
+  Alert
 } from '@mui/material'
 import { styled } from '@mui/material/styles';
 import IngredientAutocomplete from '../IngredientAutocomplete/IngredientAutocomplete';
 import { sxSearchContainer } from '../Home/Home.style'
+import Snackbar from '@mui/material/Snackbar';
 
 function Combo() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
@@ -105,12 +107,31 @@ function Combo() {
     borderRadius: 5,
   }
 
-
   const searchText = useSelector(store => store.ingredientSearch)
   const pairings = useSelector(store => store.pairings)
   const pairingOne = useSelector(store => store.comboPairingOne)
   const pairingTwo = useSelector(store => store.comboPairingTwo)
   const healthFilter = useSelector(store => store.healthFilter)
+  const snackbar = useSelector(store => store.comboSnackbar)
+
+    const [open, setOpen] = useState(false);
+
+    const handleClick = () => {
+        try {
+            console.log('inside handleClick');
+            setOpen(true);
+            setTimeout(() => {
+                setOpen(false);
+            }, 3000)
+        } catch (error) {
+            console.log('error');
+        }
+        dispatch({ type: 'SET_HIDDEN_SNACKBAR' })
+    };
+
+    if (snackbar) {
+        handleClick();
+    }
 
 
   const handleSearch = (searchText) => {
@@ -149,13 +170,13 @@ function Combo() {
     }
   }, [combo])
 
-  // superCombo is filters the two ingredient pairings and creates new array with duplicates
+  // superCombo is filtering the two ingredient pairings and creates new array with duplicates
   let superCombo = pairingOne.filter(o1 => pairingTwo.some(o2 => o1.id === o2.id));
 
   const pairingOneIds = new Set(pairingOne.map(({ id }) => id));
   const superComboIds = new Set(superCombo.map(({ id }) => id));
 
-  // filter any duplicate ingredients out of two pairing lists
+  // combine filters any duplicate ingredients out of two pairing lists
   let combined = [
     ...pairingOne,
     ...pairingTwo.filter(({ id }) => !pairingOneIds.has(id))
@@ -171,12 +192,29 @@ function Combo() {
     combined = combined.filter(ingredient => ingredient.id != combo[0].id).filter(ingredient => ingredient.id != combo[1].id);
   }
 
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
 
   console.log('combined is:', combined);
   console.log('superCombo is:', superCombo);
+  console.log('ingredients is:', ingredients);
 
   return (
     <div className="container">
+
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+      // onClose={handleClose}
+      // message="Recipe Saved!"
+      // action={action}
+      >
+        <Alert severity="success" sx={{ width: 300 }}>
+          "Combo Saved!"
+        </Alert>
+      </Snackbar>
 
       {/* ingredient search */}
       {combo.length === 0 &&
@@ -197,7 +235,8 @@ function Combo() {
 
       {superCombo.length > 0 && combo.length < 3 &&
         <>
-          <Typography sx={sxIngredientContainer}>Super Combos</Typography>
+          <Typography variant='h4'
+            sx={sxIngredientContainer}>Super Combos</Typography>
           <Box sx={sxIngredientContainer}>
             {superCombo.map(ingredient => (
               <Tooltip sx={sxTooltip}
@@ -220,7 +259,7 @@ function Combo() {
                   <Typography
                     sx={sxCardTypography}
                     gutterBottom variant="body1" component="div">
-                    {ingredient.name}
+                    {capitalizeFirstLetter(ingredient.name)}
                   </Typography>
                 </Card>
               </Tooltip>
@@ -232,6 +271,7 @@ function Combo() {
       {/* combined ingredient listing with no duplicates */}
       {combo.length > 0 && combo.length < 3 &&
         <Box sx={sxIngredientContainer}>
+
           {combined.map(ingredient => (
             <Tooltip sx={sxTooltip}
               title={
@@ -252,8 +292,8 @@ function Combo() {
                 />
                 <Typography
                   sx={sxCardTypography}
-                  gutterBottom variant="body1" component="div">
-                  {ingredient.name}
+                  variant="body1" component="div">
+                  {capitalizeFirstLetter(ingredient.name)}
                 </Typography>
               </Card>
             </Tooltip>
