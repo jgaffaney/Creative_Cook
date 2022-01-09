@@ -50,10 +50,10 @@ function* deletePairing(action) {
 }
 
 function* postBulkPairing(action) {
-    console.log('in postBulkPairing with payload: ', action.payload);
+    console.log('in postBulkPairing Saga with payload: ', action.payload);
 
     const formData = new FormData();
-    formData.append("file", action.payload);
+    formData.append('file', action.payload);
     try {
         yield axios.post('/api/bulkPairings/', formData, {
             headers: {
