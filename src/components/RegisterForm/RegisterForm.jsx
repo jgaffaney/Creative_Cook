@@ -13,21 +13,16 @@ import Select from '@mui/material/Select';
 
 function RegisterForm() {
   const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-
+  const [displayName, setDisplayName] = useState(null);
+  const [bio, setBio] = useState(null);
+  const [pic, setPic] = useState(null);
+  const [age, setAge] = useState(null);
+  const [gender, setGender] = useState(null);
+  const [familySize, setFamilySize] = useState(null);
+  const [maritalStatus, setMaritalStatus] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-
-  const [bio, setBio] = useState('');
-  const [pic, setPic] = useState('');
-  const [location, setLocation] = useState('')
-  const [birthday, setBirthday] = useState(null);
-  const [gender, setGender] = useState(null);
-  const [maritalStatus, setMaritalStatus] = useState(null);
-  const [familySize, setFamilySize] = useState(null);
-  const [isAdmin, setIsAdmin] = useState(false);
-
-
 
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
@@ -36,30 +31,29 @@ function RegisterForm() {
   const registerUser = (event) => {
     event.preventDefault();
 
-    if (password === confirmPassword) {
+    if(password === confirmPassword){
       dispatch({
         type: 'REGISTER',
         payload: {
           username: username,
-          email: email,
-          password: password,
+          displayName: displayName,
           bio: bio,
           pic: pic,
-          location: location,
-          birthday: birthday,
+          age: age,
           gender: gender,
-          maritalStatus: maritalStatus,
           familySize: familySize,
+          maritalStatus: maritalStatus,
           isAdmin: isAdmin,
+          password: password,
         },
       });
       alert("Friendly reminder to REMEMBER YOUR PASSWORD! Warning: Password Recovery is not currently available")
       history.push('/home')
     } else {
-      alert("Error: Email or Passwords Don't Match")
+      alert("Error: Passwords Don't Match")
     }
 
-
+   
   }; // registerUser
 
 
@@ -90,7 +84,7 @@ function RegisterForm() {
     <form sx={sxFormContainer} onSubmit={registerUser}>
       <Box sx={sxFormContent}>
 
-        <Typography sx={{ mb: 3, textAlign: 'center', }} variant='h4' id="register">Register New User</Typography>
+        <Typography sx={{mb: 3, textAlign: 'center',}} variant='h4' id="register">Register New User</Typography>
 
         {errors.registrationMessage && (
           <h3 className="alert" role="alert">
@@ -108,20 +102,19 @@ function RegisterForm() {
         // placeholder="Username"
         />
 
-        {/* EMAIL */}
+        {/* DISPLAY NAME */}
         <TextField sx={sxInput}
-          id="email"
-          required
-          label="Email"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
+          id="displayName"
+          label="Your Name"
+          value={displayName}
+          onChange={(event) => setDisplayName(event.target.value)}
         // placeholder="Username"
         />
 
         {/* BIO */}
         <TextField sx={sxInput}
           id="bio"
-          label="Bio"
+          label="Provide a short bio"
           value={bio}
           onChange={(event) => setBio(event.target.value)}
         />
@@ -129,27 +122,18 @@ function RegisterForm() {
         {/* PIC URL */}
         <TextField sx={sxInput}
           id="pic"
-          label="Profile Image URL"
+          label="Profile image URL"
           value={pic}
           onChange={(event) => setPic(event.target.value)}
         />
 
-        {/* LOCATION */}
+        {/* AGE */}
         <TextField sx={sxInput}
-          id="location"
-          label="Location"
-          value={location}
-          onChange={(event) => setLocation(event.target.value)}
-        />
-
-        {/* BIRTHDAY */}
-        <TextField sx={sxInput}
-          type="date"
-          id="birthday"
-          label="Birthday"
-          value={birthday}
-          onChange={(event) => setBirthday(event.target.value)}
-          InputLabelProps={{ shrink: true }}
+          type="number"
+          id="age"
+          label="Current age?"
+          value={age}
+          onChange={(event) => setAge(event.target.value)}
         />
 
         {/* GENDER SELECTION */}
@@ -157,6 +141,7 @@ function RegisterForm() {
           <InputLabel id="gender">Gender</InputLabel>
           <Select sx={sxInput} variant="outlined"
             labelId="gender"
+            label="gender"
             id="gender"
             name="gender"
             value={gender}
@@ -192,7 +177,6 @@ function RegisterForm() {
             <MenuItem value={'Single'}>Single</MenuItem>
             <MenuItem value={'Married'}>Married</MenuItem>
             <MenuItem value={'Partnership'}>Partnership</MenuItem>
-            <MenuItem hidden value={'Prefer not to answer'}>Prefer not to answer</MenuItem>
           </Select>
         </FormControl>
 
