@@ -12,6 +12,9 @@ import Confetti from 'react-confetti'
 import { useWindowSize, useTimeout } from 'react-use';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
+import AddIcon from '@mui/icons-material/Add';
+import CheckIcon from '@mui/icons-material/Check';
+
 import {
   Box,
   Card,
@@ -24,7 +27,8 @@ import {
   CardHeader,
   Avatar,
   IconButton,
-  Paper
+  Paper,
+  ImageList
 } from '@mui/material';
 
 import Collapse from '@mui/material/Collapse';
@@ -36,6 +40,7 @@ import {
   sxPageContent,
   sxLeftColumn,
   sxTopLeftSection,
+  sxTopMiddleSection,
   sxTopRightSection,
   sxMiddleSection,
   sxPhotoBox,
@@ -139,6 +144,8 @@ function Profile() {
     color: theme.palette.text.secondary,
   }));
 
+  const recentCombos = userCombos?.slice(0, 3);
+
 
   return (
     <Box sx={sxProfilePageContainer}>
@@ -146,13 +153,27 @@ function Profile() {
         <Box sx={sxRightColumn}>
           <Box sx={sxLeftColumn}>
             <Box sx={sxTopLeftSection}>
-              <CardMedia sx={sxPhotoBox} component="img" image={user.pic} />
               <Typography>{user.username}</Typography>
+              <CardMedia sx={sxPhotoBox} component="img" image={user.pic} />
               <LogOutButton />
             </Box>
-            <Box sx={sxTopRightSection}>
-              <Typography fontSize={24}>{user.bio}</Typography>
-              <Typography>{user.age}</Typography>
+            <Box sx={sxTopMiddleSection}>
+            <img height="110%" width="90%" src = "images/logo.png"></img>
+              </Box>
+              <Box sx={sxTopRightSection}>
+              <Typography fontSize={18}>{user.bio}</Typography>
+              <br />
+              <Typography >Recent Combos</Typography>
+                        {recentCombos?.map((combo, i) => (
+                            <Typography key={i} >{combo.name}</Typography>
+                        ))}
+              <br />
+              <Typography>Birthday: {user.birthday?.split('T')[0]}</Typography>
+              <br />
+              <Typography>Location: {user.location}</Typography>
+              
+
+               
             </Box>
           </Box>
           <Box sx={sxMiddleSection}>
@@ -166,6 +187,7 @@ function Profile() {
                     Progress Currently at {userCombos.length} — <strong>try it out!</strong>
                   </Alert>
                   <TextField
+                  size="small"
                     id="outlined-number"
                     label="Set Combo Goal"
                     type="number"
@@ -174,15 +196,15 @@ function Profile() {
                       shrink: true,
                     }}
                   />
-                  <Button variant="outlined" onClick={handleComboGoalClick}>Set Combo Goal</Button>
+                  <Button size="medium" variant="outlined" endIcon={<CheckIcon />} onClick={handleComboGoalClick}>Set Combo Goal</Button>
                 </Grid>
               }
 
               {comboGoal.goal > 0 &&
                 <Grid item xs={4}>
-                  <Typography>New Combos - Goal: {comboGoal.goal}  </Typography>
+                  <Item >New Combos - Goal: {comboGoal.goal}  </Item>
                   <Item >Goal Progress: {userCombos.length}/{comboGoal.goal}</Item>
-                  <Button variant="outlined" onClick={() => resetComboGoal()}>Update Combo Goal</Button>
+                  <Button size="small" variant="outlined" endIcon={<AddIcon/>} onClick={() => resetComboGoal()}>Update Combo Goal</Button>
                   {(userCombos.length >= comboGoal.goal) &&
                     <Confetti width={width} height={height} recycle={!isComplete()} />
                   }
@@ -217,6 +239,7 @@ function Profile() {
                     Progress Currently at {recipeSaved.length} — <strong>try it out!</strong>
                   </Alert>
                   <TextField
+                  size="small"
                     id="outlined-number"
                     label="Set Recipe Goal"
                     type="number"
@@ -225,15 +248,15 @@ function Profile() {
                       shrink: true,
                     }}
                   />
-                  <Button variant="outlined" onClick={handleRecipeGoalClick}>Set Recipe Goal</Button>
+                  <Button size="medium" variant="outlined" endIcon={<CheckIcon />} onClick={handleRecipeGoalClick}>Set Recipe Goal</Button>
                 </Grid>
               }
 
               {recipeGoal.goal > 0 &&
                 <Grid item xs={4}>
-                  <Typography>New Recipes - Goal: {recipeGoal.goal}  </Typography>
+                  <Item>New Recipes - Goal: {recipeGoal.goal}  </Item>
                   <Item>Goal Progress: {recipeSaved.length}/{recipeGoal.goal}</Item>
-                  <Button variant="outlined" onClick={() => resetRecipeGoal()}>Update Recipe Goal</Button>
+                  <Button size="small" variant="outlined" endIcon={<AddIcon />} onClick={() => resetRecipeGoal()}>Update Recipe Goal</Button>
                   {(recipeSaved.length >= recipeGoal.goal) &&
                     <Confetti width={width} height={height} recycle={!isComplete()} />
                   }
@@ -267,6 +290,7 @@ function Profile() {
                     Progress Currently at {ingredientUnique.length} — <strong>try it out!</strong>
                   </Alert>
                   <TextField
+                  size="small"
                     id="outlined-number"
                     label="Set Ingredient Goal"
                     type="number"
@@ -275,16 +299,16 @@ function Profile() {
                       shrink: true,
                     }}
                   />
-                  <Button variant="outlined" onClick={handleIngredientGoalClick}>Set Ingredient Goal</Button>
+                  <Button size="medium" variant="outlined" endIcon={<CheckIcon />} onClick={handleIngredientGoalClick}>Set Ingredient Goal</Button>
 
                 </Grid>
               }
 
               {ingredientGoal.goal > 0 &&
                 <Grid item xs={4}>
-                  <Typography>New Ingredients - Goal: {ingredientGoal.goal}  </Typography>
+                  <Item>New Ingredients - Goal: {ingredientGoal.goal}  </Item>
                   <Item>Goal Progress: {ingredientUnique.length}/{ingredientGoal.goal}</Item>
-                  <Button variant="outlined" onClick={() => resetIngredientGoal()}>Update Ingredient Goal</Button>
+                  <Button size="small" variant="outlined" endIcon={<AddIcon />} onClick={() => resetIngredientGoal()}>Update Ingredient Goal</Button>
                   {(ingredientUnique.length >= ingredientGoal.goal) &&
                     <Confetti width={width} height={height} recycle={!isComplete()} />
                   }

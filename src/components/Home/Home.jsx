@@ -57,6 +57,11 @@ function Home() {
     const ingredientGoal = useSelector((store) => store.ingredientGoal);
     const ingredientUnique = useSelector((store) => store.ingredientUnique);
     const combo = useSelector((store) => store.combo);
+    const comboMetrics = useSelector((store) => store.comboMetrics);
+    const recipeMetrics = useSelector((store) => store.recipeMetrics);
+    const ingredientMetrics = useSelector((store) => store.ingredientMetrics);
+
+
 
 
     useEffect(() => {
@@ -113,7 +118,7 @@ function Home() {
                 console.log('CLICKED on the featured combo');
                 console.log('--- the three ingredients to send to dispatch', ingredientOne, ingredientTwo, ingredientThree);
 
-                const comboArray = [ ingredientOne[0], ingredientTwo[0], ingredientThree[0] ]
+                const comboArray = [ingredientOne[0], ingredientTwo[0], ingredientThree[0]]
                 console.log('--- custom comboArray for searching recipes', comboArray);
 
                 // first make sure the reducer is empty and ready to receive the combo we click on;
@@ -123,7 +128,7 @@ function Home() {
                 dispatch({ type: 'SET_COMBO_INGREDIENT', payload: ingredientTwo[0] })
                 // only dispatch the 3rd ingredient if there's 3 ingredients in the combo; 
                 { ingredientThree && dispatch({ type: 'SET_COMBO_INGREDIENT', payload: ingredientThree[0] }) }
-                
+
                 // dispatch({ type: 'FETCH_RECIPES', payload: combo })
                 // console.log('--- selectCombo', comboArray);
 
@@ -161,6 +166,27 @@ function Home() {
                     <Box onClick={() => handleClick('profile')} sx={sxClickableDiv}>
                         <Typography variant="h6" sx={sxCenterText}>Metrics</Typography>
                         <Typography variant="body1" sx={sxCenterText}>content</Typography>
+
+                        <Grid container spacing={2}>
+                            <Grid item xs={4}>
+                                {comboMetrics[0] && <>
+                                    <Item>Combos Made in the Past Seven Days: {comboMetrics[0].weekly}</Item>
+                                    <Item>Combos Made in the Past 30 Days: {comboMetrics[0].monthly}</Item>
+                                    <Item>Combos Made in the Past 365 Days: {comboMetrics[0].yearly}</Item></>}
+                            </Grid>
+                            <Grid item xs={4}>
+                                {recipeMetrics[0] && <>
+                                    <Item>Recipes Cooked in the Past Seven Days: {recipeMetrics[0].weekly}</Item>
+                                    <Item>Recipes Cooked in the Past 30 Days: {recipeMetrics[0].monthly}</Item>
+                                    <Item>Recipes Cooked in the Past 365 Days: {recipeMetrics[0].yearly}</Item></>}
+                            </Grid>
+                            <Grid item xs={4}>
+                                {ingredientMetrics[0] && <>
+                                    <Item>Unique Ingredients Used in the Past Seven Days: {ingredientMetrics[0].weekly}</Item>
+                                    <Item>Unique Ingredients Used in the Past 30 Days: {ingredientMetrics[0].monthly}</Item>
+                                    <Item>Unique Ingredients Used in the Past 365 Days: {ingredientMetrics[0].yearly}</Item></>}
+                            </Grid>
+                        </Grid>
                     </Box>
 
                     {/* recent COMBOS */}
@@ -175,18 +201,18 @@ function Home() {
                     <Box onClick={() => handleClick('profile')} sx={sxClickableDiv}>
                         <Typography variant="h6" sx={sxCenterText}>Goal Progress</Typography>
                         {comboGoal.goal == null && <Typography variant="body1" sx={sxCenterText}>Set Combo Goal</Typography>}
-                        {comboGoal.goal >= 1 && 
-                        <Typography sx={sxCenterText}>Combo Goals:{userCombos.length}/{comboGoal.goal}</Typography>}
+                        {comboGoal.goal >= 0 &&
+                            <Typography sx={sxCenterText}>Combo Goals:{userCombos.length}/{comboGoal.goal}</Typography>}
                         {recipeGoal.goal == null && <Typography variant="body1" sx={sxCenterText}>Set Recipe Goal</Typography>}
-                        {recipeGoal.goal >= 1 &&
-                        <Typography sx={sxCenterText}>Recipe Goals:{recipeSaved.length}/{recipeGoal.goal}</Typography>}
+                        {recipeGoal.goal >= 0 &&
+                            <Typography sx={sxCenterText}>Recipe Goals:{recipeSaved.length}/{recipeGoal.goal}</Typography>}
                         {ingredientGoal.goal == null && <Typography variant="body1" sx={sxCenterText}>Set Ingredient Goal</Typography>}
-                        {ingredientGoal.goal >= 1 &&
-                        <Typography sx={sxCenterText}>Ingredient Goals:{ingredientUnique.length}/{ingredientGoal.goal}</Typography>}
+                        {ingredientGoal.goal >= 0 &&
+                            <Typography sx={sxCenterText}>Ingredient Goals:{ingredientUnique.length}/{ingredientGoal.goal}</Typography>}
                     </Box>
 
-                    </Box>
-                    {/* {userGoals?.map((goal, j) => (
+                </Box>
+                {/* {userGoals?.map((goal, j) => (
                         <Typography key={j} variant="body1" sx={sxCenterText}>hello</Typography>
                     ))}
                     {userGoals}
@@ -278,7 +304,7 @@ function Home() {
 
             </Box>
         </Box >
-           
+
     );
 };
 
