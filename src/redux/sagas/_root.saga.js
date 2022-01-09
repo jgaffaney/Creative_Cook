@@ -18,6 +18,7 @@ import userRecipesSaga from './userRecipe.saga';
 import recipeMetricsSaga from './recipe_metrics.saga';
 import ingredientMetricsSaga from './ingredient_metrics.saga';
 import comboPairingSaga from './combo.pairing.saga';
+import enumSaga from './enum.saga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -47,5 +48,6 @@ export default function* rootSaga() {
     recipeMetricsSaga(),
     ingredientMetricsSaga(),
     comboPairingSaga(),
+    enumSaga(),
   ]);
 }

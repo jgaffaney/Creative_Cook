@@ -2,7 +2,7 @@ import {
     FormControl, Box, TextField,
     MenuItem, Button, Grid
 } from "@mui/material";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import UploadPairings from "./UploadPairings";
 
@@ -20,6 +20,8 @@ function AddIngredients() {
     }
 
     const selectedFile = useSelector(state => state.uploadedFile);
+    const seasons = useSelector(state => state.seasons);
+    const foodType = useSelector(state => state.types)
 
     const [newIngredient, setNewIngredient] = useState(defaultIngredient);
     const [isSelected, setIsSelected] = useState();
@@ -38,104 +40,104 @@ function AddIngredients() {
     };
 
     // for seasons dropdown
-    const seasons = [
-        {
-            value: 'Spring',
-            label: 'Spring'
-        },
-        {
-            value: 'Summer',
-            label: 'Summer'
-        },
-        {
-            value: 'Autumn',
-            label: 'Autumn'
-        },
-        {
-            value: 'Winter',
-            label: 'Winter'
-        },
-        {
-            value: 'Summer-Autumn',
-            label: 'Summer-Autumn'
-        },
-        {
-            value: 'Autumn-Winter',
-            label: 'Autumn-Winter'
-        },
-        {
-            value: 'Winter-Spring',
-            label: 'Winter-Spring'
-        },
-        {
-            value: 'Spring-Early Autumn',
-            label: 'Spring-Early Autumn'
-        },
-        {
-            value: 'Spring-Summer',
-            label: 'Spring-Summer'
-        },
-        {
-            value: 'Year-round',
-            label: 'Year-round'
-        }
-    ]
+    // const seasons = [
+    //     {
+    //         value: 'Spring',
+    //         label: 'Spring'
+    //     },
+    //     {
+    //         value: 'Summer',
+    //         label: 'Summer'
+    //     },
+    //     {
+    //         value: 'Autumn',
+    //         label: 'Autumn'
+    //     },
+    //     {
+    //         value: 'Winter',
+    //         label: 'Winter'
+    //     },
+    //     {
+    //         value: 'Summer-Autumn',
+    //         label: 'Summer-Autumn'
+    //     },
+    //     {
+    //         value: 'Autumn-Winter',
+    //         label: 'Autumn-Winter'
+    //     },
+    //     {
+    //         value: 'Winter-Spring',
+    //         label: 'Winter-Spring'
+    //     },
+    //     {
+    //         value: 'Spring-Early Autumn',
+    //         label: 'Spring-Early Autumn'
+    //     },
+    //     {
+    //         value: 'Spring-Summer',
+    //         label: 'Spring-Summer'
+    //     },
+    //     {
+    //         value: 'Year-round',
+    //         label: 'Year-round'
+    //     }
+    // ]
 
-    // for type dropdown
-    const foodType = [
-        {
-            value: 'Protein: Air',
-            label: 'Protein: Air'
-        },
-        {
-            value: 'Protein: Land',
-            label: 'Protein: Land'
-        },
-        {
-            value: 'Protein: Sea',
-            label: 'Protein: Sea'
-        },
-        {
-            value: 'Vegetable',
-            label: 'Vegetable'
-        },
-        {
-            value: 'Fruit',
-            label: 'Fruit'
-        },
-        {
-            value: 'Dairy',
-            label: 'Dairy'
-        },
-        {
-            value: 'Fat',
-            label: 'Fat'
-        },
-        {
-            value: 'Grain',
-            label: 'Grain'
-        },
-        {
-            value: 'Green',
-            label: 'Green'
-        },
-        {
-            value: 'Legume',
-            label: 'Legume'
-        },
-        {
-            value: 'Nut',
-            label: 'Nut'
-        },
-        {
-            value: 'Herb',
-            label: 'Herb'
-        },
-        {
-            value: 'Raw',
-            label: 'Raw'
-        }
-    ]
+    // // for type dropdown
+    // const foodType = [
+    //     {
+    //         value: 'Protein: Air',
+    //         label: 'Protein: Air'
+    //     },
+    //     {
+    //         value: 'Protein: Land',
+    //         label: 'Protein: Land'
+    //     },
+    //     {
+    //         value: 'Protein: Sea',
+    //         label: 'Protein: Sea'
+    //     },
+    //     {
+    //         value: 'Vegetable',
+    //         label: 'Vegetable'
+    //     },
+    //     {
+    //         value: 'Fruit',
+    //         label: 'Fruit'
+    //     },
+    //     {
+    //         value: 'Dairy',
+    //         label: 'Dairy'
+    //     },
+    //     {
+    //         value: 'Fat',
+    //         label: 'Fat'
+    //     },
+    //     {
+    //         value: 'Grain',
+    //         label: 'Grain'
+    //     },
+    //     {
+    //         value: 'Green',
+    //         label: 'Green'
+    //     },
+    //     {
+    //         value: 'Legume',
+    //         label: 'Legume'
+    //     },
+    //     {
+    //         value: 'Nut',
+    //         label: 'Nut'
+    //     },
+    //     {
+    //         value: 'Herb',
+    //         label: 'Herb'
+    //     },
+    //     {
+    //         value: 'Raw',
+    //         label: 'Raw'
+    //     }
+    // ]
     const sxAddIngredient = {
         display: 'flex',
         flexDirection: 'column',
@@ -164,6 +166,7 @@ function AddIngredients() {
         dispatch({ type: 'POST_FILE', payload: selectedFile})
     }
 
+
     return (
         <>
             <div>
@@ -190,8 +193,8 @@ function AddIngredients() {
                                     onChange={(event) => handleChange(event, 'season')}
                                 >
                                     {seasons.map((option) => (
-                                        <MenuItem key={option.value} value={option.value}>
-                                            {option.label}
+                                        <MenuItem key={option.unnest} value={option.unnest}>
+                                            {option.unnest}
                                         </MenuItem>
                                     ))}
                                 </TextField>
@@ -252,8 +255,8 @@ function AddIngredients() {
                                     onChange={(event) => handleChange(event, 'type')}
                                 >
                                     {foodType.map((option) => (
-                                        <MenuItem key={option.value} value={option.value}>
-                                            {option.label}
+                                        <MenuItem key={option.unnest} value={option.unnest}>
+                                            {option.unnest}
                                         </MenuItem>
                                     ))}
                                 </TextField>

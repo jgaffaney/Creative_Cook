@@ -23,6 +23,10 @@ import recipeMetrics from './recipe_metrics.reducer';
 import ingredientMetrics from './ingredient_metrics.reducer';
 import comboPairingOne from './ingredient1pair.reducer';
 import comboPairingTwo from './ingredient2pair.reducer';
+import seasons from './seasons.reducer';
+import types from './types.reducer';
+
+
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -59,6 +63,8 @@ const rootReducer = combineReducers({
   ingredientMetrics, // holds all ingredient profile metrics
   comboPairingOne, // holds pairings for first ingredient selected when creating a combo
   comboPairingTwo, // holds pairings for second ingredient selected when creating a combo
+  seasons, // holds enum values from season column in DB
+  types, // hold enum values from type column in DB
 });
 
 export default rootReducer;

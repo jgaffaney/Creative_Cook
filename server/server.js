@@ -16,6 +16,7 @@ const comboRouter = require('./routes/combo.router');
 const goalRouter = require('./routes/goal.router');
 const pairingsRouter = require('./routes/pairings.router');
 const bulkPairingsRouter = require( './routes/bulkPairings.router');
+const enumRouter = require('./routes/enum.router');
 
 
 // Body parser middleware
@@ -37,7 +38,8 @@ app.use('/api/recipes', recipeRouter);
 app.use('/api/combos', comboRouter);
 app.use('/api/goal', goalRouter);
 app.use('/api/pairings', pairingsRouter);
-app.use('/api/bulkPairings', bulkPairingsRouter)
+app.use('/api/bulkPairings', bulkPairingsRouter);
+app.use('/api/enum', enumRouter);
 
 
 // Serve static files
