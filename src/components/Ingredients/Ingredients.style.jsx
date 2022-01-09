@@ -82,10 +82,6 @@ export const sxFormColumn = {
 
 }
 
-export const sxTextInputForm = {
-    // border: '1px solid red',
-    width: '100%',
-}
 
 
 // -- EditIngredients Component -- // 
@@ -123,7 +119,8 @@ export const sxDataGridContainer = {
     mt: 6,
     mb: 12,
     height: 650, 
-    width: 1 
+    width: 1,
+    boxShadow: 2,
 }
 
 

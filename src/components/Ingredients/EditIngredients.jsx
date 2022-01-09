@@ -186,7 +186,7 @@ export default function EditIngredients() {
 
   return (
     <Box sx={sxDataGridContainer}>
-      <Typography variant="h4" sx={sxCenterText}>{ingredients?.length} Ingredients</Typography>
+      <Typography variant="h4" sx={{textAlign: 'center', my: 1}}>{ingredients?.length} Ingredients</Typography>
       {/* {rows && ( */}
       <DataGrid
         density="compact"

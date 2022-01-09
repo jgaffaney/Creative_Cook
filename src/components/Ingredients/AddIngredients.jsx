@@ -12,7 +12,6 @@ import {
     sxCenterText,
     sxFormContent,
     sxAddIngredientHeaderContainer,
-    sxTextInputForm,
     sxFormColumn,
     sxCenterContent,
 } from './Ingredients.style';
@@ -111,7 +110,6 @@ function AddIngredients() {
                         <FormControl sx={sxFormContent}>
                             <Box sx={sxFormColumn}>
                                 <TextField
-                                    sx={sxTextInputForm}
                                     id="name-input"
                                     label="Ingredient Name"
                                     variant="outlined"
@@ -121,7 +119,6 @@ function AddIngredients() {
                                 </TextField>
 
                                 <TextField
-                                    sx={sxTextInputForm}
                                     id="description-input"
                                     label="Description"
                                     multiline
@@ -133,7 +130,6 @@ function AddIngredients() {
                                 </TextField>
 
                                 <TextField
-                                    sx={sxTextInputForm}
                                     id="type-input"
                                     select
                                     defaultValue=''
@@ -152,7 +148,6 @@ function AddIngredients() {
 
                             <Box sx={sxFormColumn}>
                                 <TextField
-                                    sx={sxTextInputForm}
                                     id="season-input"
                                     select
                                     defaultValue=''
@@ -169,7 +164,6 @@ function AddIngredients() {
                                 </TextField>
 
                                 <TextField
-                                    sx={sxTextInputForm}
                                     id="pic-input"
                                     label="Picture URL"
                                     variant="outlined"
@@ -179,7 +173,6 @@ function AddIngredients() {
                                 </TextField>
 
                                 <TextField
-                                    sx={sxTextInputForm}
                                     id="weight-input"
                                     label="Weight"
                                     variant="outlined"
@@ -189,7 +182,6 @@ function AddIngredients() {
                                 </TextField>
 
                                 <TextField
-                                    sx={sxTextInputForm}
                                     id="volume-input"
                                     label="Volume"
                                     variant="outlined"
@@ -201,7 +193,6 @@ function AddIngredients() {
 
                             <Box sx={sxFormColumn}>
                                 <TextField
-                                    sx={sxTextInputForm}
                                     id="taste-input"
                                     label="Taste"
                                     variant="outlined"
@@ -211,7 +202,6 @@ function AddIngredients() {
                                 </TextField>
 
                                 <TextField
-                                    sx={sxTextInputForm}
                                     id="function-input"
                                     label="Function"
                                     variant="outlined"
@@ -221,7 +211,6 @@ function AddIngredients() {
                                 </TextField>
 
                                 <TextField
-                                    sx={sxTextInputForm}
                                     id="technique-input"
                                     label="Technique"
                                     variant="outlined"
@@ -231,7 +220,6 @@ function AddIngredients() {
                                 </TextField>
 
                                 <TextField
-                                    sx={sxTextInputForm}
                                     id="botanical-input"
                                     label="Botanical Relative"
                                     variant="outlined"
@@ -253,7 +241,7 @@ function AddIngredients() {
                 </Box>
 
                 {pairingsFormStatus &&
-                    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                    <Box sx={{ display: 'flex', boxShadow: 2, mx: 'auto', p: 2}}>
                         <form encType="multipart/form-data">
                             <input type="file" name="file" onChange={changeHandler} />
                             {isSelected ? (
