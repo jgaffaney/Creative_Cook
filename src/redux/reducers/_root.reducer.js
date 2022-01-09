@@ -17,6 +17,10 @@ import recipeSaved from './recipeSaved.reducer';
 import unpaired from './unpaired.reducer';
 import top5 from './top5.reducer';
 import uploadedFile from './uploadFile.reducer';
+import comboMetrics from './combo_metrics.reducer';
+import userRecipes from './user_recipes.reducer';
+import recipeMetrics from './recipe_metrics.reducer';
+import ingredientMetrics from './ingredient_metrics.reducer';
 import comboPairingOne from './ingredient1pair.reducer';
 import comboPairingTwo from './ingredient2pair.reducer';
 // rootReducer is the primary reducer for our entire project
@@ -45,6 +49,14 @@ const rootReducer = combineReducers({
   top5, // holds the top five most used ingredients by all users
   // goal,
   uploadedFile,  // holds the csv to be uploaded to the database
+  pairings,    // holds all the pairings available in the database-admin edit only
+  ingredientSearch, // holds search text for <IngredientAutocomplete> 
+  unpaired,    // holds the ingredients that are not paired with the selected ingredient
+  top5,       // holds the top five most used ingredients by all users
+  comboMetrics, // holds all combo profile metrics
+  userRecipes, // holds all saved recipes from the user
+  recipeMetrics, // holds all recipe profile metrics
+  ingredientMetrics, // holds all ingredient profile metrics
   comboPairingOne, // holds pairings for first ingredient selected when creating a combo
   comboPairingTwo, // holds pairings for second ingredient selected when creating a combo
 });
