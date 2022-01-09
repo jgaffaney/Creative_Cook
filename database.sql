@@ -6,19 +6,18 @@ CREATE TYPE "gender" AS ENUM ('Female', 'Male', 'Other', 'Prefer not to answer')
 CREATE TYPE "marital_status" AS ENUM ('Single', 'Married', 'Partnership', 'Prefer not to answer');
 
 CREATE TABLE "user" (
-	"id" serial NOT NULL PRIMARY KEY,
-	"username" varchar(255) NOT NULL,
-	"email" varchar(255) NOT NULL,
-	"password" varchar(255) NOT NULL,
-
-	"bio" varchar(510),
-	"pic" varchar(255),
-	"location" varchar(255),
-	"birthday" DATE,
-	"gender" gender,
-	"marital_status" marital_status,
-	"family_size" int,
-	"is_admin" bool NOT NULL DEFAULT FALSE
+    "id" serial NOT NULL PRIMARY KEY,
+    "username" varchar(255) NOT NULL,
+    "email" varchar(255) NOT NULL,
+    "password" varchar(255) NOT NULL,
+    "bio" varchar(510),
+    "pic" varchar(255),
+    "location" varchar(255),
+    "birthday" DATE,
+    "gender" gender,
+    "marital_status" marital_status,
+    "family_size" int,
+    "is_admin" bool NOT NULL DEFAULT FALSE
 );
 
 	
@@ -35,7 +34,10 @@ CREATE TABLE "ingredients" (
 	"season" SEASON,
 	"weight" varchar(255),
 	"volume" varchar(255),
-	"type" TYPE);
+	"type" TYPE),
+	"funtction" varchar(255),
+	"technique" varchar(255),
+	"botanicalRelative" varchar(255);
 
 
 CREATE TABLE "pairings" (
@@ -62,14 +64,12 @@ CREATE TABLE "recipes" (
 CREATE TABLE "metrics" (
 	"id" serial NOT NULL PRIMARY KEY,
 	"name" varchar(255) NOT NULL),
-	"combos_goal" int;
 
 CREATE TABLE "user_metrics" (
 	"id" serial NOT NULL PRIMARY KEY,
 	"user_id" int NOT NULL REFERENCES "user",
 	"metric_id" int NOT NULL REFERENCES "metrics",
-	"goal" int,
-    "progress" int);
+	"goal" int);
 
 CREATE TABLE "feed_content" (
 	"id" serial NOT NULL PRIMARY KEY,
@@ -247,3 +247,4 @@ ADD "location" varchar(255);
 
 ALTER TABLE "user"
 ADD "birthday" DATE;
+

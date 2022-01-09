@@ -69,6 +69,8 @@ function App() {
 
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
+    dispatch({ type: 'FETCH_SEASONS' });
+    dispatch({ type: 'FETCH_TYPES' })
   }, [dispatch]);
 
   return (

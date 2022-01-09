@@ -81,6 +81,9 @@ QuickSearchToolbar.propTypes = {
 export default function EditIngredients() {
 
   const ingredients = useSelector(store => store.ingredients);
+  const seasons = useSelector(state => state.seasons);
+  const foodType = useSelector(state => state.types)
+
   const dispatch = useDispatch();
 
   const [searchText, setSearchText] = useState('');
@@ -88,6 +91,7 @@ export default function EditIngredients() {
   const [snackbar, setSnackbar] = useState(null);
   
 
+<<<<<<< HEAD
   const seasons = [
     {
       value: 'Spring',
@@ -187,6 +191,8 @@ export default function EditIngredients() {
   ]
 
 
+=======
+>>>>>>> main
   const handleCloseSnackbar = () => setSnackbar(null);
 
   // called when edit button clicked
@@ -241,6 +247,7 @@ export default function EditIngredients() {
       // editable: true
     },
     { field: 'id', hide: true, editable: true },
+<<<<<<< HEAD
     { field: 'name', headerName: 'Name', editable: true, width: 150, },
     // { field: 'description', headerName: 'Description', editable: true, flex: true, resizable: true},
     { field: 'description', headerName: 'Description', editable: true, width: 600, },
@@ -251,6 +258,16 @@ export default function EditIngredients() {
     { field: 'taste', headerName: 'Taste', editable: true, width: 120 },
     { field: 'weight', headerName: 'Weight', editable: true, width: 120},
     { field: 'volume', headerName: 'Volume', editable: true, width: 120 },
+=======
+    { field: 'name', headerName: 'Name', editable: true },
+    { field: 'description', headerName: 'Description', editable: true, flex: true },
+    { field: 'pic', headerName: 'Pic', editable: true },
+    { field: 'taste', headerName: 'Taste', editable: true },
+    { field: 'season', headerName: 'Season', editable: true, valueOptions: seasons, type: 'singleSelect' },
+    { field: 'weight', headerName: 'Weight', editable: true },
+    { field: 'volume', headerName: 'Volume', editable: true },
+    { field: 'type', headerName: 'Type', editable: true, valueOptions: foodType, type: 'singleSelect' },
+>>>>>>> main
   ];
 
   // search function for the data grid
@@ -281,9 +298,13 @@ export default function EditIngredients() {
   // console.log('Demo Data: ', data);
 
   return (
+<<<<<<< HEAD
     <Box sx={sxDataGridContainer}>
       <Typography variant="h4" sx={sxCenterText}>{ingredients?.length} Ingredients</Typography>
       {/* {rows && ( */}
+=======
+    <Box sx={{ height: 600, width: 1 }}>
+>>>>>>> main
       <DataGrid
         density="compact"
         components={{ Toolbar: QuickSearchToolbar }}

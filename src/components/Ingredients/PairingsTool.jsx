@@ -36,7 +36,7 @@ const PairingsTool = () => {
 
     const convertNameToId = () => {
         for (let ingredient of ingredients) {
-            if (ingredient.name === searchText.toLowerCase()) {
+            if (ingredient.name.toLowerCase() === searchText.toLowerCase()) {
                 return ingredient.id;
             }
         }
