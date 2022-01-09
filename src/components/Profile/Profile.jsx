@@ -24,7 +24,8 @@ import {
   CardHeader,
   Avatar,
   IconButton,
-  Paper
+  Paper,
+  Tooltip,
 } from '@mui/material';
 
 import Collapse from '@mui/material/Collapse';
@@ -49,10 +50,21 @@ import {
   sxCardTitle,
   sxBox,
   sxCardActions,
+  sxPhotoIngredientContainer,
+  sxRecipeUrl,
+  sxRecipeButton,
 } from './Profile.style';
+
+import {
+  sxPhotoIngredient,
+  sxClickableCombo,
+} from '../Home/Home.style';
 
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
+import { useHistory } from 'react-router';
+import { fontStyle } from '@mui/system';
+import CheckIcon from '@mui/icons-material/Check';
 
 function Profile() {
   const user = useSelector((store) => store.user);
@@ -65,11 +77,12 @@ function Profile() {
   const recipeGoal = useSelector((store) => store.recipeGoal);
   const recipeSaved = useSelector((store) => store.recipeSaved);
   const goal = useSelector((store) => store.goal);
-  console.log('--- profile page goal', goal);
   const comboMetrics = useSelector((store) => store.comboMetrics);
   const recipeMetrics = useSelector((store) => store.recipeMetrics);
   const ingredientMetrics = useSelector((store) => store.ingredientMetrics);
+  const ingredients = useSelector((store) => store.ingredients);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const { width, height } = useWindowSize();
   const [isComplete] = useTimeout(8000);
@@ -91,6 +104,7 @@ function Profile() {
     dispatch({ type: 'FETCH_USER_RECIPES' })
     dispatch({ type: 'FETCH_RECIPE_METRICS' })
     dispatch({ type: 'FETCH_INGREDIENT_METRICS' })
+    dispatch({ type: 'FETCH_INGREDIENTS' })
   }, [])
 
   // handle Change with user set goals
@@ -138,6 +152,36 @@ function Profile() {
     textAlign: 'center',
     color: theme.palette.text.secondary,
   }));
+
+  // pageDirection clicks to take to you to the right page.
+  function handleClick(action, ingredientOne, ingredientTwo, ingredientThree) {
+
+    switch (action) {
+      case 'combo':
+        console.log('CLICKED on the featured combo');
+        console.log('--- the three ingredients to send to dispatch', ingredientOne, ingredientTwo, ingredientThree);
+
+        const comboArray = [ingredientOne[0], ingredientTwo[0], ingredientThree[0]]
+        console.log('--- custom comboArray for searching recipes', comboArray);
+
+        // first make sure the reducer is empty and ready to receive the combo we click on;
+        dispatch({ type: 'CLEAR_COMBO_AND_RECIPE' })
+
+        dispatch({ type: 'SET_COMBO_INGREDIENT', payload: ingredientOne[0] })
+        dispatch({ type: 'SET_COMBO_INGREDIENT', payload: ingredientTwo[0] })
+        // only dispatch the 3rd ingredient if there's 3 ingredients in the combo; 
+        { ingredientThree && dispatch({ type: 'SET_COMBO_INGREDIENT', payload: ingredientThree[0] }) }
+
+        // dispatch({ type: 'FETCH_RECIPES', payload: combo })
+        // console.log('--- selectCombo', comboArray);
+
+        history.push('/combo')
+        break;
+
+      default:
+        break;
+    }
+  }; // handleClick
 
 
   return (
@@ -333,59 +377,119 @@ function Profile() {
               </Grid>
             </Grid>
           </Box>
-          <Typography sx={{ textAlign: "center" }}>Saved Flavor Combos</Typography>
           <Box sx={sxBottomSection}>
-            <Typography size={18}>Saved Flavor Combos</Typography>
+            <Typography variant="h4" sx={{ textAlign: "center" }}>Saved Flavor Combos</Typography>
+            <Typography variant="body2" sx={{ textAlign: "center", pb: 4 }}>(Click on a recipe to view it, or click {<CheckIcon />} to mark a recipe as cooked)</Typography>
             <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
             </Grid>
             <Box sx={sxRecipeContainer}>
               {userCombos.length > 0 &&
-                userCombos.map(combo => (
-                  <>
-                    <Card elevation={3}
-                      sx={sxRecipeCard}>
-                      <CardContent sx={sxCardContent}>
-                        <Typography
-                          sx={sxCardTitle}
-                          mt={-3}
-                          gutterBottom variant="h5" component="div">
-                          {combo.name}
-                        </Typography>
-                        <Box sx={sxBox}>
-                          <Typography
-                            mt={0}
-                            variant="body2" color="text.secondary">
-                            <>
-                              {
-                                <ul>
-                                  {userRecipes.map(recipe => (
-                                    <> <Typography
-                                      key={recipe.id}
-                                      onClick={() => window.open(`_${recipe.url}`.split(`_`)[1], `_blank`)}
-                                      size="small"
-                                    >{recipe.combo_id === combo.id && recipe.label}</Typography>
-                                      {recipe.combo_id === combo.id && recipe.is_cooked === false &&
-                                        <Button
-                                          onClick={() => dispatch({
-                                            type: 'UPDATE_RECIPE',
-                                            payload: { recipe }
-                                          })}
-                                        >Cooked</Button>}</>
-                                  ))}
-                                </ul>
-                              }
-                            </>
-                          </Typography>
+                userCombos.map(combo => {
+
+                  const comboIngredientIds = combo.ingredient_list;
+
+                  const feedContentFilteredIngredients = ingredients?.filter(item => {
+                    return comboIngredientIds.indexOf(item.id) != -1;
+                  });
+                  // console.log('--- feedContentFilteredIngredients filtered down ingredients based on ingredients list', feedContentFilteredIngredients);
+
+                  // ensure we keep the same order of ingredients for when we click on the combo and it populates the reducer; 
+                  const ingredientOne = feedContentFilteredIngredients.filter(ingredient => ingredient?.id === comboIngredientIds[0])
+                  // console.log('--- feedContent .map ingredientOne', ingredientOne);
+                  const ingredientTwo = feedContentFilteredIngredients.filter(ingredient => ingredient?.id === comboIngredientIds[1])
+                  // console.log('--- feedContent .map ingredientTwo', ingredientTwo);
+                  const ingredientThree = feedContentFilteredIngredients.filter(ingredient => ingredient?.id === comboIngredientIds[2])
+                  // console.log('--- feedContent .map ingredientThree', ingredientThree);
+
+                  let recipeChecker = userRecipes.filter(r => r.combo_id === combo.id)
+                  let cookedChecker = userRecipes.filter(r => r.is_cooked === true && r.combo_id === combo.id)
+                  let uncookedChecker = userRecipes.filter(r => r.is_cooked === false && r.combo_id === combo.id)
+                  // console.log('cookedChecker', cookedChecker);
+                  // console.log('uncookedChecker', uncookedChecker);
+
+                  return (
+                    <>
+                      <Card elevation={3}
+                        sx={sxRecipeCard}>
+                        <Box onClick={() => handleClick('combo', ingredientOne, ingredientTwo, ingredientThree)} sx={sxClickableCombo}>
+                          <Box sx={sxPhotoIngredientContainer}>
+                            <CardMedia sx={sxPhotoIngredient} component="img" image={ingredientOne[0]?.pic} />
+
+                            <CardMedia sx={sxPhotoIngredient} component="img" image={ingredientTwo[0]?.pic} />
+
+                            {/* check to see if we have a 3rd ingredient before appending */}
+                            {combo.ingredient_list?.length > 2 &&
+                              <CardMedia sx={sxPhotoIngredient} component="img" image={ingredientThree[0]?.pic} />}
+                          </Box>
                         </Box>
-                      </CardContent>
-                    </Card>
-                  </>
-                ))}
+                        <CardContent sx={sxCardContent}>
+                          <Typography
+                            sx={sxCardTitle}
+                            mt={-3}
+                            gutterBottom variant="h5" component="div">
+                            {combo.name}
+                          </Typography>
+                          <Box sx={sxBox}>
+                            <Typography
+                              mt={0}
+                              variant="body2" color="text.secondary">
+                              <>
+                                {
+                                  <List>
+                                    {recipeChecker.length > 0 && uncookedChecker.length > 0 && <Typography sx={{ fontWeight: 'bold' }}>Uncooked Recipes</Typography>}
+                                    {userRecipes.map((recipe, i) => {
+                                      return (
+                                        <>{i === userRecipes.length - 1 && recipeChecker.length === 0 &&
+                                          <Typography
+                                            sx={{ mt: 1.7 }}
+                                            onClick={() => handleClick('combo', ingredientOne, ingredientTwo, ingredientThree)}
+                                          >No recipes saved, click here to search recipes for this combo
+                                          </Typography>}
+                                          {recipe.combo_id === combo.id && recipe.is_cooked === false &&
+                                            <><ListItem
+                                              sx={sxRecipeUrl}
+                                              key={recipe.id}
+                                              size="small"
+                                            >
+                                              <span
+                                                onClick={() => window.open(`_${recipe.url}`.split(`_`)[1], `_blank`)}
+                                              >{recipe.label}</span>
+                                              <Button
+                                                size='small'
+                                                sx={sxRecipeButton}
+                                                onClick={() => dispatch({
+                                                  type: 'UPDATE_RECIPE',
+                                                  payload: { recipe }
+                                                })}
+                                              >{<CheckIcon />}</Button></ListItem></>}</>
+                                      )
+                                    })
+                                    }
+                                    {recipeChecker.length > 0 && cookedChecker.length > 0 && <Typography sx={{ fontWeight: 'bold' }}>Cooked Recipes</Typography>}
+                                    {userRecipes.map(recipe => (
+                                      <>{recipe.combo_id === combo.id && recipe.is_cooked === true &&
+                                        <><ListItem
+                                          sx={sxRecipeUrl}
+                                          key={recipe.id}
+                                          onClick={() => window.open(`_${recipe.url}`.split(`_`)[1], `_blank`)}
+                                          size="small"
+                                        >{recipe.label}</ListItem></>}</>
+                                    ))}
+                                  </List>
+                                }
+                              </>
+                            </Typography>
+                          </Box>
+                        </CardContent>
+                      </Card>
+                    </>
+                  )
+                })}
             </Box>
 
           </Box>
         </Box>
-      </Box>
+      </Box >
     </Box >
   );
 }
