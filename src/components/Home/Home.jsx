@@ -35,6 +35,7 @@ import {
     sxClickableDiv,
     sxClickableCombo,
 } from './Home.style';
+
 import IngredientAutocomplete from '../IngredientAutocomplete/IngredientAutocomplete';
 
 import { defaultOrderByFn } from 'react-table';
