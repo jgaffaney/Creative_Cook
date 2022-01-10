@@ -105,55 +105,6 @@ router.post('/bulk/', upload.single('file'), (req, res) => {
         });
         fileStream.pipe(stream);
     })
-
-    // .on('finish', (response) => {
-    //     console.log('DB upload complete', response)
-    //     res.sendStatus(200)
-    // });
-
-
-
-    //     csv())
-    // .on('data', (row) => {
-    //     console.log(row);
-    // })
-    // .on('end', () => {
-    //     console.log('CSV file upload complete');
-
-    // })
-
-    // let stream = fs.createReadStream(req.file.path);
-    // let csvData = [];
-    // let csvStream = fastcsv
-    //     .parse()
-    //     .on('data', function(data) {
-    //         csvData.push(data);
-    //     })
-    //     // remove the header
-    //     .on('end', function() {
-    //         csvData.shift();
-    //     })
-    //     stream.pipe(csvStream);
-
-    // let parser = new stream();
-    // parser._transform = function(data, done) {
-    //     this.push(data);
-    //     done();
-    // }
-    // process.stdin
-    //     .pipe(parser)
-    //     .pipe(process.stdout);
-    //     process.stdout.on('error', process.exit);
-    // const queryText = `
-    // COPY ingredients (name, description, pic, taste, season, weight, volume, type) FROM STDIN CSV;
-    // `;
-    // pool.query(queryText)
-    //     .then(response => {
-    //         console.log('response from DB bulk in: ', response);
-    //     }).catch(err => {
-    //         console.log('error on bulk in DB: ', err);
-    //     })
-
 });
 
 // ingredient Metrics GET route
@@ -173,5 +124,21 @@ router.get('/metrics', (req, res) => {
             res.sendStatus(500);
         })
   }); // End GET
+
+  router.get('/:id', (req, res) => {
+      const id = req.params.id
+      const queryText = `
+      DELETE FROM ingredients
+      WHERE id = $1;
+      `
+      pool.query(queryText, [id])
+      .then(response => {
+          console.log('Delete response: ', response);
+          res.sendStatus(204)          
+      }).catch(err => {
+          console.log('Error on delete: ', err);
+          res.sendStatus(500);
+      })
+  })
 
 module.exports = router;

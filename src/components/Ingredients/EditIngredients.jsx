@@ -97,6 +97,7 @@ export default function EditIngredients() {
   // will open popover window for editing
   const editIngredient = (ingredient) => {
     console.log('Edit clicked with: ', ingredient);
+    dispatch({type: 'DELETE_INGREDIENT', payload: ingredient});
 
   }
 
