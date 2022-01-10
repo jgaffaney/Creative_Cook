@@ -47,13 +47,24 @@ export const sxTopLeftSection = {
     padding: '1rem',
   }
 
+  export const sxTopMiddleSection = {
+    border: '1px solid black',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '50%',
+    height: 300,
+    padding: '1rem',
+  }
+
 export const sxTopRightSection = {
     border: '1px solid black',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    width: '75%',
+    width: '25%',
     height: 300,
     padding: '1rem',
    
