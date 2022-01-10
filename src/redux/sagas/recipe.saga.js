@@ -6,15 +6,23 @@ import { put, takeLatest } from 'redux-saga/effects';
 function* fetchRecipes(action) {
     console.log('in fetchRecipes action.payload is:', action.payload);
     // we know we will always have 2 ingredients, so assigning them here
-    let firstIngredient = action.payload[0].name;
-    let secondIngredient = action.payload[1].name;
+    let firstIngredient = action.payload.combo[0].name;
+    let secondIngredient = action.payload.combo[1].name;
     // third ingredient is declared but not assigned
     let thirdIngredient;
+    let health;
+    console.log('firstIngredient: ', firstIngredient);
+    console.log('secondIngredient: ', secondIngredient);
     // if there is a 3rd ingredient, assign it. If not make it an empty string.
-    (action.payload[2] ? thirdIngredient = action.payload[2].name : thirdIngredient = '')
+    (action.payload.combo[2] ? thirdIngredient = action.payload.combo[2].name : thirdIngredient = '')
+    console.log('thirdIngredient is:', thirdIngredient);
+    // if there is a healthFilter requested assign it to the URL, otherwise leave it empty
+    (action.payload.filter.length > 0 ? health = `${action.payload.filter}` : health = '')
+    console.log('health is:', health);
     try {
+        yield put({ type: 'SET_HEALTH_FILTER', payload: health })
         // sending the name of all 3 ingredients over in params
-        const response = yield axios.get(`/api/recipes?first=${firstIngredient}&second=${secondIngredient}&third=${thirdIngredient}`)
+        const response = yield axios.get(`/api/recipes?first=${firstIngredient}&second=${secondIngredient}&third=${thirdIngredient}&health=${health}`)
         // console.log('response.data.hits is !!! ', response.data.hits);
         yield put({ type: 'SET_RECIPES', payload: response.data.hits })
         console.log('response.data', response.data);
