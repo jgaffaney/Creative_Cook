@@ -163,6 +163,10 @@ function Home() {
     const recentCombos = userCombos?.slice(0, 3);
     // console.log('homepage first 3 recentCombos', recentCombos);
 
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+      }
+
 
     return (
         <Box sx={sxHomePageContainer}>
@@ -172,7 +176,7 @@ function Home() {
 
                     {/* user PROFILE section */}
                     <Box sx={sxProfileContainer}>
-                        <Typography variant="h6" sx={sxCenterText}>{user.username}</Typography>
+                        <Typography variant="h6" sx={sxCenterText}>{capitalizeFirstLetter(user.username)}</Typography>
                         <CardMedia onClick={() => handleClick('profile')} sx={sxPhotoBox} component="img" image={user.pic} />
                     </Box>
 
