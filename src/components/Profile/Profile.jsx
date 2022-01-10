@@ -188,6 +188,10 @@ function Profile() {
     }
   }; // handleClick
 
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
 
   return (
     <Box sx={sxProfilePageContainer}>
@@ -195,7 +199,7 @@ function Profile() {
         <Box sx={sxRightColumn}>
           <Box sx={sxLeftColumn}>
             <Box sx={sxTopLeftSection}>
-              <Typography>{user.username}</Typography>
+              <Typography>{capitalizeFirstLetter(user.username)}</Typography>
               <CardMedia sx={sxPhotoBox} component="img" image={user.pic} />
               <LogOutButton />
             </Box>

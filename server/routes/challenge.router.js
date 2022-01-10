@@ -5,7 +5,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 
 // Challenge GET route
 router.get('/', rejectUnauthenticated, (req, res) => {
-    
+
     const queryText = `
         SELECT 	"feed_content"."id", "feed_content"."type", "feed_content"."description", 
                 "feed_content"."combo_id", "feed_content"."date_posted", "combos"."user_id", "combos"."ingredient_list", "combos"."name" 
@@ -13,7 +13,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         JOIN 	"combos" 
         ON 		"combos"."id" = "feed_content"."combo_id"
         ORDER BY "feed_content"."id" DESC ; `;
-        
+
     pool.query(queryText)
         .then(result => {
             res.send(result.rows); // Contains all previous challenges
@@ -30,26 +30,24 @@ router.post('/', rejectUnauthenticated, (req, res) => {
 
     console.log('--- req.user.is_admin', req.user.is_admin);
 
-    // if(req.user.is_admin){
-        // run the code below
-    // }
-
-    const queryText = `
+    if (req.user.is_admin) {
+        const queryText = `
         INSERT INTO "feed_content" 
             ("type", "description", "combo_id", "date_posted")
         VALUES 
-            ($1, $2, $3, NOW()); `;
+            ($1, $2, $3, $4) ;` ;
 
-    values = [req.body.type, req.body.description, req.body.combo_id]
-    console.log('values are', values);
-    pool.query(queryText, values)
-        .then(result => {
-            res.sendStatus(201);
-        })
-        .catch(err => {
-            console.log('Error in Challenge POST', err);
-            res.sendStatus(500);
-        })
+        values = [req.body.type, req.body.description, req.body.combo_id, 'today']
+        console.log('values are', values);
+        pool.query(queryText, values)
+            .then(result => {
+                res.sendStatus(201);
+            })
+            .catch(err => {
+                console.log('Error in Challenge POST', err);
+                res.sendStatus(500);
+            })
+    }
 }); // End POST
 
 
