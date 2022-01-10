@@ -131,6 +131,7 @@ export const sxRecipeCard = {
   backgroundColor: '#fffdfa',
   elevation: 24,
   borderRadius: 5,
+  pt:2,
 }
 
 export const sxCardContent = {
