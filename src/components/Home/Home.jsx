@@ -73,7 +73,16 @@ function Home() {
         dispatch({ type: 'FETCH_COMBO_GOAL' });
         dispatch({ type: 'FETCH_RECIPE_GOAL' });
         dispatch({ type: 'FETCH_INGREDIENT_GOAL' });
+        dispatch({ type: 'FETCH_COMBO_METRICS' })
+        dispatch({ type: 'FETCH_RECIPE_METRICS' })
+        dispatch({ type: 'FETCH_INGREDIENT_METRICS' })
     }, []);
+
+    // useEffect(() => {
+    //     dispatch({ type: 'FETCH_COMBO_METRICS' });
+    //     dispatch({ type: 'FETCH_RECIPE_METRICS' });
+    //     dispatch({ type: 'FETCH_INGREDIENT_METRICS' });
+    // }, [comboMetrics, recipeMetrics, ingredientMetrics]);
 
 
     // SEARCH function will capture first ingredient and then push you to the combo page to complete combo
@@ -145,11 +154,19 @@ function Home() {
         }
     }; // handleClick
 
+    console.log('comboMetrics', comboMetrics);
+    console.log('recipeMetrics', recipeMetrics);
+    console.log('ingredientMetrics', ingredientMetrics);
+
 
     // limit the amount of content we display on the profile section === 3
     // console.log('--- homepage userGoals', userGoals);
     const recentCombos = userCombos?.slice(0, 3);
     // console.log('homepage first 3 recentCombos', recentCombos);
+
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+      }
 
 
     return (
@@ -160,14 +177,20 @@ function Home() {
 
                     {/* user PROFILE section */}
                     <Box sx={sxProfileContainer}>
-                        <Typography variant="h6" sx={sxCenterText}>{user.username}</Typography>
+                        <Typography variant="h6" sx={sxCenterText}>{capitalizeFirstLetter(user.username)}</Typography>
                         <CardMedia onClick={() => handleClick('profile')} sx={sxPhotoBox} component="img" image={user.pic} />
                     </Box>
 
                     {/* METRICS will go here */}
                     <Box onClick={() => handleClick('profile')} sx={sxClickableDiv}>
                         <Typography variant="h6" sx={sxCenterText}>Metrics</Typography>
-                        <Typography variant="body1" sx={sxCenterText}>content</Typography>
+                        {/* <Typography variant="body1" sx={sxCenterText}>content</Typography> */}
+                        {comboMetrics[0] && recipeMetrics[0] && ingredientMetrics[0] && <>
+                        <Typography sx={sxCenterText}>Weekly Combos Made: {comboMetrics[0].weekly}</Typography>
+                        <Typography sx={sxCenterText}>Weekly Recipes Made: {recipeMetrics[0].weekly}</Typography>
+                        <Typography sx={sxCenterText}>Weekly Ingredients Made: {ingredientMetrics[0].weekly}</Typography>
+                        </>} 
+
                     </Box>
 
                     {/* recent COMBOS */}
