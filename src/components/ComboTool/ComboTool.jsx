@@ -70,6 +70,10 @@ function ComboTool() {
         // mx: 'auto',
     };
 
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+      }
+
 
 
     return (
@@ -89,7 +93,7 @@ function ComboTool() {
                                 alt={ingredient.name} />
                             <CardContent>
                                 <Typography variant=''
-                                    sx={sxIngredientName}>{ingredient.name}</Typography>
+                                    sx={sxIngredientName}>{capitalizeFirstLetter(ingredient.name)}</Typography>
                             </CardContent>
                         </Card>
                     ))
