@@ -14,7 +14,11 @@ import {
     Paper,
     List,
     ListItem,
-    Alert
+    Alert,
+    FormControl,
+    InputLabel,
+    Select,
+    MenuItem
 } from '@mui/material';
 import { red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -75,6 +79,31 @@ const sxCardTitle = {
     height: 'auto',
 }
 
+const sxMenuItem = {
+    display: 'flex',
+    justifyContent: 'center'
+}
+const sxSelectLabel = {
+    mx: 'auto',
+    pb: 0.5,
+    color: 'primary.main',
+    borderColor: 'primary.main',
+    // border: '1px solid'
+    width: 150,
+}
+const sxHealthFilter = {
+    display: 'flex',
+    flexDirection: 'row',
+    // border: '1px solid red',
+    justifyContent: 'center',
+    width: '50%',
+    mx: 'auto',
+    // mt: 1,
+    mb: 3,
+    // pl: 2,
+    // pr: 0.5,
+}
+
 
 function RecipeList() {
 
@@ -82,6 +111,7 @@ function RecipeList() {
     const dispatch = useDispatch();
     const combo = useSelector(store => store.combo)
     const snackbar = useSelector(store => store.recipeSnackbar)
+    const healthFilter = useSelector(store => store.healthFilter)
 
     const [open, setOpen] = useState(false);
 
@@ -115,6 +145,52 @@ function RecipeList() {
                 "Recipe Saved!"
                 </Alert>
             </Snackbar>
+
+            {combo.length === 3 &&
+                <>
+                    <Box sx={sxHealthFilter}>
+                        <FormControl>
+                            <InputLabel
+                            sx={sxSelectLabel}>Health Filters</InputLabel>
+                            <Select
+                            sx={{ display: 'flex', mx: 'auto', width: 150, borderColor: 'primary.main' }}
+                                size="small"
+                                label="healthFilters"
+                                value={healthFilter}
+                                onChange={(event) => dispatch({
+                                    type: 'FETCH_RECIPES', payload:
+                                    {
+                                        combo: combo,
+                                        filter: event.target.value
+                                    }
+                                })}
+                                labelId="label" id="healthFilters" value={healthFilter}>
+                                <MenuItem
+                                    sx={sxMenuItem}
+                                    value="dairy-free">Dairy Free</MenuItem>
+                                <MenuItem
+                                    sx={sxMenuItem}
+                                    value="gluten-free">Gluten Free</MenuItem>
+                                <MenuItem
+                                    sx={sxMenuItem}
+                                    value="peanut-free">Peanut Free</MenuItem>
+                                <MenuItem
+                                    sx={sxMenuItem}
+                                    value="pescatarian">Pescatarian</MenuItem>
+                                <MenuItem
+                                    sx={sxMenuItem}
+                                    value="vegetarian">Vegetarian</MenuItem>
+                                <MenuItem
+                                    sx={sxMenuItem}
+                                    value="vegan">Vegan</MenuItem>
+                                <MenuItem
+                                    sx={sxMenuItem}
+                                    value="">None</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Box>
+                </>
+            }
 
             {/* <h1>RECIPE LIST</h1> */}
             <Box sx={sxRecipeContainer}>
