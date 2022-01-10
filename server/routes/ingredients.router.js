@@ -32,7 +32,7 @@ router.post('/', (req, res) => {
     console.log('in ingredients POST with: ', req.body);
 
     const queryText = `
-    INSERT INTO ingredients ("name", "description", "pic", "taste", "season", "weight", "volume", "type", "function", "technique", "botanicalRelative")
+    INSERT INTO ingredients ("name", "description", "pic", "taste", "season", "weight", "volume", "type", "function", "technique", "botanical_relative")
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, &9, &10, &11);
     `
     const values = [req.body.name, req.body.description, req.body.pic, req.body.taste,
@@ -90,7 +90,7 @@ router.post('/bulk/', upload.single('file'), (req, res) => {
 
     pool.connect(function (err, client, done) {
         let stream = client.query(copyFrom(`
-        COPY ingredients (name, description, pic, taste, weight, volume, type) FROM STDIN DELIMITER ',' CSV HEADER;
+        COPY ingredients (name, description, pic, taste, weight, volume, season, function, type, technique, botanical_relative) FROM STDIN DELIMITER ',' CSV HEADER;
         `));
         let fileStream = fs.createReadStream(req.file.path);
         // fileStream.on('error', done)
