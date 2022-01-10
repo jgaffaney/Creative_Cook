@@ -99,24 +99,39 @@ function Feed() {
     }
   }, [combo])
 
+
   const [newChallenge, setNewChallenge] = useState({
     type: 'Combo of the Week',
     description: '',
     combo_id: ''
   })
 
-  //Sets newChallenge local state to the passed in input
-  const handlePropertyChange = (event, property) => {
-    setNewChallenge({ ...newChallenge, [property]: event.target.value })
+  // Sets newChallenge local state to the passed in input
+  const handleDescriptionChange = (event, property) => {
+    // setNewChallenge({ ...newChallenge, [property]: event.target.value })\
+    console.log('--- changing description', property);
+    setNewChallenge({
+      ...newChallenge,
+      [property]: event.target.value
+    })
   };
+
+  const selectedSavedCombo = (event, combo) => {
+    console.log('--- clicked selectedCombo');
+    setNewChallenge({ ...newChallenge, combo_id: combo})
+  
+  }
 
   // Sends new challenge to the saga
   const addNewChallenge = (event) => {
     event.preventDefault();
     dispatch({ type: 'ADD_CHALLENGE', payload: newChallenge });
+
+    // clear input fields;
     setNewChallenge({ type: 'Combo of the Week', description: '', combo_id: '' })
     setOpen(true);
   };
+
 
   // SEARCH function will capture first ingredient and then push you to the combo page to complete combo
   const handleSearch = (searchText) => {
@@ -333,65 +348,14 @@ function Feed() {
 
 
 
+        <Typography variant='h4' sx={{ textAlign: "center", mt: 4, }}>Saved Flavor Combos</Typography>
+        <Typography variant='body1' sx={{ textAlign: "center", my: 2, }}>To add featured combo to feed, selected a saved combo from below and give it a description, then click submit</Typography>
 
-
-        <Typography variant='h4' sx={{ textAlign: "center", mt: 2, }}>Saved Flavor Combos</Typography>
-        <Typography variant='body1' sx={{ textAlign: "center", my: 2, }}>Select a flavor combo, assign a type, give it a description, and then click submit to add to feed</Typography>
-        <Box sx={sxFlavorCombos}>
-
-          <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-            {userCombos.map((combo) => {
-              const comboIngredientIds = combo.ingredient_list;
-
-              const feedContentFilteredIngredients = ingredients?.filter(item => {
-                return comboIngredientIds.indexOf(item.id) != -1;
-              });
-              // console.log('--- feedContentFilteredIngredients filtered down ingredients based on ingredients list', feedContentFilteredIngredients);
-
-              // ensure we keep the same order of ingredients for when we click on the combo and it populates the reducer; 
-              const ingredientOne = feedContentFilteredIngredients.filter(ingredient => ingredient?.id === comboIngredientIds[0])
-              // console.log('--- feedContent .map ingredientOne', ingredientOne);
-              const ingredientTwo = feedContentFilteredIngredients.filter(ingredient => ingredient?.id === comboIngredientIds[1])
-              // console.log('--- feedContent .map ingredientTwo', ingredientTwo);
-              const ingredientThree = feedContentFilteredIngredients.filter(ingredient => ingredient?.id === comboIngredientIds[2])
-              // console.log('--- feedContent .map ingredientThree', ingredientThree);
-              return (
-                <Grid item xs={2} sm={4} md={4} key={combo.id} >
-
-                  <Item sx={{ p: 3, fontSize: 18, display: 'flex', justifyContent: 'center' }} elevation={3} onClick={(event) => handlePropertyChange(event, 'combo_id')}>
-                    <List sx={sxFeedListContent}>
-
-                      <ListItem sx={{ p: 3, }} value={combo.id}>{combo.name}</ListItem>
-
-                      <Box sx={sxFeedPhotoIngredientContainer}>
-                        <CardMedia sx={sxPhotoIngredient} component="img" image={ingredientOne[0]?.pic} />
-
-                        <CardMedia sx={sxPhotoIngredient} component="img" image={ingredientTwo[0]?.pic} />
-
-                        {/* check to see if we have a 3rd ingredient before appending */}
-                        {combo.ingredient_list?.length > 2 &&
-                          <CardMedia sx={sxPhotoIngredient} component="img" image={ingredientThree[0]?.pic} />}
-                      </Box>
-
-                    </List>
-                  </Item>
-
-                </Grid>
-              )
-            })}
-          </Grid>
-
-        </Box>
-
-        <Grid
-          container
-          spacing={0}
-          direction="row"
-          alignItems="center"
-          justifyContent="center"
+        <Box elevation={4} sx={{display: 'flex', alignItems: "center", justifyContent: "center", gap: 2}}
         >
+
           <TextField
-            sx={{ mb: 2, width: '60%', mx: 'auto' }}
+            sx={{ mb: 2, width: '60%'}}
             id="outlined-basic"
             variant="outlined"
             label="Description of Featured Combo"
@@ -399,15 +363,18 @@ function Feed() {
             multiline
             rows={4}
             value={newChallenge.description}
-            onChange={(event) => handlePropertyChange(event, 'description')}
+            onChange={(event) => handleDescriptionChange(event, 'description')}
           />
           <Button sx={{ px: 3 }} onClick={addNewChallenge} variant="outlined">submit</Button>
-        </Grid>
+
+
+        </Box>
         {/* <Button sx={{ width: 5 }} onClick={() => dispatch({ type: 'ADD_CHALLENGE', payload: newChallenge })} variant="contained">submit</Button> */}
         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
           <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
             Combo Added to Feed!
           </Alert>
+
         </Snackbar>
       </Box>
 
@@ -442,8 +409,7 @@ function Feed() {
 
           return (
 
-            <Paper onClick={(event) => handlePropertyChange(event, 'combo_id')} value={content.id} key={content.id} sx={sxSavedComboPaper} elevation={2}>
-
+            <Paper onClick={(event) => selectedSavedCombo(event, content.id)} key={content.id} sx={sxSavedComboPaper} elevation={2}>
               {/* needed an extra Box just to separate the comboClick; remove button sits on top of this DIV and  fire when combo card is clicked on */}
               <Box >
 

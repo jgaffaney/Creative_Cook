@@ -32,7 +32,7 @@ export const sxFlavorCombos = {
 }
 
 export const sxFeedListContent = {
-    border: '1px solid red',
+    // border: '1px solid red',
     display: 'flex', 
     flexDirection: 'column',
     alignItems: 'center',
@@ -43,7 +43,7 @@ export const sxFeedListContent = {
 
 // INGREDIENT PHOTO CONTAINER holds all of the ingredient photos for featured the combo card
 export const sxFeedPhotoIngredientContainer = {
-    border: '1px solid green',
+    // border: '1px solid green',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
