@@ -53,6 +53,8 @@ import {
   sxCardTypography,
   sxTooltip,
   sxSavedComboPaper,
+  sxFeedPhotoIngredientContainer,
+  sxFeedListContent,
 } from './Feed.style';
 
 
@@ -97,7 +99,11 @@ function Feed() {
     }
   }, [combo])
 
-  const [newChallenge, setNewChallenge] = useState({ type: 'Combo of the Week', description: '', combo_id: '' })
+  const [newChallenge, setNewChallenge] = useState({
+    type: 'Combo of the Week',
+    description: '',
+    combo_id: ''
+  })
 
   //Sets newChallenge local state to the passed in input
   const handlePropertyChange = (event, property) => {
@@ -171,8 +177,8 @@ function Feed() {
     color: theme.palette.text.secondary,
   }));
 
-  console.log('Challenge', newChallenge);
-  console.log(topFiveIngredients);
+  console.log('--- Challenge', newChallenge);
+  console.log('--- topFiveIngredients', topFiveIngredients);
 
 
 
@@ -198,7 +204,7 @@ function Feed() {
     combined = combined.filter(ingredient => ingredient.id != combo[0].id).filter(ingredient => ingredient.id != combo[1].id);
   }
 
-
+// combo tool and ingredient pair display
   return (
     <>
       <Box sx={sxMetrics}>
@@ -256,11 +262,8 @@ function Feed() {
         </ul> */}
         {/* <br /> */}
 
-
-
-
+        {/* ingredient pairings */}
         {/* super combo ingredients list */}
-
         {superCombo.length > 0 && combo.length < 3 &&
           <>
             <Typography sx={sxIngredientContainer}>Super Combos</Typography>
@@ -328,17 +331,48 @@ function Feed() {
 
 
 
+
+
+
+
         <Typography variant='h4' sx={{ textAlign: "center", mt: 2, }}>Saved Flavor Combos</Typography>
+        <Typography variant='body1' sx={{ textAlign: "center", my: 2, }}>Select a flavor combo, assign a type, give it a description, and then click submit to add to feed</Typography>
         <Box sx={sxFlavorCombos}>
 
           <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
             {userCombos.map((combo) => {
+              const comboIngredientIds = combo.ingredient_list;
+
+              const feedContentFilteredIngredients = ingredients?.filter(item => {
+                return comboIngredientIds.indexOf(item.id) != -1;
+              });
+              // console.log('--- feedContentFilteredIngredients filtered down ingredients based on ingredients list', feedContentFilteredIngredients);
+
+              // ensure we keep the same order of ingredients for when we click on the combo and it populates the reducer; 
+              const ingredientOne = feedContentFilteredIngredients.filter(ingredient => ingredient?.id === comboIngredientIds[0])
+              // console.log('--- feedContent .map ingredientOne', ingredientOne);
+              const ingredientTwo = feedContentFilteredIngredients.filter(ingredient => ingredient?.id === comboIngredientIds[1])
+              // console.log('--- feedContent .map ingredientTwo', ingredientTwo);
+              const ingredientThree = feedContentFilteredIngredients.filter(ingredient => ingredient?.id === comboIngredientIds[2])
+              // console.log('--- feedContent .map ingredientThree', ingredientThree);
               return (
                 <Grid item xs={2} sm={4} md={4} key={combo.id} >
 
-                  <Item onClick={(event) => handlePropertyChange(event, 'combo_id')}>
-                    <List>
+                  <Item sx={{ p: 3, fontSize: 18, display: 'flex', justifyContent: 'center' }} elevation={3} onClick={(event) => handlePropertyChange(event, 'combo_id')}>
+                    <List sx={sxFeedListContent}>
+
                       <ListItem sx={{ p: 3, }} value={combo.id}>{combo.name}</ListItem>
+
+                      <Box sx={sxFeedPhotoIngredientContainer}>
+                        <CardMedia sx={sxPhotoIngredient} component="img" image={ingredientOne[0]?.pic} />
+
+                        <CardMedia sx={sxPhotoIngredient} component="img" image={ingredientTwo[0]?.pic} />
+
+                        {/* check to see if we have a 3rd ingredient before appending */}
+                        {combo.ingredient_list?.length > 2 &&
+                          <CardMedia sx={sxPhotoIngredient} component="img" image={ingredientThree[0]?.pic} />}
+                      </Box>
+
                     </List>
                   </Item>
 
@@ -380,6 +414,10 @@ function Feed() {
 
 
 
+
+
+
+      {/* code from the Home Page adapted for Feed*/}
       <Box sx={sxFeedContainer}>
 
         {userCombos?.map((content) => {
@@ -404,16 +442,16 @@ function Feed() {
 
           return (
 
-            <Paper key={content.id} sx={sxSavedComboPaper} elevation={2}>
+            <Paper onClick={(event) => handlePropertyChange(event, 'combo_id')} value={content.id} key={content.id} sx={sxSavedComboPaper} elevation={2}>
 
-              {/* needed an extra Box just to separate the comboClick; remove button sits on top of this DIV and  fire when button is pushed */}
-              <Box>
+              {/* needed an extra Box just to separate the comboClick; remove button sits on top of this DIV and  fire when combo card is clicked on */}
+              <Box >
 
-                <Typography variant="body1" sx={{ textAlign: 'center' }} >{content.date_posted?.split('T')[0]}</Typography>
+                {/* <Typography variant="body1" sx={{ textAlign: 'center' }} >{content.date_posted?.split('T')[0]}</Typography> */}
 
                 <Typography variant="h6" sx={{ textAlign: 'center' }}>{content.name}</Typography>
 
-                <Box sx={sxPhotoIngredientContainer}>
+                <Box sx={sxFeedPhotoIngredientContainer}>
                   <CardMedia sx={sxPhotoIngredient} component="img" image={ingredientOne[0]?.pic} />
 
                   <CardMedia sx={sxPhotoIngredient} component="img" image={ingredientTwo[0]?.pic} />
@@ -426,7 +464,7 @@ function Feed() {
                 <Typography variant="body1" sx={sxComboDescription}>{content.description}</Typography>
 
               </Box>
-{/* 
+              {/* 
               <Button onClick={() => handleClick('remove', content)}
                 sx={{ mx: 'auto', my: 1 }}
                 variant="outlined"
