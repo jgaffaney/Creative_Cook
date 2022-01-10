@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Papa from 'papaparse';
 import { CSVLink, CSVDownload } from 'react-csv';
@@ -6,11 +6,13 @@ import { CSVLink, CSVDownload } from 'react-csv';
 function UploadPairings() {
 
     const dispatch = useDispatch();
+    const ref = useRef();
 
     const selectedFile = useSelector(state => state.uploadedFile);
     const ingredients = useSelector(store => store.ingredients);
 
-    const [isSelected, setIsSelected] = useState();
+    const [isSelected, setIsSelected] = useState(false);
+    const [fileUploaded, setFileUploaded] = useState(false);
     const [parsedResults, setParsedResults] = useState();
     const [parsedFile, setParsedFile] = useState();
 
@@ -56,20 +58,26 @@ function UploadPairings() {
         // converts the file to a useable object
         // dispatch the file to the saga happens in papaParse
         Papa.parse(selectedFile, config);
+        reset();
     }
 
     const handlePosting = () => {
         console.log('in handle posting');
-        dispatch({type: 'POST_PAIRINGS_FILE', payload: selectedFile})
+        dispatch({ type: 'POST_PAIRINGS_FILE', payload: selectedFile })
+    }
+
+    const reset = () => {
+        ref.current.value = '';
     }
 
     return (
         <div>
-            <h1>Pairings Upload</h1>
-            <form encType="multipart/form-data">
-                <p>Choose a file to convert for upload</p>
-                <input type="file" name="file" onChange={changeHandler} />
-                {/* {isSelected ? (
+            {!fileUploaded ? (
+
+                <form encType="multipart/form-data">
+                    <p>Choose a file to convert for upload</p>
+                    <input type="file" name="file" ref={ref} onChange={changeHandler} />
+                    {/* {isSelected ? (
                     <div>
                         <p>Filename: {selectedFile.name}</p>
                         <p>Filetype: {selectedFile.type}</p>
@@ -82,22 +90,32 @@ function UploadPairings() {
                 ) : (
                     <p>Select a file to show details</p>
                 )} */}
-                <button onClick={handleSubmission}>Convert</button>
-                <input type='file' name='file' onChange={changeHandler} />
-                <button onClick={handlePosting}>Post File to DB</button>
-            </form>
+                    <button onClick={handleSubmission}>Convert</button>
+                </form>) : (
+                <form encType="multipart/form-data">
+                    <p>Choose a file to send to the database</p>
+                    <input type='file' name='file' onChange={changeHandler} />
+                    <button onClick={handlePosting}>Post File to DB</button>
+                </form>
+            )}
             {parsedResults &&
                 // <CSVDownload
                 //     data={parsedResults}
                 //     target='_blank'/>
                 <CSVLink
                     filename='converted pairings data.csv'
-                    data={parsedResults} 
+                    data={parsedResults}
                     onClick={() => {
                         console.log('clicked');
+                        setFileUploaded(true);
                     }}
-                    > Download converted file for upload to DB</CSVLink>
+                > Download converted file for upload to DB</CSVLink>
             }
+            {!fileUploaded ? (
+                <button onClick={()=>{setFileUploaded(true)}}>I already have a converted file</button>
+            ) : (
+                <button onClick={()=>{setFileUploaded(false)}}>I need to convert a file</button>
+            )}
         </div>
     )
 }
