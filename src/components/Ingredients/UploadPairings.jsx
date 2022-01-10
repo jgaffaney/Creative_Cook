@@ -85,7 +85,7 @@ function UploadPairings() {
                     <input type="file" name="file" ref={ref} onChange={changeHandler} />
                     <Typography sx={{ p: 1 }} variant="body1">Select a file to show details</Typography>
                     <Button variant="contained" onClick={handleSubmission}>Submit</Button>
-                    <Button variant="contained" onClick={() => { setFileUploaded(true) }}>I already have a converted file</Button>
+                    {/* <Button variant="contained" onClick={() => { setFileUploaded(true) }}>I already have a converted file</Button> */}
 
                 </form>
 
@@ -94,7 +94,7 @@ function UploadPairings() {
                     <Typography sx={{ p: 1 }} variant="body1">Choose a file to send to the database</Typography>
                     <input type='file' name='file' onChange={changeHandler} />
                     <Button variant="contained" onClick={handlePosting}>Post File to DB</Button>
-                    <Button variant="contained" onClick={() => { setFileUploaded(false) }}>I need to convert a file</Button>
+                    {/* <Button variant="contained" onClick={() => { setFileUploaded(false) }}>I need to convert a file</Button> */}
                 </form>
             )}
             {parsedResults &&
@@ -108,7 +108,7 @@ function UploadPairings() {
                         console.log('clicked');
                         setFileUploaded(true);
                     }}
-                > Download converted file for upload to DB</CSVLink>
+                > Click to download file then choose the same file above</CSVLink>
             }
         </Box>
 

@@ -71,6 +71,18 @@ function* postFile(action) {
     }
 
 }
+
+function* deleteIngredient(action) {
+    console.log('in delete ingredient with: ', action.payload);
+    try {
+        yield axios.delete(`/api/ingredients/${action.payload}`);
+        yield put({type: 'FETCH_INGREDIENTS'});
+    } catch (error) {
+        console.log('Error on deleteIngredient: ', error);
+        
+    }
+    
+}
     
 
 
@@ -81,6 +93,7 @@ function* ingredientsSaga() {
             yield takeLatest('EDIT_INGREDIENT.TRIGGER', editIngredient)
             yield takeLatest('SET_FILE_UPLOAD', uploadFile);
             yield takeLatest('POST_FILE', postFile)
+            yield takeLatest('DELETE_INGREDIENT', deleteIngredient)
         }
 
         export default ingredientsSaga;
