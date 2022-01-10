@@ -3,6 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import Papa from 'papaparse';
 import { CSVLink, CSVDownload } from 'react-csv';
 
+import {
+    FormControl, Box, TextField,
+    MenuItem, Button, Grid, Typography,
+} from "@mui/material";
+
 function UploadPairings() {
 
     const dispatch = useDispatch();
@@ -71,13 +76,15 @@ function UploadPairings() {
     }
 
     return (
-        <div>
+
+        <Box>
             {!fileUploaded ? (
 
                 <form encType="multipart/form-data">
                     <Typography sx={{p: 1}} variant="body1">Select a file to show details</Typography>
                     <input type="file" name="file" ref={ref} onChange={changeHandler} />
-                    {/* {isSelected ? (
+                    {isSelected ? (
+
                     <div>
                         <p>Filename: {selectedFile.name}</p>
                         <p>Filetype: {selectedFile.type}</p>
@@ -87,17 +94,18 @@ function UploadPairings() {
                             {selectedFile.lastModifiedDate.toLocaleDateString()}
                         </p>
                     </div>
-                ) : (
-                    <p>Select a file to show details</p>
-                )} */}
-                    <button onClick={handleSubmission}>Convert</button>
-                </form>) : (
-                <form encType="multipart/form-data">
+                </form>
+               
+            )}
+                    <Typography sx={{p: 1}} variant="body1">Select a file to show details</Typography>
+                )}
+                <Button variant="contained" onClick={handleSubmission}>Submit</Button>
+            </form> ) : (
+             <form encType="multipart/form-data">
                     <p>Choose a file to send to the database</p>
                     <input type='file' name='file' onChange={changeHandler} />
                     <button onClick={handlePosting}>Post File to DB</button>
-                </form>
-            )}
+                </form>)}
             {parsedResults &&
                 // <CSVDownload
                 //     data={parsedResults}
@@ -116,7 +124,8 @@ function UploadPairings() {
             ) : (
                 <button onClick={()=>{setFileUploaded(false)}}>I need to convert a file</button>
             )}
-        </div>
+        </Box>
+
     )
 }
 

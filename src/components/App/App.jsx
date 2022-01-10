@@ -20,6 +20,7 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import Home from '../Home/Home';
 import Combo from '../Combo/Combo';
 import Profile from '../Profile/Profile';
+import Ingredients from '../Ingredients/Ingredients';
 import EditIngredients from '../Ingredients/EditIngredients';
 import AddIngredients from '../Ingredients/AddIngredients';
 import PairingsTool from '../Ingredients/PairingsTool';
@@ -122,9 +123,9 @@ function App() {
               {user.is_admin ?
                 // If the user is an admin allow access to this route, otherwise take them to the home page
                 <>
-                  <AddIngredients />
-                  <EditIngredients />
-                  <PairingsTool />
+
+                  <Ingredients />
+                
                 </>
                 :
                 // if not admin, redirect to the home page
