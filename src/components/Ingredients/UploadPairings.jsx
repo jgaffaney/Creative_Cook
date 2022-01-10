@@ -75,7 +75,7 @@ function UploadPairings() {
             {!fileUploaded ? (
 
                 <form encType="multipart/form-data">
-                    <p>Choose a file to convert for upload</p>
+                    <Typography sx={{p: 1}} variant="body1">Select a file to show details</Typography>
                     <input type="file" name="file" ref={ref} onChange={changeHandler} />
                     {/* {isSelected ? (
                     <div>
