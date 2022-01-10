@@ -8,11 +8,11 @@ router.get('/pairings/:id', rejectUnauthenticated, (req, res) => {
     console.log('params in combo/pairings GET: ', req.params.id);
     const id = req.params.id;
     const queryText = `
-    SELECT "ingredients"."id", "ingredients"."description", "ingredients"."pic", ("ingredients"."name") AS name FROM "ingredients"
+    SELECT "ingredients"."id", "ingredients"."description", "ingredients"."pic", INITCAP("ingredients"."name") AS name FROM "ingredients"
     JOIN "pairings" ON "pairings"."ingredient_two_id" = "ingredients"."id"
     WHERE "pairings"."ingredient_one_id" = $1
     UNION
-    SELECT "ingredients"."id", "ingredients"."description", "ingredients"."pic", ("ingredients"."name") AS name FROM "ingredients"
+    SELECT "ingredients"."id", "ingredients"."description", "ingredients"."pic", INITCAP("ingredients"."name") AS name FROM "ingredients"
     JOIN "pairings" ON "pairings"."ingredient_one_id" = "ingredients"."id"
     WHERE "pairings"."ingredient_two_id" = $2;
     `

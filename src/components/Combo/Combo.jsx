@@ -107,6 +107,7 @@ function Combo() {
     borderRadius: 5,
   }
 
+
   const searchText = useSelector(store => store.ingredientSearch)
   const pairings = useSelector(store => store.pairings)
   const pairingOne = useSelector(store => store.comboPairingOne)

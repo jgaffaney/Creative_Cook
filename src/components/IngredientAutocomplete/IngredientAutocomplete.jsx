@@ -16,10 +16,6 @@ const IngredientAutocomplete = () => {
     const ingredients = useSelector(store => store.ingredients);
     const searchText = useSelector(store => store.ingredientSearch);
 
-    function capitalizeFirstLetter(string) {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-      }
-
     return (
 
 
@@ -28,8 +24,8 @@ const IngredientAutocomplete = () => {
             required
             size="small"
             disableClearable
-            options={ingredients.map(item => (capitalizeFirstLetter(item.name)))}
-            onChange={(event, value) => dispatch({ type: 'SET_INGREDIENT_SEARCH', payload: value.toLowerCase() })}
+            options={ingredients.map(item => (item.name))}
+            onChange={(event, value) => dispatch({ type: 'SET_INGREDIENT_SEARCH', payload: value })}
 
             renderInput={(params) => (
                 <TextField sx={sxSearchText}

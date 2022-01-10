@@ -32,6 +32,7 @@ export const sxHomePageContainer = {
     // border: '1px solid purple',
     display: 'flex',
     justifyContent: 'center',
+    p: 2,
 }
 
 // PAGE CONTENT holds the left column and the right column
@@ -116,6 +117,7 @@ export const sxRightColumn = {
     // maxWidth: 550,
     width: 550,
     height: 'auto',
+    gap: 6,
     // mx: 'auto',
 
 
@@ -137,6 +139,7 @@ export const sxTopSection = {
     alignItems: 'center',
     width: '100%',
     height: '25vh',
+
 }
 
 // SEARCH CONTAINER holds text input and the search button
