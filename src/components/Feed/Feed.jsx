@@ -19,12 +19,28 @@ import Tooltip from '@mui/material/Tooltip';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 
-
-
-
 // -- sx Styles -- //
 
-import { sxSearchContainer } from '../Home/Home.style'
+import {
+  sxHomePageContainer,
+  sxPageContent,
+  sxLeftColumn,
+  sxProfileContainer,
+  sxCenterText,
+  // sxPhotoBox,
+  sxRightColumn,
+  sxTopSection,
+  sxBottomSection,
+  sxFeedContainer,
+  sxContentPaper,
+  sxSearchContainer,
+  sxPhotoIngredientContainer,
+  sxPhotoIngredient,
+  sxComboDescription,
+  sxRemoveButton,
+  sxClickableDiv,
+  sxClickableCombo,
+} from '../Home/Home.style'
 
 import {
   sxFeaturedCombo,
@@ -36,6 +52,7 @@ import {
   sxSuperComboCardContent,
   sxCardTypography,
   sxTooltip,
+  sxSavedComboPaper,
 } from './Feed.style';
 
 
@@ -189,7 +206,7 @@ function Feed() {
         <Box sx={sxMetrics}>
           <Grid container spacing={2}>
             <Grid item xs={4}>
-              <Item sx={{height: 150}}><Typography variant='h6'>Top 5 Ingredients Used:</Typography>
+              <Item sx={{ height: 150 }}><Typography variant='h6'>Top 5 Ingredients Used:</Typography>
                 <Typography variant='body1'>{topFiveIngredients[0]?.name} ({top5[0]?.times_used})</Typography>
                 <Typography variant='body1'>{topFiveIngredients[1]?.name} ({top5[1]?.times_used})</Typography>
                 <Typography variant='body1'>{topFiveIngredients[2]?.name} ({top5[2]?.times_used})</Typography>
@@ -198,10 +215,10 @@ function Feed() {
               </Item>
             </Grid>
             <Grid item xs={4}>
-              <Item sx={{height: 150}}><Typography variant='h6'>% of Used Ingredients by Type</Typography></Item>
+              <Item sx={{ height: 150 }}><Typography variant='h6'>% of Used Ingredients by Type</Typography></Item>
             </Grid>
             <Grid item xs={4}>
-              <Item sx={{height: 150}}><Typography variant='h6'>% of Users by Family Size</Typography></Item>
+              <Item sx={{ height: 150 }}><Typography variant='h6'>% of Users by Family Size</Typography></Item>
             </Grid>
           </Grid>
         </Box>
@@ -313,24 +330,25 @@ function Feed() {
 
         <Typography variant='h4' sx={{ textAlign: "center", mt: 2, }}>Saved Flavor Combos</Typography>
         <Box sx={sxFlavorCombos}>
+
           <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
             {userCombos.map((combo) => {
-
               return (
                 <Grid item xs={2} sm={4} md={4} key={combo.id} >
-                  <Item
-                    onClick={(event) => handlePropertyChange(event, 'combo_id')}
-                  >
-                    <List>
-                      <ListItem sx={{ p: 3, border: '1px solid black' }} value={combo.id}>{combo.name}</ListItem>
-                    </List>
 
+                  <Item onClick={(event) => handlePropertyChange(event, 'combo_id')}>
+                    <List>
+                      <ListItem sx={{ p: 3, }} value={combo.id}>{combo.name}</ListItem>
+                    </List>
                   </Item>
+
                 </Grid>
               )
             })}
           </Grid>
+
         </Box>
+
         <Grid
           container
           spacing={0}
@@ -344,10 +362,12 @@ function Feed() {
             variant="outlined"
             label="Description of Featured Combo"
             type="text"
+            multiline
+            rows={4}
             value={newChallenge.description}
             onChange={(event) => handlePropertyChange(event, 'description')}
           />
-          <Button sx={{ width: 5 }} onClick={addNewChallenge} variant="contained">submit</Button>
+          <Button sx={{ px: 3 }} onClick={addNewChallenge} variant="outlined">submit</Button>
         </Grid>
         {/* <Button sx={{ width: 5 }} onClick={() => dispatch({ type: 'ADD_CHALLENGE', payload: newChallenge })} variant="contained">submit</Button> */}
         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
@@ -355,6 +375,66 @@ function Feed() {
             Combo Added to Feed!
           </Alert>
         </Snackbar>
+      </Box>
+
+
+
+
+      <Box sx={sxFeedContainer}>
+
+        {userCombos?.map((content) => {
+          // console.log('--- this is the feedContent', feedContent);
+          // console.log('--- this is the content', content);
+          // console.log('--- this is the content.ingredient list:', content.ingredient_list);
+
+          const comboIngredientIds = content.ingredient_list;
+
+          const feedContentFilteredIngredients = ingredients?.filter(item => {
+            return comboIngredientIds.indexOf(item.id) != -1;
+          });
+          // console.log('--- feedContentFilteredIngredients filtered down ingredients based on ingredients list', feedContentFilteredIngredients);
+
+          // ensure we keep the same order of ingredients for when we click on the combo and it populates the reducer; 
+          const ingredientOne = feedContentFilteredIngredients.filter(ingredient => ingredient?.id === comboIngredientIds[0])
+          // console.log('--- feedContent .map ingredientOne', ingredientOne);
+          const ingredientTwo = feedContentFilteredIngredients.filter(ingredient => ingredient?.id === comboIngredientIds[1])
+          // console.log('--- feedContent .map ingredientTwo', ingredientTwo);
+          const ingredientThree = feedContentFilteredIngredients.filter(ingredient => ingredient?.id === comboIngredientIds[2])
+          // console.log('--- feedContent .map ingredientThree', ingredientThree);
+
+          return (
+
+            <Paper key={content.id} sx={sxSavedComboPaper} elevation={2}>
+
+              {/* needed an extra Box just to separate the comboClick; remove button sits on top of this DIV and  fire when button is pushed */}
+              <Box>
+
+                <Typography variant="body1" sx={{ textAlign: 'center' }} >{content.date_posted?.split('T')[0]}</Typography>
+
+                <Typography variant="h6" sx={{ textAlign: 'center' }}>{content.name}</Typography>
+
+                <Box sx={sxPhotoIngredientContainer}>
+                  <CardMedia sx={sxPhotoIngredient} component="img" image={ingredientOne[0]?.pic} />
+
+                  <CardMedia sx={sxPhotoIngredient} component="img" image={ingredientTwo[0]?.pic} />
+
+                  {/* check to see if we have a 3rd ingredient before appending */}
+                  {content.ingredient_list?.length > 2 &&
+                    <CardMedia sx={sxPhotoIngredient} component="img" image={ingredientThree[0]?.pic} />}
+                </Box>
+
+                <Typography variant="body1" sx={sxComboDescription}>{content.description}</Typography>
+
+              </Box>
+{/* 
+              <Button onClick={() => handleClick('remove', content)}
+                sx={{ mx: 'auto', my: 1 }}
+                variant="outlined"
+                size="small">Add To Home Page Feed </Button> */}
+
+            </Paper>
+          )
+        })}
       </Box>
     </>
   );

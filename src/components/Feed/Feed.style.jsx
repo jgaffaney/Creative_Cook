@@ -19,15 +19,16 @@ export const sxMetrics = {
 }
 
 export const sxFlavorCombos = {
-    border: '1px solid black',
+    // border: '1px solid red',
     // display: 'flex',
     // flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    height: 200,
     overflow: 'auto',
-    mb: 2
+    mb: 2, 
+
+    // cursor: 'pointer',
 }
 
 
@@ -84,4 +85,20 @@ export const sxCardTypography = {
 
 export const sxTooltip = {
     borderRadius: 5,
+}
+
+
+export const sxSavedComboPaper = {
+    // border: '1px solid green',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    // alignItems: 'center',
+    width: 350, 
+    height: 'auto',
+
+    cursor: 'pointer',
+    
+    p: 2,
+    borderRadius: 2,
 }
