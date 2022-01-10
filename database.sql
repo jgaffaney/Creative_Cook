@@ -8,16 +8,16 @@ CREATE TYPE "marital_status" AS ENUM ('Single', 'Married', 'Partnership', 'Prefe
 CREATE TABLE "user" (
     "id" serial NOT NULL PRIMARY KEY,
     "username" varchar(255) NOT NULL,
-    "email" varchar(255) NOT NULL,
     "password" varchar(255) NOT NULL,
     "bio" varchar(510),
     "pic" varchar(255),
-    "location" varchar(255),
-    "birthday" DATE,
     "gender" gender,
+	"family_size" int,
     "marital_status" marital_status,
-    "family_size" int,
-    "is_admin" bool NOT NULL DEFAULT FALSE
+    "is_admin" bool NOT NULL DEFAULT FALSE,
+	"location" varchar(255),
+	"birthday" DATE,
+	"email" varchar(255) NOT NULL,
 );
 
 	
