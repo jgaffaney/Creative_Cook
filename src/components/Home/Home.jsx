@@ -57,6 +57,10 @@ function Home() {
     const ingredientGoal = useSelector((store) => store.ingredientGoal);
     const ingredientUnique = useSelector((store) => store.ingredientUnique);
     const combo = useSelector((store) => store.combo);
+    const comboMetrics = useSelector((store) => store.comboMetrics);
+    const recipeMetrics = useSelector((store) => store.recipeMetrics);
+    const ingredientMetrics = useSelector((store) => store.ingredientMetrics);
+  
     
 
 
@@ -64,6 +68,9 @@ function Home() {
         dispatch({ type: 'FETCH_CHALLENGE' });
         dispatch({ type: 'FETCH_COMBOS' });
         dispatch({ type: 'FETCH_INGREDIENTS' });
+        dispatch({ type: 'FETCH_COMBO_GOAL' });
+        dispatch({ type: 'FETCH_RECIPE_GOAL' });
+        dispatch({ type: 'FETCH_INGREDIENT_GOAL' });
     }, []);
 
 
@@ -175,13 +182,13 @@ function Home() {
                     {/* GOALS progress */}
                     <Box onClick={() => handleClick('profile')} sx={sxClickableDiv}>
                         <Typography variant="h6" sx={sxCenterText}>Goal Progress</Typography>
-                        {comboGoal.goal == null && <Typography variant="body1" sx={sxCenterText}>Set Combo Goal</Typography>}
+                        {comboGoal.goal == 0 && <Typography variant="body1" sx={sxCenterText}>Set Combo Goal</Typography>}
                         {comboGoal.goal >= 1 && 
                         <Typography sx={sxCenterText}>Combo Goals:{userCombos.length}/{comboGoal.goal}</Typography>}
-                        {recipeGoal.goal == null && <Typography variant="body1" sx={sxCenterText}>Set Recipe Goal</Typography>}
+                        {recipeGoal.goal == 0 && <Typography variant="body1" sx={sxCenterText}>Set Recipe Goal</Typography>}
                         {recipeGoal.goal >= 1 &&
                         <Typography sx={sxCenterText}>Recipe Goals:{recipeSaved.length}/{recipeGoal.goal}</Typography>}
-                        {ingredientGoal.goal == null && <Typography variant="body1" sx={sxCenterText}>Set Ingredient Goal</Typography>}
+                        {ingredientGoal.goal == 0 && <Typography variant="body1" sx={sxCenterText}>Set Ingredient Goal</Typography>}
                         {ingredientGoal.goal >= 1 &&
                         <Typography sx={sxCenterText}>Ingredient Goals:{ingredientUnique.length}/{ingredientGoal.goal}</Typography>}
                     </Box>
