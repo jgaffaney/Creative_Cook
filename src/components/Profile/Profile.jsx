@@ -69,7 +69,6 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import { useHistory } from 'react-router';
 import { fontStyle } from '@mui/system';
-import CheckIcon from '@mui/icons-material/Check';
 
 function Profile() {
   const user = useSelector((store) => store.user);
