@@ -21,7 +21,7 @@ function* fetchIngredients() {
 function* postIngredient(action) {
     // console.log('In postIngredient Saga with: ', action);
     try {
-        yield axios.post('/api/ingredients/bulk', action.payload)
+        yield axios.post('/api/ingredients/', action.payload)
         yield put({ type: 'FETCH_INGREDIENTS' });
     } catch (error) {
         console.log('Error on postIngredient: ', error);

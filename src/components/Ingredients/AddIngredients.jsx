@@ -29,7 +29,7 @@ function AddIngredients() {
         volume: '',
         function: '',
         technique: '',
-        botanicalRelative: '',
+        botanical_relative: '',
     }
 
     const selectedFile = useSelector(state => state.uploadedFile);
@@ -224,8 +224,8 @@ function AddIngredients() {
                                     label="Botanical Relative"
                                     variant="outlined"
                                     size="small"
-                                    value={newIngredient.botanicalRelative}
-                                    onChange={(event) => handleChange(event, 'botanicalRelative')}>
+                                    value={newIngredient.botanical_relative}
+                                    onChange={(event) => handleChange(event, 'botanical_relative')}>
                                 </TextField>
                             </Box>
 

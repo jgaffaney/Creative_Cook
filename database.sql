@@ -27,17 +27,17 @@ CREATE TYPE "type" AS ENUM ('Protein: Air', 'Protein: Land', 'Protein: Sea', 'Ve
 
 CREATE TABLE "ingredients" (
 	"id" SERIAL NOT NULL PRIMARY KEY,
-	"username" varchar(255) NOT NULL,
+	"name" varchar(255) NOT NULL,
 	"description" varchar(255),
 	"pic" varchar(255),
 	"taste" varchar(255),
 	"season" SEASON,
 	"weight" varchar(255),
 	"volume" varchar(255),
-	"type" TYPE),
-	"funtction" varchar(255),
+	"type" TYPE,
+	"function" varchar(255),
 	"technique" varchar(255),
-	"botanicalRelative" varchar(255);
+	"botanical_relative" varchar(255);
 
 
 CREATE TABLE "pairings" (
@@ -110,7 +110,7 @@ VALUES
 (4,E'Brussels sprouts',NULL,E'https://images.unsplash.com/photo-1614087434853-25e6e8357217?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80',E'bitter',E'Autumn-Winter',E'moderate–heavy',E'moderate–loud',E'Vegetable'),
 (5,E'cabbage',NULL,E'https://cdn.pixabay.com/photo/2019/02/01/15/56/savoy-3969270_1280.jpg',NULL,E'Autumn-Winter',E'medium',E'moderate',E'Vegetable'),
 (6,E'asparagus',NULL,E'https://cdn.pixabay.com/photo/2015/03/30/20/45/asparagus-700153_1280.jpg',NULL,E'Spring',E'light–medium',E'moderate',E'Vegetable'),
-(7,E'artichokes',NULL,E'https://images.unsplash.com/photo-1551465222-21f38590e0ab?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1335&q=80',NULL,E'Spring-Early Autumn',E'medium',E'moderate–loud',E'Vegetable'),
+(7,E'artichokes',NULL,E'https://images.unsplash.com/photo-1551465222-21f38590e0ab?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1335&q=80',NULL,E'Spring-Summer',E'medium',E'moderate–loud',E'Vegetable'),
 (8,E'avocado',NULL,E'https://images.unsplash.com/photo-1632670952530-0614e8582534?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2148&q=80',NULL,E'Spring-Summer',E'medium–heavy',E'quiet',E'Fruit'),
 (9,E'blueberry',NULL,E'https://images.unsplash.com/photo-1606757389667-45c2024f9fa4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Ymx1ZWJlcnJ5fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60',E'sour–sweet',E'Spring-Summer',E'light',E'quiet–moderate',E'Fruit'),
 (10,E'arugula',NULL,E'https://images.unsplash.com/photo-1621664270515-0a497de945a3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGFydWd1bGElMjBsZWFmfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60',E'bitter',E'Spring-Summer',E'light–medium',E'moderate–loud',E'Green'),
