@@ -1,7 +1,7 @@
 import { Button } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import { Box } from '@mui/system';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import IngredientAutocomplete from '../IngredientAutocomplete/IngredientAutocomplete';
 import { sxSearchContainer } from '../Home/Home.style';
@@ -14,11 +14,7 @@ const PairingsTool = () => {
     const searchText = useSelector(store => store.ingredientSearch);
     const ingredients = useSelector(store => store.ingredients);
     const unpaired = useSelector(store=>store.unpaired)
-
     const [pairedWith, setPairedWith] = useState('');
-    const [unpairedIngredients, setUnpairedIngredients] = useState([]);
-
-    // const [newPairings, setNewPairings] = useState();
 
     const convertNameToId = () => {
         for (let ingredient of ingredients) {
@@ -32,7 +28,6 @@ const PairingsTool = () => {
         console.log('Submit clicked with id: ', searchText);
         setPairedWith(searchText);
         let id = 0;
-        let resultArray = [];
 
         // convert searchText to an ingredient id from DB query
         for (let ingredient of ingredients) {
@@ -50,10 +45,7 @@ const PairingsTool = () => {
                     return ingredient;
                 }
             }});
-        setUnpairedIngredients(resultArray);
-
     }
-
 
     const columns = [
         { field: 'id', headerName: 'ID' },
@@ -69,32 +61,6 @@ const PairingsTool = () => {
         dispatch({type: 'DELETE_PAIRING', payload: params.id, pairWith: convertNameToId(), ingredients: ingredients})
     }
 
-    // const unpairedIngredients = () => {
-    //     console.log('in unpairedIngredients');
-    //     let resultArray = [];
-      
-    //     if(!pairings){
-    //         console.log('pairings was empty');
-    //         return ingredients;
-    //     }
-        
-    //     for(let item of ingredients) {
-    //         for(let pair of pairings){
-    //             if(item.name === pair.name){
-    //                 console.log('found a match');
-    //                 resultArray.push(item)
-    //             }
-    //         }
-    //     }
-    //     return resultArray
-    // }
-    
-
-    
-
-    // useEffect(() => {
-    //     dispatch({ type: 'FETCH_PAIRINGS' })
-    // }, [])
     return (
         <>
             <h1>Pairings Tool</h1>

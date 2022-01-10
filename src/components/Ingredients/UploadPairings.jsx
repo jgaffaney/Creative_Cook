@@ -19,30 +19,6 @@ function UploadPairings() {
         setIsSelected(true);
     }
 
-    // const convertToIds = (results) => {
-
-    // console.log('results from papaParse: ', results);
-
-    // // for (let pairOne of results.data) {
-    // //     console.log('pairOne.ingredientName in first loop: ', pairOne.ingredientName.toLowerCase());
-    // //     for (let ingredient of ingredients) {
-    // //         console.log('ingredient in second loop: ', ingredient.name.toLowerCase());
-    // //         if (pairOne.ingredientName.toLowerCase() === ingredient.name.toLowerCase()) {
-    // //             pairOne.ingredientName = ingredient.id;
-    // //             console.log('found id');
-    // //             break;
-    // //         }
-    // //         if (pairOne.ingredient.toLowerCase() === ingredient.name.toLowerCase()) {
-    // //             pairOne.ingredient = ingredient.id;
-    // //             console.log('found id again');
-    // //             break;
-    // //         }
-    // //     }
-    // // }
-    // console.log('results after convert ids: ', results);
-    // }
-
-
     const config = {
         header: true,
         dynamicTyping: false,
@@ -61,7 +37,7 @@ function UploadPairings() {
         transform: function (value, header) {
             value = value.toLowerCase()
             // console.log('value in transform: ', value.toLowerCase());
-            // console.log('header in transform: ', header);
+            console.log('header in transform: ', header);
             for (let ingredient of ingredients) {
                 // console.log('ingredient in transform loop: ', ingredient.name.toLowerCase());
                 if (value === ingredient.name.toLowerCase()) {
@@ -76,38 +52,24 @@ function UploadPairings() {
         delimitersToGuess: [',', '\t', '|', ';', Papa.RECORD_SEP, Papa.UNIT_SEP]
     }
 
-    const unparseConfig = {
-        quotes: false, //or array of booleans
-        quoteChar: '"',
-        escapeChar: '"',
-        delimiter: ",",
-        header: true,
-        newline: "\r\n",
-        skipEmptyLines: false, //other option is 'greedy', meaning skip delimiters, quotes, and whitespace.
-        columns: null //or array of strings
-    }
-
     const handleSubmission = () => {
         // converts the file to a useable object
         // dispatch the file to the saga happens in papaParse
-        Papa.parse(selectedFile, config)
-        // dispatch({type: 'POST_PAIRINGS_FILE', payload: Papa.parse(selectedFile, config)});
+        Papa.parse(selectedFile, config);
     }
 
-    // useEffect(()=>{
-    //     if(parsedResults) {
-    //         setParsedFile(Papa.unparse(parsedResults,  [unparseConfig]))
-    //         console.log('parsedFile', parsedFile);
-    //         dispatch({ type: 'POST_PAIRINGS_FILE', payload: parsedFile})
-    //     }
-    // }, [parsedResults])
+    const handlePosting = () => {
+        console.log('in handle posting');
+        dispatch({type: 'POST_PAIRINGS_FILE', payload: selectedFile})
+    }
 
     return (
         <div>
             <h1>Pairings Upload</h1>
             <form encType="multipart/form-data">
+                <p>Choose a file to convert for upload</p>
                 <input type="file" name="file" onChange={changeHandler} />
-                {isSelected ? (
+                {/* {isSelected ? (
                     <div>
                         <p>Filename: {selectedFile.name}</p>
                         <p>Filetype: {selectedFile.type}</p>
@@ -119,21 +81,22 @@ function UploadPairings() {
                     </div>
                 ) : (
                     <p>Select a file to show details</p>
-                )}
-                <button onClick={handleSubmission}>Submit</button>
+                )} */}
+                <button onClick={handleSubmission}>Convert</button>
+                <input type='file' name='file' onChange={changeHandler} />
+                <button onClick={handlePosting}>Post File to DB</button>
             </form>
             {parsedResults &&
-                <CSVDownload 
-                    data={parsedResults}
-                    target='_blank'/>
-                // <CSVLink
-                //     filename='file'
-                //     data={parsedResults} 
-                //     onClick={() => {
-                //         console.log('clicked');
-                        
-                //     }}
-                //     > Download Me! </CSVLink>
+                // <CSVDownload
+                //     data={parsedResults}
+                //     target='_blank'/>
+                <CSVLink
+                    filename='converted pairings data.csv'
+                    data={parsedResults} 
+                    onClick={() => {
+                        console.log('clicked');
+                    }}
+                    > Download converted file for upload to DB</CSVLink>
             }
         </div>
     )

@@ -10,14 +10,14 @@ const fastcsv = require('fast-csv');
 const csv = require('csv-parser');
 const copyFrom = require('pg-copy-streams').from;
 
-router.post('/', upload.any(), (req, res) => {
-    console.log('in bulk pairings post with file: ', req.files);
+router.post('/', upload.single('file'), (req, res) => {
+    console.log('in bulk pairings post with file: ', req.file);
 
     pool.connect(function (err, client, done) {
         let stream = client.query(copyFrom(`
         COPY pairings (ingredient_one_id, ingredient_two_id) FROM STDIN DELIMITER ',' CSV HEADER;
         `));
-        let fileStream = fs.createReadStream(req.files);
+        let fileStream = fs.createReadStream(req.file.path);
         // fileStream.on('error', done)
         // stream.on('error', done)
         stream.on('finish', function (err, result) {
