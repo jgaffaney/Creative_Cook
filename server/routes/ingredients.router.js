@@ -98,6 +98,7 @@ router.post('/bulk/', upload.single('file'), (req, res) => {
         stream.on('finish', function (err, result) {
             if(err) {
                 console.log('this is a stream error:', err);
+                res.sendStatus(200);
             } else {
                 console.log('upload successful');
                 res.sendStatus(200);

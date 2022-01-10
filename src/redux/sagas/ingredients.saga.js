@@ -65,6 +65,7 @@ function* postFile(action) {
             headers: {
               'Content-Type': 'multipart/form-data'
             }});
+        yield put({type: 'FETCH_INGREDIENTS'});
     } catch (error) {
         console.log('Error in postFile: ', error);
         
