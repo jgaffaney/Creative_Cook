@@ -36,6 +36,7 @@ function* saveUserRecipe(action) {
     console.log('in saveUserRecipe saga', action.payload);
     try {
         yield axios.post(`/api/recipes/user`, action.payload);
+        yield put({ type: 'SET_SHOW_RECIPE_SNACKBAR' })
     } catch (error) {
         console.log('error in userSaveRecipe', error);
     }

@@ -23,11 +23,11 @@ import recipeMetrics from './recipe_metrics.reducer';
 import ingredientMetrics from './ingredient_metrics.reducer';
 import comboPairingOne from './ingredient1pair.reducer';
 import comboPairingTwo from './ingredient2pair.reducer';
+import healthFilter from './health.filter.reducer';
+import recipeSnackbar from './saverecipe.snackbar';
+import comboSnackbar from './savecombo.snackbar';
 import seasons from './seasons.reducer';
 import types from './types.reducer';
-
-
-import healthFilter from './health.filter.reducer'
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -43,19 +43,15 @@ const rootReducer = combineReducers({
   combo,      // holds the selected ingredients while creating a flavor combo (3 ingredients)
   userCombos, // Holds the logged in user's combos
   comboGoal,
-  pairings, // holds all the pairings available in the database-admin edit only
   ingredientSearch, // holds search text for <IngredientAutocomplete> 
   ingredientGoal,
   ingredientUnique,
   recipeGoal,
   recipeSaved,
   unpaired, // holds the ingredients that are not paired with the selected ingredient
-  top5, // holds the top five most used ingredients by all users
   // goal,
   uploadedFile,  // holds the csv to be uploaded to the database
   pairings,    // holds all the pairings available in the database-admin edit only
-  ingredientSearch, // holds search text for <IngredientAutocomplete> 
-  unpaired,    // holds the ingredients that are not paired with the selected ingredient
   top5,       // holds the top five most used ingredients by all users
   comboMetrics, // holds all combo profile metrics
   userRecipes, // holds all saved recipes from the user
@@ -66,6 +62,8 @@ const rootReducer = combineReducers({
   seasons, // holds enum values from season column in DB
   types, // hold enum values from type column in DB
   healthFilter, // holds the health filter for recipes search
+  recipeSnackbar, // holds the status for recipe snack bar
+  comboSnackbar, // holds status for combo snack bar
 });
 
 export default rootReducer;
