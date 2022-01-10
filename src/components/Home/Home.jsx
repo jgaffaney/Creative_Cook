@@ -175,7 +175,6 @@ function Home() {
                         <Typography variant="body1" sx={sxCenterText}>Weekly Combo Metrics:{comboMetrics[0].weekly}</Typography>
                         <Typography variant="body1" sx={sxCenterText}>Weekly Recipe Metrics:{recipeMetrics[0].weekly}</Typography>
                         <Typography variant="body1" sx={sxCenterText}>Weekly Ingredient Metrics:{ingredientMetrics[0].weekly}</Typography>
-                        {/* <Typography variant="body1" sx={sxCenterText}>Monthly Combo Metrics:{comboMetrics[0].monthly}</Typography> */}
 
                     </Box>
 
