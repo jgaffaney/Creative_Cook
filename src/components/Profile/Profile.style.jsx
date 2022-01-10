@@ -35,7 +35,7 @@ export const sxRightColumn = {
   }
 
 export const sxTopLeftSection = {
-    border: '1px solid RED',
+    border: '1px solid black',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -46,7 +46,7 @@ export const sxTopLeftSection = {
   }
 
   export const sxTopMiddleSection = {
-    border: '1px solid GREEN',
+    border: '1px solid black',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -57,7 +57,7 @@ export const sxTopLeftSection = {
   }
 
 export const sxTopRightSection = {
-    border: '1px solid YELLOW',
+    border: '1px solid black',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
