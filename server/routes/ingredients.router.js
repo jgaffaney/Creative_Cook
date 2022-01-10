@@ -125,7 +125,7 @@ router.get('/metrics', (req, res) => {
         })
   }); // End GET
 
-  router.get('/:id', (req, res) => {
+  router.delete('/:id', (req, res) => {
       const id = req.params.id
       const queryText = `
       DELETE FROM ingredients

@@ -12,11 +12,13 @@ import {
     Avatar,
     IconButton,
     Paper,
-    Select,
-    MenuItem,
-    InputLabel,
+    List,
+    ListItem,
+    Alert,
     FormControl,
-    Snackbar,
+    InputLabel,
+    Select,
+    MenuItem
 } from '@mui/material';
 import { red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -25,8 +27,12 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Collapse from '@mui/material/Collapse';
 import { styled } from '@mui/material/styles';
-import { useEffect, useState } from "react";
+import { useState, forwardRef, useRef, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+// import Snackbar from "../Snackbar/Snackbar";
+import Snackbar from '@mui/material/Snackbar';
+// import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 const sxRecipeContainer = {
     display: 'flex',
@@ -77,7 +83,6 @@ const sxMenuItem = {
     display: 'flex',
     justifyContent: 'center'
 }
-
 const sxSelectLabel = {
     mx: 'auto',
     pb: 0.5,
@@ -86,7 +91,6 @@ const sxSelectLabel = {
     // border: '1px solid'
     width: 150,
 }
-
 const sxHealthFilter = {
     display: 'flex',
     flexDirection: 'row',
@@ -101,35 +105,51 @@ const sxHealthFilter = {
 }
 
 
-
-
 function RecipeList() {
-
-
-    // <Snackbar
-    //     open={open}
-    //     autoHideDuration={6000}
-    //     onClose={handleClose}
-    //     message="Recipe Saved"
-    //     action={action}
-    // />
-
-    // const handleClick = () => {
-
-    // }
 
     const recipes = useSelector(store => store.recipes)
     const dispatch = useDispatch();
     const combo = useSelector(store => store.combo)
+    const snackbar = useSelector(store => store.recipeSnackbar)
     const healthFilter = useSelector(store => store.healthFilter)
+
+    const [open, setOpen] = useState(false);
+
+    const handleClick = () => {
+        try {
+            console.log('inside handleClick');
+            setOpen(true);
+            setTimeout(() => {
+                setOpen(false);
+            }, 3000)
+        } catch (error) {
+            console.log('error');
+        }
+        dispatch({ type: 'SET_HIDDEN_SNACKBAR' })
+    };
+
+    if (snackbar) {
+        handleClick();
+    }
 
     return (
         <>
-        {/* <Button onClick={handleClick}>Open simple snackbar</Button> */}
+            <Snackbar
+                open={open}
+                autoHideDuration={6000}
+                // onClose={handleClose}
+                // message="Recipe Saved!"
+            // action={action}
+            >
+                <Alert severity="success" sx={{ width: 300 }}>
+                "Recipe Saved!"
+                </Alert>
+            </Snackbar>
+
             {combo.length === 3 &&
                 <>
                     <Box sx={sxHealthFilter}>
-                        <FormControl >
+                        <FormControl>
                             <InputLabel
                             sx={sxSelectLabel}>Health Filters</InputLabel>
                             <Select
@@ -171,6 +191,8 @@ function RecipeList() {
                     </Box>
                 </>
             }
+
+            {/* <h1>RECIPE LIST</h1> */}
             <Box sx={sxRecipeContainer}>
                 {
                     recipes?.map(recipe => (
@@ -193,7 +215,7 @@ function RecipeList() {
                                             type: 'SAVE_USER_RECIPE',
                                             payload: {
                                                 recipe: recipe.recipe,
-                                                combo: combo
+                                                combo: combo,
                                             }
                                         })}
                                         size="small">Save Recipe</Button>
@@ -213,7 +235,7 @@ function RecipeList() {
                                                 {
                                                     <ul>
                                                         {recipe.recipe.ingredientLines.map(ingredient => (
-                                                            <li>{ingredient}</li>
+                                                            <li key={ingredient.id}>{ingredient}</li>
                                                         ))}
                                                     </ul>
                                                 }
