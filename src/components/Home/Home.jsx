@@ -181,9 +181,9 @@ function Home() {
                         <Typography variant="h6" sx={sxCenterText}>Metrics</Typography>
                         {/* <Typography variant="body1" sx={sxCenterText}>content</Typography> */}
                         {comboMetrics[0] && recipeMetrics[0] && ingredientMetrics[0] && <>
-                        <Typography>Weekly Combos Made: {comboMetrics[0].weekly}</Typography>
-                        <Typography>Weekly Recipes Made: {recipeMetrics[0].weekly}</Typography>
-                        <Typography>Weekly Ingredients Made: {ingredientMetrics[0].weekly}</Typography>
+                        <Typography sx={sxCenterText}>Weekly Combos Made: {comboMetrics[0].weekly}</Typography>
+                        <Typography sx={sxCenterText}>Weekly Recipes Made: {recipeMetrics[0].weekly}</Typography>
+                        <Typography sx={sxCenterText}>Weekly Ingredients Made: {ingredientMetrics[0].weekly}</Typography>
                         </>} 
 
                     </Box>
