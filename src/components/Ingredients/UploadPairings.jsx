@@ -81,31 +81,22 @@ function UploadPairings() {
             {!fileUploaded ? (
 
                 <form encType="multipart/form-data">
-                    <Typography sx={{p: 1}} variant="body1">Select a file to show details</Typography>
+                    {/* <Typography sx={{ p: 1 }} variant="body1">Select a file to show details</Typography> */}
                     <input type="file" name="file" ref={ref} onChange={changeHandler} />
-                    {isSelected ? (
+                    <Typography sx={{ p: 1 }} variant="body1">Select a file to show details</Typography>
+                    <Button variant="contained" onClick={handleSubmission}>Submit</Button>
+                    <Button variant="contained" onClick={() => { setFileUploaded(true) }}>I already have a converted file</Button>
 
-                    <div>
-                        <p>Filename: {selectedFile.name}</p>
-                        <p>Filetype: {selectedFile.type}</p>
-                        <p>Size in bytes: {selectedFile.size}</p>
-                        <p>
-                            lastModifiedDate:{' '}
-                            {selectedFile.lastModifiedDate.toLocaleDateString()}
-                        </p>
-                    </div>
                 </form>
-               
-            )}
-                    <Typography sx={{p: 1}} variant="body1">Select a file to show details</Typography>
-                )}
-                <Button variant="contained" onClick={handleSubmission}>Submit</Button>
-            </form> ) : (
-             <form encType="multipart/form-data">
-                    <p>Choose a file to send to the database</p>
+
+            ) : (
+                <form encType="multipart/form-data">
+                    <Typography sx={{ p: 1 }} variant="body1">Choose a file to send to the database</Typography>
                     <input type='file' name='file' onChange={changeHandler} />
-                    <button onClick={handlePosting}>Post File to DB</button>
-                </form>)}
+                    <Button variant="contained" onClick={handlePosting}>Post File to DB</Button>
+                    <Button variant="contained" onClick={() => { setFileUploaded(false) }}>I need to convert a file</Button>
+                </form>
+            )}
             {parsedResults &&
                 // <CSVDownload
                 //     data={parsedResults}
@@ -119,11 +110,6 @@ function UploadPairings() {
                     }}
                 > Download converted file for upload to DB</CSVLink>
             }
-            {!fileUploaded ? (
-                <button onClick={()=>{setFileUploaded(true)}}>I already have a converted file</button>
-            ) : (
-                <button onClick={()=>{setFileUploaded(false)}}>I need to convert a file</button>
-            )}
         </Box>
 
     )
