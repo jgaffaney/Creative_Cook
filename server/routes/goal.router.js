@@ -44,7 +44,7 @@ router.get('/ingredient', (req, res) => {
 router.get('/recipe', (req, res) => {
     const queryText = `
     SELECT DISTINCT url FROM recipes
-    WHERE "user_id" = $1
+    WHERE "user_id" = $1 AND is_cooked = true
     GROUP BY url;
  `;
     pool.query(queryText, [req.user.id])

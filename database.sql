@@ -229,7 +229,7 @@ VALUES
 (116,1,30);
 
 
--- ALTERATIONS to user table. 
+-- ALTERATIONS to user table -- 
 
 ALTER TYPE marital_status ADD VALUE 'Prefer not to answer';
 
