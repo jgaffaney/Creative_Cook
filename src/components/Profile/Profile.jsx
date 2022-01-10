@@ -161,16 +161,17 @@ function Profile() {
             <img height="110%" width="90%" src = "images/logo.png"></img>
               </Box>
               <Box sx={sxTopRightSection}>
-              <Typography fontSize={18}>{user.bio}</Typography>
+              {user.bio ? <Typography fontSize={18}>{user.bio}</Typography> : <Typography fontSize={18}>{user.username} is a new user!</Typography>}
               <br />
               <Typography >Recent Combos</Typography>
                         {recentCombos?.map((combo, i) => (
                             <Typography key={i} >{combo.name}</Typography>
                         ))}
               <br />
-              <Typography>Birthday: {user.birthday?.split('T')[0]}</Typography>
+              {user.birthday ? <Typography>{user.birthday?.split('T')[0]}</Typography> : <Typography></Typography>}
+              {/* <Typography>Birthday: {user.birthday?.split('T')[0]}</Typography> */}
               <br />
-              <Typography>Location: {user.location}</Typography>
+              {user.location ? <Typography>Location: {user.location}</Typography> : <Typography></Typography>}
               
 
                
