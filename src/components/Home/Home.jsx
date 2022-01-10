@@ -72,6 +72,9 @@ function Home() {
         dispatch({ type: 'FETCH_COMBO_GOAL' });
         dispatch({ type: 'FETCH_RECIPE_GOAL' });
         dispatch({ type: 'FETCH_INGREDIENT_GOAL' });
+        dispatch({ type: 'FETCH_COMBO_METRICS' })
+        dispatch({ type: 'FETCH_RECIPE_METRICS' })
+        dispatch({ type: 'FETCH_INGREDIENT_METRICS' })
     }, []);
 
 
@@ -166,7 +169,11 @@ function Home() {
                     {/* METRICS will go here */}
                     <Box onClick={() => handleClick('profile')} sx={sxClickableDiv}>
                         <Typography variant="h6" sx={sxCenterText}>Metrics</Typography>
-                        <Typography variant="body1" sx={sxCenterText}>content</Typography>
+                        {/* <Typography variant="body1" sx={sxCenterText}>content</Typography> */}
+                        <Typography>Weekly Combos Made: {comboMetrics[0].weekly}</Typography>
+                        <Typography>Weekly Recipes Made: {recipeMetrics[0].weekly}</Typography>
+                        <Typography>Weekly Ingredients Made: {ingredientMetrics[0].weekly}</Typography>
+
                     </Box>
 
                     {/* recent COMBOS */}
