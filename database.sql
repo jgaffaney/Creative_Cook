@@ -34,7 +34,10 @@ CREATE TABLE "ingredients" (
 	"season" SEASON,
 	"weight" varchar(255),
 	"volume" varchar(255),
-	"type" TYPE);
+	"type" TYPE),
+	"funtction" varchar(255),
+	"technique" varchar(255),
+	"botanicalRelative" varchar(255);
 
 
 CREATE TABLE "pairings" (
@@ -226,7 +229,7 @@ VALUES
 (116,1,30);
 
 
--- ALTERATIONS to user table. 
+-- ALTERATIONS to user table -- 
 
 ALTER TYPE marital_status ADD VALUE 'Prefer not to answer';
 

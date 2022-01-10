@@ -62,6 +62,7 @@ function Home() {
     const ingredientMetrics = useSelector((store) => store.ingredientMetrics);
   
     
+    // const combo = useSelector((store) => store.combo);
 
 
     useEffect(() => {
@@ -121,7 +122,7 @@ function Home() {
                 console.log('CLICKED on the featured combo');
                 console.log('--- the three ingredients to send to dispatch', ingredientOne, ingredientTwo, ingredientThree);
 
-                const comboArray = [ ingredientOne[0], ingredientTwo[0], ingredientThree[0] ]
+                const comboArray = [ingredientOne[0], ingredientTwo[0], ingredientThree[0]]
                 console.log('--- custom comboArray for searching recipes', comboArray);
 
                 // first make sure the reducer is empty and ready to receive the combo we click on;
@@ -131,7 +132,7 @@ function Home() {
                 dispatch({ type: 'SET_COMBO_INGREDIENT', payload: ingredientTwo[0] })
                 // only dispatch the 3rd ingredient if there's 3 ingredients in the combo; 
                 { ingredientThree && dispatch({ type: 'SET_COMBO_INGREDIENT', payload: ingredientThree[0] }) }
-                
+
                 // dispatch({ type: 'FETCH_RECIPES', payload: combo })
                 // console.log('--- selectCombo', comboArray);
 
@@ -158,11 +159,8 @@ function Home() {
 
                     {/* user PROFILE section */}
                     <Box sx={sxProfileContainer}>
-                        <Typography variant="h5" sx={sxCenterText}>{user.username}</Typography>
-                        {/* <Typography>Side Section: User Profile</Typography> */}
+                        <Typography variant="h6" sx={sxCenterText}>{user.username}</Typography>
                         <CardMedia onClick={() => handleClick('profile')} sx={sxPhotoBox} component="img" image={user.pic} />
-                        <Typography variant="h5" sx={sxCenterText}>{user.display_name}</Typography>
-                        {/* <Typography><p>{user.bio}</p></Typography> */}
                     </Box>
 
                     {/* METRICS will go here */}
@@ -292,31 +290,3 @@ function Home() {
 
 
 export default Home;
-
-
-
-
- // let IngArray = content.ingredient_list
-                                // console.log('--- this is the IngArray', content.ingredient_list);
-
-                                // function ingredientFilter(ingredients) {
-
-                                //     for (let ingredient of ingredients) {
-                                //         if (ingredient.id === IngArray[0]) {
-                                //             // console.log('--- ingArray[0]', ingredient);
-                                //             feedContentIngredients.push(ingredient)
-                                //         } if (ingredient.id === IngArray[1]) {
-                                //             // console.log('--- ingArray[1]', ingredient);
-                                //             feedContentIngredients.push(ingredient)
-                                //         } if (ingredient.id === IngArray[2]) {
-                                //             // console.log('--- ingArray[2]', ingredient);
-                                //             feedContentIngredients.push(ingredient)
-                                //         }
-                                //     }
-                                //     // console.log('--- end of fun feedContentIngredients', feedContentIngredients);
-                                // }
-
-                                // ingredientFilter(ingredients)
-                                // console.log('--- ingredientFilter(ingredients)', ingredientFilter(ingredients));
-                                // console.log('IngArray id list:', IngArray);
-                                // console.log('--- feedContentIngredients:', feedContentIngredients);

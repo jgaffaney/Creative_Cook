@@ -5,6 +5,7 @@ import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import {
   DataGrid,
   GridToolbarDensitySelector,
@@ -12,10 +13,19 @@ import {
 } from '@mui/x-data-grid';
 import ClearIcon from '@mui/icons-material/Clear';
 import SearchIcon from '@mui/icons-material/Search';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useDispatch, useSelector } from 'react-redux';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import editGridData from './myAction';
+
+// --- sx STYLES --- // 
+import {
+  sxTableFiltersContainer,
+  sxSearchBar,
+  sxDataGridContainer,
+  sxCenterText,
+} from './Ingredients.style';
 
 
 // cleans up search string
@@ -28,21 +38,16 @@ function escapeRegExp(value) {
 function QuickSearchToolbar(props) {
 
   return (
-    <Box
-      sx={{
-        p: 0.5,
-        pb: 0,
-        justifyContent: 'space-between',
-        display: 'flex',
-        alignItems: 'flex-start',
-        flexWrap: 'wrap',
-      }}
-    >
-      <div>
+    <Box sx={sxTableFiltersContainer}>
+
+      {/* controlling the spacing of the search bar & filter / density controls */}
+      <Box sx={{ display: 'flex', gap: 2 }}>
         <GridToolbarFilterButton />
         <GridToolbarDensitySelector />
-      </div>
+      </Box>
+
       <TextField
+        sx={sxSearchBar}
         variant="standard"
         value={props.value}
         onChange={props.onChange}
@@ -61,24 +66,9 @@ function QuickSearchToolbar(props) {
             </IconButton>
           ),
         }}
-        sx={{
-          width: {
-            xs: 1,
-            sm: 'auto',
-          },
-          m: (theme) => theme.spacing(1, 0.5, 1.5),
-          '& .MuiSvgIcon-root': {
-            mr: 0.5,
-          },
-          '& .MuiInput-underline:before': {
-            borderBottom: 1,
-            borderColor: 'divider',
-          },
-        }}
       />
     </Box>
   );
-
 }
 
 QuickSearchToolbar.propTypes = {
@@ -91,110 +81,15 @@ QuickSearchToolbar.propTypes = {
 export default function EditIngredients() {
 
   const ingredients = useSelector(store => store.ingredients);
+  const seasons = useSelector(state => state.seasons);
+  const foodType = useSelector(state => state.types)
+
   const dispatch = useDispatch();
 
   const [searchText, setSearchText] = useState('');
   const [rows, setRows] = useState([]);
   const [snackbar, setSnackbar] = useState(null);
-
-  const seasons = [
-    {
-        value: 'Spring',
-        label: 'Spring'
-    },
-    {
-        value: 'Summer',
-        label: 'Summer'
-    },
-    {
-        value: 'Autumn',
-        label: 'Autumn'
-    },
-    {
-        value: 'Winter',
-        label: 'Winter'
-    },
-    {
-      value: 'Summer-Autumn',
-      label: 'Summer-Autumn'
-    },
-    {
-      value: 'Autumn-Winter',
-      label: 'Autumn-Winter'
-    },
-    {
-      value: 'Winter-Spring',
-      label: 'Winter-Spring'
-    },
-    {
-      value: 'Spring-Early Autumn',
-      label: 'Spring-Early Autumn'
-    },
-    {
-      value: 'Spring-Summer',
-      label: 'Spring-Summer'
-    },
-    {
-      value: 'Year-round',
-      label: 'Year-round'
-    },
-]
-
-const foodType = [
-  {
-      value: 'Protein: Air',
-      label: 'Protein: Air'
-  },
-  {
-      value: 'Protein: Land',
-      label: 'Protein: Land'
-  },
-  {
-      value: 'Protein: Sea',
-      label: 'Protein: Sea'
-  },
-  {
-      value: 'Vegetable',
-      label: 'Vegetable'
-  },
-  {
-      value: 'Fruit',
-      label: 'Fruit'
-  },
-  {
-      value: 'Dairy',
-      label: 'Dairy'
-  },
-  {
-      value: 'Fat',
-      label: 'Fat'
-  },
-  {
-    value: 'Grain',
-    label: 'Grain'
-  },
-  {
-    value: 'Green',
-    label: 'Green'
-  },
-  {
-    value: 'Legume',
-    label: 'Legume'
-  },
-  {
-    value: 'Nut',
-    label: 'Nut'
-  },
-  {
-    value: 'Herb',
-    label: 'Herb'
-  },
-  {
-    value: 'Raw',
-    label: 'Raw'
-  },
-]
-
+  
 
   const handleCloseSnackbar = () => setSnackbar(null);
 
@@ -202,23 +97,26 @@ const foodType = [
   // will open popover window for editing
   const editIngredient = (ingredient) => {
     console.log('Edit clicked with: ', ingredient);
+    dispatch({type: 'DELETE_INGREDIENT', payload: ingredient});
 
   }
 
   // creates the Edit button for each row in the data grid
   const renderEditButton = (params) => {
     return (
-      <Button
-        variant="contained"
-        color="primary"
-        size="small"
-        style={{ marginLeft: 16 }}
+      <Box
+        color="error"
+        sx={{display: 'flex', justifyContent: 'center', alignItems: 'center',}}
+        // variant="outlined"
+        // size="small"
+
+        // we need to delete here
         onClick={() => {
           editIngredient(JSON.stringify(params.row.id))
         }}
       >
-        Delete
-      </Button>
+        <DeleteForeverIcon fontSize='small' color='error' />
+      </Box>
     )
   }
 
@@ -240,21 +138,24 @@ const foodType = [
   // an array for the column headers, including the edit button for every row
   const columns = [
     {
-      field: 'edit',
-      headerName: '',
+      field: 'delete',
+      headerName: 'X',
       renderCell: renderEditButton,
       disableClickEventBubbling: true,
-      editable: true
+      width: 10,
+      // editable: true
     },
     { field: 'id', hide: true, editable: true },
-    { field: 'name', headerName: 'Name', editable: true },
-    { field: 'description', headerName: 'Description', editable: true, flex: true, resizable: true },
-    { field: 'pic', headerName: 'Pic', editable: true },
-    { field: 'taste', headerName: 'Taste', editable: true },
-    { field: 'season', headerName: 'Season', editable: true, valueOptions: seasons, type: 'singleSelect' },
-    { field: 'weight', headerName: 'Weight', editable: true },
-    { field: 'volume', headerName: 'Volume', editable: true },
-    { field: 'type', headerName: 'Type', editable: true, valueOptions: foodType, type: 'singleSelect' },
+    { field: 'name', headerName: 'Name', editable: true, width: 150, },
+    // { field: 'description', headerName: 'Description', editable: true, flex: true, resizable: true},
+    { field: 'description', headerName: 'Description', editable: true, width: 600, },
+    { field: 'type', headerName: 'Type', editable: true, valueOptions: foodType, type: 'singleSelect', width: 150 },
+    { field: 'season', headerName: 'Season', editable: true, valueOptions: seasons, type: 'singleSelect', width: 160, },
+    { field: 'pic', headerName: 'Pic', editable: true, width: 125, },
+
+    { field: 'taste', headerName: 'Taste', editable: true, width: 120 },
+    { field: 'weight', headerName: 'Weight', editable: true, width: 120},
+    { field: 'volume', headerName: 'Volume', editable: true, width: 120 },
   ];
 
   // search function for the data grid
@@ -285,11 +186,14 @@ const foodType = [
   // console.log('Demo Data: ', data);
 
   return (
-    <Box sx={{ height: 600, width: 1 }}>
+    <Box sx={sxDataGridContainer}>
+      <Typography variant="h4" sx={{textAlign: 'center', my: 1}}>{ingredients?.length} Ingredients</Typography>
       {/* {rows && ( */}
       <DataGrid
+        density="compact"
         components={{ Toolbar: QuickSearchToolbar }}
         rows={rows}
+        rowHeight={50}
         columns={columns}
         onCellEditCommit={handleCellEditCommit}
         componentsProps={{

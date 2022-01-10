@@ -16,6 +16,7 @@ function* updateRecipe(action) {
         yield axios.put(`/api/recipes/${action.payload.recipe.id}`, action.payload);
         yield put({type: 'FETCH_USER_RECIPES'})
         yield put({type: 'FETCH_RECIPE_METRICS'})
+        yield put({type: 'FETCH_RECIPE_SAVED'})
     } catch (error) {
         console.log('Error on updateRecipe: ', error);
     }
