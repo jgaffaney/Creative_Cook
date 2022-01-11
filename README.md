@@ -59,7 +59,9 @@ APP_KEY = "you api key here"
 APP_ID = "your api id here"
 
 npm install
+
 npm run server
+
 npm run client
 
 At this point the app will spin up in your browser on localhost:3000
