@@ -221,11 +221,11 @@ function Combo() {
       {combo.length === 0 &&
         <>
           <Typography sx={sxSearchContainer}
-            variant="h5">Find Your First Ingredient</Typography>
+            variant="h4">Find Your First Ingredient</Typography>
           <Box sx={sxSearchContainer}>
 
             <IngredientAutocomplete />
-            <Button onClick={() => handleSearch(searchText)} variant="contained">search</Button>
+            <Button onClick={() => handleSearch(searchText)} variant="outlined">search</Button>
           </Box>
         </>
       }

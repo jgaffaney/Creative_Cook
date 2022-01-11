@@ -365,9 +365,9 @@ function Feed() {
 
 
 
-        <Typography variant='h4' sx={{ textAlign: "center", mt: 4, }}>Saved Flavor Combos</Typography>
+        <Typography variant='h4' sx={{ textAlign: "center", mt: 4, }}>Post Featured Combo To Home Page</Typography>
         <Typography variant='body1' sx={{ textAlign: "center", my: 2, }}>
-          Select a saved combo from below, give it a description and then click submit to post to the Home Page Feed</Typography>
+          Select a saved combo from below | Provide a description | Click submit to post to the Home Page Feed</Typography>
 
         <Box elevation={4} sx={{ display: 'flex', alignItems: "center", justifyContent: "center", gap: 2 }}
         >
