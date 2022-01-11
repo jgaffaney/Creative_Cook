@@ -172,6 +172,13 @@ export const sxPhotoIngredientContainer = {
 
 export const sxRecipeUrl = {
   flex: '90%',
+  cursor: 'pointer',
+
+  '&:hover': {
+    border: 1,
+    borderColor: 'lightgray',
+    borderRadius: 8,
+}
 }
 
 export const sxRecipeButton = {
