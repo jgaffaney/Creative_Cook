@@ -55,6 +55,7 @@ https://developer.edamam.com/edamam-recipe-api
 When you receive your develoer api key and id add a .env file to the parent directory.  Add the following lines to your .env file
 
 APP_KEY = "you api key here"
+
 APP_ID = "your api id here"
 
 npm install
