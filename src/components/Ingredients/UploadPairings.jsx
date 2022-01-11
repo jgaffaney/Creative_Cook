@@ -18,7 +18,6 @@ function UploadPairings() {
     const [isSelected, setIsSelected] = useState(false);
     const [fileUploaded, setFileUploaded] = useState(false);
     const [parsedResults, setParsedResults] = useState();
-    // const [parsedFile, setParsedFile] = useState();
 
     const changeHandler = (event) => {
         dispatch({ type: 'SET_FILE_UPLOAD', payload: event.target.files[0] });

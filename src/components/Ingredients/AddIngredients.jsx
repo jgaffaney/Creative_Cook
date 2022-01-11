@@ -1,6 +1,6 @@
 import {
     FormControl, Box, TextField,
-    MenuItem, Button, Grid, Typography,
+    MenuItem, Button, Typography,
 } from "@mui/material";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { useState } from 'react';
@@ -22,13 +22,14 @@ function AddIngredients() {
 
     const defaultIngredient = {
         name: '',
-        // description: '',
-        // pic: '',
-        // taste: '',
-        // weight: '',
-        // volume: '',
-        // function: '',
-        // technique: '',
+        description: '',
+        pic: '',
+        taste: '',
+        weight: '',
+        volume: '',
+        function: '',
+        technique: '',
+        botanical_relative: ''
     }
 
     const selectedFile = useSelector(state => state.uploadedFile);
@@ -37,7 +38,6 @@ function AddIngredients() {
 
     const [newIngredient, setNewIngredient] = useState(defaultIngredient);
     const [isSelected, setIsSelected] = useState();
-    const [isFilePicked, setIsFilePicked] = useState(false);
     const [ingredientFormStatus, setIngredientFormStatus] = useState(false);
     const [pairingsFormStatus, setPairingsFormStatus] = useState(false);
 
@@ -52,18 +52,18 @@ function AddIngredients() {
         dispatch({ type: 'POST_INGREDIENT', payload: newIngredient })
     };
 
-    const sxAddIngredient = {
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        alignItems: 'center',
+    // const sxAddIngredient = {
+    //     display: 'flex',
+    //     flexDirection: 'column',
+    //     justifyContent: 'space-between',
+    //     alignItems: 'center',
 
-        position: 'sticky',
-        top: 0,
-        m: 1,
-        mx: 'auto',
-        zIndex: 100,
-    }
+    //     position: 'sticky',
+    //     top: 0,
+    //     m: 1,
+    //     mx: 'auto',
+    //     zIndex: 100,
+    // }
 
 
     // handle new csv file for ingredients

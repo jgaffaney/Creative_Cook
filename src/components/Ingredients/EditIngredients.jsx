@@ -1,10 +1,8 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
-// import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
-// import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import {
   DataGrid,
@@ -107,9 +105,6 @@ export default function EditIngredients() {
       <Box
         color="error"
         sx={{display: 'flex', justifyContent: 'center', alignItems: 'center',}}
-        // variant="outlined"
-        // size="small"
-
         onClick={() => {
           editIngredient(JSON.stringify(params.row.id))
         }}
@@ -124,7 +119,7 @@ export default function EditIngredients() {
   //receives the response and displays a snackbar in the lower left indicating the success or error on saving to the DB
   async function handleCellEditCommit(params) {
     try {
-      // console.log('In the try of handleCellEditCommit with: ', { id: params.id, [params.field]: params.value });
+      console.log('In the try of handleCellEditCommit with: ', { id: params.id, [params.field]: params.value });
       const response = await dispatch(editGridData({ id: params.id, field: params.field, value: params.value }))
       setSnackbar({ children: 'Ingredient successfully edited', severity: 'success' });
       setRows((prev) =>
@@ -145,16 +140,13 @@ export default function EditIngredients() {
       renderCell: renderEditButton,
       disableClickEventBubbling: true,
       width: 10,
-      // editable: true
     },
     { field: 'id', hide: true, editable: true },
     { field: 'name', headerName: 'Name', editable: true, width: 150, },
-    // { field: 'description', headerName: 'Description', editable: true, flex: true, resizable: true},
     { field: 'description', headerName: 'Description', editable: true, width: 600, },
     { field: 'type', headerName: 'Type', editable: true, valueOptions: foodType, type: 'singleSelect', width: 150 },
     { field: 'season', headerName: 'Season', editable: true, valueOptions: seasons, type: 'singleSelect', width: 160, },
     { field: 'pic', headerName: 'Pic', editable: true, width: 125, },
-
     { field: 'taste', headerName: 'Taste', editable: true, width: 120 },
     { field: 'weight', headerName: 'Weight', editable: true, width: 120},
     { field: 'volume', headerName: 'Volume', editable: true, width: 120 },
