@@ -22,14 +22,13 @@ function AddIngredients() {
 
     const defaultIngredient = {
         name: '',
-        description: '',
-        pic: '',
-        taste: '',
-        weight: '',
-        volume: '',
-        function: '',
-        technique: '',
-        botanical_relative: '',
+        // description: '',
+        // pic: '',
+        // taste: '',
+        // weight: '',
+        // volume: '',
+        // function: '',
+        // technique: '',
     }
 
     const selectedFile = useSelector(state => state.uploadedFile);

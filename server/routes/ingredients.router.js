@@ -33,7 +33,7 @@ router.post('/', (req, res) => {
     `
     const values = [req.body.name, req.body.description, req.body.pic, req.body.taste,
     req.body.season, req.body.weight, req.body.volume, req.body.type, 
-    req.body.function, req.body.technique, req.body.botanicalRelative];
+    req.body.function, req.body.technique, req.body.botanical_relative];
     pool.query(queryText, values)
         .then(() => {
             res.sendStatus(201)
