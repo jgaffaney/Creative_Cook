@@ -32,12 +32,12 @@ router.post('/', (req, res) => {
     console.log('in ingredients POST with: ', req.body);
 
     const queryText = `
-    INSERT INTO ingredients ("name", "description", "pic", "taste", "season", "weight", "volume", "type", "function", "technique", "botanical_relative")
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, &9, &10, &11);
-    `
+        INSERT INTO ingredients ("name", "description", "pic", "taste", "season", "weight", "volume", "type", "botanical_relative", "function", "technique")
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);
+        `
     const values = [req.body.name, req.body.description, req.body.pic, req.body.taste,
-    req.body.season, req.body.weight, req.body.volume, req.body.type, 
-    req.body.function, req.body.technique, req.body.botanicalRelative];
+    req.body.season, req.body.weight, req.body.volume, req.body.type,
+    req.body.botanical_relative, req.body.function, req.body.technique]
     pool.query(queryText, values)
         .then(response => {
             res.sendStatus(201)
@@ -96,7 +96,7 @@ router.post('/bulk/', upload.single('file'), (req, res) => {
         // fileStream.on('error', done)
         // stream.on('error', done)
         stream.on('finish', function (err, result) {
-            if(err) {
+            if (err) {
                 console.log('this is a stream error:', err);
                 res.sendStatus(200);
             } else {
@@ -124,22 +124,22 @@ router.get('/metrics', (req, res) => {
             console.log('Error in ingredient GET', err);
             res.sendStatus(500);
         })
-  }); // End GET
+}); // End GET
 
-  router.delete('/:id', (req, res) => {
-      const id = req.params.id
-      const queryText = `
+router.delete('/:id', (req, res) => {
+    const id = req.params.id
+    const queryText = `
       DELETE FROM ingredients
       WHERE id = $1;
       `
-      pool.query(queryText, [id])
-      .then(response => {
-          console.log('Delete response: ', response);
-          res.sendStatus(204)          
-      }).catch(err => {
-          console.log('Error on delete: ', err);
-          res.sendStatus(500);
-      })
-  })
+    pool.query(queryText, [id])
+        .then(response => {
+            console.log('Delete response: ', response);
+            res.sendStatus(204)
+        }).catch(err => {
+            console.log('Error on delete: ', err);
+            res.sendStatus(500);
+        })
+})
 
 module.exports = router;
