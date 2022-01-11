@@ -211,3 +211,8 @@ VALUES
 (114,15,5),
 (115,13,12),
 (116,1,30);
+
+INSERT INTO "metrics" ("id", "name")
+VALUES(1, 'combo'),
+(2, 'recipe'),
+(3, 'ingredients');
