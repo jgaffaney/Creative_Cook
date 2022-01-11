@@ -14,21 +14,20 @@ CREATE TYPE "type" AS ENUM ('Protein: Air', 'Protein: Land', 'Protein: Sea', 'Ve
 
 
 CREATE TABLE "user" (
-    "id" serial NOT NULL PRIMARY KEY,
-    "username" varchar(255) NOT NULL,
-    "password" varchar(255) NOT NULL,
-    "bio" varchar(510),
-    "pic" varchar(255),
+    "id" SERIAL PRIMARY KEY,
+    "username"  VARCHAR(255) NOT NULL,
+    "password"  VARCHAR(255) NOT NULL,
+    "bio"  VARCHAR(510),
+    "pic"  VARCHAR(255),
     "gender" gender,
-	"family_size" int,
+    "family_size" integer,
     "marital_status" marital_status,
-    "is_admin" bool NOT NULL DEFAULT FALSE,
-	"location" varchar(255),
-	"birthday" DATE,
-	"email" varchar(255) NOT NULL,
+    "is_admin" boolean NOT NULL DEFAULT false,
+    "location"  varying(255),
+    "birthday" date,
+    "email"  VARCHAR(255) NOT NULL
 );
 
-	
 
 CREATE TABLE ingredients (
     "id" SERIAL PRIMARY KEY,
