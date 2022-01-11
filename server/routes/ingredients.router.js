@@ -26,16 +26,16 @@ router.get('/', (req, res) => {
 // posts a new ingredient to DB
 router.post('/', (req, res) => {
     console.log('in ingredients POST with: ', req.body);
-
+    
     const queryText = `
-    INSERT INTO ingredients ("name", "description", "pic", "taste", "season", "weight", "volume", "type", "function", "technique", "botanical_relative")
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, &9, &10, &11);
+    INSERT INTO ingredients ("name", "description", "pic", "taste", "season", "weight", "volume", "type", "botanical_relative", "function", "technique")
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);
     `
-    const values = [req.body.name, req.body.description, req.body.pic, req.body.taste,
-    req.body.season, req.body.weight, req.body.volume, req.body.type, 
-    req.body.function, req.body.technique, req.body.botanical_relative];
+    const values = [req.body.name, req.body.description, req.body.pic, req.body.taste, 
+                    req.body.season, req.body.weight, req.body.volume, req.body.type,
+                    req.body.botanical_relative, req.body.function, req.body.technique]
     pool.query(queryText, values)
-        .then(() => {
+        .then(response => {
             res.sendStatus(201)
         }).catch(err => {
             console.log('Error on POST ingredients: ', err);
