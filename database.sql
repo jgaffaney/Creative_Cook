@@ -10,7 +10,8 @@ CREATE TYPE "season" AS ENUM ('Summer', 'Spring', 'Winter', 'Autumn', 'Summer-Au
 
 CREATE TYPE "type" AS ENUM ('Protein: Air', 'Protein: Land', 'Protein: Sea', 'Vegetable', 'Fruit',
 'Dairy', 'Fat', 'Grain', 'Green', 'Legume', 'Herb', 'Nut', 'Raw', 'Spice', 'Culture', 'Taste',
-'Season', 'Alcohol', 'Vinegar', 'Technique', 'Sauce', 'Preparation', 'Sweetener', 'Juice')
+'Season', 'Alcohol', 'Vinegar', 'Technique', 'Sauce', 'Preparation', 'Sweetener', 'Juice'
+);
 
 
 CREATE TABLE "user" (
