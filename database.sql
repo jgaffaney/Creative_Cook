@@ -10,8 +10,8 @@ CREATE TYPE "season" AS ENUM ('Summer', 'Spring', 'Winter', 'Autumn', 'Summer-Au
 
 CREATE TYPE "type" AS ENUM ('Protein: Air', 'Protein: Land', 'Protein: Sea', 'Vegetable', 'Fruit',
 'Dairy', 'Fat', 'Grain', 'Green', 'Legume', 'Herb', 'Nut', 'Raw', 'Spice', 'Culture', 'Taste',
-'Season', 'Alcohol', 'Vinegar', 'Technique', 'Sauce', 'Preparation', 'Sweetener', 'Juice')
-
+'Season', 'Alcohol', 'Vinegar', 'Technique', 'Sauce', 'Preparation', 'Sweetener', 'Juice'
+);
 
 CREATE TABLE "user" (
     "id" SERIAL PRIMARY KEY,
@@ -23,13 +23,12 @@ CREATE TABLE "user" (
     "family_size" integer,
     "marital_status" marital_status,
     "is_admin" boolean NOT NULL DEFAULT false,
-    "location"  varying(255),
+    "location"  VARCHAR(255),
     "birthday" date,
     "email"  VARCHAR(255) NOT NULL
 );
 
-
-CREATE TABLE ingredients (
+CREATE TABLE "ingredients" (
     "id" SERIAL PRIMARY KEY,
     "name" VARCHAR(255) NOT NULL,
     "description" VARCHAR(255),
@@ -44,68 +43,49 @@ CREATE TABLE ingredients (
     "botanical_relative" VARCHAR(255)
 );
 
-
 CREATE TABLE "pairings" (
 	"id" serial NOT NULL PRIMARY KEY,
 	"ingredient_one_id" int REFERENCES "ingredients",
 	"ingredient_two_id" int REFERENCES "ingredients");
 
 CREATE TABLE "combos" (
-	"id" serial NOT NULL PRIMARY KEY,
-	"user_id" int REFERENCES "user",
-	"ingredient_list" int[] NOT NULL,
-	"name" varchar(255)),
-	"date_created" DATE;
+    "id" SERIAL PRIMARY KEY,
+    "user_id" integer REFERENCES "user"(id) ON DELETE CASCADE,
+    "ingredient_list" integer[] NOT NULL,
+    "name" VARCHAR(255),
+    "date_created" date
+);
 
 CREATE TABLE "recipes" (
-	"id" serial NOT NULL PRIMARY KEY,
-	"combo_id" int REFERENCES "combos",
-    "user_id" int REFERENCES "user",
-	"made_on" DATE,
-	"url" varchar(255) NOT NULL),
-	"label" VARCHAR(255),
-	"is_cooked" BOOLEAN DEFAULT FALSE;
+    "id" SERIAL PRIMARY KEY,
+    "combo_id" integer REFERENCES combos(id),
+    "user_id" integer,
+    "made_on" timestamp without time zone,
+    "url"  VARCHAR(255) NOT NULL,
+    "label"  VARCHAR(255),
+    "is_cooked" boolean DEFAULT false
+);
 
 CREATE TABLE "metrics" (
 	"id" serial NOT NULL PRIMARY KEY,
-	"name" varchar(255) NOT NULL),
+	"name" varchar(255) NOT NULL
+);
 
 CREATE TABLE "user_metrics" (
-	"id" serial NOT NULL PRIMARY KEY,
-	"user_id" int NOT NULL REFERENCES "user",
-	"metric_id" int NOT NULL REFERENCES "metrics",
-	"goal" int);
+    "id" SERIAL PRIMARY KEY,
+    "user_id" integer NOT NULL,
+    "metric_id" integer NOT NULL REFERENCES metrics(id),
+    "goal" integer,
+    "progress" integer
+);
 
 CREATE TABLE "feed_content" (
 	"id" serial NOT NULL PRIMARY KEY,
 	"type" TYPE NOT NULL,
 	"description" varchar(2555) NOT NULL,
-	"combo_id" int REFERENCES "combos"),
-	"date_posted" DATE;
-
-INSERT INTO "ingredients" ("name", "description")
-VALUES ('apple', 'apples are a fruit that is red or green'),
-('lemon', 'not an apple'),
-('chicken', 'a tasty bird'),
-('asparagus', 'a green vegetable'),
-('strawberry', 'seeds on the outside'),
-('butter', 'the real kind, not that margarine stuff'),
-('sugar', 'sweetness');
-
-******************************************
-
-ALTER TYPE season ADD VALUE 'Summer-Autumn';
-ALTER TYPE season ADD VALUE 'Autumn-Winter';
-ALTER TYPE season ADD VALUE 'Winter-Spring';
-ALTER TYPE season ADD VALUE 'Spring-Early Autumn';
-ALTER TYPE season ADD VALUE 'Spring-Summer';
-ALTER TYPE season ADD VALUE 'Year-round';
-ALTER TYPE type ADD VALUE 'Grain';
-ALTER TYPE type ADD VALUE 'Green';
-ALTER TYPE type ADD VALUE 'Legume';
-ALTER TYPE type ADD VALUE 'Herb';
-ALTER TYPE type ADD VALUE 'Nut';
-ALTER TYPE type ADD VALUE 'Raw';
+	"combo_id" int REFERENCES "combos",
+	"date_posted" DATE
+);
 
 INSERT INTO "public"."ingredients"("id","name","description","pic","taste","season","weight","volume","type")
 VALUES
@@ -141,7 +121,6 @@ VALUES
 (30,E'caper',NULL,E'https://cdn.pixabay.com/photo/2017/05/11/00/55/capers-2302424__480.jpg',E'salty, sour, pungent',NULL,E'light',E'loud',E'Vegetable'),
 (31,E'black-eyed peas',NULL,E'https://images.unsplash.com/photo-1515347272087-685ce5a1fc8b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YmxhY2slMjBleWVkJTIwcGVhc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60',NULL,NULL,E'light–medium',E'moderate–loud',NULL),
 (32,E'cabbage',NULL,NULL,NULL,E'Autumn-Winter',E'medium',E'moderate',NULL);
-
 
 INSERT INTO "public"."pairings"("id","ingredient_one_id","ingredient_two_id")
 VALUES
@@ -232,24 +211,3 @@ VALUES
 (114,15,5),
 (115,13,12),
 (116,1,30);
-
-
--- ALTERATIONS to user table -- 
-
-ALTER TYPE marital_status ADD VALUE 'Prefer not to answer';
-
-ALTER TABLE "user"
-DROP COLUMN "display_name";
-
-ALTER TABLE "user"
-DROP COLUMN "age";
-
-ALTER TABLE "user"
-ADD "email" varchar(255) NOT NULL;
-
-ALTER TABLE "user"
-ADD "location" varchar(255);
-
-ALTER TABLE "user"
-ADD "birthday" DATE;
-
