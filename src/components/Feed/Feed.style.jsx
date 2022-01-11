@@ -125,3 +125,9 @@ export const sxSavedComboPaper = {
     p: 2,
     borderRadius: 2,
 }
+
+export const sxSelectedComboOn = {
+    border: 4,
+    borderColor: '#00d61d',
+    borderRadius: 3,
+}

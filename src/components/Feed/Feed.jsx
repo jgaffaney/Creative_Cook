@@ -55,12 +55,14 @@ import {
   sxSavedComboPaper,
   sxFeedPhotoIngredientContainer,
   sxFeedListContent,
+  sxSelectedComboOn,
 } from './Feed.style';
 
 
 
 function Feed() {
   const user = useSelector((store) => store.user);
+  const allUsers = useSelector((store) => store.allUsers);
   const recipes = useSelector(store => store.recipe);
   const dispatch = useDispatch();
   const ingredients = useSelector(store => store.ingredients);
@@ -74,10 +76,14 @@ function Feed() {
   const pairingTwo = useSelector(store => store.comboPairingTwo)
   const healthFilter = useSelector(store => store.healthFilter)
 
+
+  const [selectedComboStatus, setSelectedComboStatus] = useState(false);
+
   useEffect(() => {
     dispatch({ type: 'FETCH_INGREDIENTS' });
     dispatch({ type: 'FETCH_COMBOS' });
     dispatch({ type: 'FETCH_TOP5' });
+    dispatch({ type: 'FETCH_ALL_USERS' });
   }, [])
 
   useEffect(() => {
@@ -118,8 +124,8 @@ function Feed() {
 
   const selectedSavedCombo = (event, combo) => {
     console.log('--- clicked selectedCombo');
-    setNewChallenge({ ...newChallenge, combo_id: combo})
-  
+    setSelectedComboStatus(true)
+    setNewChallenge({ ...newChallenge, combo_id: combo })
   }
 
   // Sends new challenge to the saga
@@ -219,7 +225,7 @@ function Feed() {
     combined = combined.filter(ingredient => ingredient.id != combo[0].id).filter(ingredient => ingredient.id != combo[1].id);
   }
 
-// combo tool and ingredient pair display
+  // combo tool and ingredient pair display
   return (
     <>
       <Box sx={sxMetrics}>
@@ -235,12 +241,23 @@ function Feed() {
                 <Typography variant='body1'>{topFiveIngredients[4]?.name} ({top5[4]?.times_used})</Typography>
               </Item>
             </Grid>
+
             <Grid item xs={4}>
-              <Item sx={{ height: 150 }}><Typography variant='h6'>% of Used Ingredients by Type</Typography></Item>
+              <Item sx={{ height: 150 }}><Typography variant='h6'>Top Ingredients by Type:</Typography>
+                <Typography variant='body1'>Vegetables</Typography>
+                <Typography variant='body1'>Protein: Land</Typography>
+                <Typography variant='body1'>Fruits</Typography>
+                <Typography variant='body1'>Grains</Typography>
+                <Typography variant='body1'>Herbs</Typography>
+              </Item>
             </Grid>
+
             <Grid item xs={4}>
-              <Item sx={{ height: 150 }}><Typography variant='h6'>% of Users by Family Size</Typography></Item>
+              <Item sx={{ height: 150 }}><Typography variant='h6'>Number of Users:</Typography>
+                <Typography variant='body1'>{allUsers[0]?.user_count} chefs created accounts</Typography>
+              </Item>
             </Grid>
+
           </Grid>
         </Box>
       </Box>
@@ -284,7 +301,7 @@ function Feed() {
             <Typography sx={sxIngredientContainer}>Super Combos</Typography>
             <Box sx={sxIngredientContainer}>
               {superCombo.map(ingredient => (
-                <Tooltip sx={sxTooltip}
+                <Tooltip key={ingredient.id} sx={sxTooltip}
                   title={
                     <>
                       <Typography
@@ -317,7 +334,7 @@ function Feed() {
         {combo.length > 0 && combo.length < 3 &&
           <Box sx={sxIngredientContainer}>
             {combined.map(ingredient => (
-              <Tooltip sx={sxTooltip}
+              <Tooltip key={ingredient.id} sx={sxTooltip}
                 title={
                   <>
                     <Typography variant="body1">{ingredient.description}</Typography>
@@ -349,13 +366,14 @@ function Feed() {
 
 
         <Typography variant='h4' sx={{ textAlign: "center", mt: 4, }}>Saved Flavor Combos</Typography>
-        <Typography variant='body1' sx={{ textAlign: "center", my: 2, }}>To add featured combo to feed, selected a saved combo from below and give it a description, then click submit</Typography>
+        <Typography variant='body1' sx={{ textAlign: "center", my: 2, }}>
+          Select a saved combo from below, give it a description and then click submit to post to the Home Page Feed</Typography>
 
-        <Box elevation={4} sx={{display: 'flex', alignItems: "center", justifyContent: "center", gap: 2}}
+        <Box elevation={4} sx={{ display: 'flex', alignItems: "center", justifyContent: "center", gap: 2 }}
         >
 
           <TextField
-            sx={{ mb: 2, width: '60%'}}
+            sx={{ mb: 2, width: '60%' }}
             id="outlined-basic"
             variant="outlined"
             label="Description of Featured Combo"
@@ -407,36 +425,43 @@ function Feed() {
           const ingredientThree = feedContentFilteredIngredients.filter(ingredient => ingredient?.id === comboIngredientIds[2])
           // console.log('--- feedContent .map ingredientThree', ingredientThree);
 
+          // newChallenge.combo_id === 
+
           return (
 
-            <Paper onClick={(event) => selectedSavedCombo(event, content.id)} key={content.id} sx={sxSavedComboPaper} elevation={2}>
-              {/* needed an extra Box just to separate the comboClick; remove button sits on top of this DIV and  fire when combo card is clicked on */}
-              <Box >
+            // give combo card a border when clicking so when know which one we are sending to the feed
+            <Box key={content.id} sx={content.id === newChallenge.combo_id && selectedComboStatus ?
+              sxSelectedComboOn : undefined}>
 
-                {/* <Typography variant="body1" sx={{ textAlign: 'center' }} >{content.date_posted?.split('T')[0]}</Typography> */}
+              <Paper onClick={(event) => selectedSavedCombo(event, content.id)} sx={sxSavedComboPaper} elevation={2}>
+                {/* needed an extra Box just to separate the comboClick; remove button sits on top of this DIV and  fire when combo card is clicked on */}
+                <Box >
 
-                <Typography variant="h6" sx={{ textAlign: 'center' }}>{content.name}</Typography>
+                  {/* <Typography variant="body1" sx={{ textAlign: 'center' }} >{content.date_posted?.split('T')[0]}</Typography> */}
 
-                <Box sx={sxFeedPhotoIngredientContainer}>
-                  <CardMedia sx={sxPhotoIngredient} component="img" image={ingredientOne[0]?.pic} />
+                  <Typography variant="h6" sx={{ textAlign: 'center' }}>{content.name}</Typography>
 
-                  <CardMedia sx={sxPhotoIngredient} component="img" image={ingredientTwo[0]?.pic} />
+                  <Box sx={sxFeedPhotoIngredientContainer}>
+                    <CardMedia sx={sxPhotoIngredient} component="img" image={ingredientOne[0]?.pic} />
 
-                  {/* check to see if we have a 3rd ingredient before appending */}
-                  {content.ingredient_list?.length > 2 &&
-                    <CardMedia sx={sxPhotoIngredient} component="img" image={ingredientThree[0]?.pic} />}
+                    <CardMedia sx={sxPhotoIngredient} component="img" image={ingredientTwo[0]?.pic} />
+
+                    {/* check to see if we have a 3rd ingredient before appending */}
+                    {content.ingredient_list?.length > 2 &&
+                      <CardMedia sx={sxPhotoIngredient} component="img" image={ingredientThree[0]?.pic} />}
+                  </Box>
+
+                  <Typography variant="body1" sx={sxComboDescription}>{content.description}</Typography>
+
                 </Box>
-
-                <Typography variant="body1" sx={sxComboDescription}>{content.description}</Typography>
-
-              </Box>
-              {/* 
+                {/* 
               <Button onClick={() => handleClick('remove', content)}
                 sx={{ mx: 'auto', my: 1 }}
                 variant="outlined"
                 size="small">Add To Home Page Feed </Button> */}
 
-            </Paper>
+              </Paper>
+            </Box>
           )
         })}
       </Box>
