@@ -48,21 +48,23 @@ Start by forking and cloning the repository.  Then, create a database titled "cr
 
 After database setup, run the following commands in your terminal to install dependencies and spin up the client and backend servers.
 
+##### Edamam API
+
 Click the link below and create a login and signup for a developer api.
 
 https://developer.edamam.com/edamam-recipe-api
 
 When you receive your develoer api key and id add a .env file to the parent directory.  Add the following lines to your .env file
 
-APP_KEY = "you api key here"
+`APP_KEY = "you api key here"`
 
-APP_ID = "your api id here"
+`APP_ID = "your api id here"`
 
-npm install
+## Install Dependencies
 
-npm run server
-
-npm run client
+1. `npm install`
+2. `npm run server`
+3. `npm run client`
 
 At this point the app will spin up in your browser on localhost:3000
 
