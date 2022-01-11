@@ -37,7 +37,7 @@ CREATE TABLE "ingredients" (
 	"type" TYPE,
 	"function" varchar(255),
 	"technique" varchar(255),
-	"botanical_relative" varchar(255);
+	"botanical_relative" varchar(255));
 
 
 CREATE TABLE "pairings" (
