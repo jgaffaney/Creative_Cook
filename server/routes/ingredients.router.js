@@ -4,13 +4,10 @@ const router = express.Router();
 const multer = require('multer')
 const upload = multer({ dest: 'uploads/' })
 const fs = require('fs');
-const path = require('path');
-const stream = require('stream');
-const fastcsv = require('fast-csv');
-const csv = require('csv-parser');
 const copyFrom = require('pg-copy-streams').from;
 
 // request all ingredients from DB
+// capitalize first letter of name for standardization of data
 router.get('/', (req, res) => {
     console.log('in ingredients GET');
     const queryText = `
@@ -19,7 +16,6 @@ router.get('/', (req, res) => {
     `
     pool.query(queryText)
         .then(response => {
-            // console.log('Response from GET ingredients DB: ', response.rows);
             res.send(response.rows)
         }).catch(err => {
             console.log("Error on GET ingredients from DB: ", err);
@@ -39,7 +35,7 @@ router.post('/', (req, res) => {
     req.body.season, req.body.weight, req.body.volume, req.body.type, 
     req.body.function, req.body.technique, req.body.botanicalRelative];
     pool.query(queryText, values)
-        .then(response => {
+        .then(() => {
             res.sendStatus(201)
         }).catch(err => {
             console.log('Error on POST ingredients: ', err);
@@ -47,6 +43,7 @@ router.post('/', (req, res) => {
         })
 });
 
+// update a single ingredient
 router.put('/', (req, res) => {
     console.log('in ingredients POST with: ', req.body);
     const field = req.body.field
@@ -68,7 +65,7 @@ router.put('/', (req, res) => {
 
 // GETs top 5 most used ingredients from DB
 router.get('/top5', (req, res) => {
-    console.log('in top five ingredients GET');
+    // console.log('in top five ingredients GET');
     const queryText = `
         SELECT unnest(combos.ingredient_list) AS ingredient_id, count(*) AS times_used FROM combos
         GROUP BY ingredient_id
@@ -84,21 +81,18 @@ router.get('/top5', (req, res) => {
         })
 });
 
-// POSTS bulk ingredients data to DB
+// POSTS bulk ingredients from .csv data to DB
 router.post('/bulk/', upload.single('file'), (req, res) => {
-    console.log('in bulk post with: ', req.file);
-
+    // console.log('in bulk post with: ', req.file);
     pool.connect(function (err, client, done) {
         let stream = client.query(copyFrom(`
         COPY ingredients (name, description, pic, taste, weight, volume, season, function, type, technique, botanical_relative) FROM STDIN DELIMITER ',' CSV HEADER;
         `));
         let fileStream = fs.createReadStream(req.file.path);
-        // fileStream.on('error', done)
-        // stream.on('error', done)
         stream.on('finish', function (err, result) {
             if(err) {
                 console.log('this is a stream error:', err);
-                res.sendStatus(200);
+                res.sendStatus(500);
             } else {
                 console.log('upload successful');
                 res.sendStatus(200);
@@ -126,6 +120,7 @@ router.get('/metrics', (req, res) => {
         })
   }); // End GET
 
+  // delete a single ingredient
   router.delete('/:id', (req, res) => {
       const id = req.params.id
       const queryText = `
