@@ -5,6 +5,14 @@ CREATE TYPE "gender" AS ENUM ('Female', 'Male', 'Other', 'Prefer not to answer')
 
 CREATE TYPE "marital_status" AS ENUM ('Single', 'Married', 'Partnership', 'Prefer not to answer');
 
+CREATE TYPE "season" AS ENUM ('Summer', 'Spring', 'Winter', 'Autumn', 'Summer-Autumn', 'Summer-Winter', 
+'Autumn-Winter', 'Autumn-Spring', 'Winter-Spring', 'Spring-Summer', 'Year-round');
+
+CREATE TYPE "type" AS ENUM ('Protein: Air', 'Protein: Land', 'Protein: Sea', 'Vegetable', 'Fruit',
+'Dairy', 'Fat', 'Grain', 'Green', 'Legume', 'Herb', 'Nut', 'Raw', 'Spice', 'Culture', 'Taste',
+'Season', 'Alcohol', 'Vinegar', 'Technique', 'Sauce', 'Preparation', 'Sweetener', 'Juice')
+
+
 CREATE TABLE "user" (
     "id" serial NOT NULL PRIMARY KEY,
     "username" varchar(255) NOT NULL,
@@ -21,23 +29,21 @@ CREATE TABLE "user" (
 );
 
 	
-CREATE TYPE "season" AS ENUM ('Summer', 'Spring', 'Winter', 'Autumn');
 
-CREATE TYPE "type" AS ENUM ('Protein: Air', 'Protein: Land', 'Protein: Sea', 'Vegetable', 'Fruit', 'Dairy', 'Fat');
-
-CREATE TABLE "ingredients" (
-	"id" SERIAL NOT NULL PRIMARY KEY,
-	"name" varchar(255) NOT NULL,
-	"description" varchar(255),
-	"pic" varchar(255),
-	"taste" varchar(255),
-	"season" SEASON,
-	"weight" varchar(255),
-	"volume" varchar(255),
-	"type" TYPE,
-	"function" varchar(255),
-	"technique" varchar(255),
-	"botanical_relative" varchar(255);
+CREATE TABLE ingredients (
+    "id" SERIAL PRIMARY KEY,
+    "name" VARCHAR(255) NOT NULL,
+    "description" VARCHAR(255),
+    "pic" VARCHAR(255),
+    "taste" VARCHAR(255),
+    "season" season,
+    "weight" VARCHAR(255),
+    "volume" VARCHAR(255),
+    "type" type,
+    "function" VARCHAR(255),
+    "technique" VARCHAR(255),
+    "botanical_relative" VARCHAR(255)
+);
 
 
 CREATE TABLE "pairings" (
