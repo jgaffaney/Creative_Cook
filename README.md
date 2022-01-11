@@ -50,9 +50,11 @@ After database setup, run the following commands in your terminal to install dep
 
 ##### Edamam API
 
-Click the link below and create a login and signup for a developer api.
+Click the link below and create a login.
 
 https://developer.edamam.com/edamam-recipe-api
+
+Next, select the Recipe Search API and sign up for a developer level API.
 
 When you receive your develoer api key and id add a .env file to the parent directory.  Add the following lines to your .env file
 
