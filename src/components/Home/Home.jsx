@@ -91,11 +91,11 @@ function Home() {
         // let's dump the reducer so we know it's empty before starting a new combo;
         dispatch({ type: 'CLEAR_COMBO_AND_RECIPE' })
 
-        console.log('CLICKED on handleSearch');
-        console.log('this is the searchText', searchText);
+        // console.log('CLICKED on handleSearch');
+        // console.log('this is the searchText', searchText);
 
         const searchedIngredientOne = ingredients.filter(ingredient => ingredient.name === searchText)
-        console.log('--- searchedIngredientOne:', searchedIngredientOne);
+        // console.log('--- searchedIngredientOne:', searchedIngredientOne);
 
         // ensures user only moves to combo page if they have selected from the list (Must Select From The List!)
         if (searchedIngredientOne.length === 0) {
@@ -115,25 +115,25 @@ function Home() {
         switch (action) {
 
             case 'profile':
-                console.log('CLICKED on the profile image button');
+                // console.log('CLICKED on the profile image button');
                 history.push('/profile')
                 break;
 
             // only ADMIN will have the ability to see remove button on combos cards;
             case 'remove':
-                console.log('CLICKED remove feed combo card');
+                // console.log('CLICKED remove feed combo card');
                 // console.log('ingredient from fee combo to be removed', content);
-                console.log('feed content remove id:', content.id);
+                // console.log('feed content remove id:', content.id);
                 // dispatch remove feed content by id
                 dispatch({ type: 'REMOVE_FEED_ITEM', payload: content.id })
                 break;
 
             case 'combo':
-                console.log('CLICKED on the featured combo');
-                console.log('--- the three ingredients to send to dispatch', ingredientOne, ingredientTwo, ingredientThree);
+                // console.log('CLICKED on the featured combo');
+                // console.log('--- the three ingredients to send to dispatch', ingredientOne, ingredientTwo, ingredientThree);
 
                 const comboArray = [ingredientOne[0], ingredientTwo[0], ingredientThree[0]]
-                console.log('--- custom comboArray for searching recipes', comboArray);
+                // console.log('--- custom comboArray for searching recipes', comboArray);
 
                 // first make sure the reducer is empty and ready to receive the combo we click on;
                 dispatch({ type: 'CLEAR_COMBO_AND_RECIPE' })
@@ -154,9 +154,9 @@ function Home() {
         }
     }; // handleClick
 
-    console.log('comboMetrics', comboMetrics);
-    console.log('recipeMetrics', recipeMetrics);
-    console.log('ingredientMetrics', ingredientMetrics);
+    // console.log('comboMetrics', comboMetrics);
+    // console.log('recipeMetrics', recipeMetrics);
+    // console.log('ingredientMetrics', ingredientMetrics);
 
 
     // limit the amount of content we display on the profile section === 3

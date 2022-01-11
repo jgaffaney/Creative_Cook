@@ -117,13 +117,13 @@ function RecipeList() {
 
     const handleClick = () => {
         try {
-            console.log('inside handleClick');
+            // console.log('inside handleClick');
             setOpen(true);
             setTimeout(() => {
                 setOpen(false);
             }, 3000)
         } catch (error) {
-            console.log('error');
+            // console.log('error');
         }
         dispatch({ type: 'SET_HIDDEN_SNACKBAR' })
     };

@@ -83,7 +83,7 @@ function ComboTool() {
                 {
                     combo?.map(ingredient => (
                         <Card elevation={0}
-                            onClick={console.log('clicked')}
+                            // onClick={console.log('clicked')}
                             key={ingredient.id}>
                             <CardMedia
                                 sx={sxPhotoBox}

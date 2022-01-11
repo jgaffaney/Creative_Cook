@@ -5,7 +5,7 @@ const typeReducer = (state = [], action) => {
             for(let index of action.payload){
                 results.push(index.unnest)
             }
-            console.log('results in type: ', results);
+            // console.log('results in type: ', results);
             
             return results;
         default:

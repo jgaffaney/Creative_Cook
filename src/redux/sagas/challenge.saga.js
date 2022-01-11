@@ -7,7 +7,7 @@ function* fetchChallenges() {
         const response = yield axios.get('/api/challenge/')
         yield put({ type: 'SET_CHALLENGE', payload: response.data });
     } catch (err) {
-        console.log('GET ERROR in fetchChallenges SAGA', err);
+        // console.log('GET ERROR in fetchChallenges SAGA', err);
     }
 };
 
@@ -17,7 +17,7 @@ function* addChallenge(action) {
         yield axios.post('/api/challenge/', action.payload)
         yield put({ type: 'FETCH_CHALLENGE' })
     } catch (err) {
-        console.log('POST ERROR in addChallenge SAGA', err);
+        // console.log('POST ERROR in addChallenge SAGA', err);
     }
 };
 
@@ -31,7 +31,7 @@ function* removeChallenge(action) {
         // dispatch refresh of the feed list
         yield put({ type: 'FETCH_CHALLENGE'})
     } catch (err) {
-        console.log('DELETE ERROR removeChallenge SAGA', err);
+        // console.log('DELETE ERROR removeChallenge SAGA', err);
     }
 
 }

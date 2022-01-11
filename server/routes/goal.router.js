@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
             res.send(result.rows); // Contains goal data
         })
         .catch(err => {
-            console.log('Error in GOAL GET', err);
+            // console.log('Error in GOAL GET', err);
             res.sendStatus(500);
         })
 }); // End GET
@@ -34,7 +34,7 @@ router.get('/ingredient', (req, res) => {
            res.send(result.rows); // Contains goal data
        })
        .catch(err => {
-           console.log('Error in GOAL GET', err);
+        //    console.log('Error in GOAL GET', err);
            res.sendStatus(500);
        })
 }); // End GET
@@ -52,7 +52,7 @@ router.get('/recipe', (req, res) => {
             res.send(result.rows); // Contains goal data
         })
         .catch(err => {
-            console.log('Error in GOAL GET', err);
+            // console.log('Error in GOAL GET', err);
             res.sendStatus(500);
         })
  }); // End GET
@@ -62,7 +62,7 @@ router.get('/recipe', (req, res) => {
  * POST route template
  */
 router.post('/', (req, res) => {
-    console.log('hello from combo post');
+    // console.log('hello from combo post');
   const queryText = `
     INSERT INTO "user_metrics" ("user_id", "goal", "metric_id")
     VALUES ($1, $2, $3);
@@ -73,7 +73,7 @@ router.post('/', (req, res) => {
         }
         )
         .catch(err => {
-            console.log('Error in POST', err);
+            // console.log('Error in POST', err);
             res.sendStatus(500);
         }
         )
@@ -87,12 +87,12 @@ router.put('/', (req, res) => {
     WHERE "user_id" = $2 AND "metric_id" = $3; 
     `;
     values = [req.body.goal, id, req.body.metric_id]
-    console.log("!!!", req.body);
+    // console.log("!!!", req.body);
     pool.query(queryText, values)
         .then(response => {
             res.sendStatus(200)
         }).catch(err=> {
-            console.log('Error on PUT goal: ', err);
+            // console.log('Error on PUT goal: ', err);
             res.sendStatus(500);
         })
 })
@@ -105,12 +105,12 @@ router.put('/reset', (req, res) => {
     WHERE "user_id" = $1 AND "metric_id" = $2; 
     `;
     values = [id, req.body.metric_id]
-    console.log("!!!", req.body);
+    // console.log("!!!", req.body);
     pool.query(queryText, values)
         .then(response => {
             res.sendStatus(200)
         }).catch(err=> {
-            console.log('Error on PUT goal: ', err);
+            // console.log('Error on PUT goal: ', err);
             res.sendStatus(500);
         })
 })

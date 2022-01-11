@@ -40,7 +40,7 @@ const PairingsTool = () => {
     }
 
     const handleSetIngredient = () => {
-        console.log('Submit clicked with id: ', searchText);
+        // console.log('Submit clicked with id: ', searchText);
         setPairedWith(searchText);
         let id = 0;
 
@@ -50,12 +50,12 @@ const PairingsTool = () => {
                 id = ingredient.id;
             }
         }
-        console.log('Converted name to id yields id: ', id);
+        // console.log('Converted name to id yields id: ', id);
         dispatch({ type: 'FETCH_PAIRINGS', payload: id, ingredients: ingredients });
 
         resultArray = ingredients.map(ingredient => {
             for (let pair of pairings) {
-                console.log('in pair for with pair: ' + pair + ' and ingred: ' + ingredient);
+                // console.log('in pair for with pair: ' + pair + ' and ingred: ' + ingredient);
                 if (pair.name == ingredient.name) {
                     return ingredient;
                 }

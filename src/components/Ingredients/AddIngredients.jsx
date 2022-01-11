@@ -48,7 +48,7 @@ function AddIngredients() {
     };
 
     const handleSubmit = () => {
-        console.log('Submit clicked');
+        // console.log('Submit clicked');
         dispatch({ type: 'POST_INGREDIENT', payload: newIngredient })
     };
 

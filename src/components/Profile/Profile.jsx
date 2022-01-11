@@ -163,11 +163,11 @@ function Profile() {
 
     switch (action) {
       case 'combo':
-        console.log('CLICKED on the featured combo');
-        console.log('--- the three ingredients to send to dispatch', ingredientOne, ingredientTwo, ingredientThree);
+        // console.log('CLICKED on the featured combo');
+        // console.log('--- the three ingredients to send to dispatch', ingredientOne, ingredientTwo, ingredientThree);
 
         const comboArray = [ingredientOne[0], ingredientTwo[0], ingredientThree[0]]
-        console.log('--- custom comboArray for searching recipes', comboArray);
+        // console.log('--- custom comboArray for searching recipes', comboArray);
 
         // first make sure the reducer is empty and ready to receive the combo we click on;
         dispatch({ type: 'CLEAR_COMBO_AND_RECIPE' })

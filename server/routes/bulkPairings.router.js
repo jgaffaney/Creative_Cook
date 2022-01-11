@@ -11,7 +11,7 @@ const csv = require('csv-parser');
 const copyFrom = require('pg-copy-streams').from;
 
 router.post('/', upload.single('file'), (req, res) => {
-    console.log('in bulk pairings post with file: ', req.file);
+    // console.log('in bulk pairings post with file: ', req.file);
 
     pool.connect(function (err, client, done) {
         let stream = client.query(copyFrom(`
@@ -22,9 +22,9 @@ router.post('/', upload.single('file'), (req, res) => {
         // stream.on('error', done)
         stream.on('finish', function (err, result) {
             if(err) {
-                console.log('this is a stream error:', err);
+                // console.log('this is a stream error:', err);
             } else {
-                console.log('upload successful');
+                // console.log('upload successful');
                 res.sendStatus(200);
             }
         });

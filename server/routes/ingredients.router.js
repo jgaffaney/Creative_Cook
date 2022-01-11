@@ -12,7 +12,7 @@ const copyFrom = require('pg-copy-streams').from;
 
 // request all ingredients from DB
 router.get('/', (req, res) => {
-    console.log('in ingredients GET');
+    // console.log('in ingredients GET');
     const queryText = `
     SELECT id, INITCAP("ingredients"."name") AS name, description, pic, taste, season, weight, volume, type FROM ingredients
     ORDER BY name;
@@ -22,14 +22,14 @@ router.get('/', (req, res) => {
             // console.log('Response from GET ingredients DB: ', response.rows);
             res.send(response.rows)
         }).catch(err => {
-            console.log("Error on GET ingredients from DB: ", err);
+            // console.log("Error on GET ingredients from DB: ", err);
             res.sendStatus(500)
         })
 });
 
 // posts a new ingredient to DB
 router.post('/', (req, res) => {
-    console.log('in ingredients POST with: ', req.body);
+    // console.log('in ingredients POST with: ', req.body);
 
     const queryText = `
     INSERT INTO ingredients ("name", "description", "pic", "taste", "season", "weight", "volume", "type", "function", "technique", "botanical_relative")
@@ -42,13 +42,13 @@ router.post('/', (req, res) => {
         .then(response => {
             res.sendStatus(201)
         }).catch(err => {
-            console.log('Error on POST ingredients: ', err);
+            // console.log('Error on POST ingredients: ', err);
             res.sendStatus(500);
         })
 });
 
 router.put('/', (req, res) => {
-    console.log('in ingredients POST with: ', req.body);
+    // console.log('in ingredients POST with: ', req.body);
     const field = req.body.field
     const queryText = `
     UPDATE ingredients
@@ -61,14 +61,14 @@ router.put('/', (req, res) => {
         .then(response => {
             res.send(response)
         }).catch(err => {
-            console.log('Error on PUT ingredients: ', err);
+            // console.log('Error on PUT ingredients: ', err);
             res.sendStatus(500);
         })
 })
 
 // GETs top 5 most used ingredients from DB
 router.get('/top5', (req, res) => {
-    console.log('in top five ingredients GET');
+    // console.log('in top five ingredients GET');
     const queryText = `
         SELECT unnest(combos.ingredient_list) AS ingredient_id, count(*) AS times_used FROM combos
         GROUP BY ingredient_id
@@ -76,17 +76,17 @@ router.get('/top5', (req, res) => {
     `;
     pool.query(queryText)
         .then(response => {
-            console.log('Response from top five ingredients GET: ', response.rows);
+            // console.log('Response from top five ingredients GET: ', response.rows);
             res.send(response.rows)
         }).catch(err => {
-            console.log("Error in top five ingredients GET: ", err);
+            // console.log("Error in top five ingredients GET: ", err);
             res.sendStatus(500)
         })
 });
 
 // POSTS bulk ingredients data to DB
 router.post('/bulk/', upload.single('file'), (req, res) => {
-    console.log('in bulk post with: ', req.file);
+    // console.log('in bulk post with: ', req.file);
 
     pool.connect(function (err, client, done) {
         let stream = client.query(copyFrom(`
@@ -97,10 +97,10 @@ router.post('/bulk/', upload.single('file'), (req, res) => {
         // stream.on('error', done)
         stream.on('finish', function (err, result) {
             if(err) {
-                console.log('this is a stream error:', err);
+                // console.log('this is a stream error:', err);
                 res.sendStatus(200);
             } else {
-                console.log('upload successful');
+                // console.log('upload successful');
                 res.sendStatus(200);
             }
         });
@@ -121,7 +121,7 @@ router.get('/metrics', (req, res) => {
             res.send(result.rows);
         })
         .catch(err => {
-            console.log('Error in ingredient GET', err);
+            // console.log('Error in ingredient GET', err);
             res.sendStatus(500);
         })
   }); // End GET
@@ -134,10 +134,10 @@ router.get('/metrics', (req, res) => {
       `
       pool.query(queryText, [id])
       .then(response => {
-          console.log('Delete response: ', response);
+        //   console.log('Delete response: ', response);
           res.sendStatus(204)          
       }).catch(err => {
-          console.log('Error on delete: ', err);
+        //   console.log('Error on delete: ', err);
           res.sendStatus(500);
       })
   })

@@ -115,7 +115,7 @@ function Feed() {
   // Sets newChallenge local state to the passed in input
   const handleDescriptionChange = (event, property) => {
     // setNewChallenge({ ...newChallenge, [property]: event.target.value })\
-    console.log('--- changing description', property);
+    // console.log('--- changing description', property);
     setNewChallenge({
       ...newChallenge,
       [property]: event.target.value
@@ -123,7 +123,7 @@ function Feed() {
   };
 
   const selectedSavedCombo = (event, combo) => {
-    console.log('--- clicked selectedCombo');
+    // console.log('--- clicked selectedCombo');
     setSelectedComboStatus(true)
     setNewChallenge({ ...newChallenge, combo_id: combo })
   }
@@ -145,11 +145,11 @@ function Feed() {
     // let's dump the reducer so we know it's empty before starting a new combo;
     dispatch({ type: 'CLEAR_COMBO_AND_RECIPE' })
 
-    console.log('CLICKED on handleSearch');
-    console.log('this is the searchText', searchText);
+    // console.log('CLICKED on handleSearch');
+    // console.log('this is the searchText', searchText);
 
     const searchedIngredientOne = ingredients.filter(ingredient => ingredient.name === searchText)
-    console.log('--- searchedIngredientOne:', searchedIngredientOne);
+    // console.log('--- searchedIngredientOne:', searchedIngredientOne);
 
     // ensures user only moves to combo page if they have selected from the list (Must Select From The List!)
     if (searchedIngredientOne.length === 0) {
@@ -198,8 +198,8 @@ function Feed() {
     color: theme.palette.text.secondary,
   }));
 
-  console.log('--- Challenge', newChallenge);
-  console.log('--- topFiveIngredients', topFiveIngredients);
+  // console.log('--- Challenge', newChallenge);
+  // console.log('--- topFiveIngredients', topFiveIngredients);
 
 
 
@@ -281,19 +281,6 @@ function Feed() {
         {/* combo selector */}
         <ComboTool />
 
-        {/* list of ingredients from DB */}
-        {/* <ul>
-          {ingredients.map((ingredient) => {
-            return (
-              <li
-                key={ingredient.id}
-                value={ingredient}
-                onClick={() => dispatch({ type: 'SET_COMBO_INGREDIENT', payload: ingredient })}>{ingredient.name}</li>
-            )
-          })}
-        </ul> */}
-        {/* <br /> */}
-
         {/* ingredient pairings */}
         {/* super combo ingredients list */}
         {superCombo.length > 0 && combo.length < 3 &&
@@ -360,11 +347,7 @@ function Feed() {
             ))}
           </Box>
         }
-
-
-
-
-
+        
         <Typography variant='h4' sx={{ textAlign: "center", mt: 4, }}>Post Featured Combo To Home Page</Typography>
         <Typography variant='body1' sx={{ textAlign: "center", my: 2, }}>
           Select a saved combo from below | Provide a description | Click submit to post to the Home Page Feed</Typography>

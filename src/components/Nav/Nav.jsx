@@ -44,7 +44,7 @@ function Nav() {
 
   // when the user clicks on a text link it will take them to that desired page
   const handleClick = (input) => {
-    console.log(`clicked on the ${input} nav button`);
+    // console.log(`clicked on the ${input} nav button`);
     history.push(`${input}`)
   }
 

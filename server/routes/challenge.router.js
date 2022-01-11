@@ -19,7 +19,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
             res.send(result.rows); // Contains all previous challenges
         })
         .catch(err => {
-            console.log('Error in Challenge GET', err);
+            // console.log('Error in Challenge GET', err);
             res.sendStatus(500);
         })
 }); // End GET
@@ -28,7 +28,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 // Challenge POST route
 router.post('/', rejectUnauthenticated, (req, res) => {
 
-    console.log('--- req.user.is_admin', req.user.is_admin);
+    // console.log('--- req.user.is_admin', req.user.is_admin);
 
     if (req.user.is_admin) {
         const queryText = `
@@ -38,13 +38,13 @@ router.post('/', rejectUnauthenticated, (req, res) => {
             ($1, $2, $3, $4) ;` ;
 
         values = [req.body.type, req.body.description, req.body.combo_id, 'today']
-        console.log('values are', values);
+        // console.log('values are', values);
         pool.query(queryText, values)
             .then(result => {
                 res.sendStatus(201);
             })
             .catch(err => {
-                console.log('Error in Challenge POST', err);
+                // console.log('Error in Challenge POST', err);
                 res.sendStatus(500);
             })
     }
@@ -54,10 +54,10 @@ router.post('/', rejectUnauthenticated, (req, res) => {
 // DELETE challenge rote // 
 router.delete('/:id', rejectUnauthenticated, (req, res) => {
     // DELETE route code here
-    console.log('----- in router.DELETE /api/challenge/:id');
-    console.log('is authenticated?', req.isAuthenticated());
-    console.log('router.DELETE /api/challenge/:id req.user:', req.user);
-    console.log('delete.router req.params.id:'), req.params.id;
+    // console.log('----- in router.DELETE /api/challenge/:id');
+    // console.log('is authenticated?', req.isAuthenticated());
+    // console.log('router.DELETE /api/challenge/:id req.user:', req.user);
+    // console.log('delete.router req.params.id:'), req.params.id;
 
 
     let queryText = `

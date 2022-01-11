@@ -119,13 +119,13 @@ function Combo() {
 
     const handleClick = () => {
         try {
-            console.log('inside handleClick');
+            // console.log('inside handleClick');
             setOpen(true);
             setTimeout(() => {
                 setOpen(false);
             }, 3000)
         } catch (error) {
-            console.log('error');
+            // console.log('error');
         }
         dispatch({ type: 'SET_HIDDEN_SNACKBAR' })
     };
@@ -136,11 +136,11 @@ function Combo() {
 
 
   const handleSearch = (searchText) => {
-    console.log('CLICKED on handleSearch');
-    console.log('this is the searchText', searchText);
+    // console.log('CLICKED on handleSearch');
+    // console.log('this is the searchText', searchText);
 
     const searchedIngredientOne = ingredients.filter(ingredient => ingredient.name === searchText)
-    console.log('--- searchedIngredientOne:', searchedIngredientOne);
+    // console.log('--- searchedIngredientOne:', searchedIngredientOne);
 
     // ensures user only moves to combo page if they have selected from the list (Must Select From The List!)
     if (searchedIngredientOne.length === 0) {
@@ -198,9 +198,9 @@ function Combo() {
   }
 
 
-  console.log('combined is:', combined);
-  console.log('superCombo is:', superCombo);
-  console.log('ingredients is:', ingredients);
+  // console.log('combined is:', combined);
+  // console.log('superCombo is:', superCombo);
+  // console.log('ingredients is:', ingredients);
 
   return (
     <div className="container">

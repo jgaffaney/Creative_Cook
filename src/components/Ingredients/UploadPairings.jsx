@@ -34,7 +34,7 @@ function UploadPairings() {
         comments: false,
         step: undefined,
         complete: function (results, file) {
-            console.log("Parsing complete: results:", results, 'file: ', file);
+            // console.log("Parsing complete: results:", results, 'file: ', file);
 
             setParsedResults(results.data)
 
@@ -44,14 +44,14 @@ function UploadPairings() {
         transform: function (value, header) {
             value = value.toLowerCase()
             // console.log('value in transform: ', value.toLowerCase());
-            console.log('header in transform: ', header);
+            // console.log('header in transform: ', header);
             for (let ingredient of ingredients) {
                 // console.log('ingredient in transform loop: ', ingredient.name.toLowerCase());
                 if (value === ingredient.name.toLowerCase()) {
-                    console.log('value match with: ', value.toLowerCase());
-                    console.log('ingredient.id: ', ingredient.id);
+                    // console.log('value match with: ', value.toLowerCase());
+                    // console.log('ingredient.id: ', ingredient.id);
                     value = ingredient.id;
-                    console.log('value after reassign: ', value);
+                    // console.log('value after reassign: ', value);
                 }
             }
             return value;
@@ -67,7 +67,7 @@ function UploadPairings() {
     }
 
     const handlePosting = () => {
-        console.log('in handle posting');
+        // console.log('in handle posting');
         dispatch({ type: 'POST_PAIRINGS_FILE', payload: selectedFile })
     }
 
@@ -105,7 +105,7 @@ function UploadPairings() {
                     filename='converted pairings data.csv'
                     data={parsedResults}
                     onClick={() => {
-                        console.log('clicked');
+                        // console.log('clicked');
                         setFileUploaded(true);
                     }}
                 > Click to download file then choose the same file above</CSVLink>
