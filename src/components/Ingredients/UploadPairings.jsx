@@ -1,11 +1,10 @@
 import { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Papa from 'papaparse';
-import { CSVLink, CSVDownload } from 'react-csv';
+import { CSVLink } from 'react-csv';
 
 import {
-    FormControl, Box, TextField,
-    MenuItem, Button, Grid, Typography,
+    Box, Button, Typography,
 } from "@mui/material";
 
 function UploadPairings() {
@@ -19,7 +18,6 @@ function UploadPairings() {
     const [isSelected, setIsSelected] = useState(false);
     const [fileUploaded, setFileUploaded] = useState(false);
     const [parsedResults, setParsedResults] = useState();
-    const [parsedFile, setParsedFile] = useState();
 
     const changeHandler = (event) => {
         dispatch({ type: 'SET_FILE_UPLOAD', payload: event.target.files[0] });
@@ -34,19 +32,12 @@ function UploadPairings() {
         comments: false,
         step: undefined,
         complete: function (results, file) {
-            console.log("Parsing complete: results:", results, 'file: ', file);
-
             setParsedResults(results.data)
-
-            // dispatch the parsed file for bulk upload
-            // dispatch({ type: 'POST_PAIRINGS_FILE', payload: Papa.unparse(results, [unparseConfig])})
         },
+        // a transform function to convert the ingredient name in the .csv file to an ingredient id from the ingredients reducer
         transform: function (value, header) {
             value = value.toLowerCase()
-            // console.log('value in transform: ', value.toLowerCase());
-            console.log('header in transform: ', header);
             for (let ingredient of ingredients) {
-                // console.log('ingredient in transform loop: ', ingredient.name.toLowerCase());
                 if (value === ingredient.name.toLowerCase()) {
                     console.log('value match with: ', value.toLowerCase());
                     console.log('ingredient.id: ', ingredient.id);
@@ -67,10 +58,10 @@ function UploadPairings() {
     }
 
     const handlePosting = () => {
-        console.log('in handle posting');
         dispatch({ type: 'POST_PAIRINGS_FILE', payload: selectedFile })
     }
 
+    // used to clear the input selected file after conversion to ids
     const reset = () => {
         ref.current.value = '';
     }
@@ -98,9 +89,6 @@ function UploadPairings() {
                 </form>
             )}
             {parsedResults &&
-                // <CSVDownload
-                //     data={parsedResults}
-                //     target='_blank'/>
                 <CSVLink
                     filename='converted pairings data.csv'
                     data={parsedResults}

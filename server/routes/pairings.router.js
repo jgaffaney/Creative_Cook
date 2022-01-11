@@ -10,6 +10,9 @@ const copyFrom = require('pg-copy-streams').from;
 router.get('/:id', (req, res) => {
     console.log('params in pairings GET: ', req.params.id);
     const id = req.params.id;
+    // a query to search for pairing of an ingredient in either the ingredient_one_id or ingredient_two_id
+    // does a union with the results and orders by name
+    // capitalizes all names for display
     const queryText = `
     SELECT "ingredients"."id", INITCAP("ingredients"."name") AS name FROM "ingredients"
     JOIN "pairings" ON "pairings"."ingredient_two_id" = "ingredients"."id"
@@ -31,6 +34,7 @@ router.get('/:id', (req, res) => {
         })
 })
 
+// used to add a single pairing to the DB
 router.post('/:id', (req, res) => {
     console.log('params in pairings POST: ', req.params.id);
     console.log('req.body in pairings POST: ', req.body.pair);
@@ -49,6 +53,7 @@ router.post('/:id', (req, res) => {
         })
 })
 
+// used to delete a single pairing from the DB
 router.delete('/', (req, res) => {
     // console.log('params in pairings DELETE: ', req.params.id);
     console.log('req.body in pairings DELETE: ', req.body);
