@@ -23,7 +23,7 @@ CREATE TABLE "user" (
     "family_size" integer,
     "marital_status" marital_status,
     "is_admin" boolean NOT NULL DEFAULT false,
-    "location"  varying(255),
+    "location"  VARCHAR(255),
     "birthday" date,
     "email"  VARCHAR(255) NOT NULL
 );
@@ -68,7 +68,8 @@ CREATE TABLE "recipes" (
 
 CREATE TABLE "metrics" (
 	"id" serial NOT NULL PRIMARY KEY,
-	"name" varchar(255) NOT NULL),
+	"name" varchar(255) NOT NULL
+);
 
 CREATE TABLE "user_metrics" (
     "id" SERIAL PRIMARY KEY,
@@ -82,8 +83,9 @@ CREATE TABLE "feed_content" (
 	"id" serial NOT NULL PRIMARY KEY,
 	"type" TYPE NOT NULL,
 	"description" varchar(2555) NOT NULL,
-	"combo_id" int REFERENCES "combos"),
-	"date_posted" DATE;
+	"combo_id" int REFERENCES "combos",
+	"date_posted" DATE
+);
 
 INSERT INTO "public"."ingredients"("id","name","description","pic","taste","season","weight","volume","type")
 VALUES
