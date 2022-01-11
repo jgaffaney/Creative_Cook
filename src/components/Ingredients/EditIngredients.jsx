@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
+// import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
+// import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import {
   DataGrid,
@@ -24,7 +24,7 @@ import {
   sxTableFiltersContainer,
   sxSearchBar,
   sxDataGridContainer,
-  sxCenterText,
+  // sxCenterText,
 } from './Ingredients.style';
 
 
@@ -110,7 +110,6 @@ export default function EditIngredients() {
         // variant="outlined"
         // size="small"
 
-        // we need to delete here
         onClick={() => {
           editIngredient(JSON.stringify(params.row.id))
         }}
@@ -120,9 +119,12 @@ export default function EditIngredients() {
     )
   }
 
+  // for in grid editing of ingredients
+  // sends a promise to the saga, waiting for response when the db is successfully updated
+  //receives the response and displays a snackbar in the lower left indicating the success or error on saving to the DB
   async function handleCellEditCommit(params) {
     try {
-      console.log('In the try of handleCellEditCommit with: ', { id: params.id, [params.field]: params.value });
+      // console.log('In the try of handleCellEditCommit with: ', { id: params.id, [params.field]: params.value });
       const response = await dispatch(editGridData({ id: params.id, field: params.field, value: params.value }))
       setSnackbar({ children: 'Ingredient successfully edited', severity: 'success' });
       setRows((prev) =>
@@ -172,7 +174,7 @@ export default function EditIngredients() {
     setRows(filteredRows);
   };
 
-  // updates ingredients
+  // updates ingredients on load
   useEffect(() => {
     dispatch({ type: 'FETCH_INGREDIENTS' })
 
@@ -183,7 +185,6 @@ export default function EditIngredients() {
     setRows(ingredients)
   }, [ingredients])
 
-  // console.log('Demo Data: ', data);
 
   return (
     <Box sx={sxDataGridContainer}>

@@ -4,7 +4,6 @@ import { Box } from '@mui/system';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import IngredientAutocomplete from '../IngredientAutocomplete/IngredientAutocomplete';
-
 import Typography from '@mui/material/Typography';
 
 // --- sx STYLES --- // 
@@ -31,6 +30,7 @@ const PairingsTool = () => {
 
     const [pairedWith, setPairedWith] = useState('');
 
+    // converts the search text ingredient name to an ingredient ID
     const convertNameToId = () => {
         for (let ingredient of ingredients) {
             if (ingredient.name.toLowerCase() === searchText.toLowerCase()) {
@@ -39,8 +39,9 @@ const PairingsTool = () => {
         }
     }
 
+    // 
     const handleSetIngredient = () => {
-        console.log('Submit clicked with id: ', searchText);
+        // console.log('Submit clicked with id: ', searchText);
         setPairedWith(searchText);
         let id = 0;
 
@@ -50,12 +51,11 @@ const PairingsTool = () => {
                 id = ingredient.id;
             }
         }
-        console.log('Converted name to id yields id: ', id);
+        // console.log('Converted name to id yields id: ', id);
         dispatch({ type: 'FETCH_PAIRINGS', payload: id, ingredients: ingredients });
 
         resultArray = ingredients.map(ingredient => {
             for (let pair of pairings) {
-                console.log('in pair for with pair: ' + pair + ' and ingred: ' + ingredient);
                 if (pair.name == ingredient.name) {
                     return ingredient;
                 }
@@ -63,6 +63,7 @@ const PairingsTool = () => {
 
     }
 
+    // columns for pairing grids
     const columns = [
         { field: 'id', headerName: 'ID',},
         { field: 'name', headerName: 'Name', width: 420},
