@@ -13,7 +13,6 @@ CREATE TYPE "type" AS ENUM ('Protein: Air', 'Protein: Land', 'Protein: Sea', 'Ve
 'Season', 'Alcohol', 'Vinegar', 'Technique', 'Sauce', 'Preparation', 'Sweetener', 'Juice'
 );
 
-
 CREATE TABLE "user" (
     "id" SERIAL PRIMARY KEY,
     "username"  VARCHAR(255) NOT NULL,
