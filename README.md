@@ -38,15 +38,35 @@ This app uses PostgreSQL for database storage.  There is a database.sql file in 
 
 This app requires Node.js, Express.js, and PostgreSQL, on the back end.  
 
+You will also need an account with the Edamam Recipe API. (Directions below) 
+
+
+
 ### Installation
 
 Start by forking and cloning the repository.  Then, create a database titled "creative_cook" on the localhost.  With the database established, run the SQL queries in database.sql to setup and populate tables in the database.  
 
 After database setup, run the following commands in your terminal to install dependencies and spin up the client and backend servers.
 
-npm install
-npm run server
-npm run client
+##### Edamam API
+
+Click the link below and create a login.
+
+https://developer.edamam.com/edamam-recipe-api
+
+Next, select the Recipe Search API and sign up for a developer level API.
+
+When you receive your develoer api key and id add a .env file to the parent directory.  Add the following lines to your .env file
+
+`APP_KEY = "you api key here"`
+
+`APP_ID = "your api id here"`
+
+## Install Dependencies
+
+1. `npm install`
+2. `npm run server`
+3. `npm run client`
 
 At this point the app will spin up in your browser on localhost:3000
 
