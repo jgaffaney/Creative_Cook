@@ -85,8 +85,8 @@ export const sxProfileContainer = {
 // PROFILE PHOTOS properties being held in the left column
 export const sxPhotoBox = {
     // border: '1px solid lightgray',
-    width: 100,
-    height: 100,
+    width: 180,
+    height: 180,
     boxShadow: 2,
     my: 2,
     borderRadius: '50%',
@@ -138,7 +138,7 @@ export const sxTopSection = {
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    height: 'auto',
+    height: '25vh',
 
 }
 

@@ -192,7 +192,6 @@ function Profile() {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
-
   return (
     <Box sx={sxProfilePageContainer}>
       <Box sx={sxPageContent}>
@@ -206,20 +205,19 @@ function Profile() {
             <Box sx={sxTopMiddleSection}>
             <img height="110%" width="90%" src = "images/logo.png"></img>
               </Box>
-              <Box sx={sxTopRightSection}>
+              <Box sx={sxTopRightSection} >
               {/* {user.bio ? <Typography fontSize={18}>{user.bio}</Typography> : <Typography fontSize={18}>{user.username} is a new user!</Typography>}
               <br /> */}
-              <Typography >Recent Combos</Typography>
+              {/* <img  src = "images/tri.jpeg"></img> */}
+              <Typography img="images/tri.jpeg"
+              >Recent Combos</Typography>
                         {recentCombos?.map((combo, i) => (
                             <Typography key={i} >{combo.name}</Typography>
                         ))}
               {/* <br />
               {user.birthday ? <Typography>{user.birthday?.split('T')[0]}</Typography> : <Typography></Typography>}
               <br />
-              {user.location ? <Typography>Location: {user.location}</Typography> : <Typography></Typography>} */}
-              
-
-               
+              {user.location ? <Typography>Location: {user.location}</Typography> : <Typography></Typography>} */}               
             </Box>
           </Box>
           <br />

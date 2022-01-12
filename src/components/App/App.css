@@ -1,4 +1,8 @@
-html,
+html
+{
+  background-color: whitesmoke;
+}
+,
 body,
 #react-root {
   height: 100%;
