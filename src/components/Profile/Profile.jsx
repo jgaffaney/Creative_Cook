@@ -209,8 +209,7 @@ function Profile() {
               {/* {user.bio ? <Typography fontSize={18}>{user.bio}</Typography> : <Typography fontSize={18}>{user.username} is a new user!</Typography>}
               <br /> */}
               {/* <img  src = "images/tri.jpeg"></img> */}
-              <Typography img="images/tri.jpeg"
-              >Recent Combos</Typography>
+              <Typography variant="h6" >Recent Combos</Typography>
                         {recentCombos?.map((combo, i) => (
                             <Typography key={i} >{combo.name}</Typography>
                         ))}

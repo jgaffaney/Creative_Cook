@@ -182,6 +182,7 @@ function Home() {
                     </Box>
 
                     {/* METRICS will go here */}
+                    <Paper elevation={3}>
                     <Box onClick={() => handleClick('profile')} sx={sxClickableDiv}>
                         <Typography variant="h6" sx={sxCenterText}>Metrics</Typography>
                         {/* <Typography variant="body1" sx={sxCenterText}>content</Typography> */}
@@ -190,18 +191,21 @@ function Home() {
                         <Typography sx={sxCenterText}>Weekly Recipes Made: {recipeMetrics[0].weekly}</Typography>
                         <Typography sx={sxCenterText}>Weekly Ingredients Made: {ingredientMetrics[0].weekly}</Typography>
                         </>} 
-
                     </Box>
+                    </Paper>
 
                     {/* recent COMBOS */}
+                    <Paper elevation={3}>
                     <Box onClick={() => handleClick('profile')} sx={sxClickableDiv}>
                         <Typography variant="h6" sx={sxCenterText}>Recent Combos</Typography>
                         {recentCombos?.map((combo, i) => (
                             <Typography key={i} variant="body1" sx={sxCenterText}>{combo.name}</Typography>
                         ))}
                     </Box>
+                    </Paper>
 
                     {/* GOALS progress */}
+                    <Paper elevation={3}>
                     <Box onClick={() => handleClick('profile')} sx={sxClickableDiv}>
                         <Typography variant="h6" sx={sxCenterText}>Goal Progress</Typography>
                         {comboGoal.goal == 0 && <Typography variant="body1" sx={sxCenterText}>Set Combo Goal</Typography>}
@@ -214,7 +218,7 @@ function Home() {
                         {ingredientGoal.goal >= 1 &&
                         <Typography sx={sxCenterText}>Ingredient Goals:{ingredientUnique.length}/{ingredientGoal.goal}</Typography>}
                     </Box>
-
+                    </Paper>
                     </Box>
                     {/* {userGoals?.map((goal, j) => (
                         <Typography key={j} variant="body1" sx={sxCenterText}>hello</Typography>
