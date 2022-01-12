@@ -4,6 +4,8 @@ const comboPairingOneReducer = (state = [], action) => {
             return action.payload;
         case 'CLEAR_COMBO_AND_RECIPE':
             return [];
+        case 'LOGOUT':
+                return [];
         default:
             return state;
     }

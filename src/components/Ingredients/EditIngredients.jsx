@@ -94,7 +94,7 @@ export default function EditIngredients() {
   // called when edit button clicked
   // will open popover window for editing
   const editIngredient = (ingredient) => {
-    console.log('Edit clicked with: ', ingredient);
+    // console.log('Edit clicked with: ', ingredient);
     dispatch({type: 'DELETE_INGREDIENT', payload: ingredient});
 
   }
@@ -119,7 +119,7 @@ export default function EditIngredients() {
   //receives the response and displays a snackbar in the lower left indicating the success or error on saving to the DB
   async function handleCellEditCommit(params) {
     try {
-      console.log('In the try of handleCellEditCommit with: ', { id: params.id, [params.field]: params.value });
+      // console.log('In the try of handleCellEditCommit with: ', { id: params.id, [params.field]: params.value });
       const response = await dispatch(editGridData({ id: params.id, field: params.field, value: params.value }))
       setSnackbar({ children: 'Ingredient successfully edited', severity: 'success' });
       setRows((prev) =>

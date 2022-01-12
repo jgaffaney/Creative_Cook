@@ -19,20 +19,14 @@ export const sxMetrics = {
 }
 
 export const sxFlavorCombos = {
-    // border: '1px solid red',
-    // display: 'flex',
-    // flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
     overflow: 'auto',
     mb: 2,
-
-    // cursor: 'pointer',
 }
 
 export const sxFeedListContent = {
-    // border: '1px solid red',
     display: 'flex', 
     flexDirection: 'column',
     alignItems: 'center',
@@ -43,7 +37,6 @@ export const sxFeedListContent = {
 
 // INGREDIENT PHOTO CONTAINER holds all of the ingredient photos for featured the combo card
 export const sxFeedPhotoIngredientContainer = {
-    // border: '1px solid green',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -51,7 +44,6 @@ export const sxFeedPhotoIngredientContainer = {
     width: 350,
     mx: 'auto',
     my: 1,
-    // gap: 2,
 
 }
 
@@ -61,28 +53,23 @@ export const sxIngredientContainer = {
     display: 'flex',
     flexWrap: 'wrap',
     flexDirection: 'row',
-    // border: '1px solid red',
     gap: 2,
     justifyContent: 'center',
     mb: 2,
 }
 
 export const sxPhotoBox = {
-    // border: '1px solid red',
     width: 35,
     height: 35,
     boxShadow: 3,
     my: 2,
     ml: 1,
     borderRadius: '50%',
-    // mx: 'auto',
 };
 
 export const sxCardContent = {
-    // border: '1px solid red',
     display: 'flex',
     justifyContent: 'left',
-    // gap: 2,
     alignItems: 'center',
     width: 250,
     height: 50,
@@ -93,7 +80,6 @@ export const sxSuperComboCardContent = {
     border: '5px solid #00d61d',
     display: 'flex',
     justifyContent: 'left',
-    // gap: 2,
     alignItems: 'center',
     width: 250,
     height: 50,
@@ -112,11 +98,9 @@ export const sxTooltip = {
 
 
 export const sxSavedComboPaper = {
-    // border: '1px solid green',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    // alignItems: 'center',
     width: 350,
     height: 'auto',
 

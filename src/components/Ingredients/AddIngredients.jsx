@@ -48,7 +48,7 @@ function AddIngredients() {
 
     // post the new ingredient to the DB
     const handleSubmit = () => {
-        console.log('Submit clicked');
+        // console.log('Submit clicked');
         dispatch({ type: 'POST_INGREDIENT', payload: newIngredient })
     };
 

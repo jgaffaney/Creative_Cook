@@ -2,9 +2,8 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-/**
- * GET route template
- */
+// * GET all user goals route
+// */
 router.get('/', (req, res) => {
     const queryText = `
     SELECT * FROM "user_metrics"
@@ -16,12 +15,13 @@ router.get('/', (req, res) => {
             res.send(result.rows); // Contains goal data
         })
         .catch(err => {
-            console.log('Error in GOAL GET', err);
+            // console.log('Error in GOAL GET', err);
             res.sendStatus(500);
         })
 }); // End GET
 
-// * GET  Ingredient route
+
+// * GET  Ingredient goal route
 // */
 router.get('/ingredient', (req, res) => {
    const queryText = `
@@ -34,12 +34,12 @@ router.get('/ingredient', (req, res) => {
            res.send(result.rows); // Contains goal data
        })
        .catch(err => {
-           console.log('Error in GOAL GET', err);
+        //    console.log('Error in GOAL GET', err);
            res.sendStatus(500);
        })
 }); // End GET
 
-// * GET  Ingredient route
+// * GET  Ingredient goal route
 // */
 router.get('/recipe', (req, res) => {
     const queryText = `
@@ -52,17 +52,17 @@ router.get('/recipe', (req, res) => {
             res.send(result.rows); // Contains goal data
         })
         .catch(err => {
-            console.log('Error in GOAL GET', err);
+            // console.log('Error in GOAL GET', err);
             res.sendStatus(500);
         })
  }); // End GET
  
 
 /**
- * POST route template
+ * POST goal route 
  */
 router.post('/', (req, res) => {
-    console.log('hello from combo post');
+    // console.log('hello from combo post');
   const queryText = `
     INSERT INTO "user_metrics" ("user_id", "goal", "metric_id")
     VALUES ($1, $2, $3);
@@ -73,12 +73,15 @@ router.post('/', (req, res) => {
         }
         )
         .catch(err => {
-            console.log('Error in POST', err);
+            // console.log('Error in POST', err);
             res.sendStatus(500);
         }
         )
 });
 
+/**
+ * PUT goal route
+ */
 router.put('/', (req, res) => {
     const id = req.user.id
     const queryText = `
@@ -87,16 +90,19 @@ router.put('/', (req, res) => {
     WHERE "user_id" = $2 AND "metric_id" = $3; 
     `;
     values = [req.body.goal, id, req.body.metric_id]
-    console.log("!!!", req.body);
+    // console.log("!!!", req.body);
     pool.query(queryText, values)
         .then(response => {
             res.sendStatus(200)
         }).catch(err=> {
-            console.log('Error on PUT goal: ', err);
+            // console.log('Error on PUT goal: ', err);
             res.sendStatus(500);
         })
 })
 
+/**
+ * PUT goal rote
+ */
 router.put('/reset', (req, res) => {
     const id = req.user.id
     const queryText = `
@@ -105,12 +111,12 @@ router.put('/reset', (req, res) => {
     WHERE "user_id" = $1 AND "metric_id" = $2; 
     `;
     values = [id, req.body.metric_id]
-    console.log("!!!", req.body);
+    // console.log("!!!", req.body);
     pool.query(queryText, values)
         .then(response => {
             res.sendStatus(200)
         }).catch(err=> {
-            console.log('Error on PUT goal: ', err);
+            // console.log('Error on PUT goal: ', err);
             res.sendStatus(500);
         })
 })

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, NavLink, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 // import './Nav.css';
@@ -44,7 +44,7 @@ function Nav() {
 
   // when the user clicks on a text link it will take them to that desired page
   const handleClick = (input) => {
-    console.log(`clicked on the ${input} nav button`);
+    // console.log(`clicked on the ${input} nav button`);
     history.push(`${input}`)
   }
 

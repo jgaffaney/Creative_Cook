@@ -3,7 +3,10 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-// Challenge GET route
+
+/**
+ * GET challenge route
+ */
 router.get('/', rejectUnauthenticated, (req, res) => {
 
     const queryText = `
@@ -19,25 +22,26 @@ router.get('/', rejectUnauthenticated, (req, res) => {
             res.send(result.rows); // Contains all previous challenges
         })
         .catch(err => {
-            console.log('Error in Challenge GET', err);
+            // console.log('Error in Challenge GET', err);
             res.sendStatus(500);
         })
 }); // End GET
 
-
-// Challenge POST route
+/**
+ * POST challenge route
+ */
 router.post('/', rejectUnauthenticated, (req, res) => {
 
-    console.log('--- req.user.is_admin', req.user.is_admin);
+    // console.log('--- req.user.is_admin', req.user.is_admin);
 
     if (req.user.is_admin) {
         const queryText = `
         INSERT INTO "feed_content" 
             ("type", "description", "combo_id", "date_posted")
         VALUES 
-            ($1, $2, $3, $4) ;` ;
+            ($1, $2, $3, NOW()) ;` ;
 
-        values = [req.body.type, req.body.description, req.body.combo_id, 'today']
+        values = [req.body.type, req.body.description, req.body.combo_id]
         console.log('values are', values);
         pool.query(queryText, values)
             .then(result => {
@@ -50,15 +54,14 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     }
 }); // End POST
 
-
-// DELETE challenge rote // 
+/**
+ * DELETE challenge route
+ */
 router.delete('/:id', rejectUnauthenticated, (req, res) => {
-    // DELETE route code here
-    console.log('----- in router.DELETE /api/challenge/:id');
-    console.log('is authenticated?', req.isAuthenticated());
-    console.log('router.DELETE /api/challenge/:id req.user:', req.user);
-    console.log('delete.router req.params.id:'), req.params.id;
-
+    // console.log('----- in router.DELETE /api/challenge/:id');
+    // console.log('is authenticated?', req.isAuthenticated());
+    // console.log('router.DELETE /api/challenge/:id req.user:', req.user);
+    // console.log('delete.router req.params.id:'), req.params.id;
 
     let queryText = `
         DELETE 	FROM "feed_content"

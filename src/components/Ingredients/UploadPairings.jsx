@@ -39,10 +39,10 @@ function UploadPairings() {
             value = value.toLowerCase()
             for (let ingredient of ingredients) {
                 if (value === ingredient.name.toLowerCase()) {
-                    console.log('value match with: ', value.toLowerCase());
-                    console.log('ingredient.id: ', ingredient.id);
+                    // console.log('value match with: ', value.toLowerCase());
+                    // console.log('ingredient.id: ', ingredient.id);
                     value = ingredient.id;
-                    console.log('value after reassign: ', value);
+                    // console.log('value after reassign: ', value);
                 }
             }
             return value;
@@ -93,7 +93,7 @@ function UploadPairings() {
                     filename='converted pairings data.csv'
                     data={parsedResults}
                     onClick={() => {
-                        console.log('clicked');
+                        // console.log('clicked');
                         setFileUploaded(true);
                     }}
                 > Click to download file then choose the same file above</CSVLink>
