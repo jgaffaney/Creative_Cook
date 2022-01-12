@@ -46,7 +46,6 @@ You will also need an account with the Edamam Recipe API. (Directions below)
 
 Start by forking and cloning the repository.  Then, create a database titled "creative_cook" on the localhost.  With the database established, run the SQL queries in database.sql to setup and populate tables in the database.  
 
-After database setup, run the following commands in your terminal to install dependencies and spin up the client and backend servers.
 
 ##### Edamam API
 
@@ -58,11 +57,11 @@ Next, select the Recipe Search API and sign up for a developer level API.
 
 When you receive your develoer api key and id add a .env file to the parent directory.  Add the following lines to your .env file
 
-`APP_KEY = "you api key here"`
+`APP_KEY = "your api key here"`
 
 `APP_ID = "your api id here"`
 
-## Install Dependencies
+##### Install Dependencies
 
 1. `npm install`
 2. `npm run server`
