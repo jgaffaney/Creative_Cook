@@ -236,8 +236,8 @@ function Profile() {
                   <TextField
                     size="small"
                     id="outlined-number"
-                    // label="Set Combo Goal"
-                    placeholder='Set Combo Goal'
+                    label="Set Combo Goal"
+                    // placeholder='Set Combo Goal'
                     type="number"
                     style={{
                       backgroundColor: "white"
@@ -299,8 +299,8 @@ function Profile() {
                   <TextField
                     size="small"
                     id="outlined-number"
-                    // label="Set Recipe Goal"
-                    placeholder='Set Recipe Goal'
+                    label="Set Recipe Goal"
+                    // placeholder='Set Recipe Goal'
                     type="number"
                     style={{
                       backgroundColor: "white"
@@ -361,8 +361,8 @@ function Profile() {
                   <TextField
                     size="small"
                     id="outlined-number"
-                    // label="Set Ingredient Goal"
-                    placeholder='Set Ingredient Goal'
+                    label="Set Ingredient Goal"
+                    // placeholder='Set Ingredient Goal'
                     type="number"
                     style={{
                       backgroundColor: "white"
