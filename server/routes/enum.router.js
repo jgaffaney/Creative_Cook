@@ -4,8 +4,11 @@ const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 const { unstable_renderSubtreeIntoContainer } = require('react-dom');
 
+/**
+ * GET seasons route
+ */
 router.get('/seasons', (req, res) => {
-    console.log('in seasons GET');
+    // console.log('in seasons GET');
 
     const queryText = `
     SELECT unnest(enum_range(NULL::season));
@@ -14,11 +17,14 @@ router.get('/seasons', (req, res) => {
         .then(response => {
             res.send(response.rows)
         }).catch(err => {
-            console.log('Error from DB on seasons GET: ', err);
+            // console.log('Error from DB on seasons GET: ', err);
             res.sendStatus(500);
         })
 })
 
+/**
+ * GET enum route
+ */
 router.get('/type', (req, res) => {
     const queryText = `
     SELECT unnest(enum_range(NULL::type));
@@ -27,7 +33,7 @@ router.get('/type', (req, res) => {
         .then(response => {
             res.send(response.rows)
         }).catch(err => {
-            console.log('error on type GET: ', err);
+            // console.log('error on type GET: ', err);
             res.sendStatus(500);
         })
 })

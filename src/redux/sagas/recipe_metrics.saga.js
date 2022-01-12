@@ -7,7 +7,7 @@ function* fetchRecipeMetrics() {
         const response = yield axios.get('/api/recipes/metrics')
         yield put({ type: 'SET_RECIPE_METRICS', payload: response.data });
     } catch (err) {
-        console.log('GET ERROR IN RECIPE METRICS SAGA', err);
+        // console.log('GET ERROR IN RECIPE METRICS SAGA', err);
     }
 };
 

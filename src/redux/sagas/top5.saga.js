@@ -7,7 +7,7 @@ function* fetchTop5() {
         const response = yield axios.get('/api/ingredients/top5/')
         yield put({ type: 'SET_TOP5', payload: response.data });
     } catch (err) {
-        console.log('GET ERROR IN TOP5 SAGA', err);
+        // console.log('GET ERROR IN TOP5 SAGA', err);
     }
 };
 

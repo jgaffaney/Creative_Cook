@@ -1,31 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import LogOutButton from '../LogOutButton/LogOutButton';
 import { useDispatch, useSelector } from 'react-redux';
 import ComboTool from '../ComboTool/ComboTool';
 import RecipeList from '../RecipeList/RecipeList';
 import {
-  List,
-  ListItem,
-  Grid,
-  Paper,
   Box,
   Card,
   CardMedia,
-  CardActions,
   Button,
-  CardContent,
   Typography,
   Tooltip,
   Alert
 } from '@mui/material'
-import { styled } from '@mui/material/styles';
 import IngredientAutocomplete from '../IngredientAutocomplete/IngredientAutocomplete';
 import { sxSearchContainer } from '../Home/Home.style'
 import Snackbar from '@mui/material/Snackbar';
 
 function Combo() {
-  // this component doesn't do much to start, just renders some user reducer info to the DOM
-  const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const ingredients = useSelector(store => store.ingredients);
   const combo = useSelector(store => store.combo)
@@ -58,28 +48,23 @@ function Combo() {
     display: 'flex',
     flexWrap: 'wrap',
     flexDirection: 'row',
-    // border: '1px solid red',
     gap: 2,
     justifyContent: 'center',
     mb: 2,
   }
 
   const sxPhotoBox = {
-    // border: '1px solid red',
     width: 35,
     height: 35,
     boxShadow: 3,
     my: 2,
     ml: 1,
     borderRadius: '50%',
-    // mx: 'auto',
   };
 
   const sxCardContent = {
-    // border: '1px solid red',
     display: 'flex',
     justifyContent: 'left',
-    // gap: 2,
     alignItems: 'center',
     width: 250,
     height: 50,
@@ -90,7 +75,6 @@ function Combo() {
     border: '5px solid #00d61d',
     display: 'flex',
     justifyContent: 'left',
-    // gap: 2,
     alignItems: 'center',
     width: 250,
     height: 50,
@@ -109,7 +93,6 @@ function Combo() {
 
 
   const searchText = useSelector(store => store.ingredientSearch)
-  const pairings = useSelector(store => store.pairings)
   const pairingOne = useSelector(store => store.comboPairingOne)
   const pairingTwo = useSelector(store => store.comboPairingTwo)
   const healthFilter = useSelector(store => store.healthFilter)
@@ -119,13 +102,13 @@ function Combo() {
 
     const handleClick = () => {
         try {
-            console.log('inside handleClick');
+            // console.log('inside handleClick');
             setOpen(true);
             setTimeout(() => {
                 setOpen(false);
             }, 3000)
         } catch (error) {
-            console.log('error');
+            // console.log('error');
         }
         dispatch({ type: 'SET_HIDDEN_SNACKBAR' })
     };
@@ -136,11 +119,11 @@ function Combo() {
 
 
   const handleSearch = (searchText) => {
-    console.log('CLICKED on handleSearch');
-    console.log('this is the searchText', searchText);
+    // console.log('CLICKED on handleSearch');
+    // console.log('this is the searchText', searchText);
 
     const searchedIngredientOne = ingredients.filter(ingredient => ingredient.name === searchText)
-    console.log('--- searchedIngredientOne:', searchedIngredientOne);
+    // console.log('--- searchedIngredientOne:', searchedIngredientOne);
 
     // ensures user only moves to combo page if they have selected from the list (Must Select From The List!)
     if (searchedIngredientOne.length === 0) {
@@ -193,14 +176,15 @@ function Combo() {
     combined = combined.filter(ingredient => ingredient.id != combo[0].id).filter(ingredient => ingredient.id != combo[1].id);
   }
 
+  // capitalizes first letter in string
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
 
-  console.log('combined is:', combined);
-  console.log('superCombo is:', superCombo);
-  console.log('ingredients is:', ingredients);
+  // console.log('combined is:', combined);
+  // console.log('superCombo is:', superCombo);
+  // console.log('ingredients is:', ingredients);
 
   return (
     <div className="container">
@@ -301,7 +285,8 @@ function Combo() {
           ))}
         </Box>
       }
-
+      
+      {/* renders the recipe cards that return from Edamam API */}
       <RecipeList />
     </div>
   );

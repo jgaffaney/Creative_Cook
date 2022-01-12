@@ -7,7 +7,7 @@ function* fetchUserRecipes() {
         const response = yield axios.get('/api/recipes/userRecipes/')
         yield put({ type: 'SET_USER_RECIPES', payload: response.data });
     } catch (err) {
-        console.log('GET ERROR IN USER RECIPES SAGA', err);
+        // console.log('GET ERROR IN USER RECIPES SAGA', err);
     }
 };
 
@@ -18,7 +18,7 @@ function* updateRecipe(action) {
         yield put({type: 'FETCH_RECIPE_METRICS'})
         yield put({type: 'FETCH_RECIPE_SAVED'})
     } catch (error) {
-        console.log('Error on updateRecipe: ', error);
+        // console.log('Error on updateRecipe: ', error);
     }
 };
 

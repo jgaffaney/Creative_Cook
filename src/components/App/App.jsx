@@ -7,25 +7,14 @@ import {
 } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
-
-import AboutPage from '../AboutPage/AboutPage';
-import UserPage from '../UserPage/UserPage';
-import InfoPage from '../InfoPage/InfoPage';
-import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
-import RegisterPage from '../RegisterPage/RegisterPage';
 import Home from '../Home/Home';
 import Combo from '../Combo/Combo';
 import Profile from '../Profile/Profile';
 import Ingredients from '../Ingredients/Ingredients';
-import EditIngredients from '../Ingredients/EditIngredients';
-import AddIngredients from '../Ingredients/AddIngredients';
-import PairingsTool from '../Ingredients/PairingsTool';
 import Feed from '../Feed/Feed';
-
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';

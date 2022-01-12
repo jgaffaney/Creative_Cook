@@ -7,32 +7,32 @@ import {
     Button,
     Typography,
     CardMedia,
-    CardActionArea,
-    CardHeader,
-    Avatar,
-    IconButton,
-    Paper,
-    List,
-    ListItem,
+    // CardActionArea,
+    // CardHeader,
+    // Avatar,
+    // IconButton,
+    // Paper,
+    // List,
+    // ListItem,
     Alert,
     FormControl,
     InputLabel,
     Select,
     MenuItem
 } from '@mui/material';
-import { red } from '@mui/material/colors';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import Collapse from '@mui/material/Collapse';
-import { styled } from '@mui/material/styles';
-import { useState, forwardRef, useRef, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+// import { red } from '@mui/material/colors';
+// import FavoriteIcon from '@mui/icons-material/Favorite';
+// import ShareIcon from '@mui/icons-material/Share';
+// import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+// import MoreVertIcon from '@mui/icons-material/MoreVert';
+// import Collapse from '@mui/material/Collapse';
+// import { styled } from '@mui/material/styles';
+import { useState } from "react";
+// import { useHistory } from "react-router-dom";
 // import Snackbar from "../Snackbar/Snackbar";
 import Snackbar from '@mui/material/Snackbar';
 // import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
+// import CloseIcon from '@mui/icons-material/Close';
 
 const sxRecipeContainer = {
     display: 'flex',
@@ -117,13 +117,13 @@ function RecipeList() {
 
     const handleClick = () => {
         try {
-            console.log('inside handleClick');
+            // console.log('inside handleClick');
             setOpen(true);
             setTimeout(() => {
                 setOpen(false);
             }, 3000)
         } catch (error) {
-            console.log('error');
+            // console.log('error');
         }
         dispatch({ type: 'SET_HIDDEN_SNACKBAR' })
     };

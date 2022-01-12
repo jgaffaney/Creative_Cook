@@ -1,17 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import LogOutButton from '../LogOutButton/LogOutButton';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
-import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import CardMedia from '@mui/material/CardMedia';
 import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
-import { fontSize } from '@mui/system';
 
 
 // --- MUI sx STYLES --- // 
@@ -38,7 +32,7 @@ import {
 
 import IngredientAutocomplete from '../IngredientAutocomplete/IngredientAutocomplete';
 
-import { defaultOrderByFn } from 'react-table';
+// import { defaultOrderByFn } from 'react-table';
 
 
 function Home() {
@@ -52,19 +46,13 @@ function Home() {
     const searchText = useSelector(store => store.ingredientSearch);
     const userCombos = useSelector(store => store.userCombos);
     const comboGoal = useSelector((store) => store.comboGoal);
-    const userGoals = useSelector((store) => store.goal);
     const recipeGoal = useSelector((store) => store.recipeGoal);
     const recipeSaved = useSelector((store) => store.recipeSaved);
     const ingredientGoal = useSelector((store) => store.ingredientGoal);
     const ingredientUnique = useSelector((store) => store.ingredientUnique);
-    const combo = useSelector((store) => store.combo);
     const comboMetrics = useSelector((store) => store.comboMetrics);
     const recipeMetrics = useSelector((store) => store.recipeMetrics);
     const ingredientMetrics = useSelector((store) => store.ingredientMetrics);
-  
-    
-    // const combo = useSelector((store) => store.combo);
-
 
     useEffect(() => {
         dispatch({ type: 'FETCH_CHALLENGE' });
@@ -78,24 +66,17 @@ function Home() {
         dispatch({ type: 'FETCH_INGREDIENT_METRICS' })
     }, []);
 
-    // useEffect(() => {
-    //     dispatch({ type: 'FETCH_COMBO_METRICS' });
-    //     dispatch({ type: 'FETCH_RECIPE_METRICS' });
-    //     dispatch({ type: 'FETCH_INGREDIENT_METRICS' });
-    // }, [comboMetrics, recipeMetrics, ingredientMetrics]);
-
-
     // SEARCH function will capture first ingredient and then push you to the combo page to complete combo
     const handleSearch = (searchText) => {
 
         // let's dump the reducer so we know it's empty before starting a new combo;
         dispatch({ type: 'CLEAR_COMBO_AND_RECIPE' })
 
-        console.log('CLICKED on handleSearch');
-        console.log('this is the searchText', searchText);
+        // console.log('CLICKED on handleSearch');
+        // console.log('this is the searchText', searchText);
 
         const searchedIngredientOne = ingredients.filter(ingredient => ingredient.name === searchText)
-        console.log('--- searchedIngredientOne:', searchedIngredientOne);
+        // console.log('--- searchedIngredientOne:', searchedIngredientOne);
 
         // ensures user only moves to combo page if they have selected from the list (Must Select From The List!)
         if (searchedIngredientOne.length === 0) {
@@ -115,25 +96,25 @@ function Home() {
         switch (action) {
 
             case 'profile':
-                console.log('CLICKED on the profile image button');
+                // console.log('CLICKED on the profile image button');
                 history.push('/profile')
                 break;
 
             // only ADMIN will have the ability to see remove button on combos cards;
             case 'remove':
-                console.log('CLICKED remove feed combo card');
+                // console.log('CLICKED remove feed combo card');
                 // console.log('ingredient from fee combo to be removed', content);
-                console.log('feed content remove id:', content.id);
+                // console.log('feed content remove id:', content.id);
                 // dispatch remove feed content by id
                 dispatch({ type: 'REMOVE_FEED_ITEM', payload: content.id })
                 break;
 
             case 'combo':
-                console.log('CLICKED on the featured combo');
-                console.log('--- the three ingredients to send to dispatch', ingredientOne, ingredientTwo, ingredientThree);
+                // console.log('CLICKED on the featured combo');
+                // console.log('--- the three ingredients to send to dispatch', ingredientOne, ingredientTwo, ingredientThree);
 
                 const comboArray = [ingredientOne[0], ingredientTwo[0], ingredientThree[0]]
-                console.log('--- custom comboArray for searching recipes', comboArray);
+                // console.log('--- custom comboArray for searching recipes', comboArray);
 
                 // first make sure the reducer is empty and ready to receive the combo we click on;
                 dispatch({ type: 'CLEAR_COMBO_AND_RECIPE' })
@@ -154,9 +135,9 @@ function Home() {
         }
     }; // handleClick
 
-    console.log('comboMetrics', comboMetrics);
-    console.log('recipeMetrics', recipeMetrics);
-    console.log('ingredientMetrics', ingredientMetrics);
+    // console.log('comboMetrics', comboMetrics);
+    // console.log('recipeMetrics', recipeMetrics);
+    // console.log('ingredientMetrics', ingredientMetrics);
 
 
     // limit the amount of content we display on the profile section === 3
@@ -220,18 +201,6 @@ function Home() {
                     </Box>
                     </Paper>
                     </Box>
-                    {/* {userGoals?.map((goal, j) => (
-                        <Typography key={j} variant="body1" sx={sxCenterText}>hello</Typography>
-                    ))}
-                    {userGoals}
-                    <Box onClick={() => handleClick('profile')} sx={sxClickableDiv}>
-                        <Typography variant="h6" sx={sxCenterText}>Goal Progress</Typography>
-                        <Typography variant="body1" sx={sxCenterText}>Combo Goals:{userCombos.length}/{comboGoal.goal}</Typography>
-                        <Typography variant="body1" sx={sxCenterText}>Recipe Goals:{recipeSaved.length}/{recipeGoal.goal}</Typography>
-                        <Typography variant="body1" sx={sxCenterText}>Ingredient Goals:{ingredientUnique.length}/{ingredientGoal.goal}</Typography>
-                    </Box>
-
-                </Box>
 
                 {/* SEARCH  in the top section */}
                 <Box sx={sxRightColumn}>

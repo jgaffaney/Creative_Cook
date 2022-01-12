@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+// import { useSelector, useDispatch } from 'react-redux';
 import LoginForm from '../LoginForm/LoginForm';
 import { useHistory } from 'react-router-dom';
 
 import RegisterForm from '../RegisterForm/RegisterForm';
 
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
-import TextField from '@mui/material/TextField';
+// import Typography from '@mui/material/Typography';
+// import Stack from '@mui/material/Stack';
+// import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import CardMedia from '@mui/material/CardMedia';
+// import CardMedia from '@mui/material/CardMedia';
 
 
 function LoginPage() {
-  const history = useHistory();
+  // const history = useHistory();
 
   const [registerFormStatus, setRegisterFormStatus] = useState(false);
 

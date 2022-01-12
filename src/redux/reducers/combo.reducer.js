@@ -9,6 +9,8 @@ const combo = (state = [], action) => {
             }
         case 'CLEAR_COMBO_AND_RECIPE':
             return [];
+        case 'LOGOUT':
+            return [];
             
         default:
             return state;

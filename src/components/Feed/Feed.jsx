@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import LogOutButton from '../LogOutButton/LogOutButton';
 import { useDispatch, useSelector } from 'react-redux';
 import ComboTool from '../ComboTool/ComboTool';
 import Box from '@mui/material/Box';
@@ -11,41 +10,22 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
 import IngredientAutocomplete from '../IngredientAutocomplete/IngredientAutocomplete';
-
 import Tooltip from '@mui/material/Tooltip';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 
 // -- sx Styles -- //
-
 import {
-  sxHomePageContainer,
-  sxPageContent,
-  sxLeftColumn,
-  sxProfileContainer,
-  sxCenterText,
-  // sxPhotoBox,
-  sxRightColumn,
-  sxTopSection,
-  sxBottomSection,
   sxFeedContainer,
-  sxContentPaper,
   sxSearchContainer,
-  sxPhotoIngredientContainer,
   sxPhotoIngredient,
   sxComboDescription,
-  sxRemoveButton,
-  sxClickableDiv,
-  sxClickableCombo,
 } from '../Home/Home.style'
 
 import {
   sxFeaturedCombo,
   sxMetrics,
-  sxFlavorCombos,
   sxIngredientContainer,
   sxPhotoBox,
   sxCardContent,
@@ -54,16 +34,14 @@ import {
   sxTooltip,
   sxSavedComboPaper,
   sxFeedPhotoIngredientContainer,
-  sxFeedListContent,
   sxSelectedComboOn,
 } from './Feed.style';
 
 
 
 function Feed() {
-  const user = useSelector((store) => store.user);
+  // const user = useSelector((store) => store.user);
   const allUsers = useSelector((store) => store.allUsers);
-  const recipes = useSelector(store => store.recipe);
   const dispatch = useDispatch();
   const ingredients = useSelector(store => store.ingredients);
   const combo = useSelector(store => store.combo)
@@ -71,7 +49,7 @@ function Feed() {
   const top5 = useSelector(store => store.top5);
 
   const searchText = useSelector(store => store.ingredientSearch)
-  const pairings = useSelector(store => store.pairings)
+  // const pairings = useSelector(store => store.pairings)
   const pairingOne = useSelector(store => store.comboPairingOne)
   const pairingTwo = useSelector(store => store.comboPairingTwo)
   const healthFilter = useSelector(store => store.healthFilter)
@@ -105,7 +83,7 @@ function Feed() {
     }
   }, [combo])
 
-
+  // template for new challenge object that will send to DB
   const [newChallenge, setNewChallenge] = useState({
     type: 'Combo of the Week',
     description: '',
@@ -115,15 +93,16 @@ function Feed() {
   // Sets newChallenge local state to the passed in input
   const handleDescriptionChange = (event, property) => {
     // setNewChallenge({ ...newChallenge, [property]: event.target.value })\
-    console.log('--- changing description', property);
+    // console.log('--- changing description', property);
     setNewChallenge({
       ...newChallenge,
       [property]: event.target.value
     })
   };
 
+  
   const selectedSavedCombo = (event, combo) => {
-    console.log('--- clicked selectedCombo');
+    // console.log('--- clicked selectedCombo');
     setSelectedComboStatus(true)
     setNewChallenge({ ...newChallenge, combo_id: combo })
   }
@@ -145,11 +124,11 @@ function Feed() {
     // let's dump the reducer so we know it's empty before starting a new combo;
     dispatch({ type: 'CLEAR_COMBO_AND_RECIPE' })
 
-    console.log('CLICKED on handleSearch');
-    console.log('this is the searchText', searchText);
+    // console.log('CLICKED on handleSearch');
+    // console.log('this is the searchText', searchText);
 
     const searchedIngredientOne = ingredients.filter(ingredient => ingredient.name === searchText)
-    console.log('--- searchedIngredientOne:', searchedIngredientOne);
+    // console.log('--- searchedIngredientOne:', searchedIngredientOne);
 
     // ensures user only moves to combo page if they have selected from the list (Must Select From The List!)
     if (searchedIngredientOne.length === 0) {
@@ -198,8 +177,8 @@ function Feed() {
     color: theme.palette.text.secondary,
   }));
 
-  console.log('--- Challenge', newChallenge);
-  console.log('--- topFiveIngredients', topFiveIngredients);
+  // console.log('--- Challenge', newChallenge);
+  // console.log('--- topFiveIngredients', topFiveIngredients);
 
 
 
@@ -281,19 +260,6 @@ function Feed() {
         {/* combo selector */}
         <ComboTool />
 
-        {/* list of ingredients from DB */}
-        {/* <ul>
-          {ingredients.map((ingredient) => {
-            return (
-              <li
-                key={ingredient.id}
-                value={ingredient}
-                onClick={() => dispatch({ type: 'SET_COMBO_INGREDIENT', payload: ingredient })}>{ingredient.name}</li>
-            )
-          })}
-        </ul> */}
-        {/* <br /> */}
-
         {/* ingredient pairings */}
         {/* super combo ingredients list */}
         {superCombo.length > 0 && combo.length < 3 &&
@@ -360,11 +326,7 @@ function Feed() {
             ))}
           </Box>
         }
-
-
-
-
-
+        
         <Typography variant='h4' sx={{ textAlign: "center", mt: 4, }}>Post Featured Combo To Home Page</Typography>
         <Typography variant='body1' sx={{ textAlign: "center", my: 2, }}>
           Select a saved combo from below | Provide a description | Click submit to post to the Home Page Feed</Typography>

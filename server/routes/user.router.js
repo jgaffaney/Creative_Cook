@@ -29,11 +29,11 @@ router.get('/all', rejectUnauthenticated, (req, res) => {
         res.send(result.rows); // Contains all previous challenges
       })
       .catch(err => {
-        console.log('ERROR in router.GET/user/all', err);
+        // console.log('ERROR in router.GET/user/all', err);
         res.sendStatus(500);
       })
   } else {
-    console.log('ERROR in router.get/user/all check admin status');
+    // console.log('ERROR in router.get/user/all check admin status');
   }
 });
 
@@ -43,7 +43,7 @@ router.get('/all', rejectUnauthenticated, (req, res) => {
 // The password gets encrypted before being inserted;
 router.post('/register', (req, res) => {
 
-  console.log('--- router.post req.body', req.body);
+  // console.log('--- router.post req.body', req.body);
 
 
   const username = req.body.username;
@@ -75,20 +75,20 @@ router.post('/register', (req, res) => {
     .query(queryText, values)
     .then(result => {
       const createdComboId = result.rows[0].id;
-      console.log('this is createdComboId:', createdComboId);
+      // console.log('this is createdComboId:', createdComboId);
       pool.query(queryText2, [createdComboId])
         .then(result => {
           res.sendStatus(201);
         })
         // catch for 2nd query
         .catch(err => {
-          console.log('err', err);
+          // console.log('err', err);
           res.sendStatus(500);
         })
 
     })
     .catch((err) => {
-      console.log('User registration failed: ', err);
+      // console.log('User registration failed: ', err);
       res.sendStatus(500);
     });
 });

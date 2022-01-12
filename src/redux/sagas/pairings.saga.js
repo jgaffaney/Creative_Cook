@@ -4,7 +4,7 @@ import { put, takeLatest } from 'redux-saga/effects';
 
 function* fetchPairings(action) {
 
-    console.log('In fetchPairings Saga with payload: ', action.payload);
+    // console.log('In fetchPairings Saga with payload: ', action.payload);
     try {
         const response = yield axios.get(`/api/pairings/${action.payload}`);
         yield put({type: 'SET_PAIRINGS', payload: response.data});
@@ -25,7 +25,7 @@ function* fetchPairings(action) {
         // }    
         yield put({type: 'SET_UNPAIRED', payload: unpaired})
     } catch (error) {
-        console.log('Error on fetchPairings: ', error);
+        // console.log('Error on fetchPairings: ', error);
     }
 }
 
@@ -34,23 +34,23 @@ function* addNewPairing(action) {
         yield axios.post(`/api/pairings/${action.payload}`, {pair: action.pairWith});
         yield put({type: 'FETCH_PAIRINGS', payload: action.pairWith, ingredients: action.ingredients})
     } catch (error) {
-        console.log('Error on addNewPairing: ', error);
+        // console.log('Error on addNewPairing: ', error);
     }
 }
 
 function* deletePairing(action) {
     try{
-        console.log('unPair in deletePairingSage: ', action.pairWith);
+        // console.log('unPair in deletePairingSage: ', action.pairWith);
         
         yield axios.delete(`/api/pairings/`, {data: {pair: action.pairWith, del: action.payload}});
         yield put({type: 'FETCH_PAIRINGS', payload: action.pairWith, ingredients: action.ingredients})
     } catch (err) {
-        console.log('Error on removePairing: ', err);
+        // console.log('Error on removePairing: ', err);
     }
 }
 
 function* postBulkPairing(action) {
-    console.log('in postBulkPairing Saga with payload: ', action.payload);
+    // console.log('in postBulkPairing Saga with payload: ', action.payload);
 
     const formData = new FormData();
     formData.append('file', action.payload);
@@ -60,7 +60,7 @@ function* postBulkPairing(action) {
               'Content-Type': 'multipart/form-data'
             }});
     } catch (error) {
-        console.log('Error in postBulkPairing: ', error);
+        // console.log('Error in postBulkPairing: ', error);
     }
     
 }
