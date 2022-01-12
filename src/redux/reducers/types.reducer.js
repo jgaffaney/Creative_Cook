@@ -8,6 +8,8 @@ const typeReducer = (state = [], action) => {
             // console.log('results in type: ', results);
             
             return results;
+        case 'LOGOUT':
+            return [];
         default:
             return state;
     }
