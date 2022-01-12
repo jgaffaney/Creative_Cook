@@ -5,9 +5,11 @@ const multer = require('multer')
 const upload = multer({ dest: 'uploads/' })
 const fs = require('fs');
 const copyFrom = require('pg-copy-streams').from;
+const { rejectNotAdmin } = require('../modules/isAdmin-middleware');
 
 
-router.get('/:id', (req, res) => {
+
+router.get('/:id', rejectNotAdmin, (req, res) => {
     console.log('params in pairings GET: ', req.params.id);
     const id = req.params.id;
     // a query to search for pairing of an ingredient in either the ingredient_one_id or ingredient_two_id
@@ -35,7 +37,7 @@ router.get('/:id', (req, res) => {
 })
 
 // used to add a single pairing to the DB
-router.post('/:id', (req, res) => {
+router.post('/:id', rejectNotAdmin, (req, res) => {
     console.log('params in pairings POST: ', req.params.id);
     console.log('req.body in pairings POST: ', req.body.pair);
     const queryText = `
@@ -54,7 +56,7 @@ router.post('/:id', (req, res) => {
 })
 
 // used to delete a single pairing from the DB
-router.delete('/', (req, res) => {
+router.delete('/', rejectNotAdmin, (req, res) => {
     // console.log('params in pairings DELETE: ', req.params.id);
     console.log('req.body in pairings DELETE: ', req.body);
     const queryText = `

@@ -5,9 +5,11 @@ const multer = require('multer')
 const upload = multer({ dest: 'uploads/' })
 const fs = require('fs');
 const copyFrom = require('pg-copy-streams').from;
+const { rejectNotAdmin } = require('../modules/isAdmin-middleware');
+
 
 // for upload of a bulk .csv data containing pairings by id 
-router.post('/', upload.single('file'), (req, res) => {
+router.post('/', rejectNotAdmin, upload.single('file'), (req, res) => {
     console.log('in bulk pairings post with file: ', req.file);
 
     pool.connect(function (err, client, done) {
