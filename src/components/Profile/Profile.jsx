@@ -416,7 +416,6 @@ function Profile() {
             </Grid>
             <br />
             <br />
-            <br />
             {/* <Paper sx={{ backgroundColor: 'white', opacity:.75 }}> */}
             <Typography variant="h4"  >Metrics</Typography>
             {/* </Paper> */}
@@ -442,6 +441,7 @@ function Profile() {
               </Grid>
             </Grid>
           </Box>
+          <br />
           <br />
           <br />
           <br />
