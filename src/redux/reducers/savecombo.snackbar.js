@@ -4,6 +4,8 @@ const comboSnackbarReducer = (state = false, action) => {
             return true;
         case 'SET_HIDDEN_SNACKBAR':
             return false;
+        case 'LOGOUT':
+            return false;
         default: 
             return state;
     }

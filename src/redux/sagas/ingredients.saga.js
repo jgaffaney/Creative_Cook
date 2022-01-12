@@ -14,7 +14,7 @@ function* fetchIngredients() {
 
         yield put({ type: 'SET_INGREDIENTS', payload: response.data })
     } catch (error) {
-        console.log('--- ERROR on fetchIngredients: ', error);
+        // console.log('--- ERROR on fetchIngredients: ', error);
     }
 }
 
@@ -24,12 +24,12 @@ function* postIngredient(action) {
         yield axios.post('/api/ingredients/', action.payload)
         yield put({ type: 'FETCH_INGREDIENTS' });
     } catch (error) {
-        console.log('Error on postIngredient: ', error);
+        // console.log('Error on postIngredient: ', error);
     }
 }
 
 function* editIngredient(action) {
-    console.log('In editIngredient Saga with: ', action)
+    // console.log('In editIngredient Saga with: ', action)
     try {
         yield axios.put('/api/ingredients', action.payload);
         const { seconds, value } = action.payload
@@ -37,7 +37,7 @@ function* editIngredient(action) {
         yield call(resolvePromiseAction, action, value)
         yield put({ type: 'FETCH_INGREDIENTS' })
     } catch (error) {
-        console.log('Error on editIngredient: ', error);
+        // console.log('Error on editIngredient: ', error);
     }
 
 }
@@ -57,7 +57,7 @@ function* uploadFile(action) {
 }
 
 function* postFile(action) {
-    console.log('in postFile saga with action.payload.data: ', action.payload);
+    // console.log('in postFile saga with action.payload.data: ', action.payload);
     const formData = new FormData();
     formData.append("file", action.payload);
     try {
@@ -67,19 +67,19 @@ function* postFile(action) {
             }});
         yield put({type: 'FETCH_INGREDIENTS'});
     } catch (error) {
-        console.log('Error in postFile: ', error);
+        // console.log('Error in postFile: ', error);
         
     }
 
 }
 
 function* deleteIngredient(action) {
-    console.log('in delete ingredient with: ', action.payload);
+    // console.log('in delete ingredient with: ', action.payload);
     try {
         yield axios.delete(`/api/ingredients/${action.payload}`);
         yield put({type: 'FETCH_INGREDIENTS'});
     } catch (error) {
-        console.log('Error on deleteIngredient: ', error);
+        // console.log('Error on deleteIngredient: ', error);
         
     }
     

@@ -5,10 +5,10 @@ import { put, takeLatest } from 'redux-saga/effects';
 function* fetchIngredientUnique() {
     try {
         const response = yield axios.get('/api/goal/ingredient')
-        console.log("response.data", response.data);
+        // console.log("response.data", response.data);
         yield put({ type: 'SET_INGREDIENT_UNIQUE', payload: response.data });
     } catch (err) {
-        console.log('GET ERROR IN INGREDIENT UNIQUE SAGA', err);
+        // console.log('GET ERROR IN INGREDIENT UNIQUE SAGA', err);
     }
 };
 
