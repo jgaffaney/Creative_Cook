@@ -184,7 +184,7 @@ function Home() {
                     {/* METRICS will go here */}
                     <Paper elevation={3}>
                     <Box onClick={() => handleClick('profile')} sx={sxClickableDiv}>
-                        <Typography variant="h6" sx={sxCenterText}>Metrics</Typography>
+                        <Typography variant="h6" sx={{textAlign: "center", textDecoration: "underline"}}>Metrics</Typography>
                         {/* <Typography variant="body1" sx={sxCenterText}>content</Typography> */}
                         {comboMetrics[0] && recipeMetrics[0] && ingredientMetrics[0] && <>
                         <Typography sx={sxCenterText}>Weekly Combos Made: {comboMetrics[0].weekly}</Typography>
@@ -197,7 +197,7 @@ function Home() {
                     {/* recent COMBOS */}
                     <Paper elevation={3}>
                     <Box onClick={() => handleClick('profile')} sx={sxClickableDiv}>
-                        <Typography variant="h6" sx={sxCenterText}>Recent Combos</Typography>
+                        <Typography variant="h6" sx={{textAlign: "center", textDecoration: "underline"}}>Recent Combos</Typography>
                         {recentCombos?.map((combo, i) => (
                             <Typography key={i} variant="body1" sx={sxCenterText}>{combo.name}</Typography>
                         ))}
@@ -207,7 +207,7 @@ function Home() {
                     {/* GOALS progress */}
                     <Paper elevation={3}>
                     <Box onClick={() => handleClick('profile')} sx={sxClickableDiv}>
-                        <Typography variant="h6" sx={sxCenterText}>Goal Progress</Typography>
+                        <Typography variant="h6" sx={{textAlign: "center", textDecoration: "underline"}}>Goal Progress</Typography>
                         {comboGoal.goal == 0 && <Typography variant="body1" sx={sxCenterText}>Set Combo Goal</Typography>}
                         {comboGoal.goal >= 1 && 
                         <Typography sx={sxCenterText}>Combo Goals:{userCombos.length}/{comboGoal.goal}</Typography>}
