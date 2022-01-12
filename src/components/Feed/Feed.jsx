@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-// import LogOutButton from '../LogOutButton/LogOutButton';
 import { useDispatch, useSelector } from 'react-redux';
 import ComboTool from '../ComboTool/ComboTool';
 import Box from '@mui/material/Box';
@@ -11,41 +10,22 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
-// import List from '@mui/material/List';
-// import ListItem from '@mui/material/ListItem';
 import IngredientAutocomplete from '../IngredientAutocomplete/IngredientAutocomplete';
-
 import Tooltip from '@mui/material/Tooltip';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 
 // -- sx Styles -- //
-
 import {
-  // sxHomePageContainer,
-  // sxPageContent,
-  // sxLeftColumn,
-  // sxProfileContainer,
-  // sxCenterText,
-  // sxPhotoBox,
-  // sxRightColumn,
-  // sxTopSection,
-  // sxBottomSection,
   sxFeedContainer,
-  // sxContentPaper,
   sxSearchContainer,
-  // sxPhotoIngredientContainer,
   sxPhotoIngredient,
   sxComboDescription,
-  // sxRemoveButton,
-  // sxClickableDiv,
-  // sxClickableCombo,
 } from '../Home/Home.style'
 
 import {
   sxFeaturedCombo,
   sxMetrics,
-  // sxFlavorCombos,
   sxIngredientContainer,
   sxPhotoBox,
   sxCardContent,
@@ -54,16 +34,14 @@ import {
   sxTooltip,
   sxSavedComboPaper,
   sxFeedPhotoIngredientContainer,
-  // sxFeedListContent,
   sxSelectedComboOn,
 } from './Feed.style';
 
 
 
 function Feed() {
-  const user = useSelector((store) => store.user);
+  // const user = useSelector((store) => store.user);
   const allUsers = useSelector((store) => store.allUsers);
-  // const recipes = useSelector(store => store.recipe);
   const dispatch = useDispatch();
   const ingredients = useSelector(store => store.ingredients);
   const combo = useSelector(store => store.combo)
@@ -71,7 +49,7 @@ function Feed() {
   const top5 = useSelector(store => store.top5);
 
   const searchText = useSelector(store => store.ingredientSearch)
-  const pairings = useSelector(store => store.pairings)
+  // const pairings = useSelector(store => store.pairings)
   const pairingOne = useSelector(store => store.comboPairingOne)
   const pairingTwo = useSelector(store => store.comboPairingTwo)
   const healthFilter = useSelector(store => store.healthFilter)
@@ -105,7 +83,7 @@ function Feed() {
     }
   }, [combo])
 
-
+  // template for new challenge object that will send to DB
   const [newChallenge, setNewChallenge] = useState({
     type: 'Combo of the Week',
     description: '',
@@ -122,6 +100,7 @@ function Feed() {
     })
   };
 
+  
   const selectedSavedCombo = (event, combo) => {
     // console.log('--- clicked selectedCombo');
     setSelectedComboStatus(true)

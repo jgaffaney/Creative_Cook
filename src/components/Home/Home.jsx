@@ -1,17 +1,11 @@
-import React, { useState, useEffect } from 'react';
-// import LogOutButton from '../LogOutButton/LogOutButton';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-// import Stack from '@mui/material/Stack';
-// import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import CardMedia from '@mui/material/CardMedia';
 import Paper from '@mui/material/Paper';
-// import Grid from '@mui/material/Grid';
-// import { fontSize } from '@mui/system';
 
 
 // --- MUI sx STYLES --- // 
@@ -52,19 +46,13 @@ function Home() {
     const searchText = useSelector(store => store.ingredientSearch);
     const userCombos = useSelector(store => store.userCombos);
     const comboGoal = useSelector((store) => store.comboGoal);
-    // const userGoals = useSelector((store) => store.goal);
     const recipeGoal = useSelector((store) => store.recipeGoal);
     const recipeSaved = useSelector((store) => store.recipeSaved);
     const ingredientGoal = useSelector((store) => store.ingredientGoal);
     const ingredientUnique = useSelector((store) => store.ingredientUnique);
-    // const combo = useSelector((store) => store.combo);
     const comboMetrics = useSelector((store) => store.comboMetrics);
     const recipeMetrics = useSelector((store) => store.recipeMetrics);
     const ingredientMetrics = useSelector((store) => store.ingredientMetrics);
-  
-    
-    // const combo = useSelector((store) => store.combo);
-
 
     useEffect(() => {
         dispatch({ type: 'FETCH_CHALLENGE' });
@@ -77,13 +65,6 @@ function Home() {
         dispatch({ type: 'FETCH_RECIPE_METRICS' })
         dispatch({ type: 'FETCH_INGREDIENT_METRICS' })
     }, []);
-
-    // useEffect(() => {
-    //     dispatch({ type: 'FETCH_COMBO_METRICS' });
-    //     dispatch({ type: 'FETCH_RECIPE_METRICS' });
-    //     dispatch({ type: 'FETCH_INGREDIENT_METRICS' });
-    // }, [comboMetrics, recipeMetrics, ingredientMetrics]);
-
 
     // SEARCH function will capture first ingredient and then push you to the combo page to complete combo
     const handleSearch = (searchText) => {
@@ -216,18 +197,6 @@ function Home() {
                     </Box>
 
                     </Box>
-                    {/* {userGoals?.map((goal, j) => (
-                        <Typography key={j} variant="body1" sx={sxCenterText}>hello</Typography>
-                    ))}
-                    {userGoals}
-                    <Box onClick={() => handleClick('profile')} sx={sxClickableDiv}>
-                        <Typography variant="h6" sx={sxCenterText}>Goal Progress</Typography>
-                        <Typography variant="body1" sx={sxCenterText}>Combo Goals:{userCombos.length}/{comboGoal.goal}</Typography>
-                        <Typography variant="body1" sx={sxCenterText}>Recipe Goals:{recipeSaved.length}/{recipeGoal.goal}</Typography>
-                        <Typography variant="body1" sx={sxCenterText}>Ingredient Goals:{ingredientUnique.length}/{ingredientGoal.goal}</Typography>
-                    </Box>
-
-                </Box>
 
                 {/* SEARCH  in the top section */}
                 <Box sx={sxRightColumn}>

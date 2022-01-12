@@ -1,16 +1,12 @@
-import React, { useEffect, useState } from 'react';
-// import LogOutButton from '../LogOutButton/LogOutButton';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
     Box,
     Card,
-    // CardActions,
     CardContent,
     Button,
     Typography,
     CardMedia,
-    // CardActionArea,
-    // Paper,
 } from '@mui/material';
 
 
@@ -25,14 +21,13 @@ function ComboTool() {
     const sxButtonContainer = {
         display: 'flex',
         flexDirection: 'row',
-        // border: '1px solid red',
         justifyContent: 'center',
         width: '50%',
         mx: 'auto',
         mb: 2,
-        
     }
 
+    // save / get / clear buttons for combo tool
     const sxButton = {
         margin: 2,
         width: 150,
@@ -42,39 +37,30 @@ function ComboTool() {
     const sxCardContainer = {
         display: 'flex',
         flexDirection: 'row',
-        // border: '1px solid red',
         justifyContent: 'center',
         minWidth: 559,
         mx: 'auto',
         gap: 4,
     }
 
-    // clickable card action space, currently does not perform a function
-    const sxCardAction = {
-        width: 151,
-        height: 151,
-    }
-
+    // name of ingredient in combo tool
     const sxIngredientName = {
         margin: 4,
     }
 
+    // pic of ingredient in combo tool
     const sxPhotoBox = {
-        // border: '1px solid red',
         width: 150,
         height: 150,
         boxShadow: 3,
         my: 2,
         ml: 1,
         borderRadius: '50%',
-        // mx: 'auto',
     };
 
     function capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
       }
-
-
 
     return (
         <>

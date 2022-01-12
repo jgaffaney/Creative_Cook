@@ -39,16 +39,16 @@ router.post('/', rejectUnauthenticated, (req, res) => {
         INSERT INTO "feed_content" 
             ("type", "description", "combo_id", "date_posted")
         VALUES 
-            ($1, $2, $3, $4) ;` ;
+            ($1, $2, $3, NOW()) ;` ;
 
-        values = [req.body.type, req.body.description, req.body.combo_id, 'today']
-        // console.log('values are', values);
+        values = [req.body.type, req.body.description, req.body.combo_id]
+        console.log('values are', values);
         pool.query(queryText, values)
             .then(result => {
                 res.sendStatus(201);
             })
             .catch(err => {
-                // console.log('Error in Challenge POST', err);
+                console.log('Error in Challenge POST', err);
                 res.sendStatus(500);
             })
     }

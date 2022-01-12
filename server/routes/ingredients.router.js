@@ -31,7 +31,7 @@ router.get('/', (req, res) => {
  * POST new ingredient to DB
  */
  router.post('/', rejectNotAdmin, (req, res) => {
-    console.log('in ingredients POST with: ', req.body);
+    console.log('in ingredients POST req.body: ', req.body);
     
     const queryText = `
     INSERT INTO ingredients ("name", "description", "pic", "taste", "season", "weight", "volume", "type", "botanical_relative", "function", "technique")
