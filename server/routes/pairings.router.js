@@ -9,7 +9,7 @@ const { rejectNotAdmin } = require('../modules/isAdmin-middleware');
 
 
 
-router.get('/:id', rejectNotAdmin, (req, res) => {
+router.get('/:id', (req, res) => {
     console.log('params in pairings GET: ', req.params.id);
     const id = req.params.id;
     // a query to search for pairing of an ingredient in either the ingredient_one_id or ingredient_two_id
