@@ -222,6 +222,7 @@ function Profile() {
           <br />
           <br />
           <br />
+          <br />
           <Box sx={sxMiddleSection}>
             <Typography variant="h4" >Goal Progress</Typography>
             <br />
