@@ -7,6 +7,8 @@ const allUsersReducer = (state = {}, action) => {
         
       case 'UNSET_USER':
         return {};
+      case 'LOGOUT':
+            return {};
       default:
         return state;
     }

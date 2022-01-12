@@ -7,7 +7,7 @@ function* fetchComboMetrics() {
         const response = yield axios.get('/api/combos/metrics')
         yield put({ type: 'SET_COMBO_METRICS', payload: response.data });
     } catch (err) {
-        console.log('GET ERROR IN COMBO METRICS SAGA', err);
+        // console.log('GET ERROR IN COMBO METRICS SAGA', err);
     }
 };
 

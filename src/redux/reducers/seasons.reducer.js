@@ -6,6 +6,8 @@ const seasonsReducer = (state = [], action) => {
                 results.push(index.unnest)
             }
             return results;
+        case 'LOGOUT':
+            return [];
         default:
             return state;
     }

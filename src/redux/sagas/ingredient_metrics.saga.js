@@ -7,7 +7,7 @@ function* fetchIngredientMetrics() {
         const response = yield axios.get('/api/ingredients/metrics')
         yield put({ type: 'SET_INGREDIENT_METRICS', payload: response.data });
     } catch (err) {
-        console.log('GET ERROR IN INGREDIENT METRICS SAGA', err);
+        // console.log('GET ERROR IN INGREDIENT METRICS SAGA', err);
     }
 };
 

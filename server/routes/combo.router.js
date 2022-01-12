@@ -3,9 +3,11 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-// combo get pairings relevant to searched ingredient
+/**
+ * GET pairings relevant to searched ingredient
+ */
 router.get('/pairings/:id', rejectUnauthenticated, (req, res) => {
-    console.log('params in combo/pairings GET: ', req.params.id);
+    // console.log('params in combo/pairings GET: ', req.params.id);
     const id = req.params.id;
     const queryText = `
     SELECT "ingredients"."id", "ingredients"."description", "ingredients"."pic", INITCAP("ingredients"."name") AS name FROM "ingredients"
@@ -19,16 +21,17 @@ router.get('/pairings/:id', rejectUnauthenticated, (req, res) => {
     const values = [id, id];
     pool.query(queryText, values)
         .then(response => {
-            console.log('response from GET pairings: ', response);
+            // console.log('response from GET pairings: ', response);
             res.send(response.rows)
         }).catch(err => {
-            console.log('Error on GET pairings: ', err);
+            // console.log('Error on GET pairings: ', err);
             res.sendStatus(500);
         })
 }); // End GET
 
-
-// Combo GET route
+/**
+ * GET all saved combo by user route
+ */
 router.get('/', rejectUnauthenticated, (req, res) => {
     const queryText = `
         SELECT * FROM "combos"
@@ -40,23 +43,25 @@ router.get('/', rejectUnauthenticated, (req, res) => {
             res.send(result.rows); // Contains all combos
         })
         .catch(err => {
-            console.log('Error in Combo GET', err);
+            // console.log('Error in Combo GET', err);
             res.sendStatus(500);
         })
 }); // End GET
 
 
-// Combo POST route
+/**
+ * POST combo route by user
+ */
 router.post('/', rejectUnauthenticated, (req, res) => {
     // POST route code here
-    console.log('hello from combo post');
+    // console.log('hello from combo post');
     let userId = req.user.id;
     let ingredientList = '{';
     let name = '';
 
     // this creates the id object for DB
     const ingredientLister = (combo) => {
-        console.log('in ingredientLister');
+        // console.log('in ingredientLister');
         // loop through ingredients, add the id of each to string
         for (let ingredient of combo) {
             ingredientList += `${ingredient.id},`
@@ -64,19 +69,19 @@ router.post('/', rejectUnauthenticated, (req, res) => {
         // chop off the last character from the string and add closing curly
         ingredientList = ingredientList.slice(0, -1)
         ingredientList += `}`;
-        console.log('ingredientList is', ingredientList);
+        // console.log('ingredientList is', ingredientList);
     } // end ingredientLister
 
     //this creates the default name string to send to DB
     const comboNamer = (combo) => {
-        console.log('in comboNamer');
+        // console.log('in comboNamer');
         // loop through ingredients, add the name of each to string
         for (let ingredient of combo) {
             name += `${ingredient.name}, `
         }
         // chop off the last two characters from the string for clean up
         name = name.slice(0, -2)
-        console.log('name is', name);
+        // console.log('name is', name);
     } // end comboNamer
 
     // call comboNamer and ingredientLister with req.body to format for DB
@@ -113,7 +118,9 @@ router.post('/', rejectUnauthenticated, (req, res) => {
 
 });
 
-// Combo Metrics GET route
+/**
+ * GET combo metrics
+ */
 router.get('/metrics', rejectUnauthenticated, (req, res) => {
     const queryText = `
           SELECT COUNT(DISTINCT name) FILTER (WHERE "user_id" = $1 AND "date_created" >= now() - interval '1 week') AS weekly,
@@ -126,7 +133,7 @@ router.get('/metrics', rejectUnauthenticated, (req, res) => {
             res.send(result.rows);
         })
         .catch(err => {
-            console.log('Error in Combo GET', err);
+            // console.log('Error in Combo GET', err);
             res.sendStatus(500);
         })
 }); // End GET

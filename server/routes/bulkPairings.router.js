@@ -8,10 +8,12 @@ const copyFrom = require('pg-copy-streams').from;
 const { rejectNotAdmin } = require('../modules/isAdmin-middleware');
 
 
+/**
+ * POST upload of a bulk .csv data containing pairings by id 
+ */
 // for upload of a bulk .csv data containing pairings by id 
 router.post('/', rejectNotAdmin, upload.single('file'), (req, res) => {
-    console.log('in bulk pairings post with file: ', req.file);
-
+    // console.log('in bulk pairings post with file: ', req.file);
     pool.connect(function (err, client, done) {
         let stream = client.query(copyFrom(`
         COPY pairings (ingredient_one_id, ingredient_two_id) FROM STDIN DELIMITER ',' CSV HEADER;
@@ -19,9 +21,9 @@ router.post('/', rejectNotAdmin, upload.single('file'), (req, res) => {
         let fileStream = fs.createReadStream(req.file.path);
         stream.on('finish', function (err, result) {
             if(err) {
-                console.log('this is a stream error:', err);
+                // console.log('this is a stream error:', err);
             } else {
-                console.log('upload successful');
+                // console.log('upload successful');
                 res.sendStatus(200);
             }
         });

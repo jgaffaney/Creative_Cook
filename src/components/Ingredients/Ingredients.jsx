@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import EditIngredients from '../Ingredients/EditIngredients';
 import AddIngredients from '../Ingredients/AddIngredients';
 import PairingsTool from '../Ingredients/PairingsTool';
 
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+// import Typography from '@mui/material/Typography';
 
 // --- sx STYLES --- // 
 import {
@@ -14,8 +14,8 @@ import {
 
 function Ingredients() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
-  const user = useSelector((store) => store.user);
-  const ingredients = useSelector((store) => store.ingredients);
+  // const user = useSelector((store) => store.user);
+  // const ingredients = useSelector((store) => store.ingredients);
 
   const dispatch = useDispatch();
 

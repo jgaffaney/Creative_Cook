@@ -2,15 +2,15 @@ import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
 function* fetchSeasons() {
-    console.log('in fetchSeasons');
+    // console.log('in fetchSeasons');
     
     try {
         const response = yield axios.get('/api/enum/seasons');
-        console.log('seasons response: ', response);
+        // console.log('seasons response: ', response);
         
         yield put({type: 'SET_SEASONS', payload: response.data})
     } catch (error) {
-        console.log('Error on fetchSeasons: ', error);
+        // console.log('Error on fetchSeasons: ', error);
         
     }
 }
@@ -18,10 +18,10 @@ function* fetchSeasons() {
 function* fetchTypes() {
     try {
         const response = yield axios.get('/api/enum/type');
-        console.log('type response: ', response);
+        // console.log('type response: ', response);
         yield put({type: 'SET_TYPES', payload: response.data})
     } catch (error) {
-        console.log('Error on fetchTypes: ;', error);
+        // console.log('Error on fetchTypes: ;', error);
         
     }
 
