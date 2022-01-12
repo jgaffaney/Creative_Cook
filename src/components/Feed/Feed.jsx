@@ -225,6 +225,15 @@ function Feed() {
     combined = combined.filter(ingredient => ingredient.id != combo[0].id).filter(ingredient => ingredient.id != combo[1].id);
   }
 
+  const addDescription = () => {
+    setNewChallenge({...newChallenge, description: 'This combo features ingredients to use for a healthy salad recipe to kick off the new year'})
+  }
+
+  const addSecondDescription = () => {
+      setNewChallenge({...newChallenge, description: 'This combo features ingredients to challenge you to create a hearty but healthy winter dinner.'})
+    }
+  
+
   // combo tool and ingredient pair display
   return (
     <>
@@ -365,8 +374,8 @@ function Feed() {
 
 
 
-        <Typography variant='h4' sx={{ textAlign: "center", mt: 4, }}>Post Featured Combo To Home Page</Typography>
-        <Typography variant='body1' sx={{ textAlign: "center", my: 2, }}>
+        <Typography onClick={addDescription} variant='h4' sx={{ textAlign: "center", mt: 4, }}>Post Featured Combo To Home Page</Typography>
+        <Typography onClick={addSecondDescription} variant='body1' sx={{ textAlign: "center", my: 2, }}>
           Select a saved combo from below | Provide a description | Click submit to post to the Home Page Feed</Typography>
 
         <Box elevation={4} sx={{ display: 'flex', alignItems: "center", justifyContent: "center", gap: 2 }}

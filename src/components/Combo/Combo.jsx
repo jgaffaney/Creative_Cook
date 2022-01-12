@@ -238,6 +238,7 @@ function Combo() {
         <>
           <Typography variant='h4'
             sx={sxIngredientContainer}>Super Combos</Typography>
+            <Typography variant='p' sx={sxIngredientContainer}>The highlighted ingredients are ones that pair well with both of your previous choices.</Typography>
           <Box sx={sxIngredientContainer}>
             {superCombo.map(ingredient => (
               <Tooltip sx={sxTooltip}

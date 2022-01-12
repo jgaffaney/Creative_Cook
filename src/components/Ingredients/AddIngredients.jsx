@@ -20,6 +20,16 @@ function AddIngredients() {
 
     const dispatch = useDispatch();
 
+    const orange = {
+        name: 'Orange',
+        season: 'Summer',
+        type: 'Fruit'
+    }
+
+    const addOrange = () => {
+        setNewIngredient(orange)
+    }
+
     const defaultIngredient = {
         name: '',
         description: '',
@@ -101,7 +111,7 @@ function AddIngredients() {
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, }}>
 
                 <Box sx={sxAddIngredientHeaderContainer}>
-                    <Typography variant="h5" sx={sxCenterText}>Add New Ingredient</Typography>
+                    <Typography onClick={addOrange} variant="h5" sx={sxCenterText}>Add New Ingredient</Typography>
                     <Button onClick={() => toggleStatus('add')} sx={{ borderRadius: 4 }}><AddCircleIcon fontSize="large" /></Button>
                 </Box>
 
@@ -109,6 +119,7 @@ function AddIngredients() {
                     <Box sx={sxCenterContent}>
                         <FormControl sx={sxFormContent}>
                             <Box sx={sxFormColumn}>
+                                <p hidden onClick={addOrange}></p>
                                 <TextField
                                     id="name-input"
                                     label="Ingredient Name"
