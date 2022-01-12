@@ -213,6 +213,7 @@ VALUES
 (116,1,30);
 
 INSERT INTO "metrics" ("id", "name")
-VALUES(1, 'combo'),
+VALUES
+(1, 'combo'),
 (2, 'recipe'),
 (3, 'ingredients');
