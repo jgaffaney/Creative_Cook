@@ -31,7 +31,7 @@ router.get('/', (req, res) => {
  * POST new ingredient to DB
  */
  router.post('/', rejectNotAdmin, (req, res) => {
-    console.log('in ingredients POST req.body: ', req.body);
+    // console.log('in ingredients POST req.body: ', req.body);
     
     const queryText = `
     INSERT INTO ingredients ("name", "description", "pic", "taste", "season", "weight", "volume", "type", "botanical_relative", "function", "technique")
@@ -44,7 +44,7 @@ router.get('/', (req, res) => {
         .then(response => {
             res.sendStatus(201)
         }).catch(err => {
-            console.log('Error on POST ingredients: ', err);
+            // console.log('Error on POST ingredients: ', err);
             res.sendStatus(500);
         })
 });
@@ -103,7 +103,7 @@ router.post('/bulk/', rejectNotAdmin, upload.single('file'), (req, res) => {
         let fileStream = fs.createReadStream(req.file.path);
         stream.on('finish', function (err, result) {
             if(err) {
-                console.log('this is a stream error:', err);
+                // console.log('this is a stream error:', err);
                 res.sendStatus(500);
             } else {
                 // console.log('upload successful');
