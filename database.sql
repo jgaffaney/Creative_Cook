@@ -81,7 +81,7 @@ CREATE TABLE "user_metrics" (
 
 CREATE TABLE "feed_content" (
 	"id" serial NOT NULL PRIMARY KEY,
-	"type" TYPE NOT NULL,
+	"type" VARCHAR(255) NOT NULL,
 	"description" varchar(2555) NOT NULL,
 	"combo_id" int REFERENCES "combos",
 	"date_posted" DATE
