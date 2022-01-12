@@ -13,7 +13,6 @@ CREATE TYPE "type" AS ENUM ('Protein: Air', 'Protein: Land', 'Protein: Sea', 'Ve
 'Season', 'Alcohol', 'Vinegar', 'Technique', 'Sauce', 'Preparation', 'Sweetener', 'Juice'
 );
 
-
 CREATE TABLE "user" (
     "id" SERIAL PRIMARY KEY,
     "username"  VARCHAR(255) NOT NULL,
@@ -212,3 +211,8 @@ VALUES
 (114,15,5),
 (115,13,12),
 (116,1,30);
+
+INSERT INTO "metrics" ("id", "name")
+VALUES(1, 'combo'),
+(2, 'recipe'),
+(3, 'ingredients');

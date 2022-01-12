@@ -24,7 +24,9 @@ Creative Cook is an application to encourage cooks of all different experience l
 
 ## Screenshots
 
-<img src="" />## Built With
+<img src="" />
+
+## Built With
 
 <a href="https://www.heroku.com/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/heroku/heroku-original.svg" height="40px" width="40px" /></a><a href="https://developer.mozilla.org/en-US/docs/Web/HTML"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg" height="40px" width="40px" /></a><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" height="40px" width="40px" /></a><a href="https://material-ui.com/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/materialui/materialui-original.svg" height="40px" width="40px" /></a><a href="https://nodejs.org/en/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original.svg" height="40px" width="40px" /></a><a href="https://www.postgresql.org/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original.svg" height="40px" width="40px" /></a><a href="https://reactjs.org/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" height="40px" width="40px" /></a><a href="https://redux.js.org/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/redux/redux-original.svg" height="40px" width="40px" /></a>
 
@@ -36,15 +38,35 @@ This app uses PostgreSQL for database storage.  There is a database.sql file in 
 
 This app requires Node.js, Express.js, and PostgreSQL, on the back end.  
 
+You will also need an account with the Edamam Recipe API. (Directions below) 
+
+
+
 ### Installation
 
 Start by forking and cloning the repository.  Then, create a database titled "creative_cook" on the localhost.  With the database established, run the SQL queries in database.sql to setup and populate tables in the database.  
 
 After database setup, run the following commands in your terminal to install dependencies and spin up the client and backend servers.
 
-npm install
-npm run server
-npm run client
+##### Edamam API
+
+Click the link below and create a login.
+
+https://developer.edamam.com/edamam-recipe-api
+
+Next, select the Recipe Search API and sign up for a developer level API.
+
+When you receive your develoer api key and id add a .env file to the parent directory.  Add the following lines to your .env file
+
+`APP_KEY = "you api key here"`
+
+`APP_ID = "your api id here"`
+
+## Install Dependencies
+
+1. `npm install`
+2. `npm run server`
+3. `npm run client`
 
 At this point the app will spin up in your browser on localhost:3000
 

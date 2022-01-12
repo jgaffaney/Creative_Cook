@@ -5,13 +5,15 @@ const multer = require('multer')
 const upload = multer({ dest: 'uploads/' })
 const fs = require('fs');
 const copyFrom = require('pg-copy-streams').from;
+const { rejectNotAdmin } = require('../modules/isAdmin-middleware');
+
 
 /**
  * POST upload of a bulk .csv data containing pairings by id 
  */
-router.post('/', upload.single('file'), (req, res) => {
+// for upload of a bulk .csv data containing pairings by id 
+router.post('/', rejectNotAdmin, upload.single('file'), (req, res) => {
     // console.log('in bulk pairings post with file: ', req.file);
-
     pool.connect(function (err, client, done) {
         let stream = client.query(copyFrom(`
         COPY pairings (ingredient_one_id, ingredient_two_id) FROM STDIN DELIMITER ',' CSV HEADER;

@@ -5,6 +5,8 @@ const multer = require('multer')
 const upload = multer({ dest: 'uploads/' })
 const fs = require('fs');
 const copyFrom = require('pg-copy-streams').from;
+const { rejectNotAdmin } = require('../modules/isAdmin-middleware');
+
 
 /**
  * GET all ingredients from DB
@@ -26,10 +28,10 @@ router.get('/', (req, res) => {
 });
 
 /**
- * POST new ingredient 
+ * POST new ingredient to DB
  */
-router.post('/', (req, res) => {
-    // console.log('in ingredients POST with: ', req.body);
+ router.post('/', rejectNotAdmin, (req, res) => {
+    console.log('in ingredients POST with: ', req.body);
     
     const queryText = `
     INSERT INTO ingredients ("name", "description", "pic", "taste", "season", "weight", "volume", "type", "botanical_relative", "function", "technique")
@@ -42,15 +44,15 @@ router.post('/', (req, res) => {
         .then(response => {
             res.sendStatus(201)
         }).catch(err => {
-            // console.log('Error on POST ingredients: ', err);
+            console.log('Error on POST ingredients: ', err);
             res.sendStatus(500);
         })
 });
 
 /**
- * PUT update ingredient
+ * PUT update a single ingredient
  */
-router.put('/', (req, res) => {
+router.put('/', rejectNotAdmin, (req, res) => {
     // console.log('in ingredients POST with: ', req.body);
     const field = req.body.field
     const queryText = `
@@ -92,7 +94,7 @@ router.get('/top5', (req, res) => {
 /**
  * POSTS bulk ingredients from .csv data to DB
  */
-router.post('/bulk/', upload.single('file'), (req, res) => {
+router.post('/bulk/', rejectNotAdmin, upload.single('file'), (req, res) => {
     // console.log('in bulk post with: ', req.file);
     pool.connect(function (err, client, done) {
         let stream = client.query(copyFrom(`
@@ -132,11 +134,10 @@ router.get('/metrics', (req, res) => {
         })
   }); // End GET
 
-  
 /**
  * DELETE a single ingredient route
  */
-  router.delete('/:id', (req, res) => {
+  router.delete('/:id', rejectNotAdmin, (req, res) => {
       const id = req.params.id
       const queryText = `
       DELETE FROM ingredients
