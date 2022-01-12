@@ -216,3 +216,4 @@ INSERT INTO "metrics" ("id", "name")
 VALUES(1, 'combo'),
 (2, 'recipe'),
 (3, 'ingredients');
+
