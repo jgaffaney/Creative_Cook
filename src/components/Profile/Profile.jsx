@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { styled } from '@mui/material/styles';
-import Stack from '@mui/material/Stack';
+// import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
-import AddTaskIcon from '@mui/icons-material/AddTask';
-import DeleteIcon from '@mui/icons-material/Delete';
-import RefreshIcon from '@mui/icons-material/Refresh';
+// import AddTaskIcon from '@mui/icons-material/AddTask';
+// import DeleteIcon from '@mui/icons-material/Delete';
+// import RefreshIcon from '@mui/icons-material/Refresh';
 import Confetti from 'react-confetti'
 import { useWindowSize, useTimeout } from 'react-use';
 import Alert from '@mui/material/Alert';
@@ -18,18 +18,18 @@ import CheckIcon from '@mui/icons-material/Check';
 import {
   Box,
   Card,
-  CardActions,
+  // CardActions,
   CardContent,
   Button,
   Typography,
   CardMedia,
-  CardActionArea,
-  CardHeader,
-  Avatar,
+  // CardActionArea,
+  // CardHeader,
+  // Avatar,
   IconButton,
   Paper,
-  ImageList,
-  Tooltip,
+  // ImageList,
+  // Tooltip,
 } from '@mui/material';
 
 import Collapse from '@mui/material/Collapse';
@@ -47,14 +47,14 @@ import {
   sxPhotoBox,
   sxRightColumn,
   sxBottomSection,
-  sxButtonBox,
-  sxGoals,
+  // sxButtonBox,
+  // sxGoals,
   sxRecipeContainer,
   sxRecipeCard,
   sxCardContent,
   sxCardTitle,
   sxBox,
-  sxCardActions,
+  // sxCardActions,
   sxPhotoIngredientContainer,
   sxRecipeUrl,
   sxRecipeButton,
@@ -68,7 +68,7 @@ import {
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import { useHistory } from 'react-router';
-import { fontStyle } from '@mui/system';
+// import { fontStyle } from '@mui/system';
 
 function Profile() {
   const user = useSelector((store) => store.user);
@@ -80,7 +80,7 @@ function Profile() {
   const ingredientUnique = useSelector((store) => store.ingredientUnique);
   const recipeGoal = useSelector((store) => store.recipeGoal);
   const recipeSaved = useSelector((store) => store.recipeSaved);
-  const goal = useSelector((store) => store.goal);
+  // const goal = useSelector((store) => store.goal);
   const comboMetrics = useSelector((store) => store.comboMetrics);
   const recipeMetrics = useSelector((store) => store.recipeMetrics);
   const ingredientMetrics = useSelector((store) => store.ingredientMetrics);

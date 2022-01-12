@@ -5,7 +5,7 @@ const axios = require('axios');
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 /**
- * GET route template
+ * GET recipes from Edamam API
  */
 router.get('/', rejectUnauthenticated, (req, res) => {
   // GET route code here
@@ -33,7 +33,10 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 });
 
 /**
- * POST route template
+ * POST recipe route
+ *  creates DB array : {'1','2','3'} of IDs
+ *  creates a name listing each ingredient as default
+ *  checks if combo is saved in DB, if yes, saves to existing combo, else saves to new combo
  */
 router.post('/user', rejectUnauthenticated, (req, res) => {
   // console.log('inside recipe router POST');
@@ -136,7 +139,9 @@ router.post('/user', rejectUnauthenticated, (req, res) => {
 
 });
 
-// userRecipes GET route
+/**
+ * GETs all user's saved recipes
+ */
 router.get('/userRecipes', rejectUnauthenticated, (req, res) => {
   const queryText = `
       SELECT * FROM "recipes"
@@ -152,6 +157,9 @@ router.get('/userRecipes', rejectUnauthenticated, (req, res) => {
       })
 }); // End GET
 
+/**
+ * PUT cooked recipes   
+ */
 router.put('/:id', (req, res) => {
   // console.log('req', req.body);
   
@@ -170,7 +178,10 @@ router.put('/:id', (req, res) => {
       })
 })
 
-// Recipe Metrics GET route
+
+/**
+ * GET Recipe Metrics   
+ */
 router.get('/metrics', rejectUnauthenticated, (req, res) => {
   const queryText = `
         SELECT COUNT(DISTINCT url) FILTER (WHERE "user_id" = $1 AND is_cooked = true AND "made_on" >= now() - interval '1 week') AS weekly,

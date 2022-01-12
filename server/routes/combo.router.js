@@ -3,7 +3,9 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-// combo get pairings relevant to searched ingredient
+/**
+ * GET pairings relevant to searched ingredient
+ */
 router.get('/pairings/:id', rejectUnauthenticated, (req, res) => {
     // console.log('params in combo/pairings GET: ', req.params.id);
     const id = req.params.id;
@@ -27,8 +29,9 @@ router.get('/pairings/:id', rejectUnauthenticated, (req, res) => {
         })
 }); // End GET
 
-
-// Combo GET route
+/**
+ * GET all saved combo by user route
+ */
 router.get('/', rejectUnauthenticated, (req, res) => {
     const queryText = `
         SELECT * FROM "combos"
@@ -46,7 +49,9 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 }); // End GET
 
 
-// Combo POST route
+/**
+ * POST combo route by user
+ */
 router.post('/', rejectUnauthenticated, (req, res) => {
     // POST route code here
     // console.log('hello from combo post');
@@ -113,7 +118,9 @@ router.post('/', rejectUnauthenticated, (req, res) => {
 
 });
 
-// Combo Metrics GET route
+/**
+ * GET combo metrics
+ */
 router.get('/metrics', rejectUnauthenticated, (req, res) => {
     const queryText = `
           SELECT COUNT(DISTINCT name) FILTER (WHERE "user_id" = $1 AND "date_created" >= now() - interval '1 week') AS weekly,

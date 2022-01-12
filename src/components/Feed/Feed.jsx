@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import LogOutButton from '../LogOutButton/LogOutButton';
+// import LogOutButton from '../LogOutButton/LogOutButton';
 import { useDispatch, useSelector } from 'react-redux';
 import ComboTool from '../ComboTool/ComboTool';
 import Box from '@mui/material/Box';
@@ -11,8 +11,8 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
+// import List from '@mui/material/List';
+// import ListItem from '@mui/material/ListItem';
 import IngredientAutocomplete from '../IngredientAutocomplete/IngredientAutocomplete';
 
 import Tooltip from '@mui/material/Tooltip';
@@ -22,30 +22,30 @@ import CardMedia from '@mui/material/CardMedia';
 // -- sx Styles -- //
 
 import {
-  sxHomePageContainer,
-  sxPageContent,
-  sxLeftColumn,
-  sxProfileContainer,
-  sxCenterText,
+  // sxHomePageContainer,
+  // sxPageContent,
+  // sxLeftColumn,
+  // sxProfileContainer,
+  // sxCenterText,
   // sxPhotoBox,
-  sxRightColumn,
-  sxTopSection,
-  sxBottomSection,
+  // sxRightColumn,
+  // sxTopSection,
+  // sxBottomSection,
   sxFeedContainer,
-  sxContentPaper,
+  // sxContentPaper,
   sxSearchContainer,
-  sxPhotoIngredientContainer,
+  // sxPhotoIngredientContainer,
   sxPhotoIngredient,
   sxComboDescription,
-  sxRemoveButton,
-  sxClickableDiv,
-  sxClickableCombo,
+  // sxRemoveButton,
+  // sxClickableDiv,
+  // sxClickableCombo,
 } from '../Home/Home.style'
 
 import {
   sxFeaturedCombo,
   sxMetrics,
-  sxFlavorCombos,
+  // sxFlavorCombos,
   sxIngredientContainer,
   sxPhotoBox,
   sxCardContent,
@@ -54,7 +54,7 @@ import {
   sxTooltip,
   sxSavedComboPaper,
   sxFeedPhotoIngredientContainer,
-  sxFeedListContent,
+  // sxFeedListContent,
   sxSelectedComboOn,
 } from './Feed.style';
 
@@ -63,7 +63,7 @@ import {
 function Feed() {
   const user = useSelector((store) => store.user);
   const allUsers = useSelector((store) => store.allUsers);
-  const recipes = useSelector(store => store.recipe);
+  // const recipes = useSelector(store => store.recipe);
   const dispatch = useDispatch();
   const ingredients = useSelector(store => store.ingredients);
   const combo = useSelector(store => store.combo)

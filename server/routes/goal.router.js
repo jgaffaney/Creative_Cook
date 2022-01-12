@@ -2,9 +2,8 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-/**
- * GET route template
- */
+// * GET all user goals route
+// */
 router.get('/', (req, res) => {
     const queryText = `
     SELECT * FROM "user_metrics"
@@ -21,7 +20,8 @@ router.get('/', (req, res) => {
         })
 }); // End GET
 
-// * GET  Ingredient route
+
+// * GET  Ingredient goal route
 // */
 router.get('/ingredient', (req, res) => {
    const queryText = `
@@ -39,7 +39,7 @@ router.get('/ingredient', (req, res) => {
        })
 }); // End GET
 
-// * GET  Ingredient route
+// * GET  Ingredient goal route
 // */
 router.get('/recipe', (req, res) => {
     const queryText = `
@@ -59,7 +59,7 @@ router.get('/recipe', (req, res) => {
  
 
 /**
- * POST route template
+ * POST goal route 
  */
 router.post('/', (req, res) => {
     // console.log('hello from combo post');
@@ -79,6 +79,9 @@ router.post('/', (req, res) => {
         )
 });
 
+/**
+ * PUT goal route
+ */
 router.put('/', (req, res) => {
     const id = req.user.id
     const queryText = `
@@ -97,6 +100,9 @@ router.put('/', (req, res) => {
         })
 })
 
+/**
+ * PUT goal rote
+ */
 router.put('/reset', (req, res) => {
     const id = req.user.id
     const queryText = `

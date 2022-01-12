@@ -1,10 +1,8 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import {
   DataGrid,
@@ -24,7 +22,7 @@ import {
   sxTableFiltersContainer,
   sxSearchBar,
   sxDataGridContainer,
-  sxCenterText,
+  // sxCenterText,
 } from './Ingredients.style';
 
 
@@ -107,10 +105,6 @@ export default function EditIngredients() {
       <Box
         color="error"
         sx={{display: 'flex', justifyContent: 'center', alignItems: 'center',}}
-        // variant="outlined"
-        // size="small"
-
-        // we need to delete here
         onClick={() => {
           editIngredient(JSON.stringify(params.row.id))
         }}
@@ -120,6 +114,9 @@ export default function EditIngredients() {
     )
   }
 
+  // for in grid editing of ingredients
+  // sends a promise to the saga, waiting for response when the db is successfully updated
+  //receives the response and displays a snackbar in the lower left indicating the success or error on saving to the DB
   async function handleCellEditCommit(params) {
     try {
       // console.log('In the try of handleCellEditCommit with: ', { id: params.id, [params.field]: params.value });
@@ -143,16 +140,13 @@ export default function EditIngredients() {
       renderCell: renderEditButton,
       disableClickEventBubbling: true,
       width: 10,
-      // editable: true
     },
     { field: 'id', hide: true, editable: true },
     { field: 'name', headerName: 'Name', editable: true, width: 150, },
-    // { field: 'description', headerName: 'Description', editable: true, flex: true, resizable: true},
     { field: 'description', headerName: 'Description', editable: true, width: 600, },
     { field: 'type', headerName: 'Type', editable: true, valueOptions: foodType, type: 'singleSelect', width: 150 },
     { field: 'season', headerName: 'Season', editable: true, valueOptions: seasons, type: 'singleSelect', width: 160, },
     { field: 'pic', headerName: 'Pic', editable: true, width: 125, },
-
     { field: 'taste', headerName: 'Taste', editable: true, width: 120 },
     { field: 'weight', headerName: 'Weight', editable: true, width: 120},
     { field: 'volume', headerName: 'Volume', editable: true, width: 120 },
@@ -172,7 +166,7 @@ export default function EditIngredients() {
     setRows(filteredRows);
   };
 
-  // updates ingredients
+  // updates ingredients on load
   useEffect(() => {
     dispatch({ type: 'FETCH_INGREDIENTS' })
 
@@ -183,7 +177,6 @@ export default function EditIngredients() {
     setRows(ingredients)
   }, [ingredients])
 
-  // console.log('Demo Data: ', data);
 
   return (
     <Box sx={sxDataGridContainer}>

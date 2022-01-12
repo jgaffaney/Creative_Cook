@@ -3,7 +3,10 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-// Challenge GET route
+
+/**
+ * GET challenge route
+ */
 router.get('/', rejectUnauthenticated, (req, res) => {
 
     const queryText = `
@@ -24,8 +27,9 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         })
 }); // End GET
 
-
-// Challenge POST route
+/**
+ * POST challenge route
+ */
 router.post('/', rejectUnauthenticated, (req, res) => {
 
     // console.log('--- req.user.is_admin', req.user.is_admin);
@@ -50,15 +54,14 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     }
 }); // End POST
 
-
-// DELETE challenge rote // 
+/**
+ * DELETE challenge route
+ */
 router.delete('/:id', rejectUnauthenticated, (req, res) => {
-    // DELETE route code here
     // console.log('----- in router.DELETE /api/challenge/:id');
     // console.log('is authenticated?', req.isAuthenticated());
     // console.log('router.DELETE /api/challenge/:id req.user:', req.user);
     // console.log('delete.router req.params.id:'), req.params.id;
-
 
     let queryText = `
         DELETE 	FROM "feed_content"

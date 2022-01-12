@@ -1,31 +1,31 @@
 import React, { useEffect, useState } from 'react';
-import LogOutButton from '../LogOutButton/LogOutButton';
+// import LogOutButton from '../LogOutButton/LogOutButton';
 import { useDispatch, useSelector } from 'react-redux';
 import ComboTool from '../ComboTool/ComboTool';
 import RecipeList from '../RecipeList/RecipeList';
 import {
-  List,
-  ListItem,
-  Grid,
-  Paper,
+  // List,
+  // ListItem,
+  // Grid,
+  // Paper,
   Box,
   Card,
   CardMedia,
-  CardActions,
+  // CardActions,
   Button,
-  CardContent,
+  // CardContent,
   Typography,
   Tooltip,
   Alert
 } from '@mui/material'
-import { styled } from '@mui/material/styles';
+// import { styled } from '@mui/material/styles';
 import IngredientAutocomplete from '../IngredientAutocomplete/IngredientAutocomplete';
 import { sxSearchContainer } from '../Home/Home.style'
 import Snackbar from '@mui/material/Snackbar';
 
 function Combo() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
-  const user = useSelector((store) => store.user);
+  // const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const ingredients = useSelector(store => store.ingredients);
   const combo = useSelector(store => store.combo)
@@ -109,7 +109,7 @@ function Combo() {
 
 
   const searchText = useSelector(store => store.ingredientSearch)
-  const pairings = useSelector(store => store.pairings)
+  // const pairings = useSelector(store => store.pairings)
   const pairingOne = useSelector(store => store.comboPairingOne)
   const pairingTwo = useSelector(store => store.comboPairingTwo)
   const healthFilter = useSelector(store => store.healthFilter)

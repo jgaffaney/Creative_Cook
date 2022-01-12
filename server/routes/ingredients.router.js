@@ -4,13 +4,12 @@ const router = express.Router();
 const multer = require('multer')
 const upload = multer({ dest: 'uploads/' })
 const fs = require('fs');
-const path = require('path');
-const stream = require('stream');
-const fastcsv = require('fast-csv');
-const csv = require('csv-parser');
 const copyFrom = require('pg-copy-streams').from;
 
-// request all ingredients from DB
+/**
+ * GET all ingredients from DB
+ *  capitalize first letter of name for standardization of data
+ */
 router.get('/', (req, res) => {
     // console.log('in ingredients GET');
     const queryText = `
@@ -19,7 +18,6 @@ router.get('/', (req, res) => {
     `
     pool.query(queryText)
         .then(response => {
-            // console.log('Response from GET ingredients DB: ', response.rows);
             res.send(response.rows)
         }).catch(err => {
             // console.log("Error on GET ingredients from DB: ", err);
@@ -27,17 +25,19 @@ router.get('/', (req, res) => {
         })
 });
 
-// posts a new ingredient to DB
+/**
+ * POST new ingredient 
+ */
 router.post('/', (req, res) => {
     // console.log('in ingredients POST with: ', req.body);
-
+    
     const queryText = `
-    INSERT INTO ingredients ("name", "description", "pic", "taste", "season", "weight", "volume", "type", "function", "technique", "botanical_relative")
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, &9, &10, &11);
+    INSERT INTO ingredients ("name", "description", "pic", "taste", "season", "weight", "volume", "type", "botanical_relative", "function", "technique")
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);
     `
-    const values = [req.body.name, req.body.description, req.body.pic, req.body.taste,
-    req.body.season, req.body.weight, req.body.volume, req.body.type, 
-    req.body.function, req.body.technique, req.body.botanicalRelative];
+    const values = [req.body.name, req.body.description, req.body.pic, req.body.taste, 
+                    req.body.season, req.body.weight, req.body.volume, req.body.type,
+                    req.body.botanical_relative, req.body.function, req.body.technique]
     pool.query(queryText, values)
         .then(response => {
             res.sendStatus(201)
@@ -47,6 +47,9 @@ router.post('/', (req, res) => {
         })
 });
 
+/**
+ * PUT update ingredient
+ */
 router.put('/', (req, res) => {
     // console.log('in ingredients POST with: ', req.body);
     const field = req.body.field
@@ -66,7 +69,9 @@ router.put('/', (req, res) => {
         })
 })
 
-// GETs top 5 most used ingredients from DB
+/**
+ * GET top 5 ingredients 
+ */
 router.get('/top5', (req, res) => {
     // console.log('in top five ingredients GET');
     const queryText = `
@@ -84,21 +89,20 @@ router.get('/top5', (req, res) => {
         })
 });
 
-// POSTS bulk ingredients data to DB
+/**
+ * POSTS bulk ingredients from .csv data to DB
+ */
 router.post('/bulk/', upload.single('file'), (req, res) => {
     // console.log('in bulk post with: ', req.file);
-
     pool.connect(function (err, client, done) {
         let stream = client.query(copyFrom(`
         COPY ingredients (name, description, pic, taste, weight, volume, season, function, type, technique, botanical_relative) FROM STDIN DELIMITER ',' CSV HEADER;
         `));
         let fileStream = fs.createReadStream(req.file.path);
-        // fileStream.on('error', done)
-        // stream.on('error', done)
         stream.on('finish', function (err, result) {
             if(err) {
-                // console.log('this is a stream error:', err);
-                res.sendStatus(200);
+                console.log('this is a stream error:', err);
+                res.sendStatus(500);
             } else {
                 // console.log('upload successful');
                 res.sendStatus(200);
@@ -108,7 +112,9 @@ router.post('/bulk/', upload.single('file'), (req, res) => {
     })
 });
 
-// ingredient Metrics GET route
+/**
+ * GET ingredient Metrics route
+ */
 router.get('/metrics', (req, res) => {
     const queryText = `
           SELECT COUNT(DISTINCT ingredient) FILTER (WHERE "user_id" = $1 AND "date_created" >= now() - interval '1 week') AS weekly,
@@ -126,6 +132,10 @@ router.get('/metrics', (req, res) => {
         })
   }); // End GET
 
+  
+/**
+ * DELETE a single ingredient route
+ */
   router.delete('/:id', (req, res) => {
       const id = req.params.id
       const queryText = `

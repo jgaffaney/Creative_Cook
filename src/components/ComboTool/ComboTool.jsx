@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import LogOutButton from '../LogOutButton/LogOutButton';
+// import LogOutButton from '../LogOutButton/LogOutButton';
 import { useDispatch, useSelector } from 'react-redux';
 import {
     Box,
     Card,
-    CardActions,
+    // CardActions,
     CardContent,
     Button,
     Typography,
     CardMedia,
-    CardActionArea,
-    Paper,
+    // CardActionArea,
+    // Paper,
 } from '@mui/material';
 
 

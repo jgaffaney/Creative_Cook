@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import LogOutButton from '../LogOutButton/LogOutButton';
+// import LogOutButton from '../LogOutButton/LogOutButton';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
-import TextField from '@mui/material/TextField';
+// import Stack from '@mui/material/Stack';
+// import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import CardMedia from '@mui/material/CardMedia';
 import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
-import { fontSize } from '@mui/system';
+// import Grid from '@mui/material/Grid';
+// import { fontSize } from '@mui/system';
 
 
 // --- MUI sx STYLES --- // 
@@ -38,7 +38,7 @@ import {
 
 import IngredientAutocomplete from '../IngredientAutocomplete/IngredientAutocomplete';
 
-import { defaultOrderByFn } from 'react-table';
+// import { defaultOrderByFn } from 'react-table';
 
 
 function Home() {
@@ -52,12 +52,12 @@ function Home() {
     const searchText = useSelector(store => store.ingredientSearch);
     const userCombos = useSelector(store => store.userCombos);
     const comboGoal = useSelector((store) => store.comboGoal);
-    const userGoals = useSelector((store) => store.goal);
+    // const userGoals = useSelector((store) => store.goal);
     const recipeGoal = useSelector((store) => store.recipeGoal);
     const recipeSaved = useSelector((store) => store.recipeSaved);
     const ingredientGoal = useSelector((store) => store.ingredientGoal);
     const ingredientUnique = useSelector((store) => store.ingredientUnique);
-    const combo = useSelector((store) => store.combo);
+    // const combo = useSelector((store) => store.combo);
     const comboMetrics = useSelector((store) => store.comboMetrics);
     const recipeMetrics = useSelector((store) => store.recipeMetrics);
     const ingredientMetrics = useSelector((store) => store.ingredientMetrics);
