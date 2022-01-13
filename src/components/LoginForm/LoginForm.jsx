@@ -17,7 +17,7 @@ function LoginForm() {
   const errors = useSelector(store => store.errors);
   const dispatch = useDispatch();
   const history = useHistory();
-  
+
 
   const login = (event) => {
     event.preventDefault();
@@ -44,6 +44,7 @@ function LoginForm() {
     // border: '1px solid red',
     display: 'flex',
     flexDirection: 'column',
+
   }
 
   const sxFormContent = {
@@ -54,42 +55,50 @@ function LoginForm() {
     width: '100%',
   }
 
+  const componentDiv = {
+    backgroundImage: `url(images/kitchen.jpeg)`
+  }
 
   return (
-    <form sx={sxFormControl} required onSubmit={login}>
-      <Box sx={sxFormContent}>
-      <Typography sx={{mb: 3, textAlign: 'center',}}variant='h4'>Login</Typography>
+    <div>
 
-      {errors.loginMessage && (
-        <h3 className="alert" role="alert">
-          {errors.loginMessage}
-        </h3>
-      )}
+      <form sx={sxFormControl} required onSubmit={login}>
+        <Box sx={sxFormContent}>
+          <Typography sx={{ mb: 3, textAlign: 'center', }} variant='h4'>Login</Typography>
 
-        <TextField sx={sxInput}
-          id="loginUsername"
-          required
-          label="Username"
-          value={username}
-          onChange={(event) => setUsername(event.target.value)}
+          {errors.loginMessage && (
+            <h3 className="alert" role="alert">
+              {errors.loginMessage}
+            </h3>
+          )}
+
+          <TextField sx={sxInput}
+            id="loginUsername"
+            required
+            label="Username"
+            value={username}
+            onChange={(event) => setUsername(event.target.value)}
           // placeholder="Username"
-        />
+          />
 
-        <TextField sx={sxInput}
-          type="password"
-          id="loginPassword"
-          required
-          label="Password"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
+          <TextField sx={sxInput}
+            type="password"
+            id="loginPassword"
+            required
+            label="Password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
           // placeholder="Passw0rd"
-        />
+          />
 
-        <Button type="submit" size="large" variant="contained" color="primary">Login</Button>
+          <Button type="submit" size="large" variant="contained" color="primary">Login</Button>
 
         </Box>
 
-    </form>
+      </form>
+    </div>
+
+
   );
 }
 

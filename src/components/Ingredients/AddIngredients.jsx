@@ -3,7 +3,7 @@ import {
     MenuItem, Button, Typography,
 } from "@mui/material";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import UploadPairings from "./UploadPairings";
 
@@ -60,6 +60,7 @@ function AddIngredients() {
     const handleSubmit = () => {
         // console.log('Submit clicked');
         dispatch({ type: 'POST_INGREDIENT', payload: newIngredient })
+        setNewIngredient(defaultIngredient);
     };
 
     // const sxAddIngredient = {
@@ -101,9 +102,12 @@ function AddIngredients() {
             default:
                 break;
         }
-
-
     }
+
+    useEffect(() => {
+        dispatch({type: 'FETCH_SEASONS'})
+        dispatch({type: 'FETCH_TYPES'})
+    }, [])
 
     return (
         <Box>
