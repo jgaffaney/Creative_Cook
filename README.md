@@ -24,7 +24,15 @@ Creative Cook is an application to encourage cooks of all different experience l
 
 ## Screenshots
 
-<img src="" />
+<img width="1440" alt="Screen Shot 2022-01-11 at 10 19 04 AM" src="https://user-images.githubusercontent.com/87045628/149232005-1cec564b-038c-497a-b410-f872e3faf852.png">
+
+
+<img width="1440" alt="Screen Shot 2022-01-11 at 10 19 27 AM" src="https://user-images.githubusercontent.com/87045628/149231787-8e53417b-b811-467a-a3f3-c00cf6d4697d.png">
+
+
+<img width="1440" alt="Screen Shot 2022-01-11 at 10 23 03 AM" src="https://user-images.githubusercontent.com/87045628/149231909-bc755c2e-0b67-4ebb-9f30-138aad9e62e7.png">
+
+
 
 ## Built With
 
@@ -46,7 +54,6 @@ You will also need an account with the Edamam Recipe API. (Directions below)
 
 Start by forking and cloning the repository.  Then, create a database titled "creative_cook" on the localhost.  With the database established, run the SQL queries in database.sql to setup and populate tables in the database.  
 
-After database setup, run the following commands in your terminal to install dependencies and spin up the client and backend servers.
 
 ##### Edamam API
 
@@ -58,11 +65,11 @@ Next, select the Recipe Search API and sign up for a developer level API.
 
 When you receive your develoer api key and id add a .env file to the parent directory.  Add the following lines to your .env file
 
-`APP_KEY = "you api key here"`
+`APP_KEY = "your api key here"`
 
 `APP_ID = "your api id here"`
 
-## Install Dependencies
+##### Install Dependencies
 
 1. `npm install`
 2. `npm run server`
