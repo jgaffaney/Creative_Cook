@@ -29,6 +29,8 @@ import recipeSnackbar from './saverecipe.snackbar';
 import comboSnackbar from './savecombo.snackbar';
 import seasons from './seasons.reducer';
 import types from './types.reducer';
+import goodResults from './goodResults.reducer';
+import badResults from './badResults.reducer';
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -66,6 +68,8 @@ const rootReducer = combineReducers({
   healthFilter, // holds the health filter for recipes search
   recipeSnackbar, // holds the status for recipe snack bar
   comboSnackbar, // holds status for combo snack bar
+  goodResults, // hold the good results from parsing csv of pairings
+  badResults, // holds the bad results from parsing pairings csv that need to be corrected before upload
 });
 
 export default rootReducer;

@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Papa from 'papaparse';
 import { CSVLink } from 'react-csv';
@@ -14,6 +14,8 @@ function UploadPairings() {
 
     const selectedFile = useSelector(state => state.uploadedFile);
     const ingredients = useSelector(store => store.ingredients);
+    const goodResults = useSelector(store => store.goodResults);
+    const badResults = useSelector(store => store.badResults);
 
     const [isSelected, setIsSelected] = useState(false);
     const [fileUploaded, setFileUploaded] = useState(false);
@@ -55,57 +57,57 @@ function UploadPairings() {
         // dispatch the file to the saga happens in papaParse
         Papa.parse(selectedFile, config);
         reset();
-        validateData();
     }
 
     const handlePosting = () => {
         dispatch({ type: 'POST_PAIRINGS_FILE', payload: selectedFile })
     }
 
-    let pairingsForUpload = [];
-    let pairingsForReview = [];
-
     // used to validate pairings data
     // will produce two files
     // one for upload to database
     // one with rows that are not formatted properly for upload
     const validateData = () => {
-        if (parsedResults) {
-            // console.log('in validateData');
-            const goodResults = [];
-            const badResults = [];
-            for (let row of parsedResults) {
-                // console.log('row in validateData: ', row);
-                const objArray = Object.values(row);
-                // console.log('objArray in validateResults: ', objArray);
-                for (let value of objArray) {
-                    if (typeof value === 'string') {
-                        badResults.push(objArray)
-                        break
-                    } else {
-                        goodResults.push(row)
-                    }
+        console.log('in validateData');
+        const goodResults = [];
+        const badResults = [];
+        for (let row of parsedResults) {
+            // console.log('row in validateData: ', row);
+            const objArray = Object.values(row);
+            // console.log('objArray in validateResults: ', objArray);
+            for (let value of objArray) {
+                if (typeof value === 'string') {
+                    badResults.push(objArray)
+                    break
+                } else {
+                    goodResults.push(row)
                 }
-
             }
-            console.log('good results: ', goodResults);
-            // pairingsForUpload = goodResults;
-            // pairingsForReview = badResults;
-            // return [goodResults, badResults];
-        } else {
-            
-            console.log('not yet');
-            validateData()
+
         }
-        console.log('upload: ', pairingsForUpload);
+        dispatch({ type: 'SET_RESULTS', payload: goodResults });
+        dispatch({ type: 'SET_BAD_RESULTS', payload: badResults })
+
+        // console.log('good results: ', goodResults);
+        // console.log('bad results: ', badResults);
+        // pairingsForUpload = goodResults;
+        // pairingsForReview = badResults;
+        // return [goodResults, badResults];
     }
+
     // const pairingsForUpload = validateData()[0]
     // used to clear the input selected file after conversion to ids
     const reset = () => {
         ref.current.value = '';
     }
 
+    useEffect(() => {
+        if (parsedResults) {
+            validateData()
+        }
+    }, [parsedResults]);
 
+    console.log('results: ', goodResults)
     return (
 
         <Box>
@@ -128,15 +130,34 @@ function UploadPairings() {
                     {/* <Button variant="contained" onClick={() => { setFileUploaded(false) }}>I need to convert a file</Button> */}
                 </form>
             )}
-            {parsedResults &&
-                <CSVLink
+            {goodResults &&
+            <>
+            <Typography variant='p'>This file is ready for upload to the database</Typography>
+            <CSVLink
                     filename='converted pairings data.csv'
-                    data={parsedResults}
+                    data={goodResults}
                     onClick={() => {
                         // console.log('clicked');
                         setFileUploaded(true);
                     }}
-                > Click to download file then choose the same file above</CSVLink>
+                > <br></br>Click to download file then select the same file above</CSVLink>
+            </>
+                
+            }
+            <br></br>
+            <br></br>
+            {badResults &&
+                <>
+                    <Typography variant='p'>This file needs to be reformatted before uploading to the database</Typography>
+                    <CSVLink
+                        filename='pairings need correction.csv'
+                        data={badResults}
+                        onClick={() => {
+                            // console.log('clicked');
+                            setFileUploaded(true);
+                        }}
+                    > <br></br>Click to download file</CSVLink>
+                </>
             }
         </Box>
 
