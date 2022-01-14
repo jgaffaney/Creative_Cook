@@ -55,16 +55,56 @@ function UploadPairings() {
         // dispatch the file to the saga happens in papaParse
         Papa.parse(selectedFile, config);
         reset();
+        validateData();
     }
 
     const handlePosting = () => {
         dispatch({ type: 'POST_PAIRINGS_FILE', payload: selectedFile })
     }
 
+    let pairingsForUpload = [];
+    let pairingsForReview = [];
+
+    // used to validate pairings data
+    // will produce two files
+    // one for upload to database
+    // one with rows that are not formatted properly for upload
+    const validateData = () => {
+        if (parsedResults) {
+            // console.log('in validateData');
+            const goodResults = [];
+            const badResults = [];
+            for (let row of parsedResults) {
+                // console.log('row in validateData: ', row);
+                const objArray = Object.values(row);
+                // console.log('objArray in validateResults: ', objArray);
+                for (let value of objArray) {
+                    if (typeof value === 'string') {
+                        badResults.push(objArray)
+                        break
+                    } else {
+                        goodResults.push(row)
+                    }
+                }
+
+            }
+            console.log('good results: ', goodResults);
+            // pairingsForUpload = goodResults;
+            // pairingsForReview = badResults;
+            // return [goodResults, badResults];
+        } else {
+            
+            console.log('not yet');
+            validateData()
+        }
+        console.log('upload: ', pairingsForUpload);
+    }
+    // const pairingsForUpload = validateData()[0]
     // used to clear the input selected file after conversion to ids
     const reset = () => {
         ref.current.value = '';
     }
+
 
     return (
 
@@ -72,7 +112,7 @@ function UploadPairings() {
             {!fileUploaded ? (
 
                 <form encType="multipart/form-data">
-                    {/* <Typography sx={{ p: 1 }} variant="body1">Select a file to show details</Typography> */}
+                    <Typography sx={{ p: 1 }} variant="body1">Use this section to process and upload pairings data</Typography>
                     <input type="file" name="file" ref={ref} onChange={changeHandler} />
                     <Typography sx={{ p: 1 }} variant="body1">Select a file to show details</Typography>
                     <Button variant="contained" onClick={handleSubmission}>Submit</Button>
