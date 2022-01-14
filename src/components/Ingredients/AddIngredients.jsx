@@ -248,7 +248,9 @@ function AddIngredients() {
                 {pairingsFormStatus &&
                     <Box sx={{ display: 'flex', boxShadow: 2, mx: 'auto', p: 2}}>
                         <form encType="multipart/form-data">
-                            
+                            <Typography variant='p'>Upload your ingredients data here</Typography>
+                            <br></br>
+                            <br></br>
                             <input type="file" name="file" onChange={changeHandler} />
                             {isSelected ? (
                                 <Box>
