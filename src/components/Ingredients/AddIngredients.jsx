@@ -241,7 +241,7 @@ function AddIngredients() {
 
 
                 <Box sx={sxAddIngredientHeaderContainer}>
-                    <Typography variant="h5" sx={sxCenterText}>Upload Pairings .csv</Typography>
+                    <Typography variant="h5" sx={sxCenterText}>Upload .csv files</Typography>
                     <Button onClick={() => toggleStatus('upload')} sx={{ borderRadius: 4 }}><AddCircleIcon fontSize="large" /></Button>
                 </Box>
 
