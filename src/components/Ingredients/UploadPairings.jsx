@@ -75,25 +75,36 @@ function UploadPairings() {
             // console.log('row in validateData: ', row);
             const objArray = Object.values(row);
             // console.log('objArray in validateResults: ', objArray);
-            for (let value of objArray) {
-                if (typeof value === 'string') {
-                    badResults.push(objArray)
-                    break
-                } else {
-                    goodResults.push(row)
-                }
+            let res = objArray.every(function (element) { return typeof element === 'number'; });
+            if(res) {
+                console.log('res in validateData: ', res);
+                goodResults.push(row)
+            } else {
+                badResults.push(row)
             }
 
+            // for (let value of objArray) {
+            //     // console.log('condition for bad: ', typeof value);
+            //     if (typeof value === 'string') {
+            //         badResults.push(objArray)
+            //         break
+            //     } else {
+            //         console.log('condition for good: ', typeof value);
+            //         console.log('value in good:', value);
+            //         goodResults.push(row)
+            //     }
         }
+
+
         dispatch({ type: 'SET_RESULTS', payload: goodResults });
         dispatch({ type: 'SET_BAD_RESULTS', payload: badResults })
-
-        // console.log('good results: ', goodResults);
-        // console.log('bad results: ', badResults);
-        // pairingsForUpload = goodResults;
-        // pairingsForReview = badResults;
-        // return [goodResults, badResults];
     }
+    // console.log('good results: ', goodResults);
+    // console.log('bad results: ', badResults);
+    // pairingsForUpload = goodResults;
+    // pairingsForReview = badResults;
+    // return [goodResults, badResults];
+
 
     // const pairingsForUpload = validateData()[0]
     // used to clear the input selected file after conversion to ids
@@ -107,7 +118,8 @@ function UploadPairings() {
         }
     }, [parsedResults]);
 
-    console.log('results: ', goodResults)
+    console.log('good results: ', goodResults)
+    console.log('bad results: ', badResults);
     return (
 
         <Box>
@@ -131,18 +143,18 @@ function UploadPairings() {
                 </form>
             )}
             {goodResults &&
-            <>
-            <Typography variant='p'>This file is ready for upload to the database</Typography>
-            <CSVLink
-                    filename='converted pairings data.csv'
-                    data={goodResults}
-                    onClick={() => {
-                        // console.log('clicked');
-                        setFileUploaded(true);
-                    }}
-                > <br></br>Click to download file then select the same file above</CSVLink>
-            </>
-                
+                <>
+                    <Typography variant='p'>This file is ready for upload to the database</Typography>
+                    <CSVLink
+                        filename='converted pairings data.csv'
+                        data={goodResults}
+                        onClick={() => {
+                            // console.log('clicked');
+                            setFileUploaded(true);
+                        }}
+                    > <br></br>Click to download file then select the same file above</CSVLink>
+                </>
+
             }
             <br></br>
             <br></br>
