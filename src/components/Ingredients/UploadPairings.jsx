@@ -39,10 +39,7 @@ function UploadPairings() {
             value = value.toLowerCase()
             for (let ingredient of ingredients) {
                 if (value === ingredient.name.toLowerCase()) {
-                    // console.log('value match with: ', value.toLowerCase());
-                    // console.log('ingredient.id: ', ingredient.id);
                     value = ingredient.id;
-                    // console.log('value after reassign: ', value);
                 }
             }
             return value;
@@ -66,23 +63,17 @@ function UploadPairings() {
     // one for upload to database
     // one with rows that are not formatted properly for upload
     const validateData = () => {
-        console.log('in validateData');
         const goodResults = [];
         const badResults = [];
         for (let row of parsedResults) {
-            // console.log('row in validateData: ', row);
             const objArray = Object.values(row);
-            // console.log('objArray in validateResults: ', objArray);
             let res = objArray.every(function (element) { return typeof element === 'number'; });
             if(res) {
-                console.log('res in validateData: ', res);
                 goodResults.push(row)
             } else {
                 badResults.push(row)
             }
         }
-
-
         dispatch({ type: 'SET_RESULTS', payload: goodResults });
         dispatch({ type: 'SET_BAD_RESULTS', payload: badResults })
     }
@@ -100,25 +91,19 @@ function UploadPairings() {
     }, [parsedResults]);
 
     return (
-
         <Box>
             {!fileUploaded ? (
-
                 <form encType="multipart/form-data">
                     <Typography sx={{ p: 1 }} variant="body1">Use this section to process and upload pairings data</Typography>
                     <input type="file" name="file" ref={ref} onChange={changeHandler} />
                     <Typography sx={{ p: 1 }} variant="body1">Select a file to show details</Typography>
                     <Button variant="contained" onClick={handleSubmission}>Submit</Button>
-                    {/* <Button variant="contained" onClick={() => { setFileUploaded(true) }}>I already have a converted file</Button> */}
-
                 </form>
-
             ) : (
                 <form encType="multipart/form-data">
                     <Typography sx={{ p: 1 }} variant="body1">Choose a file to send to the database</Typography>
                     <input type='file' name='file' onChange={changeHandler} />
                     <Button variant="contained" onClick={handlePosting}>Post File to DB</Button>
-                    {/* <Button variant="contained" onClick={() => { setFileUploaded(false) }}>I need to convert a file</Button> */}
                 </form>
             )}
             {goodResults &&
@@ -128,12 +113,10 @@ function UploadPairings() {
                         filename='converted pairings data.csv'
                         data={goodResults}
                         onClick={() => {
-                            // console.log('clicked');
                             setFileUploaded(true);
                         }}
                     > <br></br>Click to download file then select the same file above</CSVLink>
                 </>
-
             }
             <br></br>
             <br></br>
@@ -144,15 +127,12 @@ function UploadPairings() {
                         filename='pairings need correction.csv'
                         data={badResults}
                         onClick={() => {
-                            // console.log('clicked');
                             setFileUploaded(true);
                         }}
                     > <br></br>Click to download file</CSVLink>
                 </>
             }
         </Box>
-
-    )
-}
+    )}
 
 export default UploadPairings;
