@@ -17,13 +17,11 @@ function UploadPairings() {
     const goodResults = useSelector(store => store.goodResults);
     const badResults = useSelector(store => store.badResults);
 
-    const [isSelected, setIsSelected] = useState(false);
     const [fileUploaded, setFileUploaded] = useState(false);
     const [parsedResults, setParsedResults] = useState();
 
     const changeHandler = (event) => {
         dispatch({ type: 'SET_FILE_UPLOAD', payload: event.target.files[0] });
-        setIsSelected(true);
     }
 
     const config = {
@@ -82,29 +80,12 @@ function UploadPairings() {
             } else {
                 badResults.push(row)
             }
-
-            // for (let value of objArray) {
-            //     // console.log('condition for bad: ', typeof value);
-            //     if (typeof value === 'string') {
-            //         badResults.push(objArray)
-            //         break
-            //     } else {
-            //         console.log('condition for good: ', typeof value);
-            //         console.log('value in good:', value);
-            //         goodResults.push(row)
-            //     }
         }
 
 
         dispatch({ type: 'SET_RESULTS', payload: goodResults });
         dispatch({ type: 'SET_BAD_RESULTS', payload: badResults })
     }
-    // console.log('good results: ', goodResults);
-    // console.log('bad results: ', badResults);
-    // pairingsForUpload = goodResults;
-    // pairingsForReview = badResults;
-    // return [goodResults, badResults];
-
 
     // const pairingsForUpload = validateData()[0]
     // used to clear the input selected file after conversion to ids
@@ -118,8 +99,6 @@ function UploadPairings() {
         }
     }, [parsedResults]);
 
-    console.log('good results: ', goodResults)
-    console.log('bad results: ', badResults);
     return (
 
         <Box>

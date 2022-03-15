@@ -41,7 +41,6 @@ const PairingsTool = () => {
 
     // 
     const handleSetIngredient = () => {
-        // console.log('Submit clicked with id: ', searchText);
         setPairedWith(searchText);
         let id = 0;
 
@@ -51,7 +50,6 @@ const PairingsTool = () => {
                 id = ingredient.id;
             }
         }
-        // console.log('Converted name to id yields id: ', id);
         dispatch({ type: 'FETCH_PAIRINGS', payload: id, ingredients: ingredients });
 
         resultArray = ingredients.map(ingredient => {
@@ -60,7 +58,6 @@ const PairingsTool = () => {
                     return ingredient;
                 }
             }});
-
     }
 
     // columns for pairing grids
@@ -71,7 +68,6 @@ const PairingsTool = () => {
 
     const addNewPairing = (params) => {
         dispatch({ type: 'ADD_PAIRING', payload: params.id, pairWith: convertNameToId(), ingredients: ingredients })
-
     }
 
     const removePairing = (params) => {
@@ -79,7 +75,6 @@ const PairingsTool = () => {
     }
 
     return (
-
         <Box sx={sxPairingToolContainer}>
             <Typography variant="h4" sx={sxCenterText}>Manage Ingredient Pairs</Typography>
             <Box sx={sxSearchContainer}>
